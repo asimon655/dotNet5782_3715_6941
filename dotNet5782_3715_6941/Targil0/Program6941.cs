@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Targil0
 {
-    class Program6941
+    partial class Program
     {
-        static partial  void Welcome6941()
+        static partial  void Wellcome6941()
         {
             Console.WriteLine("hello i am also here ");
         } 
