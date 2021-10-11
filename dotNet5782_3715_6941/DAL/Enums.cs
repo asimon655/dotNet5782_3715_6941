@@ -10,15 +10,27 @@ namespace IDAL
     {
         enum WeightCategories
         {
-            [Description("easy weigth ")]
-            easy =0 ,
-            [Description("medium weigth ")]
-            medium = 0,
-            [Description("heavy weigth ")]
-            heavy = 0,
+            [Description("easy weight ")]
+            Easy ,
+            [Description("medium weight ")]
+            Medium,
+            [Description("heavy weight  ")]
+            Heavy,
 
 
         };
+        enum DroneStatuses
+        {
+            [Description("free Drone  ")]
+            Free,
+            [Description("Drone need Matance  ")]
+            Matance ,
+            [Description("Drone is in Delivery " )]
+            Delivery , 
+
+
+
+        }; 
     
     
     } 
