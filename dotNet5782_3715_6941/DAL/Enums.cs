@@ -30,7 +30,19 @@ namespace IDAL
 
 
 
-        }; 
+        };
+        enum Priorities 
+        {
+            [Description("Regular delivery ")]
+            Regular,
+            [Description("fast delivery")]
+            Fast ,
+            [Description("Emergency delivery ")]
+            Emergency 
+            ,
+             
+        
+        } 
     
     
     } 
