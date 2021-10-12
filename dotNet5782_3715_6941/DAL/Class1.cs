@@ -50,7 +50,7 @@ namespace IDAL
                public int Id { set; get;  }
                public int Name { set; get;  }
                public double Latitude { set; get;  }
-               public double Longitude { set; get }
+               public double Longitude { set; get; }
                public int ChargeSlots { set; get; }
         } 
         struct DroneCharge
