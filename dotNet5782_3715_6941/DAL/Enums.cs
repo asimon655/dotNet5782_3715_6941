@@ -39,7 +39,7 @@ namespace IDAL
 
 
         };
-        enum Priorities 
+        public enum Priorities 
         {
             [Description("Regular delivery ")]
             Regular,
