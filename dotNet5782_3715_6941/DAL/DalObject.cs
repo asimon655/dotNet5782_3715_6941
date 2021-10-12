@@ -53,6 +53,28 @@ namespace DAL
 
 
         }
+        public class DalObject
+        {
+            public void AddDataDrone(int _id ,double _Battery , String _Model , IDAL.DO.WeightCategories _MaxWeight , IDAL.DO.DroneStatuses _droneStatuses)
+            {
+
+                DataSource.Drones[DataSource.Config.DronesFirst++] = new IDAL.DO.Drone { id = _id, Battery = _Battery, Modle = _Model, Status = _droneStatuses, MaxWeigth = _MaxWeight };
+                
+            }
+            public void UpdateData()
+            {
+            
+            
+            }
+            public void PullData()
+            { 
+            }
+
+        
+        
+            
+        
+        }
 
 
 

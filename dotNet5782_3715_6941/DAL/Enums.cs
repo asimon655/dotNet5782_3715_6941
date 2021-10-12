@@ -15,7 +15,7 @@ namespace IDAL
 {
     namespace DO
     {
-        enum WeightCategories
+       public  enum WeightCategories
         {
             [Description("easy weight ")]
             Easy ,
@@ -26,7 +26,7 @@ namespace IDAL
 
 
         };
-        enum DroneStatuses
+        public   enum DroneStatuses
         {
             [Description("free Drone  ")]
             Free,
