@@ -9,6 +9,7 @@ namespace IDAL
    
     namespace DO
     {
+        // remmber to override tostring !!!!!!!!!!!!!!!
         struct Costumer
         {
             

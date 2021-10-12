@@ -22,35 +22,25 @@ namespace DAL
                 static internal int CostumerFirst = 0;
                 static internal int StaionsFirst = 0;
                 static internal int ParcelFirst = 0;
-                static internal int idcreation = 0;
+                static internal int idcreation = 1;
+                static private Random RandomGen = new Random(); 
                 static internal void Initalize()
                 {
+                    //all the data is realistic - phone number have 10 digits  and id have 9 digits  
                     CostumerFirst = 10;
                     DronesFirst = 5;
                     StaionsFirst = 2;
                     ParcelFirst = 10;
                     for (int i = 0; i < 2; i++)
-                    {
-
-                        Staions[i] = new IDAL.DO.Staion();
-                    }
+                        Staions[i] = new IDAL.DO.Staion {Id= RandomGen.Next(100000000,999999999), ChargeSlots= RandomGen.Next() , Name=i ,Latitude=RandomGen.NextDouble()*45 , Longitude=RandomGen.NextDouble()*45 };
                     for (int i = 0; i < 10; i++)
-                    {
-
-                        Costumers[i] = new IDAL.DO.Costumer();
-                        Costumers[i].
-                    }
+                        Costumers[i] = new IDAL.DO.Costumer { Id = RandomGen.Next(100000000, 999999999) ,Name="Lev Cliet No."+i.ToString(), Phone=( 1000000000 + (long)(RandomGen.NextDouble() * (9999999999-1000000000))).ToString() , Lattitude  = RandomGen.NextDouble() * 45, Longitude = RandomGen.NextDouble() * 45 };
                     for (int i = 0; i < 5; i++)
-                    {
-
-                        Drones[i] = new IDAL.DO.Drone();
-                    }
+                        Drones[i] = new IDAL.DO.Drone {Battery=RandomGen.NextDouble()*100, id = RandomGen.Next(100000000, 999999999),Modle= " V-Coptr Falcon", Status=(IDAL.DO.DroneStatuses)RandomGen.Next(0,1),MaxWeigth=(IDAL.DO.WeightCategories)RandomGen.Next(0,2) };
                     for (int i = 0; i < 10; i++)
-                    {
-                        Parcels[i] = new IDAL.DO.Parcel();
-                    }
-
-
+                        Parcels[i] = new IDAL.DO.Parcel {Id =idcreation++,Delivered=DateTime.Now, DroneId = RandomGen.Next(100000000, 999999999), PickedUp=DateTime.Now, Priority=(IDAL.DO.Priorities)RandomGen.Next(0,2), Weight= (IDAL.DO.WeightCategories)};
+                    
+                  
 
 
 
