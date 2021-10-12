@@ -38,7 +38,7 @@ namespace DAL
                     for (int i = 0; i < 5; i++)
                         Drones[i] = new IDAL.DO.Drone {Battery=RandomGen.NextDouble()*100, id = RandomGen.Next(100000000, 999999999),Modle= " V-Coptr Falcon", Status=(IDAL.DO.DroneStatuses)RandomGen.Next(0,1),MaxWeigth=(IDAL.DO.WeightCategories)RandomGen.Next(0,2) };
                     for (int i = 0; i < 10; i++)
-                        Parcels[i] = new IDAL.DO.Parcel {Id =idcreation++,Delivered=DateTime.Now, DroneId = RandomGen.Next(100000000, 999999999), PickedUp=DateTime.Now, Priority=(IDAL.DO.Priorities)RandomGen.Next(0,2), Weight= (IDAL.DO.WeightCategories)};
+                        Parcels[i] = new IDAL.DO.Parcel {Id =idcreation++,Delivered=DateTime.Now, DroneId = RandomGen.Next(100000000, 999999999), PickedUp=DateTime.Now, Priority=(IDAL.DO.Priorities)RandomGen.Next(0,2), Weight= (IDAL.DO.WeightCategories)RandomGen.Next(0,2)};
                     
                   
 
@@ -55,15 +55,27 @@ namespace DAL
         }
         public class DalObject
         {
-            public void AddDataDrone(int _id ,double _Battery , String _Model , IDAL.DO.WeightCategories _MaxWeight , IDAL.DO.DroneStatuses _droneStatuses)
+            public DalObject()
+            {
+                DataSource.Config.Initalize();
+            }
+            public void AddDrone(int _id ,double _Battery , String _Model , IDAL.DO.WeightCategories _MaxWeight , IDAL.DO.DroneStatuses _droneStatuses)
             {
 
                 DataSource.Drones[DataSource.Config.DronesFirst++] = new IDAL.DO.Drone { id = _id, Battery = _Battery, Modle = _Model, Status = _droneStatuses, MaxWeigth = _MaxWeight };
                 
             }
+            public void AddParcel(int _Senderid , int _Targetid,IDAL.DO.WeightCategories _Weight , IDAL.DO.Priorities _Priorty , DateTime _Requested , int _DroneId , DateTime _Scheduled , DateTime _PickedUp , DateTime _Delivered )
+            {
+                int _id = DataSource.Config.idcreation++;
+
+                DataSource.Parcels[DataSource.Config.ParcelFirst++] = new IDAL.DO.Parcel { Id = _id, SenderId = _Senderid, TargetId = _Targetid, Weight = _Weight, Priority = _Priorty, Requested = _Requested, DroneId = _DroneId, Schedulded = _Scheduled, PickedUp = _PickedUp, Delivered = _Delivered };
+            
+            }
             public void UpdateData()
             {
             
+
             
             }
             public void PullData()
