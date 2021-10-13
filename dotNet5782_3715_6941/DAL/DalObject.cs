@@ -8,8 +8,11 @@ namespace DAL
 {
     namespace DalObject
     {
+        
         class DataSource
         {
+            internal static Random RandomGen = new Random();
+
             internal static IDAL.DO.Drone[] Drones = new IDAL.DO.Drone[10];
             internal static IDAL.DO.Costumer[] Costumers = new IDAL.DO.Costumer[100];
             internal static IDAL.DO.Staion[] Staions = new IDAL.DO.Staion[5];
@@ -23,7 +26,7 @@ namespace DAL
                 static internal int StaionsFirst = 0;
                 static internal int ParcelFirst = 0;
                 static internal int idcreation = 1;
-                static private Random RandomGen = new Random(); 
+           
                 static internal void Initalize()
                 {
                     //all the data is realistic - phone number have 10 digits  and id have 9 digits  
@@ -53,33 +56,53 @@ namespace DAL
 
 
         }
-        public class DalObject
+        public class DalObject 
         {
+             
             public DalObject()
             {
                 DataSource.Config.Initalize();
             }
-            public void AddDrone(int _id ,double _Battery , String _Model , IDAL.DO.WeightCategories _MaxWeight , IDAL.DO.DroneStatuses _droneStatuses)
-            {
+            public void AddDroe(IDAL.DO.Drone cloned) {
 
-                DataSource.Drones[DataSource.Config.DronesFirst++] = new IDAL.DO.Drone { id = _id, Battery = _Battery, Modle = _Model, Status = _droneStatuses, MaxWeigth = _MaxWeight };
-                
+                cloned.id = DataSource.RandomGen.Next(100000000, 999999999);
+                DataSource.Drones[DataSource.Config.DronesFirst++] = cloned;
+
+            
+            } 
+            public void AddParcel( IDAL.DO.Parcel cloned )
+            {
+                DataSource.Parcels[DataSource.Config.ParcelFirst++] = cloned; 
+
             }
-            public void AddParcel(int _Senderid , int _Targetid,IDAL.DO.WeightCategories _Weight , IDAL.DO.Priorities _Priorty , DateTime _Requested , int _DroneId , DateTime _Scheduled , DateTime _PickedUp , DateTime _Delivered )
+            public void AddCostumer(IDAL.DO.Costumer cloned)
             {
-                int _id = DataSource.Config.idcreation++;
-
-                DataSource.Parcels[DataSource.Config.ParcelFirst++] = new IDAL.DO.Parcel { Id = _id, SenderId = _Senderid, TargetId = _Targetid, Weight = _Weight, Priority = _Priorty, Requested = _Requested, DroneId = _DroneId, Schedulded = _Scheduled, PickedUp = _PickedUp, Delivered = _Delivered };
+                cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
+                DataSource.Costumers[DataSource.Config.CostumerFirst++] = cloned; 
             
             }
+            public void AddStaion(IDAL.DO.Staion cloned)
+            {
+                cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
+                DataSource.Staions[DataSource.Config.StaionsFirst++] = cloned; 
+
+            
+            }
+
             public void UpdateData()
             {
             
 
             
             }
-            public void PullData()
-            { 
+            public IDAL.DO.Drone PullDataDrone (int _id )
+            {
+                foreach (IDAL.DO.Drone item in DataSource.Drones)
+                    if (item.id == _id)
+                        return item;
+                return (IDAL.DO.Drone) null;
+
+
             }
 
         

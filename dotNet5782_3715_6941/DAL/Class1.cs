@@ -10,7 +10,7 @@ namespace IDAL
     namespace DO
     {
         // remmber to override tostring !!!!!!!!!!!!!!!
-        struct Costumer
+        public struct Costumer
         {
             
             public int Id { set; get; }
@@ -18,9 +18,14 @@ namespace IDAL
             public string Phone { set; get; }
             public double Longitude { set; get; }
             public double Lattitude { set; get; }
+
+            public override string ToString()
+            {
+                return 
+            }
         }
 
-        struct Parcel
+        public struct Parcel
         {
             public int Id { set; get; }
             public int SenderId { set; get; }
@@ -32,8 +37,13 @@ namespace IDAL
             public DateTime Schedulded { set; get; }
             public DateTime PickedUp { set; get; }
             public DateTime Delivered { set; get; }
+
+            public override string ToString()
+            {
+                return base.ToString();
+            }
         }
-        struct Drone
+        public  struct Drone
         {
             public int id {
                 set => id = value;
@@ -44,19 +54,33 @@ namespace IDAL
             public DroneStatuses Status { set; get;  }
             public double Battery { set; get; }
 
+            public override string ToString()
+            {
+                return base.ToString();
+            }
         }
-        struct Staion
+        public struct Staion
         { 
                public int Id { set; get;  }
                public int Name { set; get;  }
                public double Latitude { set; get;  }
                public double Longitude { set; get; }
                public int ChargeSlots { set; get; }
+
+            public override string ToString()
+            {
+                return base.ToString();
+            }
         } 
-        struct DroneCharge
+        public struct DroneCharge
         {
             public int DroneId { get; set; }
             public int StaionId{ get; set; }
+
+            public override string ToString()
+            {
+                return base.ToString();
+            }
         }
         
     }
