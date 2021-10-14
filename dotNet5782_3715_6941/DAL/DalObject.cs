@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+/*  
+ ___ ____  _   _ __  __
+|_ _|  _ \| | | |  \/  |
+ | || | | | |_| | |\/| |
+ | || |_| |  _  | |  | |
+|___|____/|_| |_|_|  |_|
+ */
 namespace DAL
 {
     namespace DalObject
@@ -41,7 +48,7 @@ namespace DAL
             internal static IDAL.DO.Costumer[] Costumers = new IDAL.DO.Costumer[100];
             internal static IDAL.DO.Staion[] Staions = new IDAL.DO.Staion[5];
             internal static IDAL.DO.Parcel[] Parcels = new IDAL.DO.Parcel[1000];
-            //until here array var declartion 
+            //until here arrady var declartion 
             internal class Config
             {
 
@@ -83,29 +90,29 @@ namespace DAL
         public class DalObject 
         {
              
-            public DalObject()
+           static    DalObject()
             {
                 DataSource.Config.Initalize();
             }
-            public void AddDroe(IDAL.DO.Drone cloned) {
+            static public void AddDrone(IDAL.DO.Drone cloned) {
 
                 cloned.id = DataSource.RandomGen.Next(100000000, 999999999);
                 DataSource.Drones[DataSource.Config.DronesFirst++] = cloned;
 
             
             } 
-            public void AddParcel( IDAL.DO.Parcel cloned )
+            static public void AddParcel( IDAL.DO.Parcel cloned )
             {
                 DataSource.Parcels[DataSource.Config.ParcelFirst++] = cloned; 
 
             }
-            public void AddCostumer(IDAL.DO.Costumer cloned)
+            static public void AddCostumer(IDAL.DO.Costumer cloned)
             {
                 cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
                 DataSource.Costumers[DataSource.Config.CostumerFirst++] = cloned; 
             
             }
-            public void AddStaion(IDAL.DO.Staion cloned)
+            static public void AddStaion(IDAL.DO.Staion cloned)
             {
                 cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
                 DataSource.Staions[DataSource.Config.StaionsFirst++] = cloned; 
@@ -113,13 +120,13 @@ namespace DAL
             
             }
 
-            public void UpdateData()
+            static public void UpdateData()
             {
             
 
             
             }
-            public IDAL.DO.Drone? PullDataDrone (int _id )
+            static public IDAL.DO.Drone? PullDataDrone (int _id )
             {
                 foreach (IDAL.DO.Drone item in DataSource.Drones)
                     if (item.id == _id)

@@ -46,9 +46,9 @@ namespace IDAL
         public  struct Drone
         {
             public int id {
-                set => id = value;
-                get => id;
-            } //suagar synthetic - one time example for the other parthner . 
+                set;
+                get;
+            }  
             public String Modle {set; get;}
             public WeightCategories  MaxWeigth {set ; get;}
             public DroneStatuses Status { set; get;  }

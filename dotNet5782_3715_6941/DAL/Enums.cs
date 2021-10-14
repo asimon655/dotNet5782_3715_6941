@@ -4,13 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-/*  
- ___ ____  _   _ __  __
-|_ _|  _ \| | | |  \/  |
- | || | | | |_| | |\/| |
- | || |_| |  _  | |  | |
-|___|____/|_| |_|_|  |_|
- */
+
 namespace IDAL
 {
     namespace DO
@@ -61,7 +55,7 @@ namespace IDAL
             Details,
             [Description("Show lists of objects")]
             ListShow,
-            [Description("Exiting ... Please give as 100 ;)")]
+            [Description("Exit")]
             exit =-1
 
 
