@@ -88,38 +88,38 @@ namespace IDAL
             PackgeandDrone,
             [Description("Update- Drone pick a packge ")]
             PackgeTakeDrone,
-            [Description("Update")]
+            [Description("Update Costumer pick a package ")]
             PackgeTakeCostumer,
-            [Description("Update")]
+            [Description("Update -send Drone to base staion ")]
             PackgeSend,
 
 
         }
         public enum Details
         {
-            [Description("Show status and details ")]
-            ,
-            [Description("Show status and details ")]
-            ,
-            [Description("Show status and details ")]
-            ,
-            [Description("Show status and details ")]
-            ,
+            [Description("Show status and details of basestaion ")]
+            BaseStaion,
+            [Description("Show status and details of drone ")]
+            Drone,
+            [Description("Show status and details of Costumer")]
+            Costumer,
+            [Description("Show status and details of Package ")]
+            Package,
         }
         public enum ListShow
         {
-            [Description("Show lists of objects")]
-            ,
-            [Description("Show lists of objects")]
-            ,
-            [Description("Show lists of objects")]
-            ,
-            [Description("Show lists of objects")]
-            ,
-            [Description("Show lists of objects")]
-            ,
-            [Description("Show lists of objects")]
-            ,
+            [Description("Show lists of Base Staions")]
+            BaseStaions,
+            [Description("Show lists of Drones")]
+            Drones,
+            [Description("Show lists of Costumers")]
+            Costumers,
+            [Description("Show lists of Parcels")]
+            Packages,
+            [Description("Show lists of Packages without Drone")]
+            PackagesWithoutDrones,
+            [Description("Show lists of of Base Staions with free charge ports ")]
+            BaseStaionsFreePorts,
 
 
 
