@@ -50,8 +50,85 @@ namespace IDAL
             ,
              
         
-        } 
+        }
+        public enum Menu
+        {
+            [Description("Add")]
+            Add,
+            [Description("Update")]
+            Update,
+            [Description("Show status and details ")]
+            Details,
+            [Description("Show lists of objects")]
+            ListShow,
+            [Description("Exiting ... Please give as 100 ;)")]
+            exit =-1
+
+
+
+        }
+        public enum Add { 
+        
+            [Description("Add Staion for the Staions List")]
+            Staion ,
+            [Description("Add Drone to the Drone List ")]
+            Drone,
+            [Description("Add new costumer ")]
+            Costumer ,
+            [Description("Add Package")]
+            Package, 
+
+
+
+    }
+        public enum Update 
+        {
+
+            [Description("Bind packge and drone")]
+            PackgeandDrone,
+            [Description("Update- Drone pick a packge ")]
+            PackgeTakeDrone,
+            [Description("Update")]
+            PackgeTakeCostumer,
+            [Description("Update")]
+            PackgeSend,
+
+
+        }
+        public enum Details
+        {
+            [Description("Show status and details ")]
+            ,
+            [Description("Show status and details ")]
+            ,
+            [Description("Show status and details ")]
+            ,
+            [Description("Show status and details ")]
+            ,
+        }
+        public enum ListShow
+        {
+            [Description("Show lists of objects")]
+            ,
+            [Description("Show lists of objects")]
+            ,
+            [Description("Show lists of objects")]
+            ,
+            [Description("Show lists of objects")]
+            ,
+            [Description("Show lists of objects")]
+            ,
+            [Description("Show lists of objects")]
+            ,
+
+
+
+
+
+        }
     
     
-    } 
+    }
+ 
+
 }
