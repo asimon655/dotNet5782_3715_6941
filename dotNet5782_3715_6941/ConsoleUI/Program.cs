@@ -119,17 +119,22 @@ namespace ConsoleUI
                                 tmp3.Latitude = SafeEnterUInt(); ;
                                 tmp3.Longitude = SafeEnterUInt(); ;
                                 tmp3.Name = SafeEnterUInt(); ;
-                                    
+                                DAL.DalObject.DalObject.AddStaion(tmp3);
                                 break;
 
                            }
                         break;
                     case (int)IDAL.DO.Menu.Details:
-
+                        Console.WriteLine("please enter a number from the menue ");
+                        for (int i = 0; i < 4; i++)
+                            Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Details>((IDAL.DO.Details)i));
+                        Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
+                        Console.WriteLine(DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Details>((IDAL.DO.Details)enter));
                         switch (enter)
                         {
                             case (int)IDAL.DO.Details.BaseStaion:
-             
+                                Console.WriteLine("Printing ... ");
+                                DAL.DalObject.DalObject.StaionPrint();
                                 break;
                             case (int)IDAL.DO.Details.Costumer:
 

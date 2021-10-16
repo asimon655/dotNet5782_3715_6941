@@ -59,7 +59,7 @@ namespace IDAL
                 return base.ToString();
             }
         }
-        public struct Staion
+        public struct  Staion 
         { 
                public int Id { set; get;  }
                public int Name { set; get;  }
@@ -69,7 +69,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return base.ToString();
+                return "ID: " + this.Id.ToString() + " Name: " + this.Name.ToString() + " Latitude: " + this.Latitude.ToString() + " Longitude:" + this.Longitude.ToString() + " ChargeSlots: " + this.ChargeSlots.ToString();
             }
         } 
         public struct DroneCharge

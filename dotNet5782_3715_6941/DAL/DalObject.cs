@@ -133,6 +133,16 @@ namespace DAL
                         return item;
                 return null;
             }
+            static public void StaionPrint()
+            {
+                foreach (IDAL.DO.Staion item in DAL.DalObject.DataSource.Staions)
+                {
+                    if (item  .Equals( default(IDAL.DO.Staion)))
+                        Console.WriteLine(item);
+                }
+            
+            
+            } 
 
         
         
