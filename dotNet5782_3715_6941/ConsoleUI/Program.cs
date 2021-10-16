@@ -11,8 +11,16 @@ using System.ComponentModel;
    o     |      o       |         |    |          |
  __|>_  / \  __/>      / \       / \  / \        / \
 
+    _        _
+   / \   ___(_)_ __ ___   ___  _ __
+  / _ \ / __| | '_ ` _ \ / _ \| '_ \
+ / ___ \\__ \ | | | | | | (_) | | | |
+/_/   \_\___/_|_| |_| |_|\___/|_| |_|
+
+
 
  */
+//Note: if you want to add DroneId to Parcel you can do that only in bind (update) and not in Add (when you create the Parcel )
 namespace ConsoleUI
 {
     class Program
@@ -67,7 +75,7 @@ namespace ConsoleUI
                             case (int)IDAL.DO.Add.Costumer:
                                 IDAL.DO.Costumer tmp = new IDAL.DO.Costumer();
 
-                                Console.WriteLine("enter detials of choosen object  (id \nLattitude \nLongitude \nName\nPhone) ");
+                                Console.WriteLine("enter detials of choosen object  \nid \nLattitude \nLongitude \nName\nPhone ");
                                 tmp.Id = SafeEnterUInt();
                                 tmp.Lattitude = SafeEnterUInt();
                                 tmp.Longitude = SafeEnterUInt();
@@ -76,7 +84,7 @@ namespace ConsoleUI
                                 DAL.DalObject.DalObject.AddCostumer(tmp);
                                 break;
                             case (int)IDAL.DO.Add.Drone:
-                                Console.WriteLine("enter detials of choosen object  ( \nBattery \nid \nMaxweight\nModle \nStatus ) ");
+                                Console.WriteLine("enter detials of choosen object   \nBattery \nid \nMaxweight\nModle \nStatus  ");
                                 IDAL.DO.Drone tmp1 = new IDAL.DO.Drone();
                                 tmp1.Battery = SafeEnterDouble();
                                 tmp1.id = SafeEnterUInt();
@@ -91,10 +99,9 @@ namespace ConsoleUI
                                 tmp1.Status = (IDAL.DO.DroneStatuses)SafeEnterUInt(); ;
                                 break;
                             case (int)IDAL.DO.Add.Package:
-                                Console.WriteLine("enter detials of choosen object  (id \nDeliverd(yy//dd/mm) \nDroneID \nId\npickedup \npirorty \nrequested(yy//mm//dd) \nTargetID \nwieght \nschedulded(yy//mm//dd) \nSenderId "  );
+                                Console.WriteLine("enter detials of choosen object  \nid \nDeliverd(yy//mm//dd)  \nId\npickedup \npirorty \nrequested(yy//mm//dd) \nTargetID \nwieght \nschedulded(yy//mm//dd) \nSenderId "  );
                                 IDAL.DO.Parcel tmp2 = new IDAL.DO.Parcel();
                                 tmp2.Delivered = new DateTime(SafeEnterUInt(), SafeEnterUInt(), SafeEnterUInt());
-                                tmp2.DroneId = SafeEnterUInt();
                                 tmp2.Id = SafeEnterUInt();
                                 tmp2.PickedUp = new DateTime(SafeEnterUInt(), SafeEnterUInt(), SafeEnterUInt());
                                 for (int i = 0; i < 4; i++)
@@ -113,7 +120,7 @@ namespace ConsoleUI
                                 DAL.DalObject.DalObject.AddParcel(tmp2);
                                 break;
                             case (int)IDAL.DO.Add.Staion:
-                                Console.WriteLine("enter detials of choosen object  (Id \nLatitude  \nLongitude \nName) ");
+                                Console.WriteLine("enter detials of choosen object  \nId \nLatitude  \nLongitude \nName ");
                                 IDAL.DO.Staion tmp3 = new IDAL.DO.Staion();
                                 tmp3.Id = SafeEnterUInt(); ;
                                 tmp3.Latitude = SafeEnterUInt(); ;
@@ -164,6 +171,9 @@ namespace ConsoleUI
                         switch (enter)
                         {
                             case (int)IDAL.DO.Update.PackgeandDrone:
+                                Console.WriteLine("enter Parcel id please : ");
+                                enter = SafeEnterUInt();
+                                    
                                 break;
                             case (int)IDAL.DO.Update.PackgeSend:
                                 break;
@@ -201,6 +211,8 @@ namespace ConsoleUI
                                 DAL.DalObject.DalObject.ParcelsPrint();
                                 break;
                             case (int)IDAL.DO.ListShow.PackagesWithoutDrones:
+                                   Console.WriteLine("Printing ... ");
+                                DAL.DalObject.DalObject.ParcelsWithotDronesPrint();
                                 break;
 
                         }

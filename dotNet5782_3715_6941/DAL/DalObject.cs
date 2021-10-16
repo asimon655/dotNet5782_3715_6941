@@ -10,6 +10,14 @@ using System.ComponentModel;
  | || | | | |_| | |\/| |
  | || |_| |  _  | |  | |
 |___|____/|_| |_|_|  |_|
+
+
+    _        _
+   / \   ___(_)_ __ ___   ___  _ __
+  / _ \ / __| | '_ ` _ \ / _ \| '_ \
+ / ___ \\__ \ | | | | | | (_) | | | |
+/_/   \_\___/_|_| |_| |_|\___/|_| |_|
+
  */
 namespace DAL
 {
@@ -72,7 +80,7 @@ namespace DAL
                     for (int i = 0; i < 5; i++)
                         Drones[i] = new IDAL.DO.Drone {Battery=RandomGen.NextDouble()*100, id = RandomGen.Next(100000000, 999999999),Modle= " V-Coptr Falcon", Status=(IDAL.DO.DroneStatuses)RandomGen.Next(0,1),MaxWeigth=(IDAL.DO.WeightCategories)RandomGen.Next(0,2) };
                     for (int i = 0; i < 10; i++)
-                        Parcels[i] = new IDAL.DO.Parcel {Id =idcreation++,Delivered=DateTime.Now, DroneId = RandomGen.Next(100000000, 999999999), PickedUp=DateTime.Now, Priority=(IDAL.DO.Priorities)RandomGen.Next(0,2), Weight= (IDAL.DO.WeightCategories)RandomGen.Next(0,2)};
+                        Parcels[i] = new IDAL.DO.Parcel {Id =idcreation++,Delivered=DateTime.Now, PickedUp=DateTime.Now, Priority=(IDAL.DO.Priorities)RandomGen.Next(0,2), Weight= (IDAL.DO.WeightCategories)RandomGen.Next(0,2)};
                 }
 
 
@@ -173,6 +181,16 @@ namespace DAL
                 foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
                 {
                     if (!(item.Equals(default(IDAL.DO.Parcel))))
+                        Console.WriteLine(item);
+                }
+
+
+            }
+            static public void ParcelsWithotDronesPrint()
+            {
+                foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
+                {
+                    if (!(item.Equals(default(IDAL.DO.Parcel))) && item.DroneId== default(IDAL.DO.Parcel).Id)
                         Console.WriteLine(item);
                 }
 

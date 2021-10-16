@@ -9,7 +9,7 @@ namespace IDAL
    
     namespace DO
     {
-        // remmber to override tostring !!!!!!!!!!!!!!!
+        
         public struct Costumer
         {
             
@@ -21,7 +21,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return "aa"; 
+                return "ID: " + this.Id.ToString() + " Name: " + this.Name + " Phone: " + Phone + " Latitude: " + this.Lattitude.ToString() + " Longitude:" + this.Longitude.ToString();
             }
         }
 
@@ -40,7 +40,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return base.ToString();
+                return "Id: " + Id.ToString() + " SenderId: " + SenderId.ToString() + " TargetId: " + TargetId.ToString() + " Weight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.Weight) + " Priorty: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>(this.Priority) + " Requested: " + Requested.ToString() +"Sechuled: "+Schedulded.ToString()+" PickedUp: "+this.PickedUp.ToString()+" Delivered "+Delivered.ToString()+ " DroneId: " + DroneId.ToString();
             }
         }
         public  struct Drone
@@ -79,7 +79,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return base.ToString();
+                return "DroneId: " + DroneId.ToString() + " StaionId: " + StaionId.ToString();
             }
         }
         
