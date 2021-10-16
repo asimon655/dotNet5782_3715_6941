@@ -56,7 +56,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return base.ToString();
+                return  "ID: " + this.id.ToString() + " Model: " + this.Modle + " MaxWeight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.MaxWeigth) + " Battery:" + this.Battery.ToString() + " Status: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.DroneStatuses>((this.Status));
             }
         }
         public struct  Staion 

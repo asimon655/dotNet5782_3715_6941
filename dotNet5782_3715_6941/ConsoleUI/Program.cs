@@ -133,15 +133,24 @@ namespace ConsoleUI
                         switch (enter)
                         {
                             case (int)IDAL.DO.Details.BaseStaion:
-                                Console.WriteLine("Printing ... ");
-                                DAL.DalObject.DalObject.StaionPrint();
+                                Console.WriteLine("enter Staion id please : ");
+                                enter = SafeEnterUInt();
+                                Console.WriteLine((DAL.DalObject.DalObject.PullDataStaion(enter).Equals(null) ? "No Object found with that ID please try again sir": DAL.DalObject.DalObject.PullDataStaion(enter)));
                                 break;
                             case (int)IDAL.DO.Details.Costumer:
-
+                                Console.WriteLine("enter Costumer id please : ");
+                                enter = SafeEnterUInt();
+                                Console.WriteLine((DAL.DalObject.DalObject.PullDataCostumer(enter).Equals(null) ? "No Object found with that ID please try again sir": DAL.DalObject.DalObject.PullDataCostumer(enter)));
                                 break;
                             case (int)IDAL.DO.Details.Drone:
+                                Console.WriteLine("enter Drone id please : ");
+                                enter = SafeEnterUInt();
+                                Console.WriteLine((DAL.DalObject.DalObject.PullDataDrone(enter).Equals(null)? "No Object found with that ID please try again sir":DAL.DalObject.DalObject.PullDataDrone(enter)));
                                 break;
                             case (int)IDAL.DO.Details.Package:
+                                Console.WriteLine("enter Parcel id please : ");
+                                enter = SafeEnterUInt();
+                                Console.WriteLine((DAL.DalObject.DalObject.PullDataParcel(enter).Equals(null) ? "No Object found with that ID please try again sir": DAL.DalObject.DalObject.PullDataParcel(enter)));
                                 break;
 
                         }
@@ -174,14 +183,22 @@ namespace ConsoleUI
                         switch (enter)
                         {
                             case (int)IDAL.DO.ListShow.BaseStaions:
+                                Console.WriteLine("Printing ... ");
+                                DAL.DalObject.DalObject.StaionsPrint();
                                 break;
                             case (int)IDAL.DO.ListShow.BaseStaionsFreePorts:
                                 break;
                             case (int)IDAL.DO.ListShow.Costumers:
+                                Console.WriteLine("Printing ... ");
+                                DAL.DalObject.DalObject.CostumersPrint();
                                 break;
                             case (int)IDAL.DO.ListShow.Drones:
+                                Console.WriteLine("Printing ... ");
+                                DAL.DalObject.DalObject.DronesPrint();
                                 break;
                             case (int)IDAL.DO.ListShow.Packages:
+                                Console.WriteLine("Printing ... ");
+                                DAL.DalObject.DalObject.ParcelsPrint();
                                 break;
                             case (int)IDAL.DO.ListShow.PackagesWithoutDrones:
                                 break;

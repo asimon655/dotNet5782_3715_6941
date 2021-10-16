@@ -73,20 +73,12 @@ namespace DAL
                         Drones[i] = new IDAL.DO.Drone {Battery=RandomGen.NextDouble()*100, id = RandomGen.Next(100000000, 999999999),Modle= " V-Coptr Falcon", Status=(IDAL.DO.DroneStatuses)RandomGen.Next(0,1),MaxWeigth=(IDAL.DO.WeightCategories)RandomGen.Next(0,2) };
                     for (int i = 0; i < 10; i++)
                         Parcels[i] = new IDAL.DO.Parcel {Id =idcreation++,Delivered=DateTime.Now, DroneId = RandomGen.Next(100000000, 999999999), PickedUp=DateTime.Now, Priority=(IDAL.DO.Priorities)RandomGen.Next(0,2), Weight= (IDAL.DO.WeightCategories)RandomGen.Next(0,2)};
-                    
-                  
-
-
-
                 }
 
 
             }
-
-
-
-
         }
+
         public class DalObject 
         {
              
@@ -133,24 +125,70 @@ namespace DAL
                         return item;
                 return null;
             }
-            static public void StaionPrint()
+            static public IDAL.DO.Parcel? PullDataParcel(int _id)
+            {
+                foreach (IDAL.DO.Parcel item in DataSource.Parcels)
+                    if (item.Id == _id)
+                        return item;
+                return null;
+            }
+            static public IDAL.DO.Costumer? PullDataCostumer(int _id)
+            {
+                foreach (IDAL.DO.Costumer item in DataSource.Costumers)
+                    if (item.Id == _id)
+                        return item;
+                return null;
+            }
+            static public IDAL.DO.Staion? PullDataStaion(int _id)
+            {
+                foreach (IDAL.DO.Staion item in DataSource.Staions)
+                    if (item.Id == _id)
+                        return item;
+                return null;
+            }
+            static public void StaionsPrint()
             {
                 foreach (IDAL.DO.Staion item in DAL.DalObject.DataSource.Staions)
                 {
-                    if (item  .Equals( default(IDAL.DO.Staion)))
+                    if (!(item  .Equals( default(IDAL.DO.Staion))))
                         Console.WriteLine(item);
                 }
             
             
-            } 
+            }
+            static public void DronesPrint()
+            {
+                foreach (IDAL.DO.Drone item in DAL.DalObject.DataSource.Drones)
+                {
+                    if (!(item.Equals(default(IDAL.DO.Drone))))
+                        Console.WriteLine(item);
+                }
 
-        
-        
-            
-        
+
+            }
+
+
+            static public void ParcelsPrint()
+            {
+                foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
+                {
+                    if (!(item.Equals(default(IDAL.DO.Parcel))))
+                        Console.WriteLine(item);
+                }
+
+
+            }
+            static public void CostumersPrint()
+            {
+                foreach (IDAL.DO.Costumer item in DAL.DalObject.DataSource.Costumers)
+                {
+                    if (!(item.Equals(default(IDAL.DO.Costumer))))
+                        Console.WriteLine(item);
+                }
+
+
+            }
+
         }
-
-
-
     }
 }
