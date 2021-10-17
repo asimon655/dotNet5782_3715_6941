@@ -173,9 +173,16 @@ namespace ConsoleUI
                             case (int)IDAL.DO.Update.PackgeandDrone:
                                 Console.WriteLine("enter Parcel id please : ");
                                 enter = SafeEnterUInt();
-                                    
+                                Console.WriteLine("please enter Drone Id please :");
+                                DAL.DalObject.DalObject.BindParcelToDrone(enter, SafeEnterUInt());
                                 break;
                             case (int)IDAL.DO.Update.PackgeSend:
+                                Console.WriteLine("enter the id of the package you wnat to pickup");
+                                DAL.DalObject.DalObject.PickUpByDrone(SafeEnterUInt());
+                                
+                                Console.WriteLine("the first clear Drone will pickit up ");
+
+                                
                                 break;
                             case (int)IDAL.DO.Update.PackgeTakeCostumer:
                                 break;
