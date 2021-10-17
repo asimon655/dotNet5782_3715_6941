@@ -89,8 +89,44 @@ namespace DAL
 
         public class DalObject 
         {
-             
-           static    DalObject()
+            static public void PickUpByDrone(int ParceLId)
+            {
+                for (int i = 0; i < DAL.DalObject.DataSource.Drones.Length; i++)
+                {
+                    if (DAL.DalObject.DataSource.Drones[i].Status == IDAL.DO.DroneStatuses.Free)
+                    {
+                        DAL.DalObject.DataSource.Drones[i].Status = IDAL.DO.DroneStatuses.Delivery;
+                        for (int J = 0; i < DAL.DalObject.DataSource.Parcels.Length; J++)
+                        {
+                            if (DAL.DalObject.DataSource.Parcels[J].Id == ParceLId)
+                                DAL.DalObject.DataSource.Parcels[J].DroneId = DAL.DalObject.DataSource.Drones[i].id;
+                            Console.WriteLine("Parcel: {1} picked up by drone {1}", DAL.DalObject.DataSource.Parcels[J].Id, DAL.DalObject.DataSource.Parcels[J].DroneId);
+
+                        }
+                    }
+
+
+
+
+
+                }
+
+
+            }
+
+            static public void ParcelDeliveredToCostumer(int ParcelId)
+            {
+                for (int i = 0; i < DAL.DalObject.DataSource.Parcels.Length; i++)
+                    if(DAL.DalObject.DataSource.Parcels[i].Id=ParcelId)
+                        
+            
+            
+            
+            
+            
+            }
+
+            static    DalObject()
             {
                 DataSource.Config.Initalize();
             }
@@ -233,29 +269,6 @@ namespace DAL
             }
 
         }
-        static public void PickUpByDrone(int ParceLId)
-        {
-            for (int i = 0; i < DAL.DalObject.DataSource.Drones.Length; i++)
-            {
-                if (DAL.DalObject.DataSource.Drones[i].Status == IDAL.DO.DroneStatuses.Free)
-                {
-                    DAL.DalObject.DataSource.Drones[i].Status = IDAL.DO.DroneStatuses.Delivery;
-                    for (int J = 0; i < DAL.DalObject.DataSource.Parcels.Length; J++)
-                    {
-                        if (DAL.DalObject.DataSource.Parcels[J].Id == ParceLId)
-                            DAL.DalObject.DataSource.Parcels[J].DroneId = DAL.DalObject.DataSource.Drones[i].id;
-                        Console.WriteLine("Parcel: {1} picked up by drone {1}", DAL.DalObject.DataSource.Parcels[J].Id, DAL.DalObject.DataSource.Parcels[J].DroneId);
-                    
-                    } 
-                }
-
-
-
-
-
-            }
-        
-        
-        } 
+       
     }
 }

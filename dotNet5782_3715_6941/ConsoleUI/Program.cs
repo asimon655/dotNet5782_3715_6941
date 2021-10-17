@@ -185,6 +185,9 @@ namespace ConsoleUI
                                 
                                 break;
                             case (int)IDAL.DO.Update.PackgeTakeCostumer:
+                                Console.WriteLine("Enter the oarcek ID please : ");
+                                DAL.DalObject.DalObject.ParcelDeliveredToCostumer(SafeEnterUInt());
+
                                 break;
                             case (int)IDAL.DO.Update.PackgeTakeDrone:
                                 break;
