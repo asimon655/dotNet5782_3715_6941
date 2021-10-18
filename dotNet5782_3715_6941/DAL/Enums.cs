@@ -85,7 +85,9 @@ namespace IDAL
             [Description("Update Costumer pick a package ")]
             PackgeTakeCostumer,
             [Description("Update -send Drone to base staion ")]
-            PackgeSend,
+            DroneSend,
+            [Description("Update -release Drone from base staion ")]
+            DroneRelease,
 
 
         }

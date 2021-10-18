@@ -47,10 +47,6 @@ namespace ConsoleUI
           
 
             int enter = 1;
-            int num;
-            double num2;
-            int num3;
-            int num4;
   
             while ((enter != -1))
             {
@@ -99,24 +95,19 @@ namespace ConsoleUI
                                 tmp1.Status = (IDAL.DO.DroneStatuses)SafeEnterUInt(); ;
                                 break;
                             case (int)IDAL.DO.Add.Package:
-                                Console.WriteLine("enter detials of choosen object  \nid \nDeliverd(yy//mm//dd)  \nId\npickedup \npirorty \nrequested(yy//mm//dd) \nTargetID \nwieght \nschedulded(yy//mm//dd) \nSenderId "  );
+                                Console.WriteLine("enter detials of choosen object     \nId \npirorty  \nwieght  "  );
                                 IDAL.DO.Parcel tmp2 = new IDAL.DO.Parcel();
-                                tmp2.Delivered = new DateTime(SafeEnterUInt(), SafeEnterUInt(), SafeEnterUInt());
-                                tmp2.Id = SafeEnterUInt();
-                                tmp2.PickedUp = new DateTime(SafeEnterUInt(), SafeEnterUInt(), SafeEnterUInt());
                                 for (int i = 0; i < 4; i++)
                                     Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>((IDAL.DO.Priorities)i));
                                 Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                                 Console.WriteLine(DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>((IDAL.DO.Priorities)enter));
-                                tmp2.Priority = (IDAL.DO.Priorities)SafeEnterUInt(); ;
-                                tmp2.Requested= new DateTime(SafeEnterUInt(), SafeEnterUInt(), SafeEnterUInt());
-                                tmp2.TargetId = SafeEnterUInt(); ;
+                                tmp2.Priority = (IDAL.DO.Priorities)SafeEnterUInt(); 
                                 Console.WriteLine("please enter a number from the menue ");
                                 for (int i = 0; i < 4; i++)
                                     Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>((IDAL.DO.WeightCategories)i));
                                 tmp2.Weight = (IDAL.DO.WeightCategories)SafeEnterUInt(); ;
-                                tmp2.Schedulded = new DateTime(SafeEnterUInt(), SafeEnterUInt(), SafeEnterUInt());
-                                tmp2.SenderId = SafeEnterUInt();
+
+                                tmp2.Requested = DateTime.Now;
                                 DAL.DalObject.DalObject.AddParcel(tmp2);
                                 break;
                             case (int)IDAL.DO.Add.Staion:
@@ -171,25 +162,34 @@ namespace ConsoleUI
                         switch (enter)
                         {
                             case (int)IDAL.DO.Update.PackgeandDrone:
-                                Console.WriteLine("enter Parcel id please : ");
+                                Console.WriteLine("enter Parcel \nParcek id \nTarget id \nSender id ");
                                 enter = SafeEnterUInt();
-                                Console.WriteLine("please enter Drone Id please :");
-                                DAL.DalObject.DalObject.BindParcelToDrone(enter, SafeEnterUInt());
+                               
+                                DAL.DalObject.DalObject.BindParcelToDrone(enter, SafeEnterUInt(),SafeEnterUInt());
+                                Console.WriteLine("First valid drone will serve you sir ");
                                 break;
-                            case (int)IDAL.DO.Update.PackgeSend:
+
+                            case (int)IDAL.DO.Update.PackgeTakeDrone:
                                 Console.WriteLine("enter the id of the package you wnat to pickup");
                                 DAL.DalObject.DalObject.PickUpByDrone(SafeEnterUInt());
                                 
-                                Console.WriteLine("the first clear Drone will pickit up ");
+                               
 
                                 
                                 break;
                             case (int)IDAL.DO.Update.PackgeTakeCostumer:
-                                Console.WriteLine("Enter the oarcek ID please : ");
+                                Console.WriteLine("Enter the package  ID please : ");
                                 DAL.DalObject.DalObject.ParcelDeliveredToCostumer(SafeEnterUInt());
 
                                 break;
-                            case (int)IDAL.DO.Update.PackgeTakeDrone:
+                            case (int)IDAL.DO.Update.DroneSend:
+                                Console.WriteLine("Enter the Drone  ID please : ");
+                                DAL.DalObject.DalObject.DroneCharge(SafeEnterUInt());
+
+                                break;
+                            case (int)IDAL.DO.Update.DroneRelease:
+                                Console.WriteLine("Enter the Drone ID please : ");
+                                DAL.DalObject.DalObject.DroneChargeRealse(SafeEnterUInt());
                                 break;
 
                         }
