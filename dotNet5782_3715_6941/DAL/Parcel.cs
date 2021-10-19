@@ -24,7 +24,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return "Id: " + Id.ToString() + " SenderId: " + SenderId.ToString() + " TargetId: " + TargetId.ToString() + " Weight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.Weight) + " Priorty: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>(this.Priority) + " Requested: " + Requested.ToString() + "Sechuled: " + Schedulded.ToString() + " PickedUp: " + this.PickedUp.ToString() + " Delivered " + Delivered.ToString() + " DroneId: " + DroneId.ToString();
+                return "Id: " + Id.ToString() + " SenderId: " + SenderId.ToString() + " TargetId: " + TargetId.ToString() + " Weight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.Weight) + " Priorty: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>(this.Priority) + " Requested: " + Requested.ToString() + " Sechuled: " + Schedulded.ToString() + " PickedUp: " + this.PickedUp.ToString() + " Delivered " + Delivered.ToString() + " DroneId: " + DroneId.ToString();
             }
         }
     }
