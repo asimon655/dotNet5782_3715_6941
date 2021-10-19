@@ -83,7 +83,7 @@ namespace ConsoleUI
                                 Console.WriteLine("enter detials of choosen object   \nBattery \nid \nMaxweight\nModle \nStatus  ");
                                 IDAL.DO.Drone tmp1 = new IDAL.DO.Drone();
                                 tmp1.Battery = SafeEnterDouble();
-                                tmp1.id = SafeEnterUInt();
+                                tmp1.Id = SafeEnterUInt();
                                 Console.WriteLine("please enter a number from the menue ");
                                 for (int i = 0; i < 4; i++)
                                     Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>((IDAL.DO.WeightCategories)i));
@@ -131,22 +131,22 @@ namespace ConsoleUI
                         switch (enter)
                         {
                             case (int)IDAL.DO.Details.BaseStaion:
-                                Console.WriteLine("enter Station id please : ");
+                                Console.WriteLine("enter Station Id please : ");
                                 enter = SafeEnterUInt();
                                 Console.WriteLine((DAL.DalObject.DalObject.PullDataStaion(enter).Equals(null) ? "No Object found with that ID please try again sir": DAL.DalObject.DalObject.PullDataStaion(enter)));
                                 break;
                             case (int)IDAL.DO.Details.Costumer:
-                                Console.WriteLine("enter Costumer id please : ");
+                                Console.WriteLine("enter Costumer Id please : ");
                                 enter = SafeEnterUInt();
                                 Console.WriteLine((DAL.DalObject.DalObject.PullDataCostumer(enter).Equals(null) ? "No Object found with that ID please try again sir": DAL.DalObject.DalObject.PullDataCostumer(enter)));
                                 break;
                             case (int)IDAL.DO.Details.Drone:
-                                Console.WriteLine("enter Drone id please : ");
+                                Console.WriteLine("enter Drone Id please : ");
                                 enter = SafeEnterUInt();
                                 Console.WriteLine((DAL.DalObject.DalObject.PullDataDrone(enter).Equals(null)? "No Object found with that ID please try again sir":DAL.DalObject.DalObject.PullDataDrone(enter)));
                                 break;
                             case (int)IDAL.DO.Details.Package:
-                                Console.WriteLine("enter Parcel id please : ");
+                                Console.WriteLine("enter Parcel Id please : ");
                                 enter = SafeEnterUInt();
                                 Console.WriteLine((DAL.DalObject.DalObject.PullDataParcel(enter).Equals(null) ? "No Object found with that ID please try again sir": DAL.DalObject.DalObject.PullDataParcel(enter)));
                                 break;
@@ -162,7 +162,7 @@ namespace ConsoleUI
                         switch (enter)
                         {
                             case (int)IDAL.DO.Update.PackgeandDrone:
-                                Console.WriteLine("enter Parcel \nParcek id \nTarget id \nSender id ");
+                                Console.WriteLine("enter Parcel \nParcek Id \nTarget Id \nSender Id ");
                                 enter = SafeEnterUInt();
                                
                                 DAL.DalObject.DalObject.BindParcelToDrone(enter, SafeEnterUInt(),SafeEnterUInt());
@@ -170,7 +170,7 @@ namespace ConsoleUI
                                 break;
 
                             case (int)IDAL.DO.Update.PackgeTakeDrone:
-                                Console.WriteLine("enter the id of the package you wnat to pickup");
+                                Console.WriteLine("enter the Id of the package you wnat to pickup");
                                 DAL.DalObject.DalObject.PickUpByDrone(SafeEnterUInt());
                                 
                                

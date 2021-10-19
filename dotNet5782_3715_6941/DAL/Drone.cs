@@ -11,7 +11,7 @@ namespace IDAL
     {
         public struct Drone
         {
-            public int id { set; get; }
+            public int Id { set; get; }
             public String Modle { set; get; }
             public WeightCategories MaxWeigth { set; get; }
             public DroneStatuses Status { set; get; }
@@ -19,7 +19,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return "ID: " + this.id.ToString() + " Model: " + this.Modle + " MaxWeight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.MaxWeigth) + " Battery:" + this.Battery.ToString() + " Status: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.DroneStatuses>((this.Status));
+                return "ID: " + this.Id.ToString() + " Model: " + this.Modle + " MaxWeight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.MaxWeigth) + " Battery:" + this.Battery.ToString() + " Status: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.DroneStatuses>((this.Status));
             }
         }
 
