@@ -56,8 +56,8 @@ namespace DAL
 
             internal static Drone[] Drones = new Drone[10];
             internal static Costumer[] Costumers = new Costumer[100];
-            internal static Staion[] Staions = new Staion[5];
-            internal static Parcel[] Parcels = new Parcel[1000];
+            internal static Station[] Staions = new Station[5];
+            internal static IDAL.DO.Parcel[] Parcels = new IDAL.DO.Parcel[1000];
             //until here arrady var declartion 
             internal class Config
             {
@@ -76,13 +76,13 @@ namespace DAL
                     StaionsFirst = 2;
                     ParcelFirst = 10;
                     for (int i = 0; i < 2; i++)
-                        Staions[i] = new Staion { Id = RandomGen.Next(100000000, 999999999), ChargeSlots = RandomGen.Next(0, 1000), Name = i, Latitude = RandomGen.NextDouble() * 45, Longitude = RandomGen.NextDouble() * 45 };
+                        Staions[i] = new Station { Id = RandomGen.Next(100000000, 999999999), ChargeSlots = RandomGen.Next(0, 1000), Name = i, Latitude = RandomGen.NextDouble() * 45, Longitude = RandomGen.NextDouble() * 45 };
                     for (int i = 0; i < 10; i++)
                         Costumers[i] = new Costumer { Id = RandomGen.Next(100000000, 999999999), Name = "Lev Cliet No." + i.ToString(), Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(), Lattitude = RandomGen.NextDouble() * 45, Longitude = RandomGen.NextDouble() * 45 };
                     for (int i = 0; i < 5; i++)
                         Drones[i] = new Drone { Battery = RandomGen.NextDouble() * 100, id = RandomGen.Next(100000000, 999999999), Modle = " V-Coptr Falcon", Status = (DroneStatuses)RandomGen.Next(0, 1), MaxWeigth = (WeightCategories)RandomGen.Next(0, 2) };
                     for (int i = 0; i < 10; i++)
-                        Parcels[i] = new Parcel { Id = idcreation++, Priority = (Priorities)RandomGen.Next(0, 2), Weight = (WeightCategories)RandomGen.Next(0, 2) };
+                        Parcels[i] = new IDAL.DO.Parcel { Id = idcreation++, Priority = (Priorities)RandomGen.Next(0, 2), Weight = (WeightCategories)RandomGen.Next(0, 2) };
                 }
 
 
@@ -198,7 +198,7 @@ namespace DAL
 
 
             }
-            static public void AddParcel(Parcel cloned)
+            static public void AddParcel(IDAL.DO.Parcel cloned)
             {
                 DataSource.Parcels[DataSource.Config.ParcelFirst++] = cloned;
 
@@ -209,7 +209,7 @@ namespace DAL
                 DataSource.Costumers[DataSource.Config.CostumerFirst++] = cloned;
 
             }
-            static public void AddStaion(Staion cloned)
+            static public void AddStaion(Station cloned)
             {
                 cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
                 DataSource.Staions[DataSource.Config.StaionsFirst++] = cloned;
@@ -230,9 +230,9 @@ namespace DAL
                         return item;
                 return null;
             }
-            static public Parcel? PullDataParcel(int _id)
+            static public IDAL.DO.Parcel? PullDataParcel(int _id)
             {
-                foreach (Parcel item in DataSource.Parcels)
+                foreach (IDAL.DO.Parcel item in DataSource.Parcels)
                     if (item.Id == _id)
                         return item;
                 return null;
@@ -244,18 +244,18 @@ namespace DAL
                         return item;
                 return null;
             }
-            static public Staion? PullDataStaion(int _id)
+            static public Station? PullDataStaion(int _id)
             {
-                foreach (Staion item in DataSource.Staions)
+                foreach (Station item in DataSource.Staions)
                     if (item.Id == _id)
                         return item;
                 return null;
             }
             static public void StaionsPrint()
             {
-                foreach (Staion item in DAL.DalObject.DataSource.Staions)
+                foreach (Station item in DAL.DalObject.DataSource.Staions)
                 {
-                    if (!(item.Equals(default(Staion))))
+                    if (!(item.Equals(default(Station))))
                         Console.WriteLine(item);
                 }
 
@@ -275,9 +275,9 @@ namespace DAL
 
             static public void ParcelsPrint()
             {
-                foreach (Parcel item in DAL.DalObject.DataSource.Parcels)
+                foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
                 {
-                    if (!(item.Equals(default(Parcel))))
+                    if (!(item.Equals(default(IDAL.DO.Parcel))))
                         Console.WriteLine(item);
                 }
 
@@ -285,9 +285,9 @@ namespace DAL
             }
             static public void ParcelsWithotDronesPrint()
             {
-                foreach (Parcel item in DAL.DalObject.DataSource.Parcels)
+                foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
                 {
-                    if (!(item.Equals(default(Parcel))) && item.DroneId == default(Parcel).Id)
+                    if (!(item.Equals(default(IDAL.DO.Parcel))) && item.DroneId == default(IDAL.DO.Parcel).Id)
                         Console.WriteLine(item);
                 }
 
@@ -305,7 +305,7 @@ namespace DAL
             }
             static public void BindParcelToDrone(int ParcelId, int CostumerIdT, int CostumerIdS)
             {
-                Parcel? tmp = DAL.DalObject.DalObject.PullDataParcel(ParcelId);
+                IDAL.DO.Parcel? tmp = DAL.DalObject.DalObject.PullDataParcel(ParcelId);
                 if (tmp.Equals(null))
                     Console.WriteLine("Parcel didn't found ");
                 else

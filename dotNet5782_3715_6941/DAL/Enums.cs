@@ -63,7 +63,7 @@ namespace IDAL
         }
         public enum Add { 
         
-            [Description("Add Staion for the Staions List")]
+            [Description("Add Station for the Staions List")]
             Staion ,
             [Description("Add Drone to the Drone List ")]
             Drone,

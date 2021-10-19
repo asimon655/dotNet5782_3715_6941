@@ -112,7 +112,7 @@ namespace ConsoleUI
                                 break;
                             case (int)IDAL.DO.Add.Staion:
                                 Console.WriteLine("enter detials of choosen object  \nId \nLatitude  \nLongitude \nName ");
-                                IDAL.DO.Staion tmp3 = new IDAL.DO.Staion();
+                                IDAL.DO.Station tmp3 = new IDAL.DO.Station();
                                 tmp3.Id = SafeEnterUInt(); ;
                                 tmp3.Latitude = SafeEnterUInt(); ;
                                 tmp3.Longitude = SafeEnterUInt(); ;
@@ -131,7 +131,7 @@ namespace ConsoleUI
                         switch (enter)
                         {
                             case (int)IDAL.DO.Details.BaseStaion:
-                                Console.WriteLine("enter Staion id please : ");
+                                Console.WriteLine("enter Station id please : ");
                                 enter = SafeEnterUInt();
                                 Console.WriteLine((DAL.DalObject.DalObject.PullDataStaion(enter).Equals(null) ? "No Object found with that ID please try again sir": DAL.DalObject.DalObject.PullDataStaion(enter)));
                                 break;
