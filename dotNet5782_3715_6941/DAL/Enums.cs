@@ -56,7 +56,7 @@ namespace IDAL
             [Description("Show lists of objects")]
             ListShow,
             [Description("Exit")]
-            exit =-1
+            exit 
 
 
 

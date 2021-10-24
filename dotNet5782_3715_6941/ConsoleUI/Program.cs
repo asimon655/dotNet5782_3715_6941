@@ -48,10 +48,10 @@ namespace ConsoleUI
 
             int enter = 1;
   
-            while ((enter != -1))
+            while ((enter != 4))
             {
                 Console.WriteLine("please enter a number from the menue ");
-                for (int i = -1; i < 4; i++)
+                for (int i = 0; i < Enum.GetNames(typeof(IDAL.DO.Menu)).Length; i++)
                     Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Menu>((IDAL.DO.Menu)i));
                 Console.WriteLine((int.TryParse(Console.ReadLine(), out enter ) ? "" : "please enter only numbers"));
                 Console.WriteLine(DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Menu>((IDAL.DO.Menu)enter));
@@ -62,7 +62,7 @@ namespace ConsoleUI
 
                     case (int)IDAL.DO.Menu.Add:
                         Console.WriteLine("please enter a number from the menue ");
-                        for (int i =0 ; i < 4; i++)
+                        for (int i =0 ; i < Enum.GetNames(typeof(IDAL.DO.Add)).Length; i++)
                             Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Add>((IDAL.DO.Add)i));
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Add>((IDAL.DO.Add)enter));
@@ -71,43 +71,39 @@ namespace ConsoleUI
                             case (int)IDAL.DO.Add.Costumer:
                                 IDAL.DO.Costumer tmp = new IDAL.DO.Costumer();
 
-                                Console.WriteLine("enter detials of choosen object  \nid \nLattitude \nLongitude \nName\nPhone ");
-                                tmp.Id = SafeEnterUInt();
-                                tmp.Lattitude = SafeEnterUInt();
-                                tmp.Longitude = SafeEnterUInt();
+                                Console.WriteLine("enter detials of choosen object   \nLattitude \nLongitude \nName\nPhone ");
+                                
+                                tmp.Lattitude = SafeEnterDouble();
+                                tmp.Longitude = SafeEnterDouble();
                                 tmp.Name = Console.ReadLine();
                                 tmp.Phone = Console.ReadLine();
                                 DAL.DalObject.DalObject.AddCostumer(tmp);
                                 break;
                             case (int)IDAL.DO.Add.Drone:
-                                Console.WriteLine("enter detials of choosen object   \nBattery \nid \nMaxweight\nModle \nStatus  ");
+                                Console.WriteLine("enter detials of choosen object   \nBattery  \nMaxweight\nModle \nStatus  ");
                                 IDAL.DO.Drone tmp1 = new IDAL.DO.Drone();
                                 tmp1.Battery = SafeEnterDouble();
-                                tmp1.id = SafeEnterUInt();
+                    
                                 Console.WriteLine("please enter a number from the menue ");
-                                for (int i = 0; i < 4; i++)
+                                for (int i = 0; i < Enum.GetNames(typeof(IDAL.DO.WeightCategories)).Length; i++)
                                     Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>((IDAL.DO.WeightCategories)i));
                                 tmp1.MaxWeigth = (IDAL.DO.WeightCategories)SafeEnterUInt(); ;
                                 tmp1.Modle = Console.ReadLine();
                                 Console.WriteLine("please enter a number from the menue ");
-                                for (int i = 0; i < 4; i++)
-                                    Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.DroneStatuses>((IDAL.DO.DroneStatuses)i));
-                                tmp1.Status = (IDAL.DO.DroneStatuses)SafeEnterUInt(); ;
+                                tmp1.Status = (IDAL.DO.DroneStatuses)IDAL.DO.DroneStatuses.Free ;
                                 break;
                             case (int)IDAL.DO.Add.Package:
-                                Console.WriteLine("enter detials of choosen object     \nId \npirorty  \nwieght  "  );
+                                Console.WriteLine("enter detials of choosen object   weight and priorty (weight will show up first)"  );
                                 IDAL.DO.Parcel tmp2 = new IDAL.DO.Parcel();
-                                for (int i = 0; i < 4; i++)
+                                for (int i = 0; i < Enum.GetNames(typeof(IDAL.DO.Priorities)).Length; i++)
                                     Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>((IDAL.DO.Priorities)i));
-                                Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
+                               
                                 Console.WriteLine(DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>((IDAL.DO.Priorities)enter));
                                 tmp2.Priority = (IDAL.DO.Priorities)SafeEnterUInt(); 
                                 Console.WriteLine("please enter a number from the menue ");
-                                for (int i = 0; i < 4; i++)
+                                for (int i = 0; i < Enum.GetNames(typeof(IDAL.DO.WeightCategories)).Length; i++)
                                     Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>((IDAL.DO.WeightCategories)i));
                                 tmp2.Weight = (IDAL.DO.WeightCategories)SafeEnterUInt(); ;
-
-                                tmp2.Requested = DateTime.Now;
                                 DAL.DalObject.DalObject.AddParcel(tmp2);
                                 break;
                             case (int)IDAL.DO.Add.Staion:
@@ -124,7 +120,7 @@ namespace ConsoleUI
                         break;
                     case (int)IDAL.DO.Menu.Details:
                         Console.WriteLine("please enter a number from the menue ");
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < Enum.GetNames(typeof(IDAL.DO.Details)).Length; i++)
                             Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Details>((IDAL.DO.Details)i));
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Details>((IDAL.DO.Details)enter));
@@ -155,7 +151,7 @@ namespace ConsoleUI
                         break;
                     case (int)IDAL.DO.Menu.Update:
                         Console.WriteLine("please enter a number from the menue ");
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < Enum.GetNames(typeof(IDAL.DO.Update)).Length; i++)
                             Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Update>((IDAL.DO.Update)i));
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Update>((IDAL.DO.Update)enter));
@@ -196,7 +192,7 @@ namespace ConsoleUI
                         break;
                     case (int)IDAL.DO.Menu.ListShow:
                         Console.WriteLine("please enter a number from the menue ");
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < Enum.GetNames(typeof(IDAL.DO.ListShow)).Length; i++)
                             Console.WriteLine(i.ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.ListShow>((IDAL.DO.ListShow)i)) ;
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.ListShow>((IDAL.DO.ListShow)enter));

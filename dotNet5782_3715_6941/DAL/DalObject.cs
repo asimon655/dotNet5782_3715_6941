@@ -27,6 +27,7 @@ namespace DAL
     {
         public static class EnumHelper
         {
+  
             public static string GetDescription<T>(this T enumValue)
                 where T : struct, IConvertible
             {
@@ -80,7 +81,7 @@ namespace DAL
                     for (int i = 0; i < 10; i++)
                         Costumers[i] = new Costumer { Id = RandomGen.Next(100000000, 999999999), Name = "Lev Cliet No." + i.ToString(), Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(), Lattitude = RandomGen.NextDouble() * 45, Longitude = RandomGen.NextDouble() * 45 };
                     for (int i = 0; i < 5; i++)
-                        Drones[i] = new Drone { Battery = RandomGen.NextDouble() * 100, id = RandomGen.Next(100000000, 999999999), Modle = " V-Coptr Falcon", Status = (DroneStatuses)RandomGen.Next(0, 1), MaxWeigth = (WeightCategories)RandomGen.Next(0, 2) };
+                        Drones[i] = new Drone { Battery = RandomGen.NextDouble() * 100, id = RandomGen.Next(100000000, 999999999), Modle = " V-Coptr Falcon", Status = DroneStatuses.Free, MaxWeigth = (WeightCategories)RandomGen.Next(0, 2) };
                     for (int i = 0; i < 10; i++)
                         Parcels[i] = new Parcel { Id = idcreation++, Priority = (Priorities)RandomGen.Next(0, 2), Weight = (WeightCategories)RandomGen.Next(0, 2) };
                 }
