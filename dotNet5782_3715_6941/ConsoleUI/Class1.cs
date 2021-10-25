@@ -51,7 +51,7 @@ namespace ConsoleUI
 
         public static void printArray<T>(T[] list)///prints array of something and kicks out all the deafult things 
         {
-
+             
             foreach (T item in list)
                 if (!(item.Equals(default(T))))
                     Console.WriteLine(item.ToString());
