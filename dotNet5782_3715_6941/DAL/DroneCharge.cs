@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDAL
+namespace IDAL 
 {
-
     namespace DO
     {
         public struct DroneCharge
@@ -19,6 +18,5 @@ namespace IDAL
                 return "DroneId: " + DroneId.ToString() + " StaionId: " + StaionId.ToString();
             }
         }
-
     }
 }

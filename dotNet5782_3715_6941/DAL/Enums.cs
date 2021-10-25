@@ -49,7 +49,10 @@ namespace IDAL
             [Description("Show lists of objects")]
             ListShow,
             [Description("Exit")]
-            exit =-1
+            exit 
+
+
+
         }
         // the options of the option Add (Add from the main menu)
         public enum Add { 
@@ -69,12 +72,12 @@ namespace IDAL
 
             [Description("Bind packge and drone")]
             PackgeandDrone,
-            [Description("Update- Drone pick a packge ")]
+            [Description("Update- Drone picks up a packge ")]
             PackgeTakeDrone,
-            [Description("Update Costumer pick a package ")]
+            [Description("Update Costumer picking up a package ")]
             PackgeTakeCostumer,
-            [Description("Update -send Drone to base staion ")]
-            DroneSend,
+            [Description("Update -send Drone to base staion (charge)")]
+            DroneSendCharge,
             [Description("Update -release Drone from base staion ")]
             DroneRelease,
 

@@ -51,6 +51,7 @@ namespace DAL
 
                 return description;
             }
+            
         }
 
         class DataSource
@@ -60,7 +61,8 @@ namespace DAL
             internal static Drone[] Drones = new Drone[10];
             internal static Costumer[] Costumers = new Costumer[100];
             internal static Station[] Staions = new Station[5];
-            internal static IDAL.DO.Parcel[] Parcels = new IDAL.DO.Parcel[1000];
+            internal static Parcel[] Parcels = new Parcel[1000];
+            internal static List<DroneCharge> DronesCharges = new List<DroneCharge>();
             //until here array var declartion 
             internal class Config
             {
@@ -78,27 +80,52 @@ namespace DAL
                     DronesFirst = 5;
                     StaionsFirst = 2;
                     ParcelFirst = 10;
-                    for (int i = 0; i < 2; i++)
-                        Staions[i] = new Station {  Id = RandomGen.Next(100000000, 999999999),
-                                                    ChargeSlots = RandomGen.Next(0, 1000),
-                                                    Name = i, Latitude = RandomGen.NextDouble() * 45,
-                                                    Longitude = RandomGen.NextDouble() * 45 };
-                    for (int i = 0; i < 10; i++)
-                        Costumers[i] = new Costumer { Id = RandomGen.Next(100000000, 999999999),
-                                                      Name = "Lev Cliet No." + i.ToString(),
-                                                      Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(),
-                                                      Lattitude = RandomGen.NextDouble() * 45,
-                                                      Longitude = RandomGen.NextDouble() * 45  };
-                    for (int i = 0; i < 5; i++)
-                        Drones[i] = new Drone { Battery = RandomGen.NextDouble() * 100,
-                                                Id = RandomGen.Next(100000000, 999999999),
-                                                Modle = " V-Coptr Falcon",
-                                                Status = (DroneStatuses)RandomGen.Next(0, 1),
-                                                MaxWeigth = (WeightCategories)RandomGen.Next(0, 2) };
-                    for (int i = 0; i < 10; i++)
-                        Parcels[i] = new Parcel { Id = idcreation++,
-                                                  Priority = (Priorities)RandomGen.Next(0, 2),
-                                                  Weight = (WeightCategories)RandomGen.Next(0, 2) };
+                    const int StationInit = 2;
+                    const int DroneInit = 5;
+                    const int ParcelInit = 10;
+                    const int CostumerInit = 10;
+                    for (int i = 0; i < StationInit; i++)
+                        Staions[i] = new Station
+                        {
+                            Id = RandomGen.Next(100000000, 999999999),
+                            ChargeSlots = RandomGen.Next(0, 1000),
+                            Name = i,
+                            Latitude = RandomGen.NextDouble() * 45,
+                            Longitude = RandomGen.NextDouble() * 45,
+                        };
+                    for (int i = 0; i < CostumerInit; i++)
+                        Costumers[i] = new Costumer
+                        {
+                            Id = RandomGen.Next(100000000, 999999999),
+                            Name = "Lev Cliet No." + i.ToString(),
+                            Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(),
+                            Lattitude = RandomGen.NextDouble() * 45,
+                            Longitude = RandomGen.NextDouble() * 45
+                        };
+                    for (int i = 0; i < DroneInit; i++)
+                        Drones[i] = new Drone
+                        {
+                            Battery = RandomGen.NextDouble() * 100,
+                            Id = RandomGen.Next(100000000, 999999999),
+                            Modle = " V-Coptr Falcon",
+                            Status = (DroneStatuses)RandomGen.Next(0, 1),
+                            MaxWeigth = (WeightCategories)RandomGen.Next(0, 2)
+                        };
+                    for (int i = 0; i < ParcelInit; i++)
+                        Parcels[i] = new Parcel
+                        {
+                            Id = idcreation++,
+                            Priority = (Priorities)RandomGen.Next(0, 2),
+                            Weight = (WeightCategories)RandomGen.Next(0, 2),
+                            DroneId = RandomGen.Next(100000000, 999999999)
+                        ,
+                            Delivered = new DateTime(1995, 1, 1).AddSeconds(RandomGen.Next(0, 86400)).AddDays(RandomGen.Next((DateTime.Today - new DateTime(1995, 1, 1)).Days)),
+                            PickedUp = new DateTime(1995, 1, 1).AddSeconds(RandomGen.Next(0, 86400)).AddDays(RandomGen.Next((DateTime.Today - new DateTime(1995, 1, 1)).Days)),
+                            Requested = new DateTime(1995, 1, 1).AddSeconds(RandomGen.Next(0, 86400)).AddDays(RandomGen.Next((DateTime.Today - new DateTime(1995, 1, 1)).Days)),
+                            Schedulded = new DateTime(1995, 1, 1).AddSeconds(RandomGen.Next(0, 86400)).AddDays(RandomGen.Next((DateTime.Today - new DateTime(1995, 1, 1)).Days)),
+                            SenderId = RandomGen.Next(100000000, 999999999),
+                            TargetId = RandomGen.Next(100000000, 999999999)
+                        };
                 }
 
 
@@ -107,11 +134,24 @@ namespace DAL
 
         public class DalObject
         {
-            static public void DroneCharge(int id)
+            static private int? CountStationFreeSlots(int id)
+            {
+                Station? tmp = PullDataStaion(id);
+                if (tmp is null)
+                    return null;
+
+                int countOccupied = 0;
+                foreach (DroneCharge item in DataSource.DronesCharges)
+                    if (item.StaionId == id)
+                        countOccupied++;
+                return (((Station)tmp).ChargeSlots - countOccupied);
+            }
+
+            static public void DroneCharge(int DroneId, int StationId)
             {
                 for (int i = 0; i < DAL.DalObject.DataSource.Drones.Length; i++)
                 {
-                    if (DAL.DalObject.DataSource.Drones[i].Id == id)
+                    if (DAL.DalObject.DataSource.Drones[i].Id == DroneId)
                     {
                         switch (DAL.DalObject.DataSource.Drones[i].Status)
                         {
@@ -122,8 +162,18 @@ namespace DAL
                                 Console.WriteLine("Drone is bussy at the momment in dilvery ");
                                 break;
                             case DroneStatuses.Free:
+                                // checking if the station exsits and has free slots
+                                int? freeCount = CountStationFreeSlots(StationId);
+                                if (freeCount is null)
+                                    throw new Exception("there arent ay free charging slots or the station dosnt exsits");
+
                                 DAL.DalObject.DataSource.Drones[i].Status = DroneStatuses.Matance;
                                 DAL.DalObject.DataSource.Drones[i].Battery = 100;
+                                DAL.DalObject.DataSource.DronesCharges.Add(
+                                                                        new DroneCharge {
+                                                                              DroneId= DAL.DalObject.DataSource.Drones[i].Id,
+                                                                              StaionId= StationId
+                                                                        });
                                 break;
                         }
                     }
@@ -144,6 +194,11 @@ namespace DAL
                                 Console.WriteLine("Drone is bussy at the momment in dilvery ");
                                 break;
                             case DroneStatuses.Matance:
+                                // delete the record of the current charge
+                                foreach (DroneCharge item in DataSource.DronesCharges)
+                                    if (item.DroneId == id)
+                                        DataSource.DronesCharges.Remove(item);
+                                // free the drone status
                                 DAL.DalObject.DataSource.Drones[i].Status = DroneStatuses.Free;
                                 break;
                         }
@@ -193,33 +248,28 @@ namespace DAL
 
             static public void AddDrone(Drone cloned)
             {
-                cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
+                
                 DataSource.Drones[DataSource.Config.DronesFirst++] = cloned;
             }
 
             static public void AddParcel(IDAL.DO.Parcel cloned)
             {
+                cloned.Id = DAL.DalObject.DataSource.Config.idcreation++;
                 DataSource.Parcels[DataSource.Config.ParcelFirst++] = cloned;
             }
 
             static public void AddCostumer(Costumer cloned)
             {
-                cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
+      
                 DataSource.Costumers[DataSource.Config.CostumerFirst++] = cloned;
             }
 
             static public void AddStaion(Station cloned)
             {
-                cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
+                
                 DataSource.Staions[DataSource.Config.StaionsFirst++] = cloned;
             }
 
-            static public void UpdateData()
-            {
-
-
-
-            }
 
             static public Drone? PullDataDrone(int _id)
             {
@@ -253,50 +303,51 @@ namespace DAL
                 return null;
             }
 
-            static public void StaionsPrint()
+            static public Station [] StaionsPrint()
             {
-                foreach (Station item in DAL.DalObject.DataSource.Staions)
-                {
+                return DAL.DalObject.DataSource.Staions;
+
+
+            }
+            static public Drone[] DronesPrint()
+            {
+                return DAL.DalObject.DataSource.Drones;
+
+
+            }
+
+            static public List<Parcel>  ParcelsWithotDronesPrint()
+            {
+                List<Parcel> ret = new List<Parcel>();
+                foreach (Parcel item in DAL.DalObject.DataSource.Parcels)
+                    if (!item.Equals(default(Parcel)))
+                    
+                        if (item.DroneId == default(Parcel).DroneId)
+                            ret.Add(item);
+               
+                return ret;
+            }
+
+            static public List<Station> BaseStaionsFreePortsPrint()
+            {
+               List < Station> ret = new List<Station>();
+                 
+                foreach (Station item in DataSource.Staions)
                     if (!(item.Equals(default(Station))))
-                        Console.WriteLine(item);
-                }
-
-
-            }
-            static public void DronesPrint()
-            {
-                foreach (Drone item in DAL.DalObject.DataSource.Drones)
-                {
-                    if (!(item.Equals(default(Drone))))
-                        Console.WriteLine(item);
-                }
+                        if(CountStationFreeSlots(item.Id) >0 )
+                            ret.Add(item);
+                return ret; 
             }
 
-            static public void ParcelsPrint()
+            static public Costumer[] CostumersPrint()
             {
-                foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
-                {
-                    if (!(item.Equals(default(IDAL.DO.Parcel))))
-                        Console.WriteLine(item);
-                }
+                return DAL.DalObject.DataSource.Costumers;
+          
             }
-
-            static public void ParcelsWithotDronesPrint()
+            static public Parcel[] ParcelsPrint()
             {
-                foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
-                {
-                    if (!(item.Equals(default(IDAL.DO.Parcel))) && item.DroneId == default(IDAL.DO.Parcel).Id)
-                        Console.WriteLine(item);
-                }
-            }
-
-            static public void CostumersPrint()
-            {
-                foreach (Costumer item in DAL.DalObject.DataSource.Costumers)
-                {
-                    if (!(item.Equals(default(Costumer))))
-                        Console.WriteLine(item);
-                }
+                return DAL.DalObject.DataSource.Parcels;
+            
             }
 
             static public void BindParcelToDrone(int ParcelId, int CostumerIdT, int CostumerIdS)
@@ -324,7 +375,7 @@ namespace DAL
                                     DAL.DalObject.DataSource.Parcels[i].SenderId = CostumerIdS;
                                     for (int j = 0; j < DAL.DalObject.DataSource.Drones.Length; j++)
                                         if (DAL.DalObject.DataSource.Drones[j].Status == DroneStatuses.Free && (int)DAL.DalObject.DataSource.Drones[j].MaxWeigth >= (int)DAL.DalObject.DataSource.Parcels[i].Weight)
-                                            DAL.DalObject.DataSource.Parcels[i].Id = DAL.DalObject.DataSource.Drones[j].Id;
+                                            DAL.DalObject.DataSource.Parcels[i].DroneId = DAL.DalObject.DataSource.Drones[j].Id;
 
                                     DAL.DalObject.DataSource.Parcels[i].Schedulded = DateTime.Now;
 
@@ -334,6 +385,38 @@ namespace DAL
                         }
                     }
                 }
+            }
+
+            static public String DecimalToSexagesimal(double Longitude, double Latitude)
+            {
+                String result = "";
+                // Longitude
+                bool direction = (0 > Longitude);
+                Longitude = Math.Abs(Longitude);
+                result += Math.Floor(Longitude).ToString() + '\xb0';
+                Longitude -= Math.Floor(Longitude);
+                Longitude *= 60;
+                result += Math.Floor(Longitude).ToString() + '`';
+                Longitude -= Math.Floor(Longitude);
+                Longitude *= 60;
+                result += Math.Round(Longitude, 4).ToString() + "``";
+                result += (direction ? 'N' : 'S');
+
+                result += ' '; 
+
+                // Latitude
+                direction = (0 > Latitude);
+                Latitude = Math.Abs(Latitude);
+                result += Math.Floor(Latitude).ToString() + '\xb0';
+                Latitude -= Math.Floor(Latitude);
+                Latitude *= 60;
+                result += Math.Floor(Latitude).ToString() + '`';
+                Latitude -= Math.Floor(Latitude);
+                Latitude *= 60;
+                result += Math.Round(Latitude, 4).ToString() + "``";
+                result += (direction ? 'E' : 'W');
+
+                return result;
             }
         }
     }

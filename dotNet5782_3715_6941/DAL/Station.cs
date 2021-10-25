@@ -19,7 +19,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return "ID: " + this.Id.ToString() + " Name: " + this.Name.ToString() + " Latitude: " + this.Latitude.ToString() + " Longitude:" + this.Longitude.ToString() + " ChargeSlots: " + this.ChargeSlots.ToString();
+                return "ID: " + this.Id.ToString() + " Name: " + this.Name.ToString() + " Latitude: " + this.Latitude.ToString() + " Longitude:" + this.Longitude.ToString()+ "Sexagesimal show of longitude  and lattitude :  " + DAL.DalObject.DalObject.DecimalToSexagesimal(Longitude,Latitude)+ " ChargeSlots: " + this.ChargeSlots.ToString();
             }
         }
 
