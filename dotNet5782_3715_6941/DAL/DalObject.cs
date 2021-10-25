@@ -236,6 +236,7 @@ namespace DAL
                         return item;
                 return null;
             }
+   
 
             static public Costumer? PullDataCostumer(int _id)
             {
