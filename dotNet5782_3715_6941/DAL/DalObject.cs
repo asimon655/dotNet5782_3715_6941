@@ -78,7 +78,7 @@ namespace DAL
                 static internal int CostumerFirst = 0;
                 static internal int StaionsFirst = 0;
                 static internal int ParcelFirst = 0;
-            
+                static internal int IdCreation = 0; 
 
                 static internal void Initalize()
                 {
@@ -92,6 +92,7 @@ namespace DAL
                     const int DroneInit = 5;
                     const int ParcelInit = 10;
                     const int CostumerInit = 10;
+                    
                     for (int i = 0; i < StationInit; i++)
                         Staions[i] = new Station
                         {
@@ -131,7 +132,7 @@ namespace DAL
                                                                                                  /// addeed time to the randomed added  added time i created before 
                         Parcels[i] = new Parcel
                         {
-                            Id = ++ParcelFirst,
+                            Id = ++IdCreation,
                             Priority = (Priorities)RandomGen.Next(0, 2),
                             Weight = (WeightCategories)RandomGen.Next(0, 2),
                             DroneId = RandomGen.Next(100000000, 999999999)
@@ -285,7 +286,7 @@ namespace DAL
 
             static public string  AddParcel(IDAL.DO.Parcel cloned)
             {
-                cloned.Id =++ DAL.DalObject.DataSource.Config.ParcelFirst;
+                cloned.Id =++DataSource.Config.IdCreation;
                 if (DataSource.Config.ParcelFirst++ < DataSource.ParcelMaxSize)
                 {
                     DataSource.Parcels[DataSource.Config.ParcelFirst++] = cloned;
@@ -442,10 +443,10 @@ namespace DAL
                                         DAL.DalObject.DataSource.Parcels[i].Schedulded = DateTime.Now;
                                         DAL.DalObject.DataSource.Parcels[i].TargetId = CostumerIdT;
                                         DAL.DalObject.DataSource.Parcels[i].SenderId = CostumerIdS;
-                                       return ("Object of Parcel binded to Object of Drone succefuly ");
-                                    } 
+                                        return ("Object of Parcel binded to Object of Drone succefuly ");
+                                    }
                                     else
-                                        return "Drone didnt found or the drone found and it is status was in matnce or alrdeay in delivery  or weight category didnt fit to parcel"
+                                        return "Drone didnt found or the drone found and it is status was in matnce or alrdeay in delivery  or weight category didnt fit to parcel";
                                 }
                             }
                         }

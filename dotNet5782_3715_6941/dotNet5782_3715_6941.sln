@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Targil0", "Targil0\Targil0.csproj", "{62BAEBEB-3ED3-48DD-8748-1AE7BA2A345A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{455AF735-FB01-445F-8AEB-CA3A47FA0763}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{455AF735-FB01-445F-8AEB-CA3A47FA0763}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{03B14460-D0D1-4AFE-90AF-B9F1205E8C2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Targil1", "Targil1", "{63180181-CDF3-4D5B-A14D-F997855A3277}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{455AF735-FB01-445F-8AEB-CA3A47FA0763} = {63180181-CDF3-4D5B-A14D-F997855A3277}
+		{03B14460-D0D1-4AFE-90AF-B9F1205E8C2C} = {63180181-CDF3-4D5B-A14D-F997855A3277}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A79A56F-5A34-487C-9F83-669C29C12057}

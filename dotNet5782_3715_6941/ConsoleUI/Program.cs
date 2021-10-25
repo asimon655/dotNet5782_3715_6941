@@ -137,8 +137,8 @@ namespace ConsoleUI
                         switch (enter)
                         {
                             case (int)Update.PackgeandDrone:
-                                DalObject.BindParcelToDrone(SysFunc.SafeEnterUInt("enter drone id: "),SysFunc.SafeEnterUInt("Parcel Id: "), SysFunc.SafeEnterUInt("Target Id: "), SysFunc.SafeEnterUInt("Sender Id: "));
-                                Console.WriteLine("First valid drone will serve you sir ");
+                                Console.WriteLine(DalObject.BindParcelToDrone(SysFunc.SafeEnterUInt("enter drone id: "),SysFunc.SafeEnterUInt("Parcel Id: "), SysFunc.SafeEnterUInt("Target Id: "), SysFunc.SafeEnterUInt("Sender Id: ")));
+                   
                                 break;
 
                             case (int)Update.PackgeTakeDrone:
