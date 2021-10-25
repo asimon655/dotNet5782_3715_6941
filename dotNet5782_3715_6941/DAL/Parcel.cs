@@ -3,7 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+/*
+_________ ______            _______
+\__   __/(  __  \ |\     /|(       )
+   ) (   | (  \  )| )   ( || () () |
+   | |   | |   ) || (___) || || || |
+   | |   | |   | ||  ___  || |(_)| |
+   | |   | |   ) || (   ) || |   | |
+___) (___| (__/  )| )   ( || )   ( |
+\_______/(______/ |/     \||/     \|
 
+
+
+ 
+ _______  _______ _________ _______  _______  _
+(  ___  )(  ____ \\__   __/(       )(  ___  )( (    /|
+| (   ) || (    \/   ) (   | () () || (   ) ||  \  ( |
+| (___) || (_____    | |   | || || || |   | ||   \ | |
+|  ___  |(_____  )   | |   | |(_)| || |   | || (\ \) |
+| (   ) |      ) |   | |   | |   | || |   | || | \   |
+| )   ( |/\____) |___) (___| )   ( || (___) || )  \  |
+|/     \|\_______)\_______/|/     \|(_______)|/    )_)
+
+
+ 
+ */
 namespace IDAL
 {
 
@@ -24,7 +48,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return "Id: " + Id.ToString() + " SenderId: " + SenderId.ToString() + " TargetId: " + TargetId.ToString() + " Weight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.Weight) + " Priorty: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>(this.Priority) + " Requested: " + Requested.ToString() + " Sechuled: " + Schedulded.ToString() + " PickedUp: " + this.PickedUp.ToString() + " Delivered " + Delivered.ToString() + " DroneId: " + DroneId.ToString();
+                return "Id: " + Id.ToString() + " SenderId: " + SenderId.ToString() + " TargetId: " + TargetId.ToString() + " Weight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.Weight) + " Priorty: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Priorities>(this.Priority) + " Requested: " + Requested.ToString() + " Sechuled: " + Schedulded.ToString() + " PickedUp: " + this.PickedUp.ToString() + " Delivered " + Delivered.ToString() + " DroneId: " + DroneId.ToString(); /// returns strings with all the args of the struct in string and longitude and lattiude in Sexagesimal show 
             }
         }
     }

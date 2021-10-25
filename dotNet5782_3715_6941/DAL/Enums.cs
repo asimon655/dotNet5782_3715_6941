@@ -4,12 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+/*
+ 
+    _/_/_/  _/_/_/    _/    _/  _/      _/
+     _/    _/    _/  _/    _/  _/_/  _/_/
+    _/    _/    _/  _/_/_/_/  _/  _/  _/
+   _/    _/    _/  _/    _/  _/      _/
+_/_/_/  _/_/_/    _/    _/  _/      _/
 
+
+ 
+ 
+       _/_/              _/
+   _/    _/    _/_/_/      _/_/_/  _/_/      _/_/    _/_/_/
+  _/_/_/_/  _/_/      _/  _/    _/    _/  _/    _/  _/    _/
+ _/    _/      _/_/  _/  _/    _/    _/  _/    _/  _/    _/
+_/    _/  _/_/_/    _/  _/    _/    _/    _/_/    _/    _/
+
+
+ 
+ 
+ */
 namespace IDAL
 {
     namespace DO
     {
-       public  enum WeightCategories
+        /// <summary>
+        /// all the enum names explains the self 
+        /// i used description because i can reuse it in the gui and it look like the coolest thing 
+        /// </summary>
+       public  enum WeightCategories 
         {
             [Description("easy weight ")]
             Easy ,

@@ -28,69 +28,50 @@ namespace ConsoleUI
     class Program
         
     {
-        
-        static int SafeEnterUInt(String prefix = "")
-        {
-            Console.Write(prefix);
-            int num;
-            return (int.TryParse(Console.ReadLine(), out num) ? num : SafeEnterUInt("you need to enter only numbers from N (Z will accept but will be not realistic)! Try again to enter the field ")); 
-
-        }
-
-        static double  SafeEnterDouble(String prefix="")
-        {
-            Console.Write(prefix);
-            double num;
-            return (double.TryParse(Console.ReadLine(), out num) ? num : SafeEnterDouble("you need to enter only numbers from Q! Try again to enter the field ")); 
-
-        }
+     
         static void Main(string[] args)
         {
 
 
-            int enter;
+            int enter;/// for the sub switches 
             int command;
             do
             {
                 SysFunc.printEnum<Menu>();
-                command = SafeEnterUInt("please enter a number from the menue ");
+                command = SysFunc.SafeEnterUInt("please enter a number from the menue ");
                 Console.WriteLine(EnumHelper.GetDescription<Menu>((Menu)command));
                 switch (command)
                 {
-
-
-
                     case (int)Menu.Add:
+                        /// in all the adds i just create dumy struct T and fill it with vals and call the add method in dal object 
                         SysFunc.printEnum<Add>();
-                        enter = SafeEnterUInt("please enter a number from the menue ");
+                        enter = SysFunc.SafeEnterUInt("please enter a number from the menue ");
                         Console.WriteLine(EnumHelper.GetDescription<Add>((Add)enter));
                         switch (enter)
                         {
                             case (int)Add.Costumer:
                                 Costumer newCostumer = new Costumer();
-
-
-                                newCostumer.Id = SafeEnterUInt("Id: ");
-                                newCostumer.Lattitude = SafeEnterDouble("Lattitude: ");
-                                newCostumer.Longitude = SafeEnterDouble("Longitude: ");
+                                newCostumer.Id = SysFunc.SafeEnterUInt("Id: ");
+                                newCostumer.Lattitude = SysFunc.SafeEnterDouble("Lattitude: ");
+                                newCostumer.Longitude = SysFunc.SafeEnterDouble("Longitude: ");
                                 Console.Write("Name: ");
                                 newCostumer.Name = Console.ReadLine();
                                 Console.Write("Phone: ");
                                 newCostumer.Phone = Console.ReadLine();
-                                DalObject.AddCostumer(newCostumer);
+                                Console.WriteLine(DalObject.AddCostumer(newCostumer));
                                 break;
                             case (int)Add.Drone:
                                 
                                 Drone DroneItem = new Drone();
-                                DroneItem.Id = SafeEnterUInt("Id: ");
-                                DroneItem.Battery = SafeEnterDouble("Battery: ");
+                                DroneItem.Id = SysFunc.SafeEnterUInt("Id: ");
+                                DroneItem.Battery = SysFunc.SafeEnterDouble("Battery: ");
                                 Console.WriteLine("Maxweight=>please enter a number from the menue : ");
                                 SysFunc.printEnum<WeightCategories>();
-                                DroneItem.MaxWeigth = (WeightCategories)SafeEnterUInt("Maxweight: (Choose from the numbers above:  "); ;
+                                DroneItem.MaxWeigth = (WeightCategories)SysFunc.SafeEnterUInt("Maxweight: (Choose from the numbers above:  "); ;
                                 Console.Write("Model: ");
                                 DroneItem.Modle = Console.ReadLine();
                                 DroneItem.Status = (DroneStatuses)DroneStatuses.Free;
-                                DalObject.AddDrone(DroneItem);
+                                Console.WriteLine(DalObject.AddDrone(DroneItem));
                                 break;
                             case (int)Add.Package:
                           
@@ -98,96 +79,92 @@ namespace ConsoleUI
                                 Console.WriteLine("Priorty=>please enter a number from the menue : ");
                                 SysFunc.printEnum<Priorities>();
                                 Console.WriteLine(EnumHelper.GetDescription<Priorities>((Priorities)enter));
-                                PackageItem.Priority = (Priorities)SafeEnterUInt("enter a number from the numbers above");
+                                PackageItem.Priority = (Priorities)SysFunc.SafeEnterUInt("enter a number from the numbers above");
                                 Console.WriteLine("weight=>please enter a number from the menue : ");
                                 SysFunc.printEnum<WeightCategories>();
-                                PackageItem.Weight = (WeightCategories)SafeEnterUInt("enter a number from the numbers above : "); ;
-                                DalObject.AddParcel(PackageItem);
+                                PackageItem.Weight = (WeightCategories)SysFunc.SafeEnterUInt("enter a number from the numbers above : "); ;
+                                Console.WriteLine(DalObject.AddParcel(PackageItem));
                                 break;
                             case (int)Add.Staion:
                                 Station StaionItem = new Station();
-                                StaionItem.Id = SafeEnterUInt("Id: ");
-                                StaionItem.Name = SafeEnterUInt("Name: ");
-                                StaionItem.Latitude = SafeEnterDouble("Latitude: ");
-                                StaionItem.Longitude = SafeEnterDouble("Longitude: ");
-                                StaionItem.ChargeSlots = SafeEnterUInt("ChargeSlots: ");
-                                DalObject.AddStaion(StaionItem);
+                                StaionItem.Id = SysFunc.SafeEnterUInt("Id: ");
+                                StaionItem.Name = SysFunc.SafeEnterUInt("Name: ");
+                                StaionItem.Latitude = SysFunc.SafeEnterDouble("Latitude: ");
+                                StaionItem.Longitude = SysFunc.SafeEnterDouble("Longitude: ");
+                                StaionItem.ChargeSlots = SysFunc.SafeEnterUInt("ChargeSlots: ");
+                                Console.WriteLine(DalObject.AddStaion(StaionItem));
                                 break;
 
                         }
                         break;
                     case (int)Menu.Details:
+                        /// in all the details i just get a drone id and call the pulldaya method in dalobject and checks if that is not a null 
                         Console.WriteLine("please enter a number from the menue ");
-                        for (int i = 0; i < Enum.GetNames(typeof(Details)).Length; i++)
-                            Console.WriteLine(i.ToString() + ".) " + EnumHelper.GetDescription<Details>((Details)i));
+                        SysFunc.printEnum<Details>();
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(EnumHelper.GetDescription<Details>((Details)enter));
                         switch (enter)
                         {
                             case (int)Details.BaseStaion:
                                 Console.WriteLine("enter Station Id please : ");
-                                enter = SafeEnterUInt();
+                                enter = SysFunc.SafeEnterUInt();
                                 Console.WriteLine((DalObject.PullDataStaion(enter).Equals(null) ? "No Object found with that ID please try again sir" : DalObject.PullDataStaion(enter)));
                                 break;
                             case (int)Details.Costumer:
                                 Console.WriteLine("enter Costumer Id please : ");
-                                enter = SafeEnterUInt();
+                                enter = SysFunc.SafeEnterUInt();
                                 Console.WriteLine((DalObject.PullDataCostumer(enter).Equals(null) ? "No Object found with that ID please try again sir" : DalObject.PullDataCostumer(enter)));
                                 break;
                             case (int)Details.Drone:
                                 Console.WriteLine("enter Drone Id please : ");
-                                enter = SafeEnterUInt();
+                                enter = SysFunc.SafeEnterUInt();
                                 Console.WriteLine((DalObject.PullDataDrone(enter).Equals(null) ? "No Object found with that ID please try again sir" : DalObject.PullDataDrone(enter)));
                                 break;
                             case (int)Details.Package:
                                 Console.WriteLine("enter Parcel Id please : ");
-                                enter = SafeEnterUInt();
+                                enter = SysFunc.SafeEnterUInt();
                                 Console.WriteLine((DalObject.PullDataParcel(enter).Equals(null) ? "No Object found with that ID please try again sir" : DalObject.PullDataParcel(enter)));
                                 break;
 
                         }
                         break;
                     case (int)Menu.Update:
+                        ///just calling the dalobject methods 
                         Console.WriteLine("please enter a number from the menue ");
-                        for (int i = 0; i < Enum.GetNames(typeof(Update)).Length; i++)
-                            Console.WriteLine(i.ToString() + ".) " + EnumHelper.GetDescription<Update>((Update)i));
+                        SysFunc.printEnum<Update>();
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(EnumHelper.GetDescription<Update>((Update)enter));
                         switch (enter)
                         {
                             case (int)Update.PackgeandDrone:
-                                DalObject.BindParcelToDrone(SafeEnterUInt("Parcel Id"), SafeEnterUInt("Target Id"), SafeEnterUInt("Sender Id"));
+                                DalObject.BindParcelToDrone(SysFunc.SafeEnterUInt("enter drone id: "),SysFunc.SafeEnterUInt("Parcel Id: "), SysFunc.SafeEnterUInt("Target Id: "), SysFunc.SafeEnterUInt("Sender Id: "));
                                 Console.WriteLine("First valid drone will serve you sir ");
                                 break;
 
                             case (int)Update.PackgeTakeDrone:
-                                DalObject.PickUpByDrone(SafeEnterUInt("enter the Id of the package you wnat to pickup"));
-
-
-
-
+                                DalObject.PickUpByDrone(SysFunc.SafeEnterUInt("enter the Id of the package you want to pickup: "));
                                 break;
                             case (int)Update.PackgeTakeCostumer:
                                 Console.WriteLine("Enter the package  ID please : ");
-                                DalObject.ParcelDeliveredToCostumer(SafeEnterUInt());
+                                DalObject.ParcelDeliveredToCostumer(SysFunc.SafeEnterUInt());
 
                                 break;
                             case (int)Update.DroneSendCharge:
                                 Console.WriteLine("Enter the Drone  ID and then Station  ID please : ");
-                                DalObject.DroneCharge(SafeEnterUInt(), SafeEnterUInt());
+                                DalObject.DroneCharge(SysFunc.SafeEnterUInt(), SysFunc.SafeEnterUInt());
 
                                 break;
                             case (int)Update.DroneRelease:
                                 Console.WriteLine("Enter the Drone ID please : ");
-                                DalObject.DroneChargeRealse(SafeEnterUInt());
+                                DalObject.DroneChargeRealse(SysFunc.SafeEnterUInt());
                                 break;
 
                         }
                         break;
                     case (int)Menu.ListShow:
+                        /// get the list from daloject method anmd use sysfunc function to print it 
                         Console.WriteLine("please enter a number from the menue ");
-                        for (int i = 0; i < Enum.GetNames(typeof(ListShow)).Length; i++)
-                            Console.WriteLine(i.ToString() + ".) " + EnumHelper.GetDescription<ListShow>((ListShow)i));
+                        SysFunc.printEnum<ListShow>();
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(EnumHelper.GetDescription<ListShow>((ListShow)enter));
                         switch (enter)
@@ -229,3 +206,27 @@ namespace ConsoleUI
         }
     }
 }
+/*
+ 
+ 
+ 
+ EEEEEEEEEEEEEEEEEEEEEENNNNNNNN        NNNNNNNNDDDDDDDDDDDDD
+E::::::::::::::::::::EN:::::::N       N::::::ND::::::::::::DDD
+E::::::::::::::::::::EN::::::::N      N::::::ND:::::::::::::::DD
+EE::::::EEEEEEEEE::::EN:::::::::N     N::::::NDDD:::::DDDDD:::::D
+  E:::::E       EEEEEEN::::::::::N    N::::::N  D:::::D    D:::::D
+  E:::::E             N:::::::::::N   N::::::N  D:::::D     D:::::D
+  E::::::EEEEEEEEEE   N:::::::N::::N  N::::::N  D:::::D     D:::::D
+  E:::::::::::::::E   N::::::N N::::N N::::::N  D:::::D     D:::::D
+  E:::::::::::::::E   N::::::N  N::::N:::::::N  D:::::D     D:::::D
+  E::::::EEEEEEEEEE   N::::::N   N:::::::::::N  D:::::D     D:::::D
+  E:::::E             N::::::N    N::::::::::N  D:::::D     D:::::D
+  E:::::E       EEEEEEN::::::N     N:::::::::N  D:::::D    D:::::D
+EE::::::EEEEEEEE:::::EN::::::N      N::::::::NDDD:::::DDDDD:::::D
+E::::::::::::::::::::EN::::::N       N:::::::ND:::::::::::::::DD
+E::::::::::::::::::::EN::::::N        N::::::ND::::::::::::DDD
+EEEEEEEEEEEEEEEEEEEEEENNNNNNNN         NNNNNNNDDDDDDDDDDDDD
+
+
+
+ */
