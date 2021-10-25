@@ -17,8 +17,6 @@ namespace IDAL
             Medium,
             [Description("heavy weight  ")]
             Heavy,
-
-
         };
         public   enum DroneStatuses
         {
@@ -28,10 +26,6 @@ namespace IDAL
             Delivery,
             [Description("Drone need Matance  ")]
             Matance ,
-         
-
-
-
         };
         public enum Priorities 
         {
@@ -42,9 +36,8 @@ namespace IDAL
             [Description("Emergency delivery ")]
             Emergency 
             ,
-             
-        
         }
+        // the Main Menu options
         public enum Menu
         {
             [Description("Add")]
@@ -61,9 +54,10 @@ namespace IDAL
 
 
         }
+        // the options of the option Add (Add from the main menu)
         public enum Add { 
         
-            [Description("Add Staion for the Staions List")]
+            [Description("Add Station for the Staions List")]
             Staion ,
             [Description("Add Drone to the Drone List ")]
             Drone,
@@ -71,10 +65,8 @@ namespace IDAL
             Costumer ,
             [Description("Add Package")]
             Package, 
-
-
-
-    }
+        }
+        // the options of the option Update (Update from the main menu)
         public enum Update 
         {
 
@@ -91,6 +83,7 @@ namespace IDAL
 
 
         }
+        // the options of the option Details (Details from the main menu)
         public enum Details
         {
             [Description("Show status and details of basestaion ")]
@@ -102,6 +95,7 @@ namespace IDAL
             [Description("Show status and details of Package ")]
             Package,
         }
+        // the options of the option ListShow (ListShow from the main menu)
         public enum ListShow
         {
             [Description("Show lists of Base Staions")]
@@ -116,15 +110,6 @@ namespace IDAL
             PackagesWithoutDrones,
             [Description("Show lists of of Base Staions with free charge ports ")]
             BaseStaionsFreePorts,
-
-
-
-
-
         }
-    
-    
     }
- 
-
 }

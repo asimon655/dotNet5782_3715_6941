@@ -27,10 +27,13 @@ namespace DAL
     {
         public static class EnumHelper
         {
-  
+            // this method returns the description of a specific enum value
+            // (the description is filled in the Enums.cs file
+            // Usage : DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Menu>(IDAL.DO.Menu.Add)
             public static string GetDescription<T>(this T enumValue)
                 where T : struct, IConvertible
             {
+                // checking if T is infact an enum
                 if (!typeof(T).IsEnum)
                     return null;
 
@@ -52,14 +55,13 @@ namespace DAL
 
         class DataSource
         {
-
             internal static Random RandomGen = new Random();
 
             internal static Drone[] Drones = new Drone[10];
             internal static Costumer[] Costumers = new Costumer[100];
-            internal static Staion[] Staions = new Staion[5];
-            internal static Parcel[] Parcels = new Parcel[1000];
-            //until here arrady var declartion 
+            internal static Station[] Staions = new Station[5];
+            internal static IDAL.DO.Parcel[] Parcels = new IDAL.DO.Parcel[1000];
+            //until here array var declartion 
             internal class Config
             {
 
@@ -77,13 +79,26 @@ namespace DAL
                     StaionsFirst = 2;
                     ParcelFirst = 10;
                     for (int i = 0; i < 2; i++)
-                        Staions[i] = new Staion { Id = RandomGen.Next(100000000, 999999999), ChargeSlots = RandomGen.Next(0, 1000), Name = i, Latitude = RandomGen.NextDouble() * 45, Longitude = RandomGen.NextDouble() * 45 };
+                        Staions[i] = new Station {  Id = RandomGen.Next(100000000, 999999999),
+                                                    ChargeSlots = RandomGen.Next(0, 1000),
+                                                    Name = i, Latitude = RandomGen.NextDouble() * 45,
+                                                    Longitude = RandomGen.NextDouble() * 45 };
                     for (int i = 0; i < 10; i++)
-                        Costumers[i] = new Costumer { Id = RandomGen.Next(100000000, 999999999), Name = "Lev Cliet No." + i.ToString(), Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(), Lattitude = RandomGen.NextDouble() * 45, Longitude = RandomGen.NextDouble() * 45 };
+                        Costumers[i] = new Costumer { Id = RandomGen.Next(100000000, 999999999),
+                                                      Name = "Lev Cliet No." + i.ToString(),
+                                                      Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(),
+                                                      Lattitude = RandomGen.NextDouble() * 45,
+                                                      Longitude = RandomGen.NextDouble() * 45  };
                     for (int i = 0; i < 5; i++)
-                        Drones[i] = new Drone { Battery = RandomGen.NextDouble() * 100, id = RandomGen.Next(100000000, 999999999), Modle = " V-Coptr Falcon", Status = DroneStatuses.Free, MaxWeigth = (WeightCategories)RandomGen.Next(0, 2) };
+                        Drones[i] = new Drone { Battery = RandomGen.NextDouble() * 100,
+                                                Id = RandomGen.Next(100000000, 999999999),
+                                                Modle = " V-Coptr Falcon",
+                                                Status = (DroneStatuses)RandomGen.Next(0, 1),
+                                                MaxWeigth = (WeightCategories)RandomGen.Next(0, 2) };
                     for (int i = 0; i < 10; i++)
-                        Parcels[i] = new Parcel { Id = idcreation++, Priority = (Priorities)RandomGen.Next(0, 2), Weight = (WeightCategories)RandomGen.Next(0, 2) };
+                        Parcels[i] = new Parcel { Id = idcreation++,
+                                                  Priority = (Priorities)RandomGen.Next(0, 2),
+                                                  Weight = (WeightCategories)RandomGen.Next(0, 2) };
                 }
 
 
@@ -95,127 +110,108 @@ namespace DAL
             static public void DroneCharge(int id)
             {
                 for (int i = 0; i < DAL.DalObject.DataSource.Drones.Length; i++)
-                    if (DAL.DalObject.DataSource.Drones[i].id == id)
+                {
+                    if (DAL.DalObject.DataSource.Drones[i].Id == id)
                     {
-                        if (DAL.DalObject.DataSource.Drones[i].Status == DroneStatuses.Matance)
-                            Console.WriteLine("Drone is already in charge ");
-                        else
+                        switch (DAL.DalObject.DataSource.Drones[i].Status)
                         {
-                            if (DAL.DalObject.DataSource.Drones[i].Status == DroneStatuses.Delivery)
+                            case DroneStatuses.Matance:
+                                Console.WriteLine("Drone is already in charge ");
+                                break;
+                            case DroneStatuses.Delivery:
                                 Console.WriteLine("Drone is bussy at the momment in dilvery ");
-                            else
-                            {
+                                break;
+                            case DroneStatuses.Free:
                                 DAL.DalObject.DataSource.Drones[i].Status = DroneStatuses.Matance;
                                 DAL.DalObject.DataSource.Drones[i].Battery = 100;
-
-                            }
+                                break;
                         }
-
-
-                     }
-
-
-
+                    }
+                }
             }
             static public void DroneChargeRealse(int id)
             {
                 for (int i = 0; i < DAL.DalObject.DataSource.Drones.Length; i++)
-                    if (DAL.DalObject.DataSource.Drones[i].id == id)
+                {
+                    if (DAL.DalObject.DataSource.Drones[i].Id == id)
                     {
-                        if (DAL.DalObject.DataSource.Drones[i].Status == DroneStatuses.Free)
-                            Console.WriteLine("Drone is not in charge ");
-                        else
+                        switch (DAL.DalObject.DataSource.Drones[i].Status)
                         {
-                            if (DAL.DalObject.DataSource.Drones[i].Status == DroneStatuses.Delivery)
+                            case DroneStatuses.Free:
+                                Console.WriteLine("Drone is not in charge ");
+                                break;
+                            case DroneStatuses.Delivery:
                                 Console.WriteLine("Drone is bussy at the momment in dilvery ");
-                            else
-                            {
+                                break;
+                            case DroneStatuses.Matance:
                                 DAL.DalObject.DataSource.Drones[i].Status = DroneStatuses.Free;
-      
-
-                            }
+                                break;
                         }
-
-
                     }
-
-
-
+                }
             }
             static public void PickUpByDrone(int ParceLId)
             {
                 for (int i = 0; i < DAL.DalObject.DataSource.Parcels.Length; i++)
                 {
-
-
                     if (DAL.DalObject.DataSource.Parcels[i].Id == ParceLId)
+                    {
                         for (int j = 0; j < DAL.DalObject.DataSource.Drones.Length; j++)
-                            if (DAL.DalObject.DataSource.Drones[j].id == DAL.DalObject.DataSource.Parcels[i].DroneId)
+                        {
+                            if (DAL.DalObject.DataSource.Drones[j].Id == DAL.DalObject.DataSource.Parcels[i].DroneId)
                             {
                                 DataSource.Drones[j].Status = DroneStatuses.Delivery;
                                 DAL.DalObject.DataSource.Parcels[i].PickedUp = DateTime.Now;
                             }
-
-
-
-
-
+                        }
+                    }
                 }
-
-
             }
 
             static public void ParcelDeliveredToCostumer(int ParcelId)
             {
                 for (int i = 0; i < DAL.DalObject.DataSource.Parcels.Length; i++)
+                {
                     if (DAL.DalObject.DataSource.Parcels[i].Id == ParcelId)
                     {
                         DAL.DalObject.DataSource.Parcels[i].Delivered = DateTime.Now;
                         for (int j = 0; i < DAL.DalObject.DataSource.Drones.Length; j++)
-                            if (DAL.DalObject.DataSource.Drones[j].id == DAL.DalObject.DataSource.Parcels[i].Id)
+                        {
+                            if (DAL.DalObject.DataSource.Drones[j].Id == DAL.DalObject.DataSource.Parcels[i].Id)
                             {
                                 DAL.DalObject.DataSource.Drones[j].Status = DroneStatuses.Free;
-
-
                             }
+                        }
                     }
-
-
-
-
-
-
+                }
             }
-
+            // constractor calls Initalize
             static DalObject()
             {
                 DataSource.Config.Initalize();
             }
+
             static public void AddDrone(Drone cloned)
             {
-
-                cloned.id = DataSource.RandomGen.Next(100000000, 999999999);
+                cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
                 DataSource.Drones[DataSource.Config.DronesFirst++] = cloned;
-
-
             }
-            static public void AddParcel(Parcel cloned)
+
+            static public void AddParcel(IDAL.DO.Parcel cloned)
             {
                 DataSource.Parcels[DataSource.Config.ParcelFirst++] = cloned;
-
             }
+
             static public void AddCostumer(Costumer cloned)
             {
                 cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
                 DataSource.Costumers[DataSource.Config.CostumerFirst++] = cloned;
-
             }
-            static public void AddStaion(Staion cloned)
+
+            static public void AddStaion(Station cloned)
             {
                 cloned.Id = DataSource.RandomGen.Next(100000000, 999999999);
                 DataSource.Staions[DataSource.Config.StaionsFirst++] = cloned;
-
-
             }
 
             static public void UpdateData()
@@ -224,20 +220,23 @@ namespace DAL
 
 
             }
+
             static public Drone? PullDataDrone(int _id)
             {
                 foreach (Drone item in DataSource.Drones)
-                    if (item.id == _id)
-                        return item;
-                return null;
-            }
-            static public Parcel? PullDataParcel(int _id)
-            {
-                foreach (Parcel item in DataSource.Parcels)
                     if (item.Id == _id)
                         return item;
                 return null;
             }
+
+            static public IDAL.DO.Parcel? PullDataParcel(int _id)
+            {
+                foreach (IDAL.DO.Parcel item in DataSource.Parcels)
+                    if (item.Id == _id)
+                        return item;
+                return null;
+            }
+
             static public Costumer? PullDataCostumer(int _id)
             {
                 foreach (Costumer item in DataSource.Costumers)
@@ -245,18 +244,19 @@ namespace DAL
                         return item;
                 return null;
             }
-            static public Staion? PullDataStaion(int _id)
+            static public Station? PullDataStaion(int _id)
             {
-                foreach (Staion item in DataSource.Staions)
+                foreach (Station item in DataSource.Staions)
                     if (item.Id == _id)
                         return item;
                 return null;
             }
+
             static public void StaionsPrint()
             {
-                foreach (Staion item in DAL.DalObject.DataSource.Staions)
+                foreach (Station item in DAL.DalObject.DataSource.Staions)
                 {
-                    if (!(item.Equals(default(Staion))))
+                    if (!(item.Equals(default(Station))))
                         Console.WriteLine(item);
                 }
 
@@ -269,31 +269,26 @@ namespace DAL
                     if (!(item.Equals(default(Drone))))
                         Console.WriteLine(item);
                 }
-
-
             }
-
 
             static public void ParcelsPrint()
             {
-                foreach (Parcel item in DAL.DalObject.DataSource.Parcels)
+                foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
                 {
-                    if (!(item.Equals(default(Parcel))))
+                    if (!(item.Equals(default(IDAL.DO.Parcel))))
                         Console.WriteLine(item);
                 }
-
-
             }
+
             static public void ParcelsWithotDronesPrint()
             {
-                foreach (Parcel item in DAL.DalObject.DataSource.Parcels)
+                foreach (IDAL.DO.Parcel item in DAL.DalObject.DataSource.Parcels)
                 {
-                    if (!(item.Equals(default(Parcel))) && item.DroneId == default(Parcel).Id)
+                    if (!(item.Equals(default(IDAL.DO.Parcel))) && item.DroneId == default(IDAL.DO.Parcel).Id)
                         Console.WriteLine(item);
                 }
-
-
             }
+
             static public void CostumersPrint()
             {
                 foreach (Costumer item in DAL.DalObject.DataSource.Costumers)
@@ -301,18 +296,15 @@ namespace DAL
                     if (!(item.Equals(default(Costumer))))
                         Console.WriteLine(item);
                 }
-
-
             }
+
             static public void BindParcelToDrone(int ParcelId, int CostumerIdT, int CostumerIdS)
             {
-                Parcel? tmp = DAL.DalObject.DalObject.PullDataParcel(ParcelId);
+                IDAL.DO.Parcel? tmp = DAL.DalObject.DalObject.PullDataParcel(ParcelId);
                 if (tmp.Equals(null))
                     Console.WriteLine("Parcel didn't found ");
                 else
                 {
-
-
                     Costumer? tmp3 = DAL.DalObject.DalObject.PullDataCostumer(CostumerIdT);
                     if (tmp3.Equals(null))
                         Console.WriteLine("Target didnt found");
@@ -324,33 +316,24 @@ namespace DAL
                         else
                         {
                             for (int i = 0; i < DAL.DalObject.DataSource.Parcels.Length; i++)
+                            {
                                 if (DAL.DalObject.DataSource.Parcels[i].Id == ParcelId)
                                 {
                                     DAL.DalObject.DataSource.Parcels[i].TargetId = CostumerIdT;
                                     DAL.DalObject.DataSource.Parcels[i].SenderId = CostumerIdS;
                                     for (int j = 0; j < DAL.DalObject.DataSource.Drones.Length; j++)
                                         if (DAL.DalObject.DataSource.Drones[j].Status == DroneStatuses.Free && (int)DAL.DalObject.DataSource.Drones[j].MaxWeigth >= (int)DAL.DalObject.DataSource.Parcels[i].Weight)
-
-                                            DAL.DalObject.DataSource.Parcels[i].Id = DAL.DalObject.DataSource.Drones[j].id;
-
-
-
+                                            DAL.DalObject.DataSource.Parcels[i].Id = DAL.DalObject.DataSource.Drones[j].Id;
 
                                     DAL.DalObject.DataSource.Parcels[i].Schedulded = DateTime.Now;
 
                                     Console.WriteLine("Object of Parcel binded to Object of Drone succefuly ");
                                 }
-
+                            }
                         }
                     }
-
-
                 }
-
-
             }
-
         }
-
     }
 }
