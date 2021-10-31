@@ -108,7 +108,7 @@ namespace ConsoleUI
                             case (int)Details.BaseStaion:
                                 Console.WriteLine("enter Station Id please : ");
                                 enter = SysFunc.SafeEnterUInt();
-                                Console.WriteLine((DalObject.PullDataStaion(enter).Equals(null) ? "No Object found with that ID please try again sir" : DalObject.PullDataStaion(enter)));
+                                Console.WriteLine((DalObject.PullDataStation(enter).Equals(null) ? "No Object found with that ID please try again sir" : DalObject.PullDataStation(enter)));
                                 break;
                             case (int)Details.Costumer:
                                 Console.WriteLine("enter Costumer Id please : ");
@@ -191,7 +191,8 @@ namespace ConsoleUI
                                 break;
                             case (int)ListShow.PackagesWithoutDrones:
                                 Console.WriteLine("Printing ... ");
-                               SysFunc.printList<Parcel>( DalObject.ParcelsWithotDronesPrint());
+                               SysFunc.printList<Parcel>( DalObject.ParcelsWithoutDronesPrint());
+                                
                                 break;
 
                         }

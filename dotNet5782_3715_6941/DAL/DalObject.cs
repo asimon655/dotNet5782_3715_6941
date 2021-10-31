@@ -61,10 +61,10 @@ namespace DAL
         {
             internal static Random RandomGen = new Random();
 
-            internal static Drone[] Drones = new Drone[10];
-            internal static Costumer[] Costumers = new Costumer[100];
-            internal static Station[] Staions = new Station[5];
-            internal static Parcel[] Parcels = new Parcel[1000];
+            internal static List<Drone> Drones = new List<Drone>();
+            internal static List<Costumer> Costumers = new List<Costumer>();
+            internal static List<Station> Stations = new List<Station>();
+            internal static List<Parcel> Parcels = new List<Parcel>();
             internal const  int ParcelMaxSize = 100; /// const object is always a static object 
             internal const int CostumerMaxSize = 100; /// const object is always a static object 
             internal const int DroneMaxSize = 10; /// const object is always a static object 
@@ -73,20 +73,12 @@ namespace DAL
             //until here array var declartion 
             internal class Config
             {
-               
-                static internal int DronesFirst = 0;
-                static internal int CostumerFirst = 0;
-                static internal int StaionsFirst = 0;
-                static internal int ParcelFirst = 0;
-                static internal int IdCreation = 0; 
+                static internal int IdCreation = 0;
 
                 static internal void Initalize()
                 {
                     //all the data is realistic - phone number have 10 digits  and id have 9 digits  
-                    CostumerFirst = 10;
-                    DronesFirst = 5;
-                    StaionsFirst = 2;
-                    ParcelFirst = 10;
+
                     /// constant for loop limit - right programing rules 
                     const int StationInit = 2;
                     const int DroneInit = 5;
@@ -94,32 +86,32 @@ namespace DAL
                     const int CostumerInit = 10;
                     
                     for (int i = 0; i < StationInit; i++)
-                        Staions[i] = new Station
+                        Stations.Add (new Station
                         {
                             Id = RandomGen.Next(100000000, 999999999),
                             ChargeSlots = RandomGen.Next(0, 1000),
                             Name = i,
                             Latitude = RandomGen.NextDouble() * 45,
                             Longitude = RandomGen.NextDouble() * 45,
-                        };
+                        });
                     for (int i = 0; i < CostumerInit; i++)
-                        Costumers[i] = new Costumer
+                        Costumers.Add( new Costumer
                         {
                             Id = RandomGen.Next(100000000, 999999999),
                             Name = "Lev Cliet No." + i.ToString(),
                             Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(),
                             Lattitude = RandomGen.NextDouble() * 45,
                             Longitude = RandomGen.NextDouble() * 45
-                        };
+                        });
                     for (int i = 0; i < DroneInit; i++)
-                        Drones[i] = new Drone
+                        Drones.Add( new Drone
                         {
                             Battery = RandomGen.NextDouble() * 100,
                             Id = RandomGen.Next(100000000, 999999999),
                             Modle = " V-Coptr Falcon",
                             Status = (DroneStatuses)RandomGen.Next(0, 1),
                             MaxWeigth = (WeightCategories)RandomGen.Next(0, 2)
-                        };
+                        });
                     for (int i = 0; i < ParcelInit; i++)
                     {
                         DateTime scheduledtmp = new DateTime(1995, 1, 1).AddSeconds(RandomGen.Next(0, 86400)).AddDays(RandomGen.Next((DateTime.Today - new DateTime(1995, 1, 1)).Days));
@@ -130,7 +122,7 @@ namespace DAL
                                                                                                   /// addeed time to the randomed added  time i created before 
                         DateTime pickedup = delivered.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
                                                                                                  /// addeed time to the randomed added  added time i created before 
-                        Parcels[i] = new Parcel
+                        Parcels.Add ( new Parcel
                         {
                             Id = ++IdCreation,
                             Priority = (Priorities)RandomGen.Next(0, 2),
@@ -143,7 +135,7 @@ namespace DAL
                             Schedulded = scheduledtmp,
                             SenderId = RandomGen.Next(100000000, 999999999),
                             TargetId = RandomGen.Next(100000000, 999999999)
-                        };
+                        });
                     } 
                 }
 
@@ -153,10 +145,9 @@ namespace DAL
 
         public class DalObject
         {
-            static private int? CountStationFreeSlots(int id)
+            static private int? CountStationFreeSlots(int  id)
             {
-               
-                Station? tmp = PullDataStaion(id);
+                Station? tmp = PullDataStation(id);
                 ///check if the staion exsist and get it's id . 
                 if (tmp is null)
                     return null;
@@ -171,34 +162,36 @@ namespace DAL
 
             static public void DroneCharge(int DroneId, int StationId) ///code that auto find free staion - after we wrote it yair said it is not neccary 
             {
-                for (int i = 0; i < DAL.DalObject.DataSource.Drones.Length; i++)
-                {
-                    if (DAL.DalObject.DataSource.Drones[i].Id == DroneId)
-                    {
-                        switch (DAL.DalObject.DataSource.Drones[i].Status)
-                        {
-                            case DroneStatuses.Matance:
-                                Console.WriteLine("Drone is already in charge ");
-                                break;
-                            case DroneStatuses.Delivery:
-                                Console.WriteLine("Drone is bussy at the momment in dilvery ");
-                                break;
-                            case DroneStatuses.Free:
-                                // checking if the station exsits and has free slots
-                                int? freeCount = CountStationFreeSlots(StationId);
-                                if (freeCount is null)
-                                    throw new Exception("there arent ay free charging slots or the station dosnt exsits");
+                int drone_i = DataSource.Drones.FindIndex(item => item.Id == DroneId);
+                if (drone_i == -1)
+                    throw new Exception("the Drone Id is invalid");
 
-                                DAL.DalObject.DataSource.Drones[i].Status = DroneStatuses.Matance;
-                                DAL.DalObject.DataSource.Drones[i].Battery = 100;
-                                DAL.DalObject.DataSource.DronesCharges.Add(
-                                                                        new DroneCharge {
-                                                                              DroneId= DAL.DalObject.DataSource.Drones[i].Id,
-                                                                              StaionId= StationId
-                                                                        });
-                                break;
-                        }
-                    }
+                switch (DAL.DalObject.DataSource.Drones[drone_i].Status)
+                {
+                    case DroneStatuses.Matance:
+                        throw new Exception("Drone is already in charge ");
+                        break;
+                    case DroneStatuses.Delivery:
+                        throw new Exception("Drone is bussy at the momment in dilvery ");
+                        break;
+                    case DroneStatuses.Free:
+                        // checking if the station exsits and has free slots
+                        int? freeCount = CountStationFreeSlots(StationId);
+                        if (freeCount is null)
+                            throw new Exception("the station dosnt exsits");
+                        if (freeCount == 0)
+                            throw new Exception("there arent any left charging slots");
+
+                        Drone drone = DataSource.Drones[drone_i];
+                        drone.Status = DroneStatuses.Matance;
+                        drone.Battery = 100;
+                        DataSource.Drones[drone_i] = drone;
+
+                        DataSource.DronesCharges.Add(new DroneCharge {
+                                                        DroneId= DAL.DalObject.DataSource.Drones[drone_i].Id,
+                                                        StaionId= StationId
+                                                     });
+                        break;
                 }
             }
             static public void DroneChargeRealse(int id) /// realse drone fromthe staion and change his status to free 
@@ -271,54 +264,46 @@ namespace DAL
             ///  all the adds checks if the space and if there is add the item to the array and return scuceed and if not return failed 
             /// </summary>
       
-            static public  String AddDrone(Drone cloned)
+            static public void AddDrone(Drone cloned)
             {
-                if (DataSource.Config.DronesFirst++ < DataSource.DroneMaxSize)
-                {
-                    DataSource.Drones[DataSource.Config.DronesFirst++] = cloned;
-                    return " scuceed"; 
-                    
-                }
-                return "Failed there is no Space in the array ";
-          
+                Drone? exists = PullDataDrone(cloned.Id);
 
+                if (exists is null)
+                {
+                    throw new Exception("the Id Drone is already taken");
+                }
+
+                DataSource.Drones.Add(cloned);
             }
 
-            static public string  AddParcel(IDAL.DO.Parcel cloned)
+            static public void AddParcel(Parcel cloned)
             {
-                cloned.Id =++DataSource.Config.IdCreation;
-                if (DataSource.Config.ParcelFirst++ < DataSource.ParcelMaxSize)
-                {
-                    DataSource.Parcels[DataSource.Config.ParcelFirst++] = cloned;
-                    return " scuceed";
-
-                }
-                return "Failed there is no Space in the array ";
+                cloned.Id = ++DataSource.Config.IdCreation;
+                DataSource.Parcels.Add(cloned);
             }
 
-            static public string  AddCostumer(Costumer cloned)
+            static public void AddCostumer(Costumer cloned)
             {
+                Costumer? exists = PullDataCostumer(cloned.Id);
 
-                if (DataSource.Config.CostumerFirst++ < DataSource.CostumerMaxSize)
+                if (exists is null)
                 {
-                    DataSource.Costumers[DataSource.Config.CostumerFirst++] = cloned;
-                    return " scuceed";
-
+                    throw new Exception("the Id Costumer is already taken");
                 }
-                return "Failed there is no Space in the array ";
 
+                DataSource.Costumers.Add(cloned);
             }
 
-            static public string  AddStaion(Station cloned)
+            static public void AddStaion(Station cloned)
             {
+                Station? exists = PullDataStation(cloned.Id);
 
-                if (DataSource.Config.StaionsFirst++ < DataSource.StaiomMaxSize)
+                if (exists is null)
                 {
-                    DataSource.Staions[DataSource.Config.StaionsFirst++] = cloned;
-                    return " scuceed";
-
+                    throw new Exception("the Id Costumer is already taken");
                 }
-                return "Failed there is no Space in the array ";
+
+                DataSource.Stations.Add(cloned);
             }
 
             /// <summary>
@@ -328,85 +313,67 @@ namespace DAL
 
             static public Drone? PullDataDrone(int _id)
             {
-                foreach (Drone item in DataSource.Drones)
-                    if (item.Id == _id)
-                        return item;
-                return null;
+                Drone drone = DataSource.Drones.Find(s => s.Id == _id);
+                /// if the Drone wasnt found return null
+                if (drone.Id != _id)
+                    return null;
+                return drone;
             }
-
-            static public IDAL.DO.Parcel? PullDataParcel(int _id)
+            static public Parcel? PullDataParcel(int _id)
             {
-                foreach (IDAL.DO.Parcel item in DataSource.Parcels)
-                    if (item.Id == _id)
-                        return item;
-                return null;
+                Parcel parcel = DataSource.Parcels.Find(s => s.Id == _id);
+                /// if the Parcel wasnt found return null
+                if (parcel.Id != _id)
+                    return null;
+                return parcel;
             }
-   
-
             static public Costumer? PullDataCostumer(int _id)
             {
-                foreach (Costumer item in DataSource.Costumers)
-                    if (item.Id == _id)
-                        return item;
-                return null;
+                Costumer costumer = DataSource.Costumers.Find(s => s.Id == _id);
+                /// if the Costumer wasnt found return null
+                if (costumer.Id != _id)
+                    return null;
+                return costumer;
             }
-            static public Station? PullDataStaion(int _id)
+            static public Station? PullDataStation(int _id)
             {
-                foreach (Station item in DataSource.Staions)
-                    if (item.Id == _id)
-                        return item;
-                return null;
+                Station station = DataSource.Stations.Find(s => s.Id == _id);
+                /// if the Station wasnt found return null
+                if (station.Id != _id)
+                    return null;
+                return station;
             }
 
-            static public Station [] StaionsPrint()
+            static public List<Station> StaionsPrint()
             {
-                return DAL.DalObject.DataSource.Staions;
-
-
+                return DAL.DalObject.DataSource.Stations;
             }
-            static public Drone[] DronesPrint()
+            static public List<Drone> DronesPrint()
             {
                 return DAL.DalObject.DataSource.Drones;
-
-
+            }
+            static public List<Costumer> CostumersPrint()
+            {
+                return DAL.DalObject.DataSource.Costumers;
+            }
+            static public List<Parcel> ParcelsPrint()
+            {
+                return DAL.DalObject.DataSource.Parcels;
             }
             /// <summary>
             /// if we need to print the all teh array except the deafults the prints return the whole array else it create a list and puts what we need to print and prints it 
             /// </summary>
  
-            static public List<Parcel>  ParcelsWithotDronesPrint()
+            static public List<Parcel> ParcelsWithoutDronesPrint()
             {
-                List<Parcel> ret = new List<Parcel>();
-                foreach (Parcel item in DAL.DalObject.DataSource.Parcels)
-                    if (!item.Equals(default(Parcel)))
-                    
-                        if (item.DroneId == default(Parcel).DroneId)
-                            ret.Add(item);
-               
-                return ret;
+                return DataSource.Parcels.FindAll(item => item.DroneId == default(Parcel).DroneId);
             }
 
             static public List<Station> BaseStaionsFreePortsPrint()
             {
-               List < Station> ret = new List<Station>();
-                 
-                foreach (Station item in DataSource.Staions)
-                    if (!(item.Equals(default(Station))))
-                        if(CountStationFreeSlots(item.Id) >0 )
-                            ret.Add(item);
-                return ret; 
+                return DataSource.Stations.FindAll(item => CountStationFreeSlots(item.Id) > 0);
             }
 
-            static public Costumer[] CostumersPrint()
-            {
-                return DAL.DalObject.DataSource.Costumers;
-          
-            }
-            static public Parcel[] ParcelsPrint()
-            {
-                return DAL.DalObject.DataSource.Parcels;
-            
-            }
 
             static public String  BindParcelToDrone(int Droneid , int ParcelId, int CostumerIdT, int CostumerIdS)/// BIND parcel to drone and src and dst clients ( peer to peer ) 
             {
