@@ -53,28 +53,28 @@ namespace DAL
 {
     namespace DalObject
     {
-        partial class DalObject
+        partial class DalObject : IDAL.Idal
         {
-            static public void AddCostumer(Costumer cloned)
+            public void AddCostumer(Costumer costumer)
             {
-                Costumer? exists = PullDataCostumer(cloned.Id);
+                Costumer? exists = PullDataCostumer(costumer.Id);
 
                 if (exists is null)
                 {
                     throw new Exception("the Id Costumer is already taken");
                 }
 
-                DataSource.Costumers.Add(cloned);
+                DataSource.Costumers.Add(costumer);
             }
-            static public Costumer? PullDataCostumer(int _id)
+            public Costumer? PullDataCostumer(int id)
             {
-                Costumer costumer = DataSource.Costumers.Find(s => s.Id == _id);
+                Costumer costumer = DataSource.Costumers.Find(s => s.Id == id);
                 /// if the Costumer wasnt found return null
-                if (costumer.Id != _id)
+                if (costumer.Id != id)
                     return null;
                 return costumer;
             }
-            static public IEnumrable<Costumer> CostumersPrint()
+            public IEnumrable<Costumer> CostumersPrint()
             {
                 return DAL.DalObject.DataSource.Costumers;
             }

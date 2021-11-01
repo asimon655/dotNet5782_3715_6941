@@ -55,24 +55,24 @@ namespace IDAL
 }
 namespace DAL
 {
-    namespace DalObject
+    namespace DalObject : IDAL.Idal
     {
         partial class DalObject
         {
-            static public void AddParcel(Parcel cloned)
+            public void AddParcel(Parcel parcel)
             {
-                cloned.Id = ++DataSource.Config.IdCreation;
-                DataSource.Parcels.Add(cloned);
+                parcel.Id = ++DataSource.Config.IdCreation;
+                DataSource.Parcels.Add(parcel);
             }
-            static public Parcel? PullDataParcel(int _id)
+            public Parcel? PullDataParcel(int id)
             {
-                Parcel parcel = DataSource.Parcels.Find(s => s.Id == _id);
+                Parcel parcel = DataSource.Parcels.Find(s => s.Id == id);
                 /// if the Parcel wasnt found return null
-                if (parcel.Id != _id)
+                if (parcel.Id != id)
                     return null;
                 return parcel;
             }
-            static public IEnumrable<Parcel> ParcelsPrint()
+            public IEnumrable<Parcel> ParcelsPrint()
             {
                 return DAL.DalObject.DataSource.Parcels;
             }
