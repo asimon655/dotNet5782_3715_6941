@@ -53,28 +53,28 @@ namespace DAL
 {
     namespace DalObject
     {
-        partial class DataSource
+        partial class DalObject : IDAL.Idal
         {
-            static public void AddStaion(Station cloned)
+            public void AddStaion(Station station)
             {
-                Station? exists = PullDataStation(cloned.Id);
+                Station? exists = PullDataStation(station.Id);
 
                 if (exists is null)
                 {
                     throw new Exception("the Id Costumer is already taken");
                 }
 
-                DataSource.Stations.Add(cloned);
+                DataSource.Stations.Add(station);
             }
-            static public Station? PullDataStation(int _id)
+            public Station? PullDataStation(int id)
             {
-                Station station = DataSource.Stations.Find(s => s.Id == _id);
+                Station station = DataSource.Stations.Find(s => s.Id == id);
                 /// if the Station wasnt found return null
-                if (station.Id != _id)
+                if (station.Id != id)
                     return null;
                 return station;
             }
-            static public IEnumrable<Station> StaionsPrint()
+            public IEnumrable<Station> StaionsPrint()
             {
                 return DAL.DalObject.DataSource.Stations;
             }

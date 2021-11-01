@@ -52,9 +52,9 @@ namespace DAL
 {
     namespace DalObject
     {
-        partial class DataSource
+        partial class DalObject : IDAL.Idal
         {
-            static public void AddDrone(Drone drone)
+            public void AddDrone(Drone drone)
             {
                 Drone? exists = PullDataDrone(drone.Id);
 
@@ -66,7 +66,7 @@ namespace DAL
                 DataSource.Drones.Add(drone);
             }
             
-            static public Drone? PullDataDrone(int id)
+            public Drone? PullDataDrone(int id)
             {
                 Drone drone = DataSource.Drones.Find(s => s.Id == id);
                 /// if the Drone wasnt found return null
@@ -75,7 +75,7 @@ namespace DAL
                 return drone;
             }
             
-            static public IEnumrable<Drone> DronesPrint()
+            public IEnumrable<Drone> DronesPrint()
             {
                 return DAL.DalObject.DataSource.Drones;
             }

@@ -57,7 +57,7 @@ namespace DAL
             
         }
 
-        partial class DataSource
+        class DataSource
         {
             internal static Random RandomGen = new Random();
 
@@ -133,7 +133,7 @@ namespace DAL
             }
         }
 
-        public class DalObject
+        partial public class DalObject : IDAL.Idal
         {
             static public void UpdateParcles(Parcel a)
             {
