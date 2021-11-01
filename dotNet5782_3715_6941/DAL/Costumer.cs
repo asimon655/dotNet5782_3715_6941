@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 /*
 _________ ______            _______
 \__   __/(  __  \ |\     /|(       )
@@ -54,7 +55,9 @@ namespace DAL
     namespace DalObject
     {
         partial class DataSource
+
         {
+
             static public void AddCostumer(Costumer cloned)
             {
                 Costumer? exists = PullDataCostumer(cloned.Id);

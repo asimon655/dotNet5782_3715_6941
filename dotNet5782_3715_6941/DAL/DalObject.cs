@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-
+using System.Reflection;
 using IDAL.DO;
 /*  
  ___ ____  _   _ __  __
@@ -135,6 +135,44 @@ namespace DAL
 
         public class DalObject
         {
+            static public void UpdateParcles(Parcel a)
+            {
+                Update<Parcel>(DataSource.Parcels, a);
+            }
+            static public void UpdateDrones(Drone a)
+            {
+                Update<Drone>(DataSource.Drones, a);
+            }
+            static public void UpdateStaions(Station a)
+            {
+                Update<Station>(DataSource.Stations, a);
+            }
+            static public void UpdateCostumers(Costumer a)
+            {
+                Update<Costumer>(DataSource.Costumers, a);
+
+            }
+            static public void Update<T>(List<T> listy, T updater)
+            {
+
+                int IdObj = (int)(typeof(T).GetProperty("Id").GetValue(updater, null));
+
+                for (int i = 0; i < listy.Count; i++)
+                {
+
+
+                    int IdLst = (int)(typeof(T).GetProperty("Id").GetValue(listy[i], null));
+                    if (IdObj == IdLst)
+                    {
+                        listy[i] = updater;
+
+                        //https://stackify.com/what-is-c-reflection/
+
+                        break;
+                    }
+                }
+
+            }
             static public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
             {
                 String result = "";
