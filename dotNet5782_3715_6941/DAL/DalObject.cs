@@ -165,9 +165,6 @@ namespace DAL
                     if (IdObj == IdLst)
                     {
                         listy[i] = updater;
-
-                        //https://stackify.com/what-is-c-reflection/
-
                         break;
                     }
                 }
