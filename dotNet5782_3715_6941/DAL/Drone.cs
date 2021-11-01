@@ -52,7 +52,7 @@ namespace DAL
 {
     namespace DalObject
     {
-        partial class DataSource
+        partial class DalObject
         {
             static public void AddDrone(Drone drone)
             {

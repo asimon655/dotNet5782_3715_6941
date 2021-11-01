@@ -53,7 +53,7 @@ namespace DAL
 {
     namespace DalObject
     {
-        partial class DataSource
+        partial class DalObject
         {
             static public void AddCostumer(Costumer cloned)
             {

@@ -57,7 +57,7 @@ namespace DAL
 {
     namespace DalObject
     {
-        partial class DataSource
+        partial class DalObject
         {
             static public void AddParcel(Parcel cloned)
             {

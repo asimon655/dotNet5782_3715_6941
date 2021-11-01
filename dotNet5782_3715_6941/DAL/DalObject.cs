@@ -57,7 +57,7 @@ namespace DAL
             
         }
 
-        partial class DataSource
+        class DataSource
         {
             internal static Random RandomGen = new Random();
 
@@ -133,7 +133,7 @@ namespace DAL
             }
         }
 
-        public class DalObject
+        partial public class DalObject
         {
             static public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
             {
