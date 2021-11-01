@@ -33,7 +33,7 @@ namespace IDAL
         /// all the enum names explains the self 
         /// i used description because i can reuse it in the gui and it look like the coolest thing 
         /// </summary>
-       public  enum WeightCategories 
+       public enum WeightCategories 
         {
             [Description("easy weight ")]
             Easy ,
@@ -41,15 +41,6 @@ namespace IDAL
             Medium,
             [Description("heavy weight  ")]
             Heavy,
-        };
-        public   enum DroneStatuses
-        {
-            [Description("free Drone  ")]
-            Free,
-            [Description("Drone is in Delivery ")]
-            Delivery,
-            [Description("Drone need Matance  ")]
-            Matance ,
         };
         public enum Priorities 
         {
@@ -61,7 +52,5 @@ namespace IDAL
             Emergency 
             ,
         }
-        // the Main Menu options
-       
     }
 }

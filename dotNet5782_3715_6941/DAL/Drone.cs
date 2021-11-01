@@ -39,8 +39,6 @@ namespace IDAL
             public int Id { set; get; }
             public String Modle { set; get; }
             public WeightCategories MaxWeigth { set; get; }
-            public DroneStatuses Status { set; get; }
-            public double Battery { set; get; }
 
             public override string ToString()
             {
@@ -48,5 +46,39 @@ namespace IDAL
             }
         }
 
+    }
+}
+namespace DAL
+{
+    namespace DalObject
+    {
+        partial class DataSource
+        {
+            static public void AddDrone(Drone drone)
+            {
+                Drone? exists = PullDataDrone(drone.Id);
+
+                if (exists is null)
+                {
+                    throw new Exception("the Id Drone is already taken");
+                }
+
+                DataSource.Drones.Add(drone);
+            }
+            
+            static public Drone? PullDataDrone(int id)
+            {
+                Drone drone = DataSource.Drones.Find(s => s.Id == id);
+                /// if the Drone wasnt found return null
+                if (drone.Id != id)
+                    return null;
+                return drone;
+            }
+            
+            static public IEnumrable<Drone> DronesPrint()
+            {
+                return DAL.DalObject.DataSource.Drones;
+            }
+        }
     }
 }

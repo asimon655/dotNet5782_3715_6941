@@ -49,3 +49,35 @@ namespace IDAL
 
     }
 }
+namespace DAL
+{
+    namespace DalObject
+    {
+        partial class DataSource
+        {
+            static public void AddStaion(Station cloned)
+            {
+                Station? exists = PullDataStation(cloned.Id);
+
+                if (exists is null)
+                {
+                    throw new Exception("the Id Costumer is already taken");
+                }
+
+                DataSource.Stations.Add(cloned);
+            }
+            static public Station? PullDataStation(int _id)
+            {
+                Station station = DataSource.Stations.Find(s => s.Id == _id);
+                /// if the Station wasnt found return null
+                if (station.Id != _id)
+                    return null;
+                return station;
+            }
+            static public IEnumrable<Station> StaionsPrint()
+            {
+                return DAL.DalObject.DataSource.Stations;
+            }
+        }
+    }
+}

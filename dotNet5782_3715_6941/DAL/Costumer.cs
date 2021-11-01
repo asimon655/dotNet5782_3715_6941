@@ -49,3 +49,35 @@ namespace IDAL
         
     }
 }
+namespace DAL
+{
+    namespace DalObject
+    {
+        partial class DataSource
+        {
+            static public void AddCostumer(Costumer cloned)
+            {
+                Costumer? exists = PullDataCostumer(cloned.Id);
+
+                if (exists is null)
+                {
+                    throw new Exception("the Id Costumer is already taken");
+                }
+
+                DataSource.Costumers.Add(cloned);
+            }
+            static public Costumer? PullDataCostumer(int _id)
+            {
+                Costumer costumer = DataSource.Costumers.Find(s => s.Id == _id);
+                /// if the Costumer wasnt found return null
+                if (costumer.Id != _id)
+                    return null;
+                return costumer;
+            }
+            static public IEnumrable<Costumer> CostumersPrint()
+            {
+                return DAL.DalObject.DataSource.Costumers;
+            }
+        }
+    }
+}
