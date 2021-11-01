@@ -59,7 +59,7 @@ namespace DAL
                             ChargeSlots = RandomGen.Next(0, 1000),
                             Name = i,
                             Latitude = RandomGen.NextDouble() * 45,
-                            Longitude = RandomGen.NextDouble() * 45,
+                            Longitude = RandomGen.NextDouble() * 45
                         );
                     for (int i = 0; i < CostumerInit; i++)
                         Costumers.Add(
@@ -105,7 +105,7 @@ namespace DAL
             }
         }
 
-        partial public class DalObject : IDAL.Idal
+        public partial class DalObject : IDAL.Idal
         {
             public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
             {
