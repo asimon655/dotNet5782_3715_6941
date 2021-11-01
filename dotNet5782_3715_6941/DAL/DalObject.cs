@@ -28,34 +28,6 @@ namespace DAL
 {
     namespace DalObject
     {
-        public static class EnumHelper
-        {
-            // this method returns the description of a specific enum value
-            // (the description is filled in the Enums.cs file
-            // Usage : DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Menu>(IDAL.DO.Menu.Add)
-            public static string GetDescription<T>(this T enumValue)
-                where T : struct, IConvertible
-            {
-                // checking if T is infact an enum
-                if (!typeof(T).IsEnum)
-                    return null;
-
-                var description = enumValue.ToString();
-                var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
-
-                if (fieldInfo != null)
-                {
-                    var attrs = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), true);
-                    if (attrs != null && attrs.Length > 0)
-                    {
-                        description = ((DescriptionAttribute)attrs[0]).Description;
-                    }
-                }
-
-                return description;
-            }
-            
-        }
 
         class DataSource
         {
