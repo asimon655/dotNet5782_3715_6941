@@ -53,3 +53,29 @@ namespace IDAL
         }
     }
 }
+namespace DAL
+{
+    namespace DalObject
+    {
+        partial class DataSource
+        {
+            static public void AddParcel(Parcel cloned)
+            {
+                cloned.Id = ++DataSource.Config.IdCreation;
+                DataSource.Parcels.Add(cloned);
+            }
+            static public Parcel? PullDataParcel(int _id)
+            {
+                Parcel parcel = DataSource.Parcels.Find(s => s.Id == _id);
+                /// if the Parcel wasnt found return null
+                if (parcel.Id != _id)
+                    return null;
+                return parcel;
+            }
+            static public IEnumrable<Parcel> ParcelsPrint()
+            {
+                return DAL.DalObject.DataSource.Parcels;
+            }
+        }
+    }
+}
