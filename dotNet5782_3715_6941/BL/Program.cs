@@ -2,5 +2,9 @@
 
 namespace BL
 {
+    public class Bl
+    { 
     
+    
+    } 
 }
