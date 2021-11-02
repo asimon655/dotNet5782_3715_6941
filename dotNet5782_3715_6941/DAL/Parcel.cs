@@ -77,6 +77,10 @@ namespace DAL
             {
                 return DAL.DalObject.DataSource.Parcels;
             }
+            static public void UpdateParcles(Parcel parcel)
+            {
+                Update<Parcel>(DataSource.Parcels, parcel);
+            }
         }
     }
 }

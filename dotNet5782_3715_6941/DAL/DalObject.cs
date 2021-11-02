@@ -107,23 +107,6 @@ namespace DAL
 
         public partial class DalObject : IDAL.Idal
         {
-            static public void UpdateParcles(Parcel a)
-            {
-                Update<Parcel>(DataSource.Parcels, a);
-            }
-            static public void UpdateDrones(Drone a)
-            {
-                Update<Drone>(DataSource.Drones, a);
-            }
-            static public void UpdateStaions(Station a)
-            {
-                Update<Station>(DataSource.Stations, a);
-            }
-            static public void UpdateCostumers(Costumer a)
-            {
-                Update<Costumer>(DataSource.Costumers, a);
-
-            }
             static public void Update<T>(List<T> listy, T updater)
             {
 

@@ -80,6 +80,10 @@ namespace DAL
             {
                 return DAL.DalObject.DataSource.Drones;
             }
+            static public void UpdateDrones(Drone drone)
+            {
+                Update<Drone>(DataSource.Drones, drone);
+            }
         }
     }
 }

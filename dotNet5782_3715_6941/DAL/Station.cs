@@ -79,6 +79,10 @@ namespace DAL
             {
                 return DAL.DalObject.DataSource.Stations;
             }
+            static public void UpdateStaions(Station station)
+            {
+                Update<Station>(DataSource.Stations, station);
+            }
         }
     }
 }

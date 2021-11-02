@@ -79,6 +79,11 @@ namespace DAL
             {
                 return DAL.DalObject.DataSource.Costumers;
             }
+            static public void UpdateCostumers(Costumer costumer)
+            {
+                Update<Costumer>(DataSource.Costumers, costumer);
+
+            }
         }
     }
 }
