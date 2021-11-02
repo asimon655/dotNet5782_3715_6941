@@ -1,5 +1,5 @@
 image: gitpod/workspace-dotnet-vnc
- 
-vscode:
-  extensions:
-    - muhammad-sammy.csharp
+
+vscoed:
+  extensions:
+    - muhammad-sammy.csharp
