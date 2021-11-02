@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace ConsoleUI_BL
 {
@@ -41,11 +42,40 @@ namespace ConsoleUI_BL
         public static void printEnum<T>() where T : struct, IConvertible //prints all the enum options  of any enum (where T: struct Icon.... promiss that this is doing that )  and kicks out all the deafult things 
         {
             foreach (T i in Enum.GetValues(typeof(T)))
-                Console.WriteLine(Convert.ToUInt32(i).ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<T>((T)i));
+                Console.WriteLine(Convert.ToUInt32(i).ToString() + ".) " + EnumHelper.GetDescription<T>((T)i));
             ///foreach (T i in Enum.GetValues(typeof(T))) return alll the enums that exsist in that enum type 
             ///Convert.ToUInt32(i).ToString() - force convert to int because otherwise it do not work  - that is the most powerull and basic convert 
-            ///DAL.DalObject.EnumHelper.GetDescription<T>((T)i) => my functuion that returns the descrption 
+            ///EnumHelper.GetDescription<T>((T)i) => my functuion that returns the descrption 
 
         }
+
+    }
+    public static class EnumHelper
+    {
+        // this method returns the description of a specific enum value
+        // (the description is filled in the Enums.cs file
+        // Usage : DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.Menu>(IDAL.DO.Menu.Add)
+        public static string GetDescription<T>(this T enumValue)
+            where T : struct, IConvertible
+        {
+            // checking if T is infact an enum
+            if (!typeof(T).IsEnum)
+                return null;
+
+            var description = enumValue.ToString();
+            var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
+
+            if (fieldInfo != null)
+            {
+                var attrs = fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), true);
+                if (attrs != null && attrs.Length > 0)
+                {
+                    description = ((DescriptionAttribute)attrs[0]).Description;
+                }
+            }
+
+            return description;
+        }
+        
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using IDAL.DO;
-using DAL.DalObject;
 using BL; 
 namespace ConsoleUI_BL
 {
@@ -21,7 +19,7 @@ namespace ConsoleUI_BL
                 switch (command)
                 {
                     case (int)Menu.Add:
-                        /// in all the adds i just create dumy struct T and fill it with vals and call the add method in dal object 
+                        /// in all the adds i just create dumy struct and fill it with vals and call the add method in Logistics
                         SysFunc.printEnum<Add>();
                         enter = SysFunc.SafeEnterUInt("please enter a number from the menue ");
                         Console.WriteLine(EnumHelper.GetDescription<Add>((Add)enter));
@@ -113,7 +111,7 @@ namespace ConsoleUI_BL
                         }
                         break;
                     case (int)Menu.Details:
-                        /// in all the details i just get a drone id and call the pulldaya method in dalobject and checks if that is not a null 
+                        /// in all the details i just get a drone id and call the pulldaya method in Logistics and checks if that is not a null 
                         Console.WriteLine("please enter a number from the menue ");
                         SysFunc.printEnum<Details>();
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
@@ -181,7 +179,7 @@ namespace ConsoleUI_BL
                         }
                         break;
                     case (int)Menu.Update:
-                        ///just calling the dalobject methods 
+                        ///just calling the Logistics methods 
                         Console.WriteLine("please enter a number from the menue ");
                         SysFunc.printEnum<Update>();
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
@@ -265,7 +263,7 @@ namespace ConsoleUI_BL
                         }
                         break;
                     case (int)Menu.ListShow:
-                        /// get the list from daloject method anmd use sysfunc function to print it 
+                        /// get the list from Logistics method anmd use sysfunc function to print it 
                         Console.WriteLine("please enter a number from the menue ");
                         SysFunc.printEnum<ListShow>();
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
