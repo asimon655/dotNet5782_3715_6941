@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 using IDAL.DO;
 
@@ -8,19 +9,19 @@ namespace IDAL
     {
         void AddCostumer(Costumer costumer);
         Costumer? PullDataCostumer(int id);
-        IEnumrable<Costumer> CostumersPrint();
+        IEnumerable<Costumer> CostumersPrint();
 
         void AddDrone(Drone drone);
         Drone? PullDataDrone(int id);
-        IEnumrable<Drone> DronesPrint();
+        IEnumerable<Drone> DronesPrint();
 
         void AddStaion(Station station);
         Station? PullDataStation(int id);
-        IEnumrable<Station> StaionsPrint();
+        IEnumerable<Station> StaionsPrint();
 
         void AddParcel(Parcel parcel);
         Parcel? PullDataParcel(int id);
-        IEnumrable<Parcel> ParcelsPrint();
+        IEnumerable<Parcel> ParcelsPrint();
 
         String DecimalToSexagesimal(double Longitude, double Latitude);
     }

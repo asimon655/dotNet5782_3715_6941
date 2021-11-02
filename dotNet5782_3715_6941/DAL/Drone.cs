@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL.DO;
 /*
 _________ ______            _______
 \__   __/(  __  \ |\     /|(       )
@@ -75,7 +76,7 @@ namespace DAL
                 return drone;
             }
             
-            public IEnumrable<Drone> DronesPrint()
+            public IEnumerable<Drone> DronesPrint()
             {
                 return DAL.DalObject.DataSource.Drones;
             }

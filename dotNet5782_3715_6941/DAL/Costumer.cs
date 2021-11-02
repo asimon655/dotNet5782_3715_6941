@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using IDAL.DO;
 /*
 _________ ______            _______
 \__   __/(  __  \ |\     /|(       )
@@ -75,7 +75,7 @@ namespace DAL
                     return null;
                 return costumer;
             }
-            public IEnumrable<Costumer> CostumersPrint()
+            public IEnumerable<Costumer> CostumersPrint()
             {
                 return DAL.DalObject.DataSource.Costumers;
             }

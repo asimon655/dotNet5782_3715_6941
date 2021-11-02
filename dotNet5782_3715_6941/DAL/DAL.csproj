@@ -45,6 +45,7 @@
     <Compile Include="Drone.cs" />
     <Compile Include="DroneCharge.cs" />
     <Compile Include="EnumMenue.cs" />
+    <Compile Include="IDAL.cs" />
     <Compile Include="Parcel.cs" />
     <Compile Include="DalObject.cs" />
     <Compile Include="Enums.cs" />

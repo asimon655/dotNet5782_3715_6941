@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL.DO;
 /*
 _________ ______            _______
 \__   __/(  __  \ |\     /|(       )
@@ -72,7 +73,7 @@ namespace DAL
                     return null;
                 return parcel;
             }
-            public IEnumrable<Parcel> ParcelsPrint()
+            public IEnumerable<Parcel> ParcelsPrint()
             {
                 return DAL.DalObject.DataSource.Parcels;
             }

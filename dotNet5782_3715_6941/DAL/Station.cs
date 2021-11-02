@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL.DO;
 /*
 _________ ______            _______
 \__   __/(  __  \ |\     /|(       )
@@ -74,7 +75,7 @@ namespace DAL
                     return null;
                 return station;
             }
-            public IEnumrable<Station> StaionsPrint()
+            public IEnumerable<Station> StaionsPrint()
             {
                 return DAL.DalObject.DataSource.Stations;
             }
