@@ -2,7 +2,7 @@
 
 namespace BL
 {
-    public class Bl
+    public class Bl : IBL.Ibl
     { 
     
     
