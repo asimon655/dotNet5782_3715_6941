@@ -31,7 +31,7 @@ namespace ConsoleUI_BL
         /// <summary>
         /// Console inp / out funcs - i used it because yair landed on me and simon that command 
         /// </summary>
-        public static void printList<T>(List<T> list)//prints listof something and kicks out all the deafult things 
+        public static void printList<T>(IEnumerable<T> list)//prints listof something and kicks out all the deafult things 
         {
 
             foreach (T item in list)
