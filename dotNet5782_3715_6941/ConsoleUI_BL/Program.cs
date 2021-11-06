@@ -1,10 +1,9 @@
 ﻿using System;
-using BL; 
 namespace ConsoleUI_BL
 {
     class Program
     {
-        static private Bl Logistics = new Bl();
+        static private BL.Bl Logistics = new BL.Bl();
         static void Main(string[] args)
         {
            
@@ -80,8 +79,8 @@ namespace ConsoleUI_BL
                                     WeightCategories Weight = (WeightCategories)SysFunc.SafeEnterUInt("enter a number from the numbers above : "); ;
                                     try
                                     {
-                                        Logistics.AddPackage( Weight,Priority);
-                                        Console.WriteLine("The package added succefully ");
+                                        Logistics.AddParcel( Weight,Priority);
+                                        Console.WriteLine("The parcel added succefully ");
                                     }
                                     catch (Exception err)
                                     {
@@ -124,8 +123,8 @@ namespace ConsoleUI_BL
                                 try
                                 {
                                     
-                                    String StaionData = Logistics.PullDataStaion(SysFunc.SafeEnterUInt());
-                                    Console.WriteLine(StaionData);
+                                    IBL.BO.Station station = Logistics.PullDataStaion(SysFunc.SafeEnterUInt());
+                                    Console.WriteLine(station.ToString());
 
                                 }
                                 catch (Exception err)
@@ -138,8 +137,8 @@ namespace ConsoleUI_BL
                                 try
                                 {
 
-                                    String StaionData = Logistics.PullDataCostumer(SysFunc.SafeEnterUInt());
-                                    Console.WriteLine(StaionData);
+                                    IBL.BO.Costumer costumer = Logistics.PullDataCostumer(SysFunc.SafeEnterUInt());
+                                    Console.WriteLine(costumer.ToString());
 
                                 }
                                 catch (Exception err)
@@ -152,8 +151,8 @@ namespace ConsoleUI_BL
                                 try
                                 {
 
-                                    String StaionData = Logistics.PullDataDrone(SysFunc.SafeEnterUInt());
-                                    Console.WriteLine(StaionData);
+                                    IBL.BO.Drone drone = Logistics.PullDataDrone(SysFunc.SafeEnterUInt());
+                                    Console.WriteLine(drone.ToString());
 
                                 }
                                 catch (Exception err)
@@ -166,8 +165,8 @@ namespace ConsoleUI_BL
                                 try
                                 {
 
-                                    String StaionData = Logistics.PullDataParcel(SysFunc.SafeEnterUInt());
-                                    Console.WriteLine(StaionData);
+                                    IBL.BO.Parcel parcel = Logistics.PullDataParcel(SysFunc.SafeEnterUInt());
+                                    Console.WriteLine(parcel.ToString());
 
                                 }
                                 catch (Exception err)
@@ -249,7 +248,7 @@ namespace ConsoleUI_BL
                                 try
                                 {
 
-                                    Logistics.DroneChargeRealse(SysFunc.SafeEnterUInt("Drone ID: " ));
+                                    Logistics.DroneChargeRelease(SysFunc.SafeEnterUInt("Drone ID: " ));
                                     Console.WriteLine("Drone has sent to Charging port succefuly ");
 
                                 }
@@ -272,7 +271,7 @@ namespace ConsoleUI_BL
                         {
                             case (int)ListShow.BaseStaions:
                                 Console.WriteLine("Printing ... ");
-                                SysFunc.printList<String>(Logistics.StaionsPrint());
+                                SysFunc.printList<IBL.BO.Station>(Logistics.StaionsPrint());
                                 break;
                             case (int)ListShow.BaseStaionsFreePorts:
                                 Console.WriteLine("Printing ... ");
