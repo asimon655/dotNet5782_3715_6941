@@ -60,7 +60,7 @@ namespace ConsoleUI_BL
                                     try
                                     {
                                         Logistics.AddDrone(Id, Model,MaxWeigth, Status ,Battery);
-                                        Console.WriteLine("The costumer added succefully ");
+                                        Console.WriteLine("The drone added succefully ");
                                     }
                                     catch (Exception err)
                                     {
@@ -81,7 +81,7 @@ namespace ConsoleUI_BL
                                     try
                                     {
                                         Logistics.AddPackage( Weight,Priority);
-                                        Console.WriteLine("The costumer added succefully ");
+                                        Console.WriteLine("The package added succefully ");
                                     }
                                     catch (Exception err)
                                     {
@@ -98,8 +98,8 @@ namespace ConsoleUI_BL
                                     int ChargeSlots = SysFunc.SafeEnterUInt("ChargeSlots: ");
                                     try
                                     {
-                                        Logistics.AddStaion(Id , Name , Latitude ,Longitude , ChargeSlots);
-                                        Console.WriteLine("The costumer added succefully ");
+                                        Logistics.AddStation(Id , Name , Latitude ,Longitude , ChargeSlots);
+                                        Console.WriteLine("The station added succefully ");
                                     }
                                     catch (Exception err)
                                     {
