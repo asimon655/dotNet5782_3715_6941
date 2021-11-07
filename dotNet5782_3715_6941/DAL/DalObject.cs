@@ -54,27 +54,27 @@ namespace DAL
                     const int CostumerInit = 10;
                     
                     for (int i = 0; i < StationInit; i++)
-                        Stations.Add (
+                        Stations.Add (new Station() {
                             Id = RandomGen.Next(100000000, 999999999),
                             ChargeSlots = RandomGen.Next(0, 1000),
                             Name = i,
                             Latitude = RandomGen.NextDouble() * 45,
                             Longitude = RandomGen.NextDouble() * 45
-                        );
+                        });
                     for (int i = 0; i < CostumerInit; i++)
-                        Costumers.Add(
+                        Costumers.Add( new Costumer() {
                             Id = RandomGen.Next(100000000, 999999999),
                             Name = "Lev Cliet No." + i.ToString(),
                             Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(),
                             Lattitude = RandomGen.NextDouble() * 45,
                             Longitude = RandomGen.NextDouble() * 45
-                        );
+                        });
                     for (int i = 0; i < DroneInit; i++)
-                        Drones.Add(
-                            Battery = RandomGen.NextDouble() * 100,
+                        Drones.Add( new Drone() {
                             Id = RandomGen.Next(100000000, 999999999),
-                            Modle = " V-Coptr Falcon"
-                        );
+                            Modle = " V-Coptr Falcon",
+                            MaxWeigth = (WeightCategories)RandomGen.Next(0, 2)
+                        });
                     for (int i = 0; i < ParcelInit; i++)
                     {
                         DateTime scheduledtmp = new DateTime(1995, 1, 1).AddSeconds(RandomGen.Next(0, 86400)).AddDays(RandomGen.Next((DateTime.Today - new DateTime(1995, 1, 1)).Days));
@@ -85,19 +85,18 @@ namespace DAL
                                                                                                   /// addeed time to the randomed added  time i created before 
                         DateTime pickedup = delivered.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
                                                                                                  /// addeed time to the randomed added  added time i created before 
-                        Parcels.Add (
+                        Parcels.Add ( new Parcel() {
                             Id = ++IdCreation,
                             Priority = (Priorities)RandomGen.Next(0, 2),
                             Weight = (WeightCategories)RandomGen.Next(0, 2),
-                            DroneId = RandomGen.Next(100000000, 999999999)
-                        ,
-                            Delivered =delivered ,
-                            PickedUp =pickedup,
+                            DroneId = RandomGen.Next(100000000, 999999999),
+                            Delivered = delivered,
+                            PickedUp = pickedup,
                             Requested = requested,
                             Schedulded = scheduledtmp,
                             SenderId = RandomGen.Next(100000000, 999999999),
                             TargetId = RandomGen.Next(100000000, 999999999)
-                        );
+                        });
                     } 
                 }
 
@@ -125,7 +124,7 @@ namespace DAL
                 }
 
             }
-            static public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
+            public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
             {
                 String result = "";
                 // Longitude

@@ -56,9 +56,9 @@ namespace IDAL
 }
 namespace DAL
 {
-    namespace DalObject : IDAL.Idal
+    namespace DalObject
     {
-        partial class DalObject
+        public partial class DalObject : IDAL.Idal
         {
             public void AddParcel(Parcel parcel)
             {
@@ -77,7 +77,7 @@ namespace DAL
             {
                 return DAL.DalObject.DataSource.Parcels;
             }
-            static public void UpdateParcles(Parcel parcel)
+            public void UpdateParcles(Parcel parcel)
             {
                 Update<Parcel>(DataSource.Parcels, parcel);
             }

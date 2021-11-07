@@ -53,7 +53,7 @@ namespace DAL
 {
     namespace DalObject
     {
-        partial class DalObject : IDAL.Idal
+        public partial class DalObject : IDAL.Idal
         {
             public void AddDrone(Drone drone)
             {
@@ -80,7 +80,7 @@ namespace DAL
             {
                 return DAL.DalObject.DataSource.Drones;
             }
-            static public void UpdateDrones(Drone drone)
+            public void UpdateDrones(Drone drone)
             {
                 Update<Drone>(DataSource.Drones, drone);
             }

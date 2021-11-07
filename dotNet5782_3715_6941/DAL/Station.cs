@@ -54,7 +54,7 @@ namespace DAL
 {
     namespace DalObject
     {
-        partial class DalObject : IDAL.Idal
+        public partial class DalObject : IDAL.Idal
         {
             public void AddStaion(Station station)
             {
@@ -79,7 +79,7 @@ namespace DAL
             {
                 return DAL.DalObject.DataSource.Stations;
             }
-            static public void UpdateStaions(Station station)
+            public void UpdateStaions(Station station)
             {
                 Update<Station>(DataSource.Stations, station);
             }
