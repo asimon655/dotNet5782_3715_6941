@@ -59,7 +59,7 @@ namespace ConsoleUI
         public static void printEnum<T>() where T : struct, IConvertible //prints all the enum options  of any enum (where T: struct Icon.... promiss that this is doing that )  and kicks out all the deafult things 
         {
             foreach (T i in Enum.GetValues(typeof(T)))
-                Console.WriteLine(Convert.ToUInt32(i).ToString() + ".) " + DAL.DalObject.EnumHelper.GetDescription<T>((T)i));
+                Console.WriteLine(Convert.ToUInt32(i).ToString() + ".) " + i.ToString());
             ///foreach (T i in Enum.GetValues(typeof(T))) return alll the enums that exsist in that enum type 
             ///Convert.ToUInt32(i).ToString() - force convert to int because otherwise it do not work  - that is the most powerull and basic convert 
             ///DAL.DalObject.EnumHelper.GetDescription<T>((T)i) => my functuion that returns the descrption 

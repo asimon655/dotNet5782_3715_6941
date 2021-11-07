@@ -124,7 +124,7 @@ namespace DAL
                 }
 
             }
-            public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
+            static public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
             {
                 String result = "";
                 // Longitude

@@ -43,7 +43,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return "ID: " + this.Id.ToString() + " Model: " + this.Modle + " MaxWeight: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.WeightCategories>(this.MaxWeigth) + " Battery:" + this.Battery.ToString() + " Status: " + DAL.DalObject.EnumHelper.GetDescription<IDAL.DO.DroneStatuses>((this.Status)); /// returns strings with all the args of the struct in string  
+                return "ID: " + this.Id.ToString() + " Model: " + this.Modle.ToString() + " MaxWeight: " + this.MaxWeigth.ToString(); /// returns strings with all the args of the struct in string  
             }
         }
 

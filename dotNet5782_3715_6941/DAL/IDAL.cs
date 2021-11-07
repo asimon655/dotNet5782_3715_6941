@@ -26,7 +26,5 @@ namespace IDAL
         Parcel? PullDataParcel(int id);
         IEnumerable<Parcel> ParcelsPrint();
         void UpdateParcles(Parcel parcel);
-
-        String DecimalToSexagesimal(double Longitude, double Latitude);
     }
 }
