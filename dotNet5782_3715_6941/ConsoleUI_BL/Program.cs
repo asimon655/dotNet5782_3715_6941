@@ -3,7 +3,7 @@ namespace ConsoleUI_BL
 {
     class Program
     {
-        static private BL.Bl Logistics = new BL.Bl();
+        static private IBL.Ibl Logistics = new BL.Bl();
         static void Main(string[] args)
         {
            
@@ -34,8 +34,10 @@ namespace ConsoleUI_BL
                                     String Name = Console.ReadLine();
                                     Console.Write("Phone: ");
                                     String Phone = Console.ReadLine();
+                                    BO.Costumer temp = new BO
                                     try
                                     {
+
                                         Logistics.AddCostumer(Id, Name, Phone , Longitude,Lattitude);
                                         Console.WriteLine("The costumer added succefully ");
                                     }
@@ -55,7 +57,7 @@ namespace ConsoleUI_BL
                                     WeightCategories MaxWeigth = (WeightCategories)SysFunc.SafeEnterUInt("Maxweight: (Choose from the numbers above:  "); ;
                                     Console.Write("Model: ");
                                     String Model = Console.ReadLine();
-                                    DroneStatuses Status = (DroneStatuses)DroneStatuses.Free;
+                            
                                     try
                                     {
                                         Logistics.AddDrone(Id, Model,MaxWeigth, Status ,Battery);
