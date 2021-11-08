@@ -57,11 +57,10 @@ namespace DAL
         {
             public void AddDrone(Drone drone)
             {
-                Drone? exists = PullDataDrone(drone.Id);
-
-                if (exists is null)
+                // if we find that the id is already taken by another drone 
+                if (DataSource.Drones.Any(s => s.Id == drone.Id))
                 {
-                    throw new Exception("the Id Drone is already taken");
+                    throw new IdAlreadyExists("the Id Drone is already taken", drone.Id);
                 }
 
                 DataSource.Drones.Add(drone);
@@ -70,9 +69,11 @@ namespace DAL
             public Drone? PullDataDrone(int id)
             {
                 Drone drone = DataSource.Drones.Find(s => s.Id == id);
-                /// if the Drone wasnt found return null
+                /// if the Drone wasnt found throw error
                 if (drone.Id != id)
-                    return null;
+                {
+                    throw new IdDosntExists("the Id could not be found", id);
+                }
                 return drone;
             }
             
@@ -82,6 +83,11 @@ namespace DAL
             }
             public void UpdateDrones(Drone drone)
             {
+                // if we cant find that the id we throw error
+                if (!DataSource.Drones.Any(s => s.Id == id))
+                {
+                    throw new IdDosntExists("the Id Drone is dosnt exists", drone.Id);
+                }
                 Update<Drone>(DataSource.Drones, drone);
             }
         }

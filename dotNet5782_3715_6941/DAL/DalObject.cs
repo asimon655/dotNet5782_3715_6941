@@ -41,6 +41,12 @@ namespace DAL
             //until here array var declartion 
             internal class Config
             {
+                static internal double PowerConsumptionFree = 3;
+                static internal double PowerConsumptionLight = 6;
+                static internal double PowerConsumptionMedium = 8;
+                static internal double PowerConsumptionHeavy = 10;
+                static internal double ChargingSpeed = 3;
+
                 static internal int IdCreation = 0;
 
                 static internal void Initalize()
@@ -123,6 +129,14 @@ namespace DAL
                     }
                 }
 
+            }
+            double[] GetPowerConsumption()
+            {
+                return new double[] { DataSource.Config.PowerConsumptionFree,
+                                      DataSource.Config.PowerConsumptionLight,
+                                      DataSource.Config.PowerConsumptionMedium,
+                                      DataSource.Config.PowerConsumptionHeavy,
+                                      DataSource.Config.ChargingSpeed };
             }
             static public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
             {

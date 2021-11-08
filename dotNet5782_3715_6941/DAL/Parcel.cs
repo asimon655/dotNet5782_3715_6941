@@ -68,9 +68,11 @@ namespace DAL
             public Parcel? PullDataParcel(int id)
             {
                 Parcel parcel = DataSource.Parcels.Find(s => s.Id == id);
-                /// if the Parcel wasnt found return null
+                /// if the Parcel wasnt found throw error
                 if (parcel.Id != id)
-                    return null;
+                {
+                    throw new IdDosntExists("the Id could not be found", id);
+                }
                 return parcel;
             }
             public IEnumerable<Parcel> ParcelsPrint()
@@ -79,6 +81,11 @@ namespace DAL
             }
             public void UpdateParcles(Parcel parcel)
             {
+                // if we cant find that the id we throw error
+                if (!DataSource.Parcels.Any(s => s.Id == id))
+                {
+                    throw new IdDosntExists("the Id Parcel is dosnt exists", parcel.Id);
+                }
                 Update<Parcel>(DataSource.Parcels, parcel);
             }
         }
