@@ -17,10 +17,10 @@ namespace IDAL
         IEnumerable<Drone> DronesPrint();
         void UpdateDrones(Drone drone);
 
-        void AddStaion(Station station);
+        void AddStation(Station station);
         Station? PullDataStation(int id);
-        IEnumerable<Station> StaionsPrint();
-        void UpdateStaions(Station station);
+        IEnumerable<Station> StationsPrint();
+        void UpdateStations(Station station);
 
         void AddParcel(Parcel parcel);
         Parcel? PullDataParcel(int id);

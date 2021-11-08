@@ -56,13 +56,11 @@ namespace DAL
     {
         public partial class DalObject : IDAL.Idal
         {
-            public void AddStaion(Station station)
+            public void AddStation(Station station)
             {
-                Station? exists = PullDataStation(station.Id);
-
-                if (exists is null)
+                if (DataSource.Stations.Any(s => s.Id == station.Id))
                 {
-                    throw new Exception("the Id Costumer is already taken");
+                    throw new IdAlreadyExists("the station Id is already taken", station.Id);
                 }
 
                 DataSource.Stations.Add(station);
@@ -70,9 +68,11 @@ namespace DAL
             public Station? PullDataStation(int id)
             {
                 Station station = DataSource.Stations.Find(s => s.Id == id);
-                /// if the Station wasnt found return null
+                /// if the Station wasnt found throw error
                 if (station.Id != id)
-                    return null;
+                {
+                    throw new IdDosntExists("the id could not be found", id);
+                }
                 return station;
             }
             public IEnumerable<Station> StaionsPrint()
@@ -81,6 +81,12 @@ namespace DAL
             }
             public void UpdateStaions(Station station)
             {
+                /// if the Station wasnt found throw error
+                if (!DataSource.Stations.Any(s => s.Id == station.Id))
+                {
+                    throw new IdDosntExists("the id could not be found", station.Id);
+                }
+
                 Update<Station>(DataSource.Stations, station);
             }
         }

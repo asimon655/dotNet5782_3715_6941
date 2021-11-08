@@ -58,21 +58,22 @@ namespace DAL
         {
             public void AddCostumer(Costumer costumer)
             {
-                Costumer? exists = PullDataCostumer(costumer.Id);
-
-                if (exists is null)
+                // if we find that the id is already taken by another costumer
+                if (DataSource.Costumers.Any(s => s.Id == costumer.Id))
                 {
-                    throw new Exception("the Id Costumer is already taken");
+                    throw new IdAlreadyExists("the Id Costumer is already taken", costumer.Id);
                 }
 
                 DataSource.Costumers.Add(costumer);
             }
-            public Costumer? PullDataCostumer(int id)
+            public Costumer PullDataCostumer(int id)
             {
                 Costumer costumer = DataSource.Costumers.Find(s => s.Id == id);
-                /// if the Costumer wasnt found return null
+                /// if the Costumer wasnt found we throwing an error
                 if (costumer.Id != id)
-                    return null;
+                {
+                    throw new IdDosntExists("the Id couldnt be found", id);
+                }
                 return costumer;
             }
             public IEnumerable<Costumer> CostumersPrint()
@@ -81,8 +82,13 @@ namespace DAL
             }
             public void UpdateCostumers(Costumer costumer)
             {
+                // if we cant find any costumer with the id we throw an error
+                if (!DataSource.Costumers.Any(s => s.Id == id))
+                {
+                    throw new IdDosntExists("the Id couldnt be found", costumer.Id);
+                }
+                
                 Update<Costumer>(DataSource.Costumers, costumer);
-
             }
         }
     }
