@@ -8,7 +8,7 @@ namespace IBL
 {
     namespace BO
     {
-        class DroneToList
+        public class DroneToList
         {
             public int id { set; get; }
             public string Model { set; get; }

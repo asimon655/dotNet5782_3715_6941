@@ -14,7 +14,7 @@ namespace IBL
             public int Id { get; set; }
             public string Name { get; set; }
             public string Phone_Num { get; set; }
-            public BL.Location Loct { get; set; }
+            public IBL.BO.Location Loct { get; set; }
     
 
 

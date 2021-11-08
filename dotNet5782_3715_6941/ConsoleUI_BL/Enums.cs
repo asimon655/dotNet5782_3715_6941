@@ -40,20 +40,23 @@ namespace ConsoleUI_BL
         // the options of the option Update (Update from the main menu)
         public enum Update 
         {
-
+            [Description("Update drone model name")]
+            UpdateDrone,
+            [Description("Update station name and charging slots")]
+            UpdateStation,
+            [Description("Update costumer name and phone")]
+            UpdateCostumer,
             [Description("Bind packge and drone")]
-            PackgeandDrone,
+            BindPackgeAndDrone,
             [Description("Update- Drone picks up a packge ")]
-            PackgeTakeDrone,
+            DroneTakePackge,
             [Description("Update Costumer picking up a package ")]
-            PackgeTakeCostumer,
+            DroneProvidePackge,
             [Description("Update -send Drone to base staion (charge)")]
             DroneSendCharge,
             [Description("Update -release Drone from base staion ")]
             DroneRelease,
-
-
-        }
+    }
 
     public enum Priorities
     {
