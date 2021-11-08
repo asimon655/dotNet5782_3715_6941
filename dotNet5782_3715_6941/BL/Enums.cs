@@ -15,8 +15,7 @@ namespace IBL
             [Description("fast delivery")]
             Fast,
             [Description("Emergency delivery ")]
-            Emergency
-    ,
+            Emergency,
         }
         /// <summary>
         /// all the enum names explains the self 
