@@ -84,7 +84,7 @@ namespace DAL
             public void UpdateDrones(Drone drone)
             {
                 // if we cant find that the id we throw error
-                if (!DataSource.Drones.Any(s => s.Id == id))
+                if (!DataSource.Drones.Any(s => s.Id == drone.Id))
                 {
                     throw new IdDosntExists("the Id Drone is dosnt exists", drone.Id);
                 }
