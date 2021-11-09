@@ -66,7 +66,7 @@ namespace DAL
                 DataSource.Drones.Add(drone);
             }
             
-            public Drone? PullDataDrone(int id)
+            public Drone PullDataDrone(int id)
             {
                 Drone drone = DataSource.Drones.Find(s => s.Id == id);
                 /// if the Drone wasnt found throw error
