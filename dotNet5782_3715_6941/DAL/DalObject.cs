@@ -64,7 +64,7 @@ namespace DAL
                             Id = RandomGen.Next(100000000, 999999999),
                             ChargeSlots = RandomGen.Next(0, 1000),
                             Name = i,
-                            Latitude = RandomGen.NextDouble() * 45,
+                            Lattitude = RandomGen.NextDouble() * 45,
                             Longitude = RandomGen.NextDouble() * 45
                         });
                     for (int i = 0; i < CostumerInit; i++)

@@ -38,13 +38,13 @@ namespace IDAL
         {
             public int Id { set; get; }
             public int Name { set; get; }
-            public double Latitude { set; get; }
+            public double Lattitude { set; get; }
             public double Longitude { set; get; }
             public int ChargeSlots { set; get; }
 
             public override string ToString()
             {
-                return "ID: " + this.Id.ToString() + " Name: " + this.Name.ToString() + " Latitude: " + this.Latitude.ToString() + " Longitude:" + this.Longitude.ToString()+ "Sexagesimal show of longitude  and lattitude :  " + DAL.DalObject.DalObject.DecimalToSexagesimal(Longitude,Latitude)+ " ChargeSlots: " + this.ChargeSlots.ToString(); /// returns strings with all the args of the struct in string and longitude and lattiude in Sexagesimal show 
+                return "ID: " + this.Id.ToString() + " Name: " + this.Name.ToString() + " Latitude: " + this.Lattitude.ToString() + " Longitude:" + this.Longitude.ToString()+ "Sexagesimal show of longitude  and lattitude :  " + DAL.DalObject.DalObject.DecimalToSexagesimal(Longitude,Lattitude)+ " ChargeSlots: " + this.ChargeSlots.ToString(); /// returns strings with all the args of the struct in string and longitude and lattiude in Sexagesimal show 
             }
         }
 
