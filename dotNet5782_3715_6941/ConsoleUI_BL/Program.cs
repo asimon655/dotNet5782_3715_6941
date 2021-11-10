@@ -4,10 +4,10 @@ namespace ConsoleUI_BL
 {
     class Program
     {
-        static private IBL.Ibl Logistics = new BL.Bl();
+        static private IBL.Ibl Logistics;
         static void Main(string[] args)
         {
-           
+            Logistics = new BL.Bl();
              
             int enter;/// for the sub switches 
             int command;
