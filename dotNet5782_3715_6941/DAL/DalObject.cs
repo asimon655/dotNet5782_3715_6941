@@ -39,7 +39,7 @@ namespace DAL
             internal static List<Parcel> Parcels = new List<Parcel>();
             internal static List<DroneCharge> DronesCharges = new List<DroneCharge>();
             //until here array var declartion 
-            internal class Config
+            static internal class Config
             {
                 static internal double PowerConsumptionFree = 3;
                 static internal double PowerConsumptionLight = 6;
@@ -112,6 +112,10 @@ namespace DAL
 
         public partial class DalObject : IDAL.Idal
         {
+            public DalObject()
+            {
+                DataSource.Config.Initalize();
+            }
             static public void Update<T>(List<T> listy, T updater)
             {
 
