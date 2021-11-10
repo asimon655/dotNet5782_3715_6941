@@ -66,7 +66,7 @@ namespace DAL
                 DataSource.Drones.Add(drone);
             }
             
-            public Drone? PullDataDrone(int id)
+            public Drone PullDataDrone(int id)
             {
                 Drone drone = DataSource.Drones.Find(s => s.Id == id);
                 /// if the Drone wasnt found throw error
@@ -84,7 +84,7 @@ namespace DAL
             public void UpdateDrones(Drone drone)
             {
                 // if we cant find that the id we throw error
-                if (!DataSource.Drones.Any(s => s.Id == id))
+                if (!DataSource.Drones.Any(s => s.Id == drone.Id))
                 {
                     throw new IdDosntExists("the Id Drone is dosnt exists", drone.Id);
                 }

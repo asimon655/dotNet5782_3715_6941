@@ -130,7 +130,7 @@ namespace DAL
                 }
 
             }
-            double[] GetPowerConsumption()
+            public double[] GetPowerConsumption()
             {
                 return new double[] { DataSource.Config.PowerConsumptionFree,
                                       DataSource.Config.PowerConsumptionLight,

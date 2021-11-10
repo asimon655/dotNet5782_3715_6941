@@ -65,7 +65,7 @@ namespace DAL
                 parcel.Id = ++DataSource.Config.IdCreation;
                 DataSource.Parcels.Add(parcel);
             }
-            public Parcel? PullDataParcel(int id)
+            public Parcel PullDataParcel(int id)
             {
                 Parcel parcel = DataSource.Parcels.Find(s => s.Id == id);
                 /// if the Parcel wasnt found throw error
@@ -82,7 +82,7 @@ namespace DAL
             public void UpdateParcles(Parcel parcel)
             {
                 // if we cant find that the id we throw error
-                if (!DataSource.Parcels.Any(s => s.Id == id))
+                if (!DataSource.Parcels.Any(s => s.Id == parcel.Id))
                 {
                     throw new IdDosntExists("the Id Parcel is dosnt exists", parcel.Id);
                 }

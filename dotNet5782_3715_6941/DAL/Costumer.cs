@@ -83,7 +83,7 @@ namespace DAL
             public void UpdateCostumers(Costumer costumer)
             {
                 // if we cant find any costumer with the id we throw an error
-                if (!DataSource.Costumers.Any(s => s.Id == id))
+                if (!DataSource.Costumers.Any(s => s.Id == costumer.Id))
                 {
                     throw new IdDosntExists("the Id couldnt be found", costumer.Id);
                 }
