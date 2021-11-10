@@ -6,10 +6,10 @@ namespace BL
     {
         IDAL.Idal data = new DAL.DalObject.DalObject();
 
+
         public Bl()
         {
 
         }
-
     } 
 }
