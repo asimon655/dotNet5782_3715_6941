@@ -49,10 +49,10 @@ namespace IBL
         {
             [Description("free Drone  ")]
             Free,
-            [Description("Drone is in Delivery ")]
-            Delivery,
             [Description("Drone need Matance  ")]
             Matance,
+            [Description("Drone is in Delivery ")]
+            Delivery,
         };
     } 
 }
