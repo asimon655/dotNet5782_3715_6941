@@ -62,7 +62,8 @@ namespace BL
                 drones.Add(newDrone);
             }
         }
-
+        // return the id of the parcel that binded to a specific drone and the parcel not yet delivered
+        // if there isnt any return -1
         int getBindedUndeliveredParcel(int droneId)
         {
             foreach (var parcel in data.ParcelsPrint())
@@ -73,6 +74,34 @@ namespace BL
                 }
             }
             return -1;
+        }
+        // calculate distance between two locations
+        double calculateDistance(Location location1, Location location2) {
+            double rlat1 = Math.PI * location1.Lattitude / 180;
+            double rlat2 = Math.PI * location2.Lattitude / 180;
+            double theta = location1.Longitude - location2.Longitude;
+            double rtheta = Math.PI * theta / 180;
+            double dist = Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) * Math.Cos(rlat2) * Math.Cos(rtheta);
+            dist = Math.Acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+            return Math.Round(dist * 1.609344, 2);
+        }
+        // return the closes station to a given location
+        int getClosesStation(Location location)
+        {
+            int stationId = 0;
+            double shortestDistance = double.MaxValue;
+            foreach (var station in data.StationsPrint())
+            {
+                double distance = calculateDistance(new Location(station.Longitude, station.Lattitude), location);
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    stationId = station.Id;
+                }
+            }
+            return stationId;
         }
 
         public void AddCostumer(Costumer costumer)
@@ -172,7 +201,7 @@ namespace BL
 
         public IEnumerable<DroneToList> DronesPrint()
         {
-            throw new NotImplementedException();
+            return drones;
         }
 
         public IEnumerable<ParcelToList> ParcelsPrint()
