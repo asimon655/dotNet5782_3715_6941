@@ -87,9 +87,9 @@ namespace DAL
                         /// created random time between today today to 1955 1th in janury 12:00:00 AM 
                         DateTime requested =scheduledtmp.AddSeconds(RandomGen.Next(0, 86400*365));/// 86400 is one day in secs 
                                                                                                   /// addeed time to the randomed time i created before 
-                        DateTime delivered = requested.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
+                        DateTime pickedup = requested.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
                                                                                                   /// addeed time to the randomed added  time i created before 
-                        DateTime pickedup = delivered.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
+                        DateTime delivered = pickedup.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
                                                                                                  /// addeed time to the randomed added  added time i created before 
                         Parcels.Add ( new Parcel() {
                             Id = ++IdCreation,
