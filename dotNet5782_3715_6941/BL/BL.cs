@@ -74,5 +74,115 @@ namespace BL
             }
             return -1;
         }
+
+        public void AddCostumer(Costumer costumer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddDrone(Drone drone, int stationId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddParcel(Parcel parcel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddStation(BaseStation station)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BaseStation PullDataStaion(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Costumer PullDataCostumer(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Drone PullDataDrone(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Parcel PullDataParcel(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateDrone(int droneId, string droneName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateStation(int stationId, int? stationName = null, int? stationChargeSlots = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateCostumer(int costumerId, string costumerName = null, string costumerPhone = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BindParcelToDrone(int droneId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PickUpByDrone(int droneId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ParcelDeliveredToCostumer(int droneId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DroneCharge(int droneId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DroneChargeRelease(int droneId, double chargingPeriod)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BaseStaionToList> StaionsPrint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BaseStaionToList> BaseStaionsFreePortsPrint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ClientToList> CostumersPrint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<DroneToList> DronesPrint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ParcelToList> ParcelsPrint()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ParcelToList> ParcelsWithoutDronesPrint()
+        {
+            throw new NotImplementedException();
+        }
     } 
 }
