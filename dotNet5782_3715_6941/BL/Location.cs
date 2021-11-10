@@ -11,6 +11,11 @@ namespace IBL
 
         public class Location
         {
+            Location(double longitude, double lattitude)
+            {
+                this.Longitude = longitude;
+                this.Lattitude = lattitude;
+            }
             public double Longitude { set; get; }
             public double Lattitude { set; get; }
             public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
