@@ -37,13 +37,58 @@ namespace BL
                 newDrone.Weight = (WeightCategories)drone.MaxWeigth;
 
                 int parcelId = getBindedUndeliveredParcel(drone.Id);
-                if (parcelId != -1) // the drone is not binded
+
+                if (parcelId != -1) // the drone is binded
                 {
                     newDrone.DroneStat = DroneStatuses.Delivery;
-                    // TODO: need to set drone location
-                    // TODO: need to set drone battery
+                    newDrone.ParcelIdTransfer = parcelId;
+                    // get the binded parcel
+                    IDAL.DO.Parcel parcel = data.PullDataParcel(parcelId);
+
+                    // get the sender and target and there location
+                    IDAL.DO.Costumer sender = data.PullDataCostumer(parcel.SenderId);
+                    Location senderLoct = new Location(sender.Longitude, sender.Lattitude);
+                    IDAL.DO.Costumer target = data.PullDataCostumer(parcel.TargetId);
+                    Location targetLoct = new Location(target.Longitude, target.Lattitude);
+
+                    // the parcel has been binded but not picked up yet
+                    if (parcel.PickedUp == DateTime.MinValue)
+                    {
+                        // set the location of the drone to the closest station to the sender
+                        int senderStationId = getClosesStation(senderLoct);
+                        IDAL.DO.Station senderStation = data.PullDataStation(senderStationId);
+                        Location senderStationLoct = new Location(senderStation.Longitude, senderStation.Lattitude);
+                        newDrone.Current = senderStationLoct;
+
+                        int targetStationId = getClosesStation(targetLoct);
+                        IDAL.DO.Station targetStation = data.PullDataStation(targetStationId);
+                        Location targetStationLoct = new Location(targetStation.Longitude, targetStation.Lattitude);
+                        // calculate the minimum battery this trip will take
+                        double minimumBattery = 0;
+                        minimumBattery += getPowerUsage(newDrone.Current, senderLoct);
+                        minimumBattery += getPowerUsage(senderLoct, targetLoct, (WeightCategories?)parcel.Weight);
+                        minimumBattery += getPowerUsage(targetLoct, targetStationLoct);
+                        // set the drone battery randomly between the minimumBattery and 100%
+                        newDrone.BatteryStat = 100D - RandomGen.NextDouble() * minimumBattery;
+                    }
+                    // the parcel has been binded and picked up but hasnt been deliverd yet
+                    else
+                    {
+                        // set the location of the drone to the location of the sender
+                        newDrone.Current = senderLoct;
+
+                        int targetStationId = getClosesStation(targetLoct);
+                        IDAL.DO.Station targetStation = data.PullDataStation(targetStationId);
+                        Location targetStationLoct = new Location(targetStation.Longitude, targetStation.Lattitude);
+                        // calculate the minimum battery this trip will take
+                        double minimumBattery = 0;
+                        minimumBattery += getPowerUsage(newDrone.Current, targetLoct, (WeightCategories?)parcel.Weight);
+                        minimumBattery += getPowerUsage(targetLoct, targetStationLoct);
+                        // set the drone battery randomly between the minimumBattery and 100%
+                        newDrone.BatteryStat = 100D - RandomGen.NextDouble() * minimumBattery;
+                    }
                 }
-                else // the drone is binded
+                else // the drone is not binded
                 {
                     // set DroneStat to a random value between Free, Matance
                     newDrone.DroneStat = (DroneStatuses)RandomGen.Next((int)DroneStatuses.Free, (int)DroneStatuses.Matance);
@@ -56,7 +101,18 @@ namespace BL
                 if (newDrone.DroneStat == DroneStatuses.Free)
                 {
                     // TODO: need to set drone location
-                    // TODO: need to set drone battery
+                    // this is only for now (so i can compile it) the todo still need to be done
+                    newDrone.Current = new Location(45,45);
+                    // remove me ^
+                    int stationId = getClosesStation(newDrone.Current);
+                    IDAL.DO.Station station = data.PullDataStation(stationId);
+                    Location stationLoct = new Location(station.Longitude, station.Lattitude);
+                    
+                    // calculate the minimum battery this trip will take
+                    double minimumBattery = 0;
+                    minimumBattery += getPowerUsage(newDrone.Current, stationLoct);
+                    // set the drone battery randomly between the minimumBattery and 100%
+                    newDrone.BatteryStat = 100D - RandomGen.NextDouble() * minimumBattery;
                 }
                 // add newDrone to drones list
                 drones.Add(newDrone);
@@ -102,6 +158,21 @@ namespace BL
                 }
             }
             return stationId;
+        }
+
+        double getPowerUsage(Location from, Location to, WeightCategories? weight = null)
+        {
+            switch(weight)
+            {
+                case WeightCategories.Easy:
+                    return calculateDistance(from, to) * PowerConsumptionLight;
+                case WeightCategories.Medium:
+                    return calculateDistance(from, to) * PowerConsumptionMedium;
+                case WeightCategories.Heavy:
+                    return calculateDistance(from, to) * PowerConsumptionHeavy;
+                default: // the drone is free
+                    return calculateDistance(from, to) * PowerConsumptionFree;
+            }
         }
 
         public void AddCostumer(Costumer costumer)
