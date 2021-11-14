@@ -8,7 +8,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class BaseStation
+        public class BaseStation : OverrideToString
         {
             public int Id { set; get; }
             public int Name { set; get; }
