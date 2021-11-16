@@ -105,10 +105,13 @@ namespace BL
                 }
                 if (newDrone.DroneStat == DroneStatuses.Free)
                 {
-                    // TODO: need to set drone location
-                    // this is only for now (so i can compile it) the todo still need to be done
-                    newDrone.Current = new Location(45,45);
-                    // remove me ^
+                    // set drone location to a random customer that recived a message
+                    List<IDAL.DO.Parcel> parcelsDelivered = getDeliverdParcels();
+                    IDAL.DO.Parcel parcel = parcelsDelivered[RandomGen.Next(parcelsDelivered.Count)];
+                    IDAL.DO.Costumer costumer = data.PullDataCostumer(parcel.TargetId);
+                    newDrone.Current = new Location(costumer.Longitude, costumer.Lattitude);
+                    
+                    // get the location of the closest station to that costumer
                     int stationId = getClosesStation(newDrone.Current);
                     IDAL.DO.Station station = data.PullDataStation(stationId);
                     Location stationLoct = new Location(station.Longitude, station.Lattitude);
