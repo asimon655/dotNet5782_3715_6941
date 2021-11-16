@@ -194,6 +194,19 @@ namespace BL
             }
             return res;
         }
+        List<IDAL.DO.Parcel> getDeliverdParcels()
+        {
+            IEnumerable<IDAL.DO.Parcel> parcels = data.ParcelsPrint();
+            List<IDAL.DO.Parcel> res = new List<IDAL.DO.Parcel>();
+            foreach (var parcel in parcels)
+            {
+                if (parcel.Delivered != DateTime.MinValue)
+                {
+                    res.Add(parcel);
+                }
+            }
+            return res;
+        }
         public void AddCostumer(Costumer costumer)
         {
             throw new NotImplementedException();
