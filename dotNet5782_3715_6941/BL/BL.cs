@@ -95,7 +95,12 @@ namespace BL
                 }
                 if (newDrone.DroneStat == DroneStatuses.Matance)
                 {
-                    // TODO: need to set drone location
+                    // set drone location to a random starion with free charging slots
+                    List<IDAL.DO.Station> stationsFreePorts = getStationsFreePorts();
+                    IDAL.DO.Station station = stationsFreePorts[RandomGen.Next(stationsFreePorts.Count)];
+                    newDrone.Current = new Location(station.Longitude, station.Lattitude);
+                    // TODO: register this matance in DroneCharge
+                    // set drone battery
                     newDrone.BatteryStat = RandomGen.NextDouble() * 20; 
                 }
                 if (newDrone.DroneStat == DroneStatuses.Free)
@@ -174,7 +179,21 @@ namespace BL
                     return calculateDistance(from, to) * PowerConsumptionFree;
             }
         }
-
+        // return a list of stations with free charging slots
+        // (this is a help function so its useful to return list than ienumerable)
+        List<IDAL.DO.Station> getStationsFreePorts()
+        {
+            IEnumerable<IDAL.DO.Station> stations = data.StationsPrint();
+            List<IDAL.DO.Station> res = new List<IDAL.DO.Station>();
+            foreach (var station in stations)
+            {
+                if (station.ChargeSlots > 0)
+                {
+                    res.Add(station);
+                }
+            }
+            return res;
+        }
         public void AddCostumer(Costumer costumer)
         {
             throw new NotImplementedException();
