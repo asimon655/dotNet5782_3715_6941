@@ -26,7 +26,7 @@ namespace IDAL
         Parcel PullDataParcel(int id);
         IEnumerable<Parcel> ParcelsPrint();
         void UpdateParcles(Parcel parcel);
-
+        void BindDroneAndStaion(int DroneId, int staionId);
         double[] GetPowerConsumption();
     }
 }

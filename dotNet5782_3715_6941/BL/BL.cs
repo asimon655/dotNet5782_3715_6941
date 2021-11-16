@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IBL.BO;
+using System;
 using System.Collections.Generic;
-using IBL.BO;
 namespace BL
 {
-    public class Bl : IBL.Ibl
+    public class Bl : IBL.Ibl ,BL.Convertor.DOTOBO
     {
         IDAL.Idal data = new DAL.DalObject.DalObject();
 
@@ -14,7 +14,7 @@ namespace BL
         double PowerConsumptionFree;
         double PowerConsumptionLight;
         double PowerConsumptionMedium;
-        double PowerConsumptionHeavy ;
+        double PowerConsumptionHeavy;
         double ChargingSpeed;
 
         public Bl()
@@ -96,18 +96,18 @@ namespace BL
                 if (newDrone.DroneStat == DroneStatuses.Matance)
                 {
                     // TODO: need to set drone location
-                    newDrone.BatteryStat = RandomGen.NextDouble() * 20; 
+                    newDrone.BatteryStat = RandomGen.NextDouble() * 20;
                 }
                 if (newDrone.DroneStat == DroneStatuses.Free)
                 {
                     // TODO: need to set drone location
                     // this is only for now (so i can compile it) the todo still need to be done
-                    newDrone.Current = new Location(45,45);
+                    newDrone.Current = new Location(45, 45);
                     // remove me ^
                     int stationId = getClosesStation(newDrone.Current);
                     IDAL.DO.Station station = data.PullDataStation(stationId);
                     Location stationLoct = new Location(station.Longitude, station.Lattitude);
-                    
+
                     // calculate the minimum battery this trip will take
                     double minimumBattery = 0;
                     minimumBattery += getPowerUsage(newDrone.Current, stationLoct);
@@ -132,7 +132,8 @@ namespace BL
             return -1;
         }
         // calculate distance between two locations
-        double calculateDistance(Location location1, Location location2) {
+        double calculateDistance(Location location1, Location location2)
+        {
             double rlat1 = Math.PI * location1.Lattitude / 180;
             double rlat2 = Math.PI * location2.Lattitude / 180;
             double theta = location1.Longitude - location2.Longitude;
@@ -162,7 +163,7 @@ namespace BL
 
         double getPowerUsage(Location from, Location to, WeightCategories? weight = null)
         {
-            switch(weight)
+            switch (weight)
             {
                 case WeightCategories.Easy:
                     return calculateDistance(from, to) * PowerConsumptionLight;
@@ -177,26 +178,44 @@ namespace BL
 
         public void AddCostumer(Costumer costumer)
         {
-            throw new NotImplementedException();
+            IDAL.DO.Costumer CostumerTmp = new IDAL.DO.Costumer() { Id = costumer.Id, Lattitude = costumer.Loct.Lattitude, Longitude = costumer.Loct.Longitude, Name = costumer.Name, Phone = costumer.Phone_Num };
+            data.AddCostumer(CostumerTmp);
         }
 
         public void AddDrone(Drone drone, int stationId)
         {
-            throw new NotImplementedException();
+            IDAL.DO.Drone DroneTmp = new IDAL.DO.Drone() { Id = drone.Id, MaxWeigth = ((IDAL.DO.WeightCategories)(int)drone.Weight), Modle = drone.Model };
+            data.AddDrone(DroneTmp);
+            data.BindDroneAndStaion(stationId, drone.Id);
+            drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
+            drone.DroneStat = IBL.BO.DroneStatuses.Matance;
+            IDAL.DO.Station PulledStaion = data.PullDataStation(stationId);
+            drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude) ;
+            DroneToList TmpDrnLst = new DroneToList() {BatteryStat=drone.BatteryStat , Id=drone.Id , Current=drone.Current , DroneStat=drone.DroneStat , Model=drone.Model ,ParcelIdTransfer=drone.ParcelTransfer.Id , Weight=drone.Weight};
+            drones.Add(TmpDrnLst);
+       
+
         }
 
         public void AddParcel(Parcel parcel)
         {
-            throw new NotImplementedException();
+            IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() { Id = parcel.Id,Delivered=DateTime.MinValue ,PickedUp= DateTime.MinValue, Requested= DateTime.MinValue, Schedulded= DateTime.MinValue, SenderId=parcel.SenderParcelToCostumer.id,TargetId=parcel.GetterParcelToCostumer.id , DroneId =null , Priority=(IDAL.DO.Priorities)parcel.Priority,Weight=(IDAL.DO.WeightCategories)parcel.Weight};
+            data.AddParcel(ParcelTmp);
+           
+
         }
 
         public void AddStation(BaseStation station)
         {
-            throw new NotImplementedException();
+            IDAL.DO.Station StationTmp = new IDAL.DO.Station() {Id = station.Id,ChargeSlots=station.NumOfFreeOnes,Lattitude=station.LoctConstant.Lattitude,Longitude=station.LoctConstant.Longitude
+            ,Name=station.Name};
+            data.AddStation(StationTmp);
+         
         }
 
         public BaseStation PullDataStaion(int id)
         {
+             
             throw new NotImplementedException();
         }
 
@@ -284,5 +303,5 @@ namespace BL
         {
             throw new NotImplementedException();
         }
-    } 
+    }
 }

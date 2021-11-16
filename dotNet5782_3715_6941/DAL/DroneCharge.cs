@@ -44,3 +44,32 @@ namespace IDAL
         }
     }
 }
+
+
+namespace DAL
+{
+    namespace DalObject
+    {
+        public partial class DalObject : IDAL.Idal
+        {
+
+            public void BindDroneAndStaion(int DroneId, int staionId)
+            {
+                IDAL.DO.Station Origin = PullDataStation(staionId);
+                if (Origin.ChargeSlots > 0)
+                {
+                    IDAL.DO.DroneCharge DroneChargeTmp = new IDAL.DO.DroneCharge() { StaionId = staionId, DroneId = DroneId };
+                    DataSource.DronesCharges.Add(DroneChargeTmp);
+                    Origin.ChargeSlots -= 1;
+                    Update<IDAL.DO.Station>(DataSource.Stations, Origin);
+                }
+                else
+                    throw new NotImplementedException();
+
+
+            }
+
+
+        }
+    }
+}
