@@ -110,7 +110,7 @@ namespace BL
                     IDAL.DO.Parcel parcel = parcelsDelivered[RandomGen.Next(parcelsDelivered.Count)];
                     IDAL.DO.Costumer costumer = data.PullDataCostumer(parcel.TargetId);
                     newDrone.Current = new Location(costumer.Longitude, costumer.Lattitude);
-                    
+
                     // get the location of the closest station to that costumer
                     int stationId = getClosesStation(newDrone.Current);
                     IDAL.DO.Station station = data.PullDataStation(stationId);
@@ -132,9 +132,9 @@ namespace BL
         {
             foreach (var parcel in data.ParcelsPrint())
             {
-                if (parcel.Id == droneId && parcel.Delivered == DateTime.MinValue)
+                if (parcel.DroneId == droneId && parcel.Delivered == DateTime.MinValue)
                 {
-                    return droneId;
+                    return parcel.Id;
                 }
             }
             return -1;
