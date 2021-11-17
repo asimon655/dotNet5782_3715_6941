@@ -6,7 +6,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class OverrideToString
+        public class Printable
         {
             public override string ToString()
             {

@@ -8,7 +8,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class ParcelToCostumer : OverrideToString
+        public class ParcelToCostumer : Printable
         {
             public int id { set; get;  }
             public string name { set; get;  }

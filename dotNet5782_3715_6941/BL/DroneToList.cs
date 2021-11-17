@@ -8,7 +8,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class DroneToList : OverrideToString
+        public class DroneToList : Printable
         {
             public int Id { set; get; }
             public string Model { set; get; }

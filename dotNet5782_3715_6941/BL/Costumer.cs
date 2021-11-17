@@ -8,7 +8,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class Costumer : OverrideToString
+        public class Costumer : Printable
         {
 
             public int Id { get; set; }

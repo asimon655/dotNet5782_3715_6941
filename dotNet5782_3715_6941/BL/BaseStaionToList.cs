@@ -8,7 +8,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class BaseStaionToList : OverrideToString
+        public class BaseStaionToList : Printable
         {
             public int Id { set; get; }
             public int Name { set; get; }
