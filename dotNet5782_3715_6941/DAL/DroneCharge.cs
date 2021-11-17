@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IDAL.DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,24 +53,51 @@ namespace DAL
     {
         public partial class DalObject : IDAL.Idal
         {
-
-            public void BindDroneAndStaion(int DroneId, int staionId)
+            public void AddDroneCharge(DroneCharge droneCharge)
             {
-                IDAL.DO.Station Origin = PullDataStation(staionId);
-                if (Origin.ChargeSlots > 0)
+                // if we find that the drone is already in charging
+                if (DataSource.DronesCharges.Any(s => s.DroneId == droneCharge.DroneId))
                 {
-                    IDAL.DO.DroneCharge DroneChargeTmp = new IDAL.DO.DroneCharge() { StaionId = staionId, DroneId = DroneId };
-                    DataSource.DronesCharges.Add(DroneChargeTmp);
-                    Origin.ChargeSlots -= 1;
-                    Update<IDAL.DO.Station>(DataSource.Stations, Origin);
+                    throw new IdAlreadyExists("the Drone is already in charging", droneCharge.DroneId);
                 }
-                else
-                    throw new NotImplementedException();
 
-
+                DataSource.DronesCharges.Add(droneCharge);
             }
 
+            public DroneCharge PullDataDroneChargeByDroneId(int droneId)
+            {
+                DroneCharge droneCharge = DataSource.DronesCharges.Find(s => s.DroneId == droneId);
+                /// if the Drone wasnt found throw error
+                if (droneCharge.DroneId != droneId)
+                {
+                    throw new IdDosntExists("the droneId could not be found", droneId);
+                }
+                return droneCharge;
+            }
 
+            public IEnumerable<DroneCharge> DronesChargesPrint()
+            {
+                return DAL.DalObject.DataSource.DronesCharges;
+            }
+
+            public void UpdateDroneCharge(DroneCharge droneCharge)
+            {
+                // if we cant find that the id we throw error
+                if (!DataSource.DronesCharges.Any(s => s.DroneId == droneCharge.DroneId))
+                {
+                    throw new IdDosntExists("the Id Drone is dosnt exists", droneCharge.DroneId);
+                }
+                Update<DroneCharge>(DataSource.DronesCharges, droneCharge);
+            }
+
+            public void DeleteDroneCharge(int droneId)
+            {
+                // if we cant find that the id we throw error
+                if (DataSource.DronesCharges.RemoveAll(s => s.DroneId == droneId) < 1)
+                {
+                    throw new IdDosntExists("the Id Drone is dosnt exists", droneId);
+                }
+            }
         }
     }
 }

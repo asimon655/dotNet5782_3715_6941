@@ -221,7 +221,7 @@ namespace BL
         {
             IDAL.DO.Drone DroneTmp = new IDAL.DO.Drone() { Id = drone.Id, MaxWeigth = ((IDAL.DO.WeightCategories)(int)drone.Weight), Modle = drone.Model };
             data.AddDrone(DroneTmp);
-            data.BindDroneAndStaion(stationId, drone.Id);
+            data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
             drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
             drone.DroneStat = IBL.BO.DroneStatuses.Matance;
             IDAL.DO.Station PulledStaion = data.PullDataStation(stationId);

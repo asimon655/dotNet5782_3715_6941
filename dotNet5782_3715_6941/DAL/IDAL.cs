@@ -26,7 +26,12 @@ namespace IDAL
         Parcel PullDataParcel(int id);
         IEnumerable<Parcel> ParcelsPrint();
         void UpdateParcles(Parcel parcel);
-        void BindDroneAndStaion(int DroneId, int staionId);
+
+        void AddDroneCharge(DroneCharge droneCharge);
+        DroneCharge PullDataDroneChargeByDroneId(int droneId);
+        IEnumerable<DroneCharge> DronesChargesPrint();
+        void DeleteDroneCharge(int droneId);
+
         double[] GetPowerConsumption();
     }
 }
