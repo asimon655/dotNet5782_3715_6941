@@ -249,13 +249,24 @@ namespace BL
          
         }
 
-        public BaseStation PullDataStaion(int id)
+        public BaseStation PullDataStaion(int stationId)
         {
-            BaseStation TmpStation = StationC(data.PullDataStation(id));
-            TmpStation.DroneInChargeList = 
+            BaseStation TmpStation = StationC(data.PullDataStation(stationId));
+            List<DroneInCharge> dronesInCharges = new List<DroneInCharge>();
+            foreach (var droneCharge in data.DronesChargesPrint())
+            {
+                if (droneCharge.StaionId == stationId)
+                {
+                    DroneToList drone = drones.Find(s => s.Id == droneCharge.DroneId);
+                    // check if the drone exsists
+                    DroneInCharge droneInCharge = new DroneInCharge { id = drone.Id,
+                                                                      BatteryStat = drone.BatteryStat };
+                    dronesInCharges.Add(droneInCharge);
+                }
+            }
+            TmpStation.DroneInChargeList = dronesInCharges;
 
             return TmpStation;
-            throw new NotImplementedException();
         }
 
         public Costumer PullDataCostumer(int id)
