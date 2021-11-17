@@ -99,7 +99,8 @@ namespace BL
                     List<IDAL.DO.Station> stationsFreePorts = getStationsFreePorts();
                     IDAL.DO.Station station = stationsFreePorts[RandomGen.Next(stationsFreePorts.Count)];
                     newDrone.Current = new Location(station.Longitude, station.Lattitude);
-                    // TODO: register this matance in DroneCharge
+                    // register the matance in drone charge
+                    data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = station.Id, DroneId = newDrone.Id });
                     // set drone battery
                     newDrone.BatteryStat = RandomGen.NextDouble() * 20; 
                 }
