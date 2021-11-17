@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 namespace BL
 {
-    public class Bl : IBL.Ibl ,BL.Convertor.DOTOBO
+    public class Bl : IBL.Ibl
     {
         IDAL.Idal data = new DAL.DalObject.DalObject();
 
@@ -215,7 +215,10 @@ namespace BL
 
         public BaseStation PullDataStaion(int id)
         {
-             
+            BaseStation TmpStation = StationC(data.PullDataStation(id));
+            TmpStation.DroneInChargeList = 
+
+            return TmpStation;
             throw new NotImplementedException();
         }
 
@@ -302,6 +305,35 @@ namespace BL
         public IEnumerable<ParcelToList> ParcelsWithoutDronesPrint()
         {
             throw new NotImplementedException();
+        }
+
+        Drone DronesC(IDAL.DO.Drone drone)
+        {
+            return new Drone() { Id = drone.Id, Weight = (WeightCategories)drone.MaxWeigth, Model = drone.Modle };
+
+        }
+        BaseStation StationC(IDAL.DO.Station station)
+        {
+            return new BaseStation()
+            {
+                Id = station.Id,
+                NumOfFreeOnes = station.ChargeSlots,
+                LoctConstant = new Location(station.Longitude, station.Lattitude),
+                Name = station.Name
+            };
+        }
+        Costumer CostumerC(IDAL.DO.Costumer costumer)
+        {
+            return new Costumer() { Id = costumer.Id, Loct = new Location(costumer.Longitude, costumer.Lattitude), Name = costumer.Name, Phone_Num = costumer.Phone };
+
+        }
+        Parcel ParcelC(IDAL.DO.Parcel parcel)
+        {
+            Parcel ParcelTmp = new Parcel() { Id = parcel.Id, ParcelDelivered = parcel.Delivered, ParcelPickedUp = parcel.PickedUp, ParcelCreation = parcel.Requested, ParcelBinded = parcel.Schedulded, Priority = (Priorities)parcel.Priority, Weight = (WeightCategories)parcel.Weight };
+            ParcelTmp.SenderParcelToCostumer.id = parcel.SenderId;
+            ParcelTmp.GetterParcelToCostumer.id = parcel.TargetId;
+            return ParcelTmp;
+
         }
     }
 }
