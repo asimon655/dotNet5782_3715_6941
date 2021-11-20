@@ -298,7 +298,7 @@ namespace BL
 
         public void UpdateStation(int stationId, int? stationName = null, int? stationChargeSlots = null)
         {
-            IDAL.DO.Station Stationy = new IDAL.DO.Station() { Id = stationId,Name=(int)stationName ,ChargeSlots= (int)stationChargeSlots  };
+            IDAL.DO.Station Stationy = new IDAL.DO.Station() { Id = stationId,Name=(int)stationName ,ChargeSlots= (int)stationChargeSlots - data.DronesChargesPrint().Count(x => x.StaionId == stationId) };
             data.UpdateStations(Stationy);
         }
 
