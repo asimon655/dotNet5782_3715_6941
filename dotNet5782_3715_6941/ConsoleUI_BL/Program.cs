@@ -72,6 +72,8 @@ namespace ConsoleUI_BL
                             case (int)Add.Package:
                                 {
                                     Parcel parcel = new Parcel();
+                                    parcel.SenderParcelToCostumer = new ParcelToCostumer() { id = SysFunc.SafeEnterUInt("please enter Sender ID: ") };
+                                    parcel.GetterParcelToCostumer = new ParcelToCostumer() { id = SysFunc.SafeEnterUInt("please enter Target ID: ") };
                                     Console.WriteLine("Priorty=>please enter a number from the menue : ");
                                     SysFunc.printEnum<Priorities>();
                                     Console.WriteLine(EnumHelper.GetDescription<Priorities>((Priorities)enter));

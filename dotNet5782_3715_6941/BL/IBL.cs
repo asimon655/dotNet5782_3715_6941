@@ -23,7 +23,7 @@ namespace IBL
         /// update section
         void UpdateDrone(int droneId, string droneName);
         void UpdateStation(int stationId, int? stationName = null, int? stationChargeSlots = null);
-        void UpdateCostumer(int costumerId, string ? costumerName = null, string? costumerPhone = null);
+        void UpdateCostumer(int costumerId, string ? costumerName = null, string ? costumerPhone = null);
         void BindParcelToDrone(int droneId);
         void PickUpByDrone(int droneId);
         void ParcelDeliveredToCostumer(int droneId);
