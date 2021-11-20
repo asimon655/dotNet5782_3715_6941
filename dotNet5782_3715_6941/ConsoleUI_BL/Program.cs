@@ -110,13 +110,14 @@ namespace ConsoleUI_BL
                                     }
                                 }
                                 break;
-
+                            case (int)ListShow.exit:
+                                break;
                         }
                         break;
                     case (int)Menu.Details:
                         /// in all the details i just get a drone id and call the pulldaya method in Logistics and checks if that is not a null 
-                        Console.WriteLine("please enter a number from the menue ");
                         SysFunc.printEnum<Details>();
+                        Console.WriteLine("please enter a number from the menue ");
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(EnumHelper.GetDescription<Details>((Details)enter));
                         switch (enter)
@@ -173,13 +174,14 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
-
+                            case (int)Details.exit:
+                                break;
                         }
                         break;
                     case (int)Menu.Update:
                         ///just calling the Logistics methods 
-                        Console.WriteLine("please enter a number from the menue ");
                         SysFunc.printEnum<Update>();
+                        Console.WriteLine("please enter a number from the menue ");
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(EnumHelper.GetDescription<Update>((Update)enter));
                         switch (enter)
@@ -299,12 +301,14 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
+                            case (int)Update.exit:
+                                break;
                         }
                         break;
                     case (int)Menu.ListShow:
                         /// get the list from Logistics method anmd use sysfunc function to print it 
-                        Console.WriteLine("please enter a number from the menue ");
                         SysFunc.printEnum<ListShow>();
+                        Console.WriteLine("please enter a number from the menue ");
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
                         Console.WriteLine(EnumHelper.GetDescription<ListShow>((ListShow)enter));
                         switch (enter)
@@ -332,13 +336,12 @@ namespace ConsoleUI_BL
                             case (int)ListShow.PackagesWithoutDrones:
                                 Console.WriteLine("Printing ... ");
                                 SysFunc.printList<ParcelToList>(Logistics.ParcelsWithoutDronesPrint());
-
                                 break;
-
+                            case (int)ListShow.exit:
+                                break;
                         }
                         break;
                     case (int)Menu.exit:
-
                         break;
 
                 }
