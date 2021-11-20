@@ -41,7 +41,7 @@ namespace ConsoleUI_BL
                                     }
                                     catch (Exception err)
                                     {
-                                        Console.WriteLine(err.Message);
+                                        Console.WriteLine("Error : "+err.Message);
                                     }
 
                                 }
@@ -64,7 +64,7 @@ namespace ConsoleUI_BL
                                     }
                                     catch (Exception err)
                                     {
-                                        Console.WriteLine(err.Message);
+                                        Console.WriteLine("Error : "+err.Message);
                                     }
                                
                                 }
@@ -86,7 +86,7 @@ namespace ConsoleUI_BL
                                     }
                                     catch (Exception err)
                                     {
-                                        Console.WriteLine(err.Message);
+                                        Console.WriteLine("Error : "+err.Message);
                                     }
                                 } 
                                 break;
@@ -104,7 +104,7 @@ namespace ConsoleUI_BL
                                     }
                                     catch (Exception err)
                                     {
-                                        Console.WriteLine(err.Message);
+                                        Console.WriteLine("Error : "+err.Message);
                                     }
                                 }
                                 break;
@@ -128,7 +128,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 } 
                                 break;
                             case (int)Details.Costumer:
@@ -140,7 +140,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                             case (int)Details.Drone:
@@ -154,7 +154,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                             case (int)Details.Package:
@@ -168,7 +168,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
 
@@ -194,7 +194,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                             case (int)Update.UpdateStation:
@@ -209,7 +209,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                             case (int)Update.UpdateCostumer:
@@ -226,7 +226,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                             case (int)Update.BindPackgeAndDrone:
@@ -239,7 +239,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                             case (int)Update.DroneTakePackge:
@@ -252,7 +252,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                                
@@ -267,7 +267,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                             case (int)Update.DroneSendCharge:
@@ -280,7 +280,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                             case (int)Update.DroneRelease:
@@ -294,7 +294,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine(err.Message);
+                                    Console.WriteLine("Error : "+err.Message);
                                 }
                                 break;
                         }
@@ -340,7 +340,7 @@ namespace ConsoleUI_BL
                         break;
 
                 }
-            } while ((command != 4));
+            } while ((command != (int)Menu.exit));
 
         }
     }
