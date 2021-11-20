@@ -29,8 +29,7 @@ namespace ConsoleUI_BL
                                 {
                                     Costumer costumer = new Costumer();
                                     costumer.Id = SysFunc.SafeEnterUInt("Id: ");
-                                    costumer.Loct.Lattitude = SysFunc.SafeEnterDouble("Lattitude: ");
-                                    costumer.Loct.Longitude = SysFunc.SafeEnterDouble("Longitude: ");
+                                    costumer.Loct = new Location(SysFunc.SafeEnterDouble("Longitude: "), SysFunc.SafeEnterDouble("Lattitude: ")); 
                                     Console.Write("Name: ");
                                     costumer.Name = Console.ReadLine();
                                     Console.Write("Phone: ");
@@ -96,8 +95,7 @@ namespace ConsoleUI_BL
                                     BaseStation station = new BaseStation();
                                     station.Id = SysFunc.SafeEnterUInt("Id: ");
                                     station.Name = SysFunc.SafeEnterUInt("Name: ");
-                                    station.LoctConstant.Lattitude = SysFunc.SafeEnterDouble("Latitude: ");
-                                    station.LoctConstant.Longitude = SysFunc.SafeEnterDouble("Longitude: ");
+                                    station.LoctConstant = new Location (SysFunc.SafeEnterDouble("Latitude: "), SysFunc.SafeEnterDouble("Longitude: "));
                                     station.NumOfFreeOnes = SysFunc.SafeEnterUInt("ChargeSlots: ");
                                     try
                                     {

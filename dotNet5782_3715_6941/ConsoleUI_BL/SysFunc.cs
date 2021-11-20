@@ -50,7 +50,7 @@ namespace ConsoleUI_BL
         }
 
     }
-    public static class EnumHelper
+    internal  static class EnumHelper
     {
         // this method returns the description of a specific enum value
         // (the description is filled in the Enums.cs file
