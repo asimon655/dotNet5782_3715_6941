@@ -342,7 +342,7 @@ namespace ConsoleUI_BL
                         break;
 
                 }
-            } while ((command != 4));
+            } while ((command != (int)Menu.exit));
 
         }
     }
