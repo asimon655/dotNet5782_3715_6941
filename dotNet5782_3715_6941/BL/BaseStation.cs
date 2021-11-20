@@ -15,7 +15,7 @@ namespace IBL
             public Location LoctConstant { set; get; }
             public int NumOfFreeOnes { set; get; }
             public List<IBL.BO.DroneInCharge> DroneInChargeList { set ; get; }
-            
+
         }
     }
 }

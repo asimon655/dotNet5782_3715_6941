@@ -45,10 +45,8 @@ namespace DAL
                 static internal double PowerConsumptionLight = 0.06;
                 static internal double PowerConsumptionMedium = 0.08;
                 static internal double PowerConsumptionHeavy = 0.01;
-                static internal double ChargingSpeed = 3;
-
+                static internal double ChargingSpeed = 3; 
                 static internal int IdCreation = 0;
-
                 static internal void Initalize()
                 {
                     //all the data is realistic - phone number have 10 digits  and id have 9 digits  
@@ -143,10 +141,9 @@ namespace DAL
 
         public partial class DalObject : IDAL.Idal
         {
-            public DalObject()
-            {
-                DataSource.Config.Initalize();
-            }
+            public DalObject() => DataSource.Config.Initalize();
+
+
             static public void Update<T>(List<T> listy, T updater)
             {
 
@@ -165,14 +162,13 @@ namespace DAL
                 }
 
             }
-            public double[] GetPowerConsumption()
-            {
-                return new double[] { DataSource.Config.PowerConsumptionFree,
+            public double[] GetPowerConsumption() => new double[] {
+                                      DataSource.Config.PowerConsumptionFree,
                                       DataSource.Config.PowerConsumptionLight,
                                       DataSource.Config.PowerConsumptionMedium,
                                       DataSource.Config.PowerConsumptionHeavy,
                                       DataSource.Config.ChargingSpeed };
-            }
+            
             static public String DecimalToSexagesimal(double Longitude, double Latitude) /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
             {
                 String result = "";

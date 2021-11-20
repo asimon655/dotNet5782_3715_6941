@@ -307,14 +307,14 @@ namespace BL
             IDAL.DO.Costumer Costumery = new IDAL.DO.Costumer() { Id = costumerId,Name=costumerName  ,Phone=costumerPhone };
             data.UpdateCostumers(Costumery);
         }
-        public Location getParcelLoctSender(IDAL.DO.Parcel parcel)
+        private  Location getParcelLoctSender(IDAL.DO.Parcel parcel)
         {
             foreach (var costumer in data.CostumersPrint())
                 if (costumer.Id == parcel.SenderId)
                     return CostumerC(costumer).Loct;
             throw new NotImplementedException();
         }
-        public Location getParcelLoctTarget(IDAL.DO.Parcel parcel)
+        private  Location getParcelLoctTarget(IDAL.DO.Parcel parcel)
         {
             foreach (var costumer in data.CostumersPrint())
                 if (costumer.Id == parcel.TargetId)
@@ -452,8 +452,8 @@ namespace BL
                 IDAL.DO.Station stationreal = (IDAL.DO.Station)station;
                 if (station == null)
                     throw new NotImplementedException();
-                ///drone to 100% taking 24H 
-                drony.BatteryStat = ((chargingPeriod / 24 * 60 * 60) > 1 ? 100 : (chargingPeriod / 24 * 60 * 60) * 100); 
+                double chargingSpeed = data.GetPowerConsumption()[4];
+                drony.BatteryStat = (chargingSpeed *(chargingPeriod/60*60) > 100 ? 100 :chargingSpeed * (chargingPeriod /  60 * 60) ); 
                 drony.DroneStat = DroneStatuses.Free; 
                 BaseStation baseStation = StationC(stationreal);
                 double powerUsage = getPowerUsage(drony.Current, baseStation.LoctConstant);
