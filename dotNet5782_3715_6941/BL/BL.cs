@@ -333,12 +333,29 @@ namespace BL
             IDAL.DO.Parcel  resParcel = list.First();
             DroneToList drony = drones.Find(x => x.Id == droneId);
             foreach (var pack in data.ParcelsPrint())
-                if(canreach(drony ,pack , getParcelLoctSender))
+                if (canreach(drony, pack, getParcelLoctSender))
                     if (pack.Requested == DateTime.MinValue)
+                    {
                         if (pack.Priority > resParcel.Priority)
-                            if ((int)pack.Weight <= (int)drony.Weight && pack.Weight > resParcel.Weight)
-                                if (calculateDistance(drony.Current, getParcelLoctSender(pack)) < calculateDistance(drony.Current, getParcelLoctSender(resParcel)))
+                            resParcel = pack;
+                        else
+                        {
+                            if (pack.Priority == resParcel.Priority)
+                            {
+                                if ((int)pack.Weight <= (int)drony.Weight && pack.Weight > resParcel.Weight)
                                     resParcel = pack;
+                                else
+                                {
+                                    if ((int)pack.Weight <= (int)drony.Weight && pack.Weight == resParcel.Weight)
+                                    {
+                                        if (calculateDistance(drony.Current, getParcelLoctSender(pack)) < calculateDistance(drony.Current, getParcelLoctSender(resParcel)))
+                                            resParcel = pack;
+                                    }
+                                } 
+
+                            }
+                        } 
+                    } 
             drony.ParcelIdTransfer = resParcel.Id;
             resParcel.Schedulded = DateTime.Now;
             drony.DroneStat = DroneStatuses.Delivery;
@@ -454,7 +471,7 @@ namespace BL
             List<BaseStaionToList> tmp= new List<BaseStaionToList>();
             foreach (var station in data.StationsPrint())
             {
-                int numOfNotFr = data.DronesChargesPrint().ToList().Count(x=>x.StaionId==  station.Id);
+                int numOfNotFr = data.DronesChargesPrint().Count(x=>x.StaionId==  station.Id);
                 tmp.Add(new BaseStaionToList() { Id = station.Id, Name = station.Name, NumOfFreeOnes = station.ChargeSlots, NumOfNotFreeOne = numOfNotFr  });
             }
             return tmp; 
@@ -465,7 +482,7 @@ namespace BL
             List<BaseStaionToList> tmp = new List<BaseStaionToList>();
             foreach (var station in data.StationsPrint())
             {
-                int numOfNotFr = data.DronesChargesPrint().ToList().Count(x => x.StaionId == station.Id);
+                int numOfNotFr = data.DronesChargesPrint().Count(x => x.StaionId == station.Id);
                 if (station.ChargeSlots > 0 ) 
                     tmp.Add(new BaseStaionToList() { Id = station.Id, Name = station.Name, NumOfFreeOnes = station.ChargeSlots, NumOfNotFreeOne = numOfNotFr });
             }
