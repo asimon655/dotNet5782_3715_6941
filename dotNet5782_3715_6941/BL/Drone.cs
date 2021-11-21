@@ -75,7 +75,7 @@ namespace BL
         {
             IDAL.DO.Drone Drony= new IDAL.DO.Drone() { Id=droneId , Modle=droneName};
             data.UpdateDrones(Drony);
-            drones.Find(x => x.Id == droneId).Model = droneName; 
+            GetDroneToList(droneId).Model = droneName; 
         }
 
 

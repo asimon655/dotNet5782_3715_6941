@@ -75,7 +75,7 @@ namespace BL
 
             IEnumerable<IDAL.DO.Parcel> list = data.ParcelsPrint();
             IDAL.DO.Parcel  resParcel = list.First();
-            DroneToList drony = drones.Find(x => x.Id == droneId);
+            DroneToList drony = GetDroneToList(droneId);
             foreach (var pack in data.ParcelsPrint())
                 if (canreach(drony, pack, getParcelLoctSender))
                     if (pack.Requested == DateTime.MinValue)
@@ -111,7 +111,7 @@ namespace BL
 
         public void PickUpByDrone(int droneId)
         {
-            DroneToList drony = drones.Find(x => x.Id == droneId);
+            DroneToList drony = GetDroneToList(droneId);
             IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
             if (drony.ParcelIdTransfer != null || pack.PickedUp == DateTime.MinValue)
             {
@@ -132,7 +132,7 @@ namespace BL
 
         public void ParcelDeliveredToCostumer(int droneId)
         {
-            DroneToList drony = drones.Find(x => x.Id == droneId);
+            DroneToList drony = GetDroneToList(droneId);
             IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
             Location Target = getParcelLoctTarget(pack);
             if (drony.ParcelIdTransfer != null || pack.Delivered == DateTime.MinValue)
