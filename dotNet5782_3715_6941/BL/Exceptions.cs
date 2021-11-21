@@ -54,5 +54,18 @@ namespace IBL
                 return Message + value;
             }
         }
+        public class SenderGetterAreSame : Exception
+        {
+            public int id { get; set; }
+            public SenderGetterAreSame(String message, int _id) : base(message)
+            {
+                id = _id;
+            }
+            public override string ToString()
+            {
+                return Message + id;
+            }
+        }
+        
     }
 }
