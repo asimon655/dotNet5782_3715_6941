@@ -12,7 +12,7 @@ namespace IBL
             public int Name { set; get; }
             public Location LoctConstant { set; get; }
             public int NumOfFreeOnes { set; get; }
-            public List<IBL.BO.DroneInCharge> DroneInChargeList { set ; get; }
+            public List<DroneInCharge> DroneInChargeList { set ; get; }
 
         }
     }
