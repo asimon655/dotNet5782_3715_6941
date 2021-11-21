@@ -33,48 +33,42 @@ namespace BL
         {
             if (chargingPeriod < 0)
                 throw new NotImplementedException(); 
-            DroneToList drony = drones.Find(x => x.Id == droneId);
+            DroneToList drony = GetDroneToList(droneId);
             if (drony.DroneStat == DroneStatuses.Matance)
             {
-                ///time perios is in secs 
-                IDAL.DO.Station  ? station = GetStationFromCharging(droneId);
-                IDAL.DO.Station stationreal = (IDAL.DO.Station)station;
-                if (station == null)
-                    throw new NotImplementedException();
-                double chargingSpeed = data.GetPowerConsumption()[4];
-                drony.BatteryStat = (chargingSpeed *(chargingPeriod/60*60) > 100 ? 100 :chargingSpeed * (chargingPeriod /  60 * 60) ); 
+                ///time perios is in hours 
+                IDAL.DO.Station station = GetStationFromCharging(droneId);
+                double chargingSpeed = ChargingSpeed;
+                drony.BatteryStat = Math.Min((chargingSpeed * chargingPeriod), 100); 
                 drony.DroneStat = DroneStatuses.Free; 
-                BaseStation baseStation = StationC(stationreal);
+                BaseStation baseStation = StationC(station);
                 double powerUsage = getPowerUsage(drony.Current, baseStation.LoctConstant);
-                stationreal.ChargeSlots += 1;
-                data.UpdateStations(stationreal);
+                station.ChargeSlots += 1;
+                data.UpdateStations(station);
                 data.DeleteDroneCharge(drony.Id);
-
             }
         }
 
         public void DroneCharge(int droneId)
         {
-            DroneToList drony = drones.Find(x => x.Id == droneId);
+            DroneToList drony = GetDroneToList(droneId);
             if (drony.DroneStat == DroneStatuses.Free)
             {
                 int stationID = getClosesStation(drony.Current);
-                if (stationID == 0)
-                    throw new NotImplementedException();
                 IDAL.DO.Station station = data.PullDataStation(stationID);
-                BaseStation baseStation = StationC(station);
-                double powerUsage = getPowerUsage(drony.Current, baseStation.LoctConstant);
+                Location stationLoct = new Location(station.Longitude, station.Lattitude);
+                double powerUsage = getPowerUsage(drony.Current, stationLoct);
                 if (drony.BatteryStat >= powerUsage )
                 {
-                    drony.DroneStat = DroneStatuses.Matance;
-                    drony.Current = baseStation.LoctConstant;
-                    drony.BatteryStat -= powerUsage;
+                    // throw exception
                 }
+                drony.DroneStat = DroneStatuses.Matance;
+                drony.Current = stationLoct;
+                drony.BatteryStat -= powerUsage;
                 station.ChargeSlots -= 1;
                 data.UpdateStations(station);
                 IDAL.DO.DroneCharge chargingport = new IDAL.DO.DroneCharge() { DroneId =drony.Id ,StaionId =station.Id};
                 data.AddDroneCharge(chargingport);
-
             }        
         }
         public void UpdateDrone(int droneId, string droneName)
@@ -87,7 +81,7 @@ namespace BL
 
         public Drone PullDataDrone(int id)
         {
-            return DronesC(data.PullDataDrone(id));
+            return DronesC(GetDroneToList(id));
         }
         public void AddDrone(Drone drone, int stationId)
         {
