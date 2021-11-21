@@ -41,11 +41,11 @@ namespace DAL
             //until here array var declartion 
             static internal class Config
             {
-                static internal double PowerConsumptionFree = 0.03;
-                static internal double PowerConsumptionLight = 0.06;
-                static internal double PowerConsumptionMedium = 0.08;
-                static internal double PowerConsumptionHeavy = 0.01;
-                static internal double ChargingSpeed = 3; 
+                static internal double PowerConsumptionFree = 0.003;
+                static internal double PowerConsumptionLight = 0.006;
+                static internal double PowerConsumptionMedium = 0.008;
+                static internal double PowerConsumptionHeavy = 0.001;
+                static internal double ChargingSpeed = 33; 
                 static internal int IdCreation = 0;
                 static internal void Initalize()
                 {
