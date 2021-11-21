@@ -27,16 +27,6 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-
-
-
-
-    }
-}
-namespace BL
-{
-    public partial class Bl : IBL.Ibl
-    {
         List<IDAL.DO.Parcel> getDeliverdParcels()
         {
             IEnumerable<IDAL.DO.Parcel> parcels = data.ParcelsPrint();
