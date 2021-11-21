@@ -13,7 +13,7 @@ namespace IBL
             public WeightCategories Weight { set; get; }
             public double BatteryStat { set; get;  }
             public DroneStatuses DroneStat { set; get;  }
-            public IBL.BO.ParcelInTransfer ? ParcelTransfer { set; get;  }
+            public IBL.BO.ParcelInTransfer ParcelTransfer { set; get;  }
             public Location Current { set; get;  }
 
         }
@@ -88,7 +88,6 @@ namespace BL
         public Drone PullDataDrone(int id)
         {
             return DronesC(data.PullDataDrone(id));
-            throw new NotImplementedException();
         }
         public void AddDrone(Drone drone, int stationId)
         {
@@ -99,7 +98,14 @@ namespace BL
             drone.DroneStat = IBL.BO.DroneStatuses.Matance;
             IDAL.DO.Station PulledStaion = data.PullDataStation(stationId);
             drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude) ;
-            DroneToList TmpDrnLst = new DroneToList() {BatteryStat=drone.BatteryStat , Id=drone.Id , Current=drone.Current , DroneStat=drone.DroneStat , Model=drone.Model ,ParcelIdTransfer=drone.ParcelTransfer.Id , Weight=drone.Weight};
+            DroneToList TmpDrnLst = new DroneToList() {
+                BatteryStat=drone.BatteryStat ,
+                Id=drone.Id , 
+                Current=drone.Current , 
+                DroneStat=drone.DroneStat , 
+                Model=drone.Model ,
+                ParcelIdTransfer=null, /// just created there is no reason that parcel will binded toit already   
+                Weight=drone.Weight};
             drones.Add(TmpDrnLst);
        
 
