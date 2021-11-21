@@ -33,18 +33,14 @@ namespace BL
             }
         public BaseStation PullDataStaion(int stationId)
         {
+
             try
             {
-                BaseStation TmpStation = StationC(data.PullDataStation(stationId));
-            }
-            catch (Exception err)
-            { 
-            
-            } 
-            List<DroneInCharge> dronesInCharges = new List<DroneInCharge>();
-            foreach (var droneCharge in data.DronesChargesPrint())
-            {
-                if (droneCharge.StaionId == stationId)
+                  BaseStation TmpStation = StationC(data.PullDataStation(stationId));
+                List<DroneInCharge> dronesInCharges = new List<DroneInCharge>();
+                foreach (var droneCharge in data.DronesChargesPrint())
+                {
+                    if (droneCharge.StaionId == stationId)
                 {
                     DroneToList  drone = drones.Find(s => s.Id == droneCharge.DroneId);
                     // check if the drone exsists
@@ -60,6 +56,12 @@ namespace BL
             
 
             return TmpStation;
+            }
+            catch (Exception err)
+            {
+                throw new Exception(); 
+            } 
+           
         }
 
         public void AddStation(BaseStation station)

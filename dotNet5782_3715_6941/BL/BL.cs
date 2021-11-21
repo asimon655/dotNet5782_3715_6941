@@ -216,18 +216,17 @@ namespace BL
 
         private IDAL.DO.Station GetStationFromCharging(int droneId)
         {
-            IDAL.DO.Station res;
+     
             try
             {
-                res = data.PullDataStation(data.PullDataDroneChargeByDroneId(droneId).StaionId);
-                return res;
+              return data.PullDataStation(data.PullDataDroneChargeByDroneId(droneId).StaionId);
+                
             }
             catch (Exception err)
             {
-
+                throw new NotImplementedException();
             }
-            return new IDAL.DO.Station(); /// just for the compiler that did me headic 
-            
+
   
            
         } 
