@@ -27,16 +27,6 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-
-
-
-
-    }
-}
-namespace BL
-{
-    public partial class Bl : IBL.Ibl
-    {
         List<IDAL.DO.Parcel> getDeliverdParcels()
         {
             IEnumerable<IDAL.DO.Parcel> parcels = data.ParcelsPrint();
@@ -52,18 +42,29 @@ namespace BL
         }
         public void AddParcel(Parcel parcel)
         {
-            IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() { Id = parcel.Id,
-                Delivered=DateTime.MinValue ,
-                PickedUp= DateTime.MinValue, 
-                Requested= DateTime.MinValue, 
-                Schedulded= DateTime.MinValue, 
+            try
+            {
+                data.PullDataCostumer(parcel.SenderParcelToCostumer.id);
+                data.PullDataCostumer(parcel.GetterParcelToCostumer.id);
+            }
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
+            if (parcel.SenderParcelToCostumer.id == parcel.GetterParcelToCostumer.id)
+            {
+                throw new SenderGetterAreSame("the sender and getter cant be the same ", parcel.GetterParcelToCostumer.id);
+            }
+            isInEnum(parcel.Priority);
+            isInEnum(parcel.Weight);
+
+            IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() {
+                Requested= DateTime.Now, 
                 SenderId=parcel.SenderParcelToCostumer.id,
-                TargetId=parcel.GetterParcelToCostumer.id , 
-                DroneId =null , Priority=(IDAL.DO.Priorities)parcel.Priority,
+                TargetId=parcel.GetterParcelToCostumer.id ,
+                Priority=(IDAL.DO.Priorities)parcel.Priority,
                 Weight=(IDAL.DO.WeightCategories)parcel.Weight};
             data.AddParcel(ParcelTmp);
-           
-
         }
         public Parcel PullDataParcel(int id)
         {
@@ -75,7 +76,7 @@ namespace BL
 
             IEnumerable<IDAL.DO.Parcel> list = data.ParcelsPrint();
             IDAL.DO.Parcel  resParcel = list.First();
-            DroneToList drony = drones.Find(x => x.Id == droneId);
+            DroneToList drony = GetDroneToList(droneId);
             foreach (var pack in data.ParcelsPrint())
                 if (canreach(drony, pack, getParcelLoctSender))
                     if (pack.Requested == DateTime.MinValue)
@@ -111,46 +112,41 @@ namespace BL
 
         public void PickUpByDrone(int droneId)
         {
-            DroneToList drony = drones.Find(x => x.Id == droneId);
-            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
-            if (drony.ParcelIdTransfer != null || pack.PickedUp == DateTime.MinValue)
+            DroneToList drony = GetDroneToList(droneId);
+            if (drony.DroneStat != DroneStatuses.Delivery)
             {
-                if (!canreach(drony, pack,getParcelLoctSender))
-                    throw new NotImplementedException();
-                ///battery status changed !!! 
-                drony.BatteryStat -= getPowerUsage(getParcelLoctSender(pack), drony.Current ,  (WeightCategories)pack.Weight);
-                drony.Current = getParcelLoctSender(pack);
-                pack.PickedUp = DateTime.Now;
-                data.UpdateParcles(pack);
-
-
-            }
-            else
                 throw new NotImplementedException();
-
+            }
+            IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
+            if (ParcelStatC(pack) != ParcelStat.Binded)
+            {
+                throw new NotImplementedException();
+            }
+            if (!canreach(drony, pack,getParcelLoctSender))
+                throw new NotImplementedException();
+            ///battery status changed !!! 
+            drony.BatteryStat -= getPowerUsage(getParcelLoctSender(pack), drony.Current ,  (WeightCategories)pack.Weight);
+            drony.Current = getParcelLoctSender(pack);
+            pack.PickedUp = DateTime.Now;
+            data.UpdateParcles(pack);
         }
 
         public void ParcelDeliveredToCostumer(int droneId)
         {
-            DroneToList drony = drones.Find(x => x.Id == droneId);
-            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
+            DroneToList drony = GetDroneToList(droneId);
+            IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
             Location Target = getParcelLoctTarget(pack);
-            if (drony.ParcelIdTransfer != null || pack.Delivered == DateTime.MinValue)
+            if (ParcelStatC(pack) != ParcelStat.PickedUp)
             {
-                if (!canreach(drony, pack, getParcelLoctTarget))
-                    throw new NotImplementedException();
-                drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
-                drony.Current = Target;
-                drony.DroneStat = DroneStatuses.Free;
-                pack.Delivered = DateTime.Now;
-                data.UpdateParcles(pack);
-
-            }
-
-
-            else
                 throw new NotImplementedException();
-
+            }
+            if (!canreach(drony, pack, getParcelLoctTarget))
+                throw new NotImplementedException();
+            drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
+            drony.Current = Target;
+            drony.DroneStat = DroneStatuses.Free;
+            pack.Delivered = DateTime.Now;
+            data.UpdateParcles(pack);
         }
 
         public IEnumerable<ParcelToList> ParcelsPrint()

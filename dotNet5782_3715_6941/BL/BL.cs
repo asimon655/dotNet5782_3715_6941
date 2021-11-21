@@ -129,10 +129,17 @@ namespace BL
                 drones.Add(newDrone);
             }
         }
+
+        void isInEnum<T>(T value) where T : IConvertible
+        {
+            if (!Enum.IsDefined(typeof(T), value))
+            {
+                throw new EnumOutOfRange("value not defined in the enum "+typeof(T), Convert.ToInt32(value));
+            }
+        }
+        
         // return the id of the parcel that binded to a specific drone and the parcel not yet delivered
         // if there isnt any return -1
-
-
         int getBindedUndeliveredParcel(int droneId)
         {
             foreach (var parcel in data.ParcelsPrint())
@@ -160,8 +167,6 @@ namespace BL
             return Math.Round(dist * 1.609344, 2);
         }
         // return the closes station to a given location
-
-
         int getClosesStation(Location location)
         {
             int stationId = 0;
@@ -209,15 +214,21 @@ namespace BL
             => getPowerUsage(drony.Current, function(parcel), (WeightCategories)parcel.Weight) <= drony.BatteryStat; 
         
 
-        private IDAL.DO.Station  ? GetStationFromCharging(int droneId)
+        private IDAL.DO.Station GetStationFromCharging(int droneId)
         {
-            foreach (var charges in data.DronesChargesPrint())
-                if (charges.DroneId == droneId)
-                    return data.PullDataStation(charges.StaionId);
-            return null; 
+            return data.PullDataStation(data.PullDataDroneChargeByDroneId(droneId).StaionId);
         } 
     
-
+        private DroneToList GetDroneToList(int Id)
+        {
+            DroneToList drone = drones.Find(s => s.Id == Id);
+            /// if the Drone wasnt found throw error
+            if (drone.Id != Id)
+            {
+                throw new Exception("the Id could not be found");
+            }
+            return drone;
+        } 
         private ClientToList CltToLstC(IDAL.DO.Costumer gety) =>  new ClientToList() { 
                 Id = gety.Id 
                 , Name=gety.Name 
@@ -244,36 +255,47 @@ namespace BL
             return (ParcelStat)caseNum; 
         }
 
-
-        private Drone DronesC(IDAL.DO.Drone drone)
+        private CustomerToParcel CustomerToParcelC(IDAL.DO.Parcel parcel, ParcelToCostumer parentCustomer)
         {
-            
-            Parcel ?  parcely = PullDataParcel( data.ParcelsPrint().ToList().Find(x => x.DroneId == drone.Id).Id  );
-            IDAL.DO.Costumer Sender = data.CostumersPrint().ToList().Find(x => x.Id == parcely.SenderParcelToCostumer.id ) ;
-            IDAL.DO.Costumer Getter = data.CostumersPrint().ToList().Find(x => x.Id == parcely.GetterParcelToCostumer.id)  ;
-            Location SenderLCT = new Location(Sender.Longitude, Sender.Lattitude);
-            Location GetterLCT = new Location(Getter.Longitude, Getter.Lattitude);
-            return new Drone()
-            {
+            return new CustomerToParcel() {
+                Id = parcel.Id,
+                Priority = (Priorities)parcel.Priority,
+                Status = ParcelStatC(parcel),
+                Weight = (WeightCategories)parcel.Weight,
+                ParentCustomer = parentCustomer
+            };
+        }
+        private Drone DronesC(DroneToList drone)
+        {
+            Drone newDrone = new Drone(){
                 Id = drone.Id,
-                Weight = (WeightCategories)drone.MaxWeigth,
-                Model = drone.Modle,
-                ParcelTransfer =( parcely is null ? null  :  new ParcelInTransfer()
-                {  
+                Weight = (WeightCategories)drone.Weight,
+                Model = drone.Model,
+                BatteryStat = drone.BatteryStat,
+                Current = drone.Current,
+                DroneStat = drone.DroneStat,
+            };
+            if (newDrone.DroneStat == DroneStatuses.Delivery)
+            {
+                int parcelyId = getBindedUndeliveredParcel(newDrone.Id);
+                IDAL.DO.Parcel parcely = data.PullDataParcel(parcelyId);
+                IDAL.DO.Costumer Sender = data.PullDataCostumer(parcely.SenderId) ;
+                IDAL.DO.Costumer Getter = data.PullDataCostumer(parcely.TargetId)  ;
+                Location SenderLCT = new Location(Sender.Longitude, Sender.Lattitude);
+                Location GetterLCT = new Location(Getter.Longitude, Getter.Lattitude);
+                ParcelInTransfer parcelTransfer = new ParcelInTransfer() {
                     Id = parcely.Id , 
                     Pickup = SenderLCT   , 
                     Dst =   GetterLCT,
                     Distance =calculateDistance(SenderLCT , GetterLCT ) , 
-                    Weight = parcely.Weight , 
-                    Priorety = parcely.Priority , 
-                    Sender = new ParcelToCostumer() { id = parcely.SenderParcelToCostumer.id, name = parcely.SenderParcelToCostumer.name } , 
-                    Target = new ParcelToCostumer() { id = parcely.GetterParcelToCostumer.id, name = parcely.GetterParcelToCostumer.name }
-
-
-
-
-                } ) 
-            };
+                    Weight = (WeightCategories)parcely.Weight , 
+                    Priorety = (Priorities)parcely.Priority , 
+                    Sender = new ParcelToCostumer() { id = parcely.SenderId, name = data.PullDataCostumer(parcely.SenderId).Name } , 
+                    Target = new ParcelToCostumer() { id = parcely.TargetId, name = data.PullDataCostumer(parcely.TargetId).Name }
+                };
+                newDrone.ParcelTransfer = parcelTransfer;
+            }
+            return newDrone;
         }
 
         private BaseStation StationC(IDAL.DO.Station station) => new BaseStation(){
@@ -283,7 +305,7 @@ namespace BL
                 Name = station.Name , 
                 DroneInChargeList = (from drones in data.DronesChargesPrint() where (drones.StaionId ==station.Id) select (new DroneInCharge() { 
                     id = drones.DroneId ,
-                    BatteryStat = PullDataDrone(drones.DroneId).BatteryStat }  ) ).ToList ()  
+                    BatteryStat = GetDroneToList(drones.DroneId).BatteryStat }  ) ).ToList ()  
                 };
 
 
@@ -292,8 +314,8 @@ namespace BL
             Loct = new Location(costumer.Longitude, costumer.Lattitude), 
             Name = costumer.Name, 
             Phone_Num = costumer.Phone , 
-            FromClient = ( from package in data.ParcelsPrint() where (package.SenderId == costumer.Id)  select (ParcelC(package)) ) .ToList() ,
-            ToClient = (from package in data.ParcelsPrint() where (package.TargetId == costumer.Id) select (ParcelC(package))).ToList()
+            FromClient = ( from package in data.ParcelsPrint() where (package.SenderId == costumer.Id)  select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name})) ).ToList() ,
+            ToClient = (from package in data.ParcelsPrint() where (package.TargetId == costumer.Id) select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name}))).ToList()
         };
 
 

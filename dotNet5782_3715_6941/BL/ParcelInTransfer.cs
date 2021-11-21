@@ -10,7 +10,7 @@ namespace IBL
     {
         public class ParcelInTransfer : Printable
         {
-            public int  ? Id { set; get; }
+            public int Id { set; get; }
             public Priorities Priorety{ set; get;  }
             public WeightCategories Weight { set; get;  }
             public IBL.BO.ParcelToCostumer Sender { set; get;  }
