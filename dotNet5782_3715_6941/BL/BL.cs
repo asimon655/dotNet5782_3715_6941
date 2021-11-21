@@ -206,7 +206,7 @@ namespace BL
         
         
         private bool canreach(DroneToList drony , IDAL.DO.Parcel parcel , Func<IDAL.DO.Parcel,Location> function) 
-            => getPowerUsage(drony.Current, function(parcel), (WeightCategories)parcel.Weight) < drony.BatteryStat; 
+            => getPowerUsage(drony.Current, function(parcel), (WeightCategories)parcel.Weight) <= drony.BatteryStat; 
         
 
         private IDAL.DO.Station  ? GetStationFromCharging(int droneId)
@@ -242,20 +242,49 @@ namespace BL
             if (caseNum == 4)
                 throw new NotImplementedException(); 
             return (ParcelStat)caseNum; 
-        } 
+        }
 
 
-        private Drone DronesC(IDAL.DO.Drone drone) => new Drone() { 
-            Id = drone.Id, 
-            Weight = (WeightCategories)drone.MaxWeigth, 
-            Model = drone.Modle };
+        private Drone DronesC(IDAL.DO.Drone drone)
+        {
+            
+            Parcel ?  parcely = PullDataParcel( data.ParcelsPrint().ToList().Find(x => x.DroneId == drone.Id).Id  );
+            IDAL.DO.Costumer Sender = data.CostumersPrint().ToList().Find(x => x.Id == parcely.SenderParcelToCostumer.id ) ;
+            IDAL.DO.Costumer Getter = data.CostumersPrint().ToList().Find(x => x.Id == parcely.GetterParcelToCostumer.id)  ;
+            Location SenderLCT = new Location(Sender.Longitude, Sender.Lattitude);
+            Location GetterLCT = new Location(Getter.Longitude, Getter.Lattitude);
+            return new Drone()
+            {
+                Id = drone.Id,
+                Weight = (WeightCategories)drone.MaxWeigth,
+                Model = drone.Modle,
+                ParcelTransfer =( parcely is null ? null  :  new ParcelInTransfer()
+                {
+                    Id = parcely.Id , 
+                    Pickup = SenderLCT   , 
+                    Dst =   GetterLCT,
+                    Distance =calculateDistance(SenderLCT , GetterLCT ) , 
+                    Weight = parcely.Weight , 
+                    Priorety = parcely.Priority , 
+                    Sender = new ParcelToCostumer() { id = parcely.SenderParcelToCostumer.id, name = parcely.SenderParcelToCostumer.name } , 
+                    Target = new ParcelToCostumer() { id = parcely.GetterParcelToCostumer.id, name = parcely.GetterParcelToCostumer.name }
 
+
+
+
+                } ) 
+            };
+        }
 
         private BaseStation StationC(IDAL.DO.Station station) => new BaseStation(){
                 Id = station.Id,
                 NumOfFreeOnes = station.ChargeSlots,
                 LoctConstant = new Location(station.Longitude, station.Lattitude),
-                Name = station.Name};
+                Name = station.Name , 
+                DroneInChargeList = (from drones in data.DronesChargesPrint() where (drones.StaionId ==station.Id) select (new DroneInCharge() { 
+                    id = drones.DroneId ,
+                    BatteryStat = PullDataDrone(drones.DroneId).BatteryStat }  ) ).ToList ()  
+                };
 
 
         private Costumer CostumerC(IDAL.DO.Costumer costumer) => new Costumer() { 
@@ -268,17 +297,21 @@ namespace BL
         };
 
 
-        private Parcel ParcelC(IDAL.DO.Parcel parcel) => new Parcel() { 
-            Id = parcel.Id, 
-            ParcelDelivered = parcel.Delivered, 
-            ParcelPickedUp = parcel.PickedUp, 
-            ParcelCreation = parcel.Requested, 
-            ParcelBinded = parcel.Schedulded, 
-            Priority = (Priorities)parcel.Priority, 
-            Weight = (WeightCategories)parcel.Weight ,
-            SenderParcelToCostumer = new ParcelToCostumer() { id = parcel.SenderId },
-            GetterParcelToCostumer = new ParcelToCostumer() { id = parcel.TargetId } };  
-       
-
+        private Parcel ParcelC(IDAL.DO.Parcel parcel)
+        {
+            List<IDAL.DO.Costumer> NameFinder = data.CostumersPrint().ToList(); 
+            return new Parcel()
+            {
+                Id = parcel.Id,
+                ParcelDelivered = parcel.Delivered,
+                ParcelPickedUp = parcel.PickedUp,
+                ParcelCreation = parcel.Requested,
+                ParcelBinded = parcel.Schedulded,
+                Priority = (Priorities)parcel.Priority,
+                Weight = (WeightCategories)parcel.Weight,
+                SenderParcelToCostumer = new ParcelToCostumer() { id = parcel.SenderId, name =NameFinder.Find(x => x.Id == parcel.SenderId ).Name  },
+                GetterParcelToCostumer = new ParcelToCostumer() { id = parcel.TargetId ,  name = NameFinder.Find(x => x.Id == parcel.TargetId).Name }
+            };
+        }
     }
 }

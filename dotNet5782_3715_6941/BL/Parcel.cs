@@ -118,7 +118,7 @@ namespace BL
                 if (!canreach(drony, pack,getParcelLoctSender))
                     throw new NotImplementedException();
                 ///battery status changed !!! 
-                drony.BatteryStat -= getPowerUsage(getParcelLoctSender(pack), drony.Current);
+                drony.BatteryStat -= getPowerUsage(getParcelLoctSender(pack), drony.Current ,  (WeightCategories)pack.Weight);
                 drony.Current = getParcelLoctSender(pack);
                 pack.PickedUp = DateTime.Now;
                 data.UpdateParcles(pack);
@@ -139,7 +139,7 @@ namespace BL
             {
                 if (!canreach(drony, pack, getParcelLoctTarget))
                     throw new NotImplementedException();
-                drony.BatteryStat = getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
+                drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
                 drony.Current = Target;
                 drony.DroneStat = DroneStatuses.Free;
                 pack.Delivered = DateTime.Now;
