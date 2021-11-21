@@ -14,8 +14,8 @@ namespace IBL
             public string Name { get; set; }
             public string Phone_Num { get; set; }
             public IBL.BO.Location Loct { get; set; }
-            public List<CustomerToParcel> FromClient { get; init; } 
-            public List<CustomerToParcel> ToClient { get; init; }   
+            public List<CustomerToParcel> FromClient { get; set; } 
+            public List<CustomerToParcel> ToClient { get; set; }   
 
         }
 
