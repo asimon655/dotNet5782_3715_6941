@@ -53,17 +53,12 @@ namespace BL
         public void AddParcel(Parcel parcel)
         {
             IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() { Id = parcel.Id,
-                Delivered=DateTime.MinValue ,
-                PickedUp= DateTime.MinValue, 
-                Requested= DateTime.MinValue, 
-                Schedulded= DateTime.MinValue, 
+                Requested= DateTime.Now, 
                 SenderId=parcel.SenderParcelToCostumer.id,
-                TargetId=parcel.GetterParcelToCostumer.id , 
-                DroneId =null , Priority=(IDAL.DO.Priorities)parcel.Priority,
+                TargetId=parcel.GetterParcelToCostumer.id ,
+                Priority=(IDAL.DO.Priorities)parcel.Priority,
                 Weight=(IDAL.DO.WeightCategories)parcel.Weight};
             data.AddParcel(ParcelTmp);
-           
-
         }
         public Parcel PullDataParcel(int id)
         {
@@ -133,24 +128,19 @@ namespace BL
         public void ParcelDeliveredToCostumer(int droneId)
         {
             DroneToList drony = GetDroneToList(droneId);
-            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
+            IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
             Location Target = getParcelLoctTarget(pack);
-            if (drony.ParcelIdTransfer != null || pack.Delivered == DateTime.MinValue)
+            if (ParcelStatC(pack) != ParcelStat.PickedUp)
             {
-                if (!canreach(drony, pack, getParcelLoctTarget))
-                    throw new NotImplementedException();
-                drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
-                drony.Current = Target;
-                drony.DroneStat = DroneStatuses.Free;
-                pack.Delivered = DateTime.Now;
-                data.UpdateParcles(pack);
-
-            }
-
-
-            else
                 throw new NotImplementedException();
-
+            }
+            if (!canreach(drony, pack, getParcelLoctTarget))
+                throw new NotImplementedException();
+            drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
+            drony.Current = Target;
+            drony.DroneStat = DroneStatuses.Free;
+            pack.Delivered = DateTime.Now;
+            data.UpdateParcles(pack);
         }
 
         public IEnumerable<ParcelToList> ParcelsPrint()
