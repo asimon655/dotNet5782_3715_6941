@@ -14,6 +14,10 @@ namespace IBL
             {
                 id = _id;
             }
+            public IdAlreadyExists(IDAL.DO.IdAlreadyExists err) : base(err.Message)
+            {
+                id = err.id;
+            }
             public override string ToString()
             {
                 return Message + id;
@@ -29,9 +33,25 @@ namespace IBL
             {
                 id = _id;
             }
+            public IdDosntExists(IDAL.DO.IdDosntExists err) : base(err.Message)
+            {
+                id = err.id;
+            }
             public override string ToString()
             {
                 return Message + id;
+            }
+        }
+        public class EnumOutOfRange : Exception
+        {
+            public int value { get; set; }
+            public EnumOutOfRange(String message, int _value) : base(message)
+            {
+                value = _value;
+            }
+            public override string ToString()
+            {
+                return Message + value;
             }
         }
     }
