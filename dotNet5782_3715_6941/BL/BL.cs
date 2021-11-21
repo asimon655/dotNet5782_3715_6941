@@ -259,7 +259,7 @@ namespace BL
                 Weight = (WeightCategories)drone.MaxWeigth,
                 Model = drone.Modle,
                 ParcelTransfer =( parcely is null ? null  :  new ParcelInTransfer()
-                {
+                {  
                     Id = parcely.Id , 
                     Pickup = SenderLCT   , 
                     Dst =   GetterLCT,
