@@ -97,8 +97,7 @@ namespace BL
                 Id=drone.Id , 
                 Current=drone.Current , 
                 DroneStat=drone.DroneStat , 
-                Model=drone.Model ,
-                ParcelIdTransfer=null, /// just created there is no reason that parcel will binded toit already   
+                Model=drone.Model ,   
                 Weight=drone.Weight};
             drones.Add(TmpDrnLst);
        

@@ -112,22 +112,22 @@ namespace BL
         public void PickUpByDrone(int droneId)
         {
             DroneToList drony = GetDroneToList(droneId);
-            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
-            if (drony.ParcelIdTransfer != null || pack.PickedUp == DateTime.MinValue)
+            if (drony.DroneStat != DroneStatuses.Delivery)
             {
-                if (!canreach(drony, pack,getParcelLoctSender))
-                    throw new NotImplementedException();
-                ///battery status changed !!! 
-                drony.BatteryStat -= getPowerUsage(getParcelLoctSender(pack), drony.Current ,  (WeightCategories)pack.Weight);
-                drony.Current = getParcelLoctSender(pack);
-                pack.PickedUp = DateTime.Now;
-                data.UpdateParcles(pack);
-
-
-            }
-            else
                 throw new NotImplementedException();
-
+            }
+            IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
+            if (ParcelStatC(pack) != ParcelStat.Binded)
+            {
+                throw new NotImplementedException();
+            }
+            if (!canreach(drony, pack,getParcelLoctSender))
+                throw new NotImplementedException();
+            ///battery status changed !!! 
+            drony.BatteryStat -= getPowerUsage(getParcelLoctSender(pack), drony.Current ,  (WeightCategories)pack.Weight);
+            drony.Current = getParcelLoctSender(pack);
+            pack.PickedUp = DateTime.Now;
+            data.UpdateParcles(pack);
         }
 
         public void ParcelDeliveredToCostumer(int droneId)
