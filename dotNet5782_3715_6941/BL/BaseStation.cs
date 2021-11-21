@@ -25,21 +25,36 @@ namespace BL
         public void UpdateStation(int stationId, int? stationName = null, int? stationChargeSlots = null)
         {
             IDAL.DO.Station Stationy = new IDAL.DO.Station() { Id = stationId,Name=(int)stationName ,ChargeSlots= (int)stationChargeSlots - data.DronesChargesPrint().Count(x => x.StaionId == stationId) };
-            data.UpdateStations(Stationy);
-        }
+            try
+            {
+                data.UpdateStations(Stationy);
+            }
+            catch (Exception err) { } 
+            }
         public BaseStation PullDataStaion(int stationId)
         {
-            BaseStation TmpStation = StationC(data.PullDataStation(stationId));
+            try
+            {
+                BaseStation TmpStation = StationC(data.PullDataStation(stationId));
+            }
+            catch (Exception err)
+            { 
+            
+            } 
             List<DroneInCharge> dronesInCharges = new List<DroneInCharge>();
             foreach (var droneCharge in data.DronesChargesPrint())
             {
                 if (droneCharge.StaionId == stationId)
                 {
-                    DroneToList drone = drones.Find(s => s.Id == droneCharge.DroneId);
+                    DroneToList  drone = drones.Find(s => s.Id == droneCharge.DroneId);
                     // check if the drone exsists
                     DroneInCharge droneInCharge = new DroneInCharge { id = drone.Id,
                                                                       BatteryStat = drone.BatteryStat };
-                    dronesInCharges.Add(droneInCharge);
+                    try
+                    {
+                        dronesInCharges.Add(droneInCharge);
+                    }
+                    catch (Exception err) { } 
                 }
             }
             
@@ -51,8 +66,12 @@ namespace BL
         {
             IDAL.DO.Station StationTmp = new IDAL.DO.Station() {Id = station.Id,ChargeSlots=station.NumOfFreeOnes,Lattitude=station.LoctConstant.Lattitude,Longitude=station.LoctConstant.Longitude
             ,Name=station.Name};
-            data.AddStation(StationTmp);
-         
+            try
+            {
+                data.AddStation(StationTmp);
+            }
+            catch (Exception err)
+            { } 
         }
 
         List<IDAL.DO.Station> getStationsFreePorts()

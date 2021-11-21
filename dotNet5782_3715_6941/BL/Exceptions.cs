@@ -4,6 +4,55 @@ namespace IBL
 {
     namespace BO
     {
+        public class CantReachToDest : Exception
+        {
+            public double battery { get; set; }
+            public double required { get; set;  } 
+            public CantReachToDest() : base() { }
+            public CantReachToDest(String message) : base(message) { }
+            public CantReachToDest(String message, double _battery ,double _required ) : base(message)
+            {
+                battery = _battery;
+                required = _required; 
+            }
+            public override string ToString()
+            {
+                return Message + " \nbattery: "+battery.ToString()+"\nrequired: "+
+                    required.ToString() + "\nmissing: "+(required-battery).ToString();
+            }
+        }
+        public class NotInRightStatus : Exception
+        {
+            public DroneStatuses drnstat { get; set; }
+
+            public NotInRightStatus() : base() { }
+            public NotInRightStatus(String message) : base(message) { }
+            public NotInRightStatus(String message, DroneStatuses _drnstat) : base(message)
+            {
+                drnstat = _drnstat;
+            }   
+            public override string ToString()
+            {
+                return Message + drnstat.ToString();
+            }
+        }
+        public class NotValidTimePeriod : Exception
+        {
+            
+            double time { set; get;  } 
+            public NotValidTimePeriod() : base() { }
+            public NotValidTimePeriod(String message) : base(message) { }
+            public NotValidTimePeriod(String message, double _time) : base(message)
+            {
+                time = _time;
+            }
+            public override string ToString()
+            {
+                return Message ;
+            }
+        }
+
+
         public class IdAlreadyExists : Exception
         {
             public int id { get; set; }

@@ -32,9 +32,12 @@ namespace BL
         public void DroneChargeRelease(int droneId, double chargingPeriod)
         {
             if (chargingPeriod < 0)
-                throw new NotImplementedException(); 
+                throw new NotValidTimePeriod("you tried to enter time that is smaller than 0 (forbidden) ",chargingPeriod); 
+            
             DroneToList drony = GetDroneToList(droneId);
-            if (drony.DroneStat == DroneStatuses.Matance)
+            if (drony.DroneStat != DroneStatuses.Matance)
+                throw new NotInRightStatus("drone is not in matance is: ", drony.DroneStat); 
+            else 
             {
                 ///time perios is in hours 
                 IDAL.DO.Station station = GetStationFromCharging(droneId);
@@ -44,8 +47,19 @@ namespace BL
                 BaseStation baseStation = StationC(station);
                 double powerUsage = getPowerUsage(drony.Current, baseStation.LoctConstant);
                 station.ChargeSlots += 1;
-                data.UpdateStations(station);
-                data.DeleteDroneCharge(drony.Id);
+                try
+                {
+                    data.UpdateStations(station); 
+                    data.DeleteDroneCharge(drony.Id);
+                }
+                catch (Exception err)
+                { 
+                    
+                }
+         
+                   
+          
+
             }
         }
 
@@ -58,10 +72,9 @@ namespace BL
                 IDAL.DO.Station station = data.PullDataStation(stationID);
                 Location stationLoct = new Location(station.Longitude, station.Lattitude);
                 double powerUsage = getPowerUsage(drony.Current, stationLoct);
-                if (drony.BatteryStat >= powerUsage )
-                {
-                    // throw exception
-                }
+                if (drony.BatteryStat < powerUsage)
+                    throw new CantReachToDest("the charging port os too far to go with the current battery precantage",drony.BatteryStat , powerUsage); 
+
                 drony.DroneStat = DroneStatuses.Matance;
                 drony.Current = stationLoct;
                 drony.BatteryStat -= powerUsage;
@@ -73,8 +86,17 @@ namespace BL
         }
         public void UpdateDrone(int droneId, string droneName)
         {
+            
             IDAL.DO.Drone Drony= new IDAL.DO.Drone() { Id=droneId , Modle=droneName};
-            data.UpdateDrones(Drony);
+            try
+            {
+                data.UpdateDrones(Drony);
+            }
+            catch (Exception err)
+            { 
+            
+            
+            } 
             GetDroneToList(droneId).Model = droneName; 
         }
 
@@ -85,13 +107,28 @@ namespace BL
         }
         public void AddDrone(Drone drone, int stationId)
         {
-            IDAL.DO.Drone DroneTmp = new IDAL.DO.Drone() { Id = drone.Id, MaxWeigth = ((IDAL.DO.WeightCategories)(int)drone.Weight), Modle = drone.Model };
-            data.AddDrone(DroneTmp);
-            data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
+            IDAL.DO.Drone DroneTmp = new IDAL.DO.Drone() { 
+                Id = drone.Id, 
+                MaxWeigth = ((IDAL.DO.WeightCategories)(int)drone.Weight), 
+                Modle = drone.Model };
+            try
+            {
+                data.AddDrone(DroneTmp);
+                data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
+            }
+            catch (Exception err)
+            { 
+            
+            } 
             drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
             drone.DroneStat = IBL.BO.DroneStatuses.Matance;
-            IDAL.DO.Station PulledStaion = data.PullDataStation(stationId);
-            drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude) ;
+            try
+            {
+                IDAL.DO.Station PulledStaion = data.PullDataStation(stationId);
+                drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
+            }
+            catch (Exception err) { } 
+            
             DroneToList TmpDrnLst = new DroneToList() {
                 BatteryStat=drone.BatteryStat ,
                 Id=drone.Id , 
@@ -99,7 +136,11 @@ namespace BL
                 DroneStat=drone.DroneStat , 
                 Model=drone.Model ,   
                 Weight=drone.Weight};
-            drones.Add(TmpDrnLst);
+            try
+            {
+                drones.Add(TmpDrnLst);
+            }
+            catch (Exception err) { }  
        
 
         }

@@ -35,18 +35,33 @@ namespace BL
                 Phone = costumer.Phone_Num,
                 
             };
-            data.AddCostumer(CostumerTmp);
+            try
+            {
+                data.AddCostumer(CostumerTmp);
+            }
+            catch (Exception err)
+            { } 
         }
         public Costumer PullDataCostumer(int id)
         {
-            return CostumerC(data.PullDataCostumer(id));
+            try
+            {
+                return CostumerC(data.PullDataCostumer(id));
+            }
+            catch (Exception err)
+            { }
+            return new Costumer(); 
         }
         public void UpdateCostumer(int costumerId, string costumerName = null, string costumerPhone = null)
         {
             IDAL.DO.Costumer Costumery = new IDAL.DO.Costumer() { Id = costumerId,
                 Name=costumerName  ,
                 Phone=costumerPhone };
-            data.UpdateCostumers(Costumery);
+            try
+            {
+                data.UpdateCostumers(Costumery);
+            }
+            catch (Exception err) { } 
         }
 
 

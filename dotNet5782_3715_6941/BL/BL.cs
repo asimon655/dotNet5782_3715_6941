@@ -216,7 +216,20 @@ namespace BL
 
         private IDAL.DO.Station GetStationFromCharging(int droneId)
         {
-            return data.PullDataStation(data.PullDataDroneChargeByDroneId(droneId).StaionId);
+            IDAL.DO.Station res;
+            try
+            {
+                res = data.PullDataStation(data.PullDataDroneChargeByDroneId(droneId).StaionId);
+                return res;
+            }
+            catch (Exception err)
+            {
+
+            }
+            return new IDAL.DO.Station(); /// just for the compiler that did me headic 
+            
+  
+           
         } 
     
         private DroneToList GetDroneToList(int Id)
@@ -251,7 +264,7 @@ namespace BL
             else if (parcel.Requested != DateTime.MinValue)
                 caseNum--;
             if (caseNum == 4)
-                throw new NotImplementedException(); 
+                throw new EnumOutOfRange("4 for parcelstat is forbidden ",4); 
             return (ParcelStat)caseNum; 
         }
 
@@ -278,12 +291,14 @@ namespace BL
             if (newDrone.DroneStat == DroneStatuses.Delivery)
             {
                 int parcelyId = getBindedUndeliveredParcel(newDrone.Id);
-                IDAL.DO.Parcel parcely = data.PullDataParcel(parcelyId);
-                IDAL.DO.Costumer Sender = data.PullDataCostumer(parcely.SenderId) ;
-                IDAL.DO.Costumer Getter = data.PullDataCostumer(parcely.TargetId)  ;
-                Location SenderLCT = new Location(Sender.Longitude, Sender.Lattitude);
-                Location GetterLCT = new Location(Getter.Longitude, Getter.Lattitude);
-                ParcelInTransfer parcelTransfer = new ParcelInTransfer() {
+                try
+                {
+                    IDAL.DO.Parcel parcely = data.PullDataParcel(parcelyId);
+                    IDAL.DO.Costumer Sender = data.PullDataCostumer(parcely.SenderId);
+                    IDAL.DO.Costumer Getter = data.PullDataCostumer(parcely.TargetId);  
+                    Location SenderLCT = new Location(Sender.Longitude, Sender.Lattitude);
+                    Location GetterLCT = new Location(Getter.Longitude, Getter.Lattitude);
+                    ParcelInTransfer parcelTransfer = new ParcelInTransfer() {
                     Id = parcely.Id , 
                     Pickup = SenderLCT   , 
                     Dst =   GetterLCT,
@@ -294,6 +309,9 @@ namespace BL
                     Target = new ParcelToCostumer() { id = parcely.TargetId, name = data.PullDataCostumer(parcely.TargetId).Name }
                 };
                 newDrone.ParcelTransfer = parcelTransfer;
+                }
+                catch (Exception err) { } 
+              
             }
             return newDrone;
         }
