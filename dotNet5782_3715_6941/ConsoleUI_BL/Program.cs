@@ -294,7 +294,7 @@ namespace ConsoleUI_BL
                                     double chargingPeriod = SysFunc.SafeEnterDouble("enter how much time the drone was in charge : ");
                                     Logistics.DroneChargeRelease(id, chargingPeriod);
 
-                                    Console.WriteLine("Drone has sent to Charging port succefuly ");
+                                    Console.WriteLine("Drone has released from Charging port succefuly ");
                                 }
                                 catch (Exception err)
                                 {
