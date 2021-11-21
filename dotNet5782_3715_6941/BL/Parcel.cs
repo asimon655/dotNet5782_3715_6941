@@ -42,7 +42,23 @@ namespace BL
         }
         public void AddParcel(Parcel parcel)
         {
-            IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() { Id = parcel.Id,
+            try
+            {
+                data.PullDataCostumer(parcel.SenderParcelToCostumer.id);
+                data.PullDataCostumer(parcel.GetterParcelToCostumer.id);
+            }
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
+            if (parcel.SenderParcelToCostumer.id == parcel.GetterParcelToCostumer.id)
+            {
+                throw new SenderGetterAreSame("the sender and getter cant be the same ", parcel.GetterParcelToCostumer.id);
+            }
+            isInEnum(parcel.Priority);
+            isInEnum(parcel.Weight);
+
+            IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() {
                 Requested= DateTime.Now, 
                 SenderId=parcel.SenderParcelToCostumer.id,
                 TargetId=parcel.GetterParcelToCostumer.id ,
