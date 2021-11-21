@@ -129,6 +129,14 @@ namespace BL
                 drones.Add(newDrone);
             }
         }
+
+        void isInEnum<T>(T value) where T : IConvertible
+        {
+            if (!Enum.IsDefined(typeof(T), value))
+            {
+                throw new EnumOutOfRange("value not defined in the enum "+typeof(T), Convert.ToInt32(value));
+            }
+        }
         
         // return the id of the parcel that binded to a specific drone and the parcel not yet delivered
         // if there isnt any return -1
