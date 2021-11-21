@@ -10,7 +10,7 @@ namespace IBL
         {
             public int Id { set; get; }
             public int Name { set; get; }
-            public Location LoctConstant { set; get; }
+            public Location LoctConstant { get; init;  }
             public int NumOfFreeOnes { set; get; }
             public List<DroneInCharge> DroneInChargeList { set ; get; }
 
