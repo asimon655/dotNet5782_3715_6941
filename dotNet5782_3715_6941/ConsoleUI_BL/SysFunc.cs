@@ -62,8 +62,8 @@ namespace ConsoleUI_BL
             if (!typeof(T).IsEnum)
                 return null;
 
-            var description = enumValue.ToString();
-            var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
+            String description = enumValue.ToString();
+             System.Reflection.FieldInfo fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
 
             if (fieldInfo != null)
             {
