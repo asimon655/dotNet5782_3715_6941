@@ -39,15 +39,15 @@ namespace ConsoleUI_BL
                                         Logistics.AddCostumer(costumer);
                                         Console.WriteLine("The costumer added succefully ");
                                     }
-                                    catch (IdAlreadyExists err)
+                                    catch (Exception err)
                                     {
                                         Console.WriteLine("Error : " + err);
                                     }
                                     catch (LocationOutOfRange err)
                                     {
                                         Console.WriteLine("Error : " + err);
-                                    }
-           
+                                    } 
+
                                 }
                                 break;
                             case (int)Add.Drone:
@@ -66,15 +66,10 @@ namespace ConsoleUI_BL
                                         Logistics.AddDrone(drone, stationId);
                                         Console.WriteLine("The drone added succefully ");
                                     }
-                                    catch (IdAlreadyExists err)
+                                    catch (Exception err)
                                     {
                                         Console.WriteLine("Error : " + err);
                                     }
-                                    catch (EnumOutOfRange err)
-                                    {
-                                        Console.WriteLine("Error : " + err);
-                                    } 
-                               
                                 }
                                 break;
                             case (int)Add.Package:
@@ -93,15 +88,10 @@ namespace ConsoleUI_BL
                                         Logistics.AddParcel(parcel);
                                         Console.WriteLine("The parcel added succefully ");
                                     }
-                                    catch (IdAlreadyExists err)
+                                    catch (Exception err)
                                     {
                                         Console.WriteLine("Error : " + err);
                                     }
-                                    catch (EnumOutOfRange err)
-                                    {
-                                        Console.WriteLine("Error : " + err);
-                                    }
-
                                 }
                                 break;
                             case (int)Add.Staion:
@@ -116,15 +106,10 @@ namespace ConsoleUI_BL
                                         Logistics.AddStation(station);
                                         Console.WriteLine("The station added succefully ");
                                     }
-                                    catch (IdAlreadyExists err)
+                                    catch (Exception err)
                                     {
                                         Console.WriteLine("Error : " + err);
                                     }
-                                    catch (LocationOutOfRange err)
-                                    {
-                                        Console.WriteLine("Error : " + err);
-                                    }
-
                                 }
                                 break;
                             case (int)ListShow.exit:
@@ -146,7 +131,7 @@ namespace ConsoleUI_BL
                                     BaseStation station = Logistics.PullDataStaion(SysFunc.SafeEnterUInt());
                                     Console.WriteLine(station.ToString());
                                 }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : "+err);
                                 } 
@@ -158,7 +143,7 @@ namespace ConsoleUI_BL
                                     Costumer costumer = Logistics.PullDataCostumer(SysFunc.SafeEnterUInt());
                                     Console.WriteLine(costumer.ToString());
                                 }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : "+err);
                                 }
@@ -172,7 +157,7 @@ namespace ConsoleUI_BL
                                     Console.WriteLine(drone.ToString());
 
                                 }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : "+err);
                                 }
@@ -186,7 +171,7 @@ namespace ConsoleUI_BL
                                     Console.WriteLine(parcel.ToString());
 
                                 }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : "+err);
                                 }
@@ -213,7 +198,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Updated succefuly ");
                                 }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : "+err);
                                 }
@@ -228,7 +213,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Updated succefuly ");
                                 }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : "+err);
                                 }
@@ -245,7 +230,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Updated succefuly ");
                                 }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : "+err);
                                 }
@@ -258,7 +243,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Binded succefuly ");
                                 }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : "+err);
                                 }
@@ -271,19 +256,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Package has Taken by Drone succefuly  ");
                                 }
-                                catch (EnumNotInRightStatus<DroneStatuses> err)
-                                {
-                                    Console.WriteLine("Error : "+err);
-                                }
-                                catch (EnumNotInRightStatus<ParcelStat> err)
-                                {
-                                    Console.WriteLine("Error : " + err);
-                                }
-                                catch (CantReachToDest err)
-                                {
-                                    Console.WriteLine("Error : " + err);
-                                }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : " + err);
                                 }
@@ -296,15 +269,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Package has Taken by Drone succefuly  ");
                                 }
-                                catch (EnumNotInRightStatus<ParcelStat> err)
-                                {
-                                    Console.WriteLine("Error : "+err);
-                                }
-                                catch (CantReachToDest err)
-                                {
-                                    Console.WriteLine("Error : " + err);
-                                }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : " + err);
                                 }
@@ -317,19 +282,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Drone has sent to Charging port succefuly ");
                                 }
-                                catch (EnumNotInRightStatus<DroneStatuses> err)
-                                {
-                                    Console.WriteLine("Error : "+err);
-                                }
-                                catch (CantReachToDest err)
-                                {
-                                    Console.WriteLine("Error : " + err);
-                                }
-                                catch (IdDosntExists err)
-                                {
-                                    Console.WriteLine("Error : " + err);
-                                }
-                                catch (IdAlreadyExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : " + err);
                                 }
@@ -343,15 +296,7 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Drone has released from Charging port succefuly ");
                                 }
-                                catch (EnumNotInRightStatus<DroneStatuses> err)
-                                {
-                                    Console.WriteLine("Error : " + err);
-                                }
-                                catch (CantReachToDest err)
-                                {
-                                    Console.WriteLine("Error : " + err);
-                                }
-                                catch (IdDosntExists err)
+                                catch (Exception err)
                                 {
                                     Console.WriteLine("Error : " + err);
                                 } 
