@@ -110,7 +110,9 @@ namespace BL
 
                             }
                         } 
-                    } 
+                    }
+            if ((WeightCategories)resParcel.Weight > drony.Weight)
+                throw new CouldntFindRightParcel("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
             drony.ParcelIdTransfer = resParcel.Id;
             resParcel.Schedulded = DateTime.Now;
             drony.DroneStat = DroneStatuses.Delivery;

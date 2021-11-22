@@ -64,15 +64,14 @@ namespace BL
             {
                 throw new IdDosntExists(err); 
             }
-            catch(IDAL.DO.IdAlreadyExists err)
-            {
-                throw new IdAlreadyExists(err); 
-            } 
+
            
         }
 
         public void AddStation(BaseStation station)
         {
+            if (station.LoctConstant.Lattitude > 90 || station.LoctConstant.Lattitude < -90 || station.LoctConstant.Longitude > 180 || station.LoctConstant.Longitude < -180)
+                throw new LocationOutOfRange("the Location Values are out of boundries  :  ", station.LoctConstant.Longitude, station.LoctConstant.Lattitude);
             
             IDAL.DO.Station StationTmp = new IDAL.DO.Station() {Id = station.Id,ChargeSlots=station.NumOfFreeOnes,Lattitude=station.LoctConstant.Lattitude,Longitude=station.LoctConstant.Longitude
             ,Name=station.Name};

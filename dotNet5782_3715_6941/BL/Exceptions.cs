@@ -4,6 +4,26 @@ namespace IBL
 {
     namespace BO
     {
+
+        public class CouldntFindRightParcel : Exception
+        {
+            public WeightCategories weight { get; set; }
+            public WeightCategories requiredWeigth { get; set; }
+            public CouldntFindRightParcel() : base() { }
+            public CouldntFindRightParcel(String message) : base(message) { }
+            public CouldntFindRightParcel(String message, WeightCategories _weight, WeightCategories _requiredWeigth) : base(message)
+            {
+                weight = _weight;
+                requiredWeigth = _requiredWeigth;
+            }
+            public override string ToString()
+            {
+                return Message + " \nbattery: " + weight.ToString() + "\nrequired: " +
+                    requiredWeigth.ToString();
+            }
+        }
+
+
         public class CantReachToDest : Exception
         {
             public double battery { get; set; }
@@ -21,6 +41,8 @@ namespace IBL
                     required.ToString() + "\nmissing: "+(required-battery).ToString();
             }
         }
+
+
         public class EnumNotInRightStatus<T> : Exception
         {
             public T stat { get; set; }
@@ -36,6 +58,8 @@ namespace IBL
                 return Message + stat.ToString();
             }
         }
+
+
         public class NotValidTimePeriod : Exception
         {
             
@@ -48,7 +72,7 @@ namespace IBL
             }
             public override string ToString()
             {
-                return Message ;
+                return Message + time  ;
             }
         }
 
@@ -72,6 +96,8 @@ namespace IBL
                 return Message + id;
             }
         }
+
+
         public class IdDosntExists : Exception
         {
             public int id { get; set; }
@@ -91,6 +117,24 @@ namespace IBL
                 return Message + id;
             }
         }
+
+
+        public class LocationOutOfRange : Exception
+        {
+            public double  Lonigtuide { get; set; }
+            public double Latitude { get; set; }
+            public LocationOutOfRange(String message, double Lonigtuide , double Latitude) : base(message)
+            {
+                this.Latitude = Latitude;
+                this.Lonigtuide = Lonigtuide; 
+            }
+            public override string ToString()
+            {
+                return Message + "Latitude: "+ Latitude.ToString() + "Longituide : " + Lonigtuide.ToString(); 
+            }
+        }
+
+
         public class EnumOutOfRange : Exception
         {
             public int value { get; set; }
@@ -103,6 +147,8 @@ namespace IBL
                 return Message + value;
             }
         }
+
+
         public class SenderGetterAreSame : Exception
         {
             public int id { get; set; }

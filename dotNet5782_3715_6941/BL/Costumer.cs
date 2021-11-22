@@ -27,7 +27,8 @@ namespace BL
     {
         public void AddCostumer(Costumer costumer)
         {
-         
+            if (costumer.Loct.Lattitude > 90 || costumer.Loct.Lattitude < -90 || costumer.Loct.Longitude > 180 || costumer.Loct.Longitude < -180)
+                throw new LocationOutOfRange("the Location Values are out of boundries  :  ", costumer.Loct.Longitude, costumer.Loct.Lattitude);
             IDAL.DO.Costumer CostumerTmp = new IDAL.DO.Costumer() { 
                 Id = costumer.Id, 
                 Lattitude = costumer.Loct.Lattitude, 
