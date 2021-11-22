@@ -1,4 +1,7 @@
+using IBL.BO;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IBL
 {
@@ -164,3 +167,17 @@ namespace IBL
         
     }
 }
+namespace BL
+{
+    public partial class Bl : IBL.Ibl
+    {
+        void isInEnum<T>(T value) where T : IConvertible
+        {
+            if (!Enum.IsDefined(typeof(T), value))
+            {
+                throw new EnumOutOfRange("value not defined in the enum " + typeof(T), Convert.ToInt32(value));
+            }
+        }
+
+    }
+} 
