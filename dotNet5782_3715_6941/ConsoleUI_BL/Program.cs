@@ -46,8 +46,8 @@ namespace ConsoleUI_BL
                                     catch (LocationOutOfRange err)
                                     {
                                         Console.WriteLine("Error : " + err);
-                                    } 
-
+                                    }
+           
                                 }
                                 break;
                             case (int)Add.Drone:
