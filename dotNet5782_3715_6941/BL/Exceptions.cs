@@ -21,19 +21,19 @@ namespace IBL
                     required.ToString() + "\nmissing: "+(required-battery).ToString();
             }
         }
-        public class NotInRightStatus : Exception
+        public class EnumNotInRightStatus<T> : Exception
         {
-            public DroneStatuses drnstat { get; set; }
+            public T stat { get; set; }
 
-            public NotInRightStatus() : base() { }
-            public NotInRightStatus(String message) : base(message) { }
-            public NotInRightStatus(String message, DroneStatuses _drnstat) : base(message)
+            public EnumNotInRightStatus() : base() { }
+            public EnumNotInRightStatus(String message) : base(message) { }
+            public EnumNotInRightStatus(String message, T _stat) : base(message)
             {
-                drnstat = _drnstat;
+                stat = _stat;
             }   
             public override string ToString()
             {
-                return Message + drnstat.ToString();
+                return Message + stat.ToString();
             }
         }
         public class NotValidTimePeriod : Exception

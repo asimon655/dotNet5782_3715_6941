@@ -27,6 +27,7 @@ namespace BL
     {
         public void AddCostumer(Costumer costumer)
         {
+         
             IDAL.DO.Costumer CostumerTmp = new IDAL.DO.Costumer() { 
                 Id = costumer.Id, 
                 Lattitude = costumer.Loct.Lattitude, 
@@ -39,8 +40,14 @@ namespace BL
             {
                 data.AddCostumer(CostumerTmp);
             }
-            catch (Exception err)
-            { } 
+            catch (IDAL.DO.IdAlreadyExists err)
+            {
+
+
+                throw new IdAlreadyExists( err); 
+
+            
+            } 
         }
         public Costumer PullDataCostumer(int id)
         {
@@ -48,9 +55,12 @@ namespace BL
             {
                 return CostumerC(data.PullDataCostumer(id));
             }
-            catch (Exception err)
-            { }
-            return new Costumer(); 
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err); 
+            
+            }
+          
         }
         public void UpdateCostumer(int costumerId, string costumerName = null, string costumerPhone = null)
         {
@@ -61,7 +71,12 @@ namespace BL
             {
                 data.UpdateCostumers(Costumery);
             }
-            catch (Exception err) { } 
+            catch (IDAL.DO.IdDosntExists err) {
+
+                throw new IdDosntExists(err); 
+            
+            
+            } 
         }
 
 

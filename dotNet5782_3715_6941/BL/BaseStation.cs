@@ -29,51 +29,61 @@ namespace BL
             {
                 data.UpdateStations(Stationy);
             }
-            catch (Exception err) { } 
+            catch (IDAL.DO.IdDosntExists err) {
+                throw new IdDosntExists(err);
+            } 
             }
         public BaseStation PullDataStaion(int stationId)
         {
 
             try
             {
-                  BaseStation TmpStation = StationC(data.PullDataStation(stationId));
+                BaseStation TmpStation = StationC(data.PullDataStation(stationId));
                 List<DroneInCharge> dronesInCharges = new List<DroneInCharge>();
                 foreach (var droneCharge in data.DronesChargesPrint())
                 {
                     if (droneCharge.StaionId == stationId)
-                {
-                    DroneToList  drone = drones.Find(s => s.Id == droneCharge.DroneId);
-                    // check if the drone exsists
-                    DroneInCharge droneInCharge = new DroneInCharge { id = drone.Id,
-                                                                      BatteryStat = drone.BatteryStat };
-                    try
                     {
-                        dronesInCharges.Add(droneInCharge);
-                    }
-                    catch (Exception err) { } 
-                }
-            }
-            
+                        DroneToList drone = drones.Find(s => s.Id == droneCharge.DroneId);
+                        // check if the drone exsists
+                        DroneInCharge droneInCharge = new DroneInCharge
+                        {
+                            id = drone.Id,
+                            BatteryStat = drone.BatteryStat
+                        };
 
-            return TmpStation;
+                        dronesInCharges.Add(droneInCharge);
+
+
+                    }
+                }
+
+                return TmpStation;
             }
-            catch (Exception err)
+            catch (IDAL.DO.IdDosntExists err)
             {
-                throw new Exception(); 
+                throw new IdDosntExists(err); 
+            }
+            catch(IDAL.DO.IdAlreadyExists err)
+            {
+                throw new IdAlreadyExists(err); 
             } 
            
         }
 
         public void AddStation(BaseStation station)
         {
+            
             IDAL.DO.Station StationTmp = new IDAL.DO.Station() {Id = station.Id,ChargeSlots=station.NumOfFreeOnes,Lattitude=station.LoctConstant.Lattitude,Longitude=station.LoctConstant.Longitude
             ,Name=station.Name};
             try
             {
                 data.AddStation(StationTmp);
             }
-            catch (Exception err)
-            { } 
+            catch (IDAL.DO.IdAlreadyExists err)
+            {
+                throw new IdAlreadyExists(err);
+            } 
         }
 
         List<IDAL.DO.Station> getStationsFreePorts()

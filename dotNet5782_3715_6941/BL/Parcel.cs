@@ -42,6 +42,9 @@ namespace BL
         }
         public void AddParcel(Parcel parcel)
         {
+            isInEnum<WeightCategories>(parcel.Weight);
+            isInEnum<Priorities>(parcel.Priority); 
+            
             try
             {
                 data.PullDataCostumer(parcel.SenderParcelToCostumer.id);
@@ -68,7 +71,14 @@ namespace BL
         }
         public Parcel PullDataParcel(int id)
         {
-            return ParcelC(data.PullDataParcel(id));
+            try
+            {
+                return ParcelC(data.PullDataParcel(id));
+            }
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err); 
+            } 
         }
 
         public void BindParcelToDrone(int droneId)
@@ -104,7 +114,14 @@ namespace BL
             drony.ParcelIdTransfer = resParcel.Id;
             resParcel.Schedulded = DateTime.Now;
             drony.DroneStat = DroneStatuses.Delivery;
-            data.UpdateParcles(resParcel);
+            try
+            {
+                data.UpdateParcles(resParcel);
+            }
+            catch(IDAL.DO.IdDosntExists err) {
+                throw new IdDosntExists(err); 
+                
+            } 
             
             
 
@@ -115,20 +132,27 @@ namespace BL
             DroneToList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Delivery)
             {
-                throw new NotImplementedException();
+                throw new EnumNotInRightStatus<DroneStatuses>("the Drone Should be IN delivery mode , it is in: ", drony.DroneStat);
             }
             IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
             if (ParcelStatC(pack) != ParcelStat.Binded)
             {
-                throw new NotImplementedException();
+                throw new EnumNotInRightStatus<ParcelStat>("Parcel should be Binded when it is : ", ParcelStatC(pack)); 
             }
-            if (!canreach(drony, pack,getParcelLoctSender))
-                throw new NotImplementedException();
+            if (!canreach(drony, pack, getParcelLoctSender))
+                throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.BatteryStat, getPowerUsage(drony.Current, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
             ///battery status changed !!! 
             drony.BatteryStat -= getPowerUsage(getParcelLoctSender(pack), drony.Current ,  (WeightCategories)pack.Weight);
             drony.Current = getParcelLoctSender(pack);
             pack.PickedUp = DateTime.Now;
-            data.UpdateParcles(pack);
+            try
+            {
+                data.UpdateParcles(pack);
+            }
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err); 
+            } 
         }
 
         public void ParcelDeliveredToCostumer(int droneId)
@@ -138,15 +162,22 @@ namespace BL
             Location Target = getParcelLoctTarget(pack);
             if (ParcelStatC(pack) != ParcelStat.PickedUp)
             {
-                throw new NotImplementedException();
+                throw new EnumNotInRightStatus<ParcelStat>("parcel is not in the status pickedup it is in : ", ParcelStatC(pack)); 
             }
             if (!canreach(drony, pack, getParcelLoctTarget))
-                throw new NotImplementedException();
+                throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.BatteryStat, getPowerUsage(drony.Current, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
             drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
             drony.Current = Target;
             drony.DroneStat = DroneStatuses.Free;
             pack.Delivered = DateTime.Now;
-            data.UpdateParcles(pack);
+            try
+            {
+                data.UpdateParcles(pack);
+            }
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err); 
+            } 
         }
 
         public IEnumerable<ParcelToList> ParcelsPrint()
@@ -160,7 +191,6 @@ namespace BL
                 , Weight=  (WeightCategories)x.Weight
             } ));
             return tmpy;
-            throw new NotImplementedException();
         }
         public IEnumerable<ParcelToList> ParcelsWithoutDronesPrint()
         {
@@ -181,7 +211,6 @@ namespace BL
             }));
 
             return tmpy;
-            throw new NotImplementedException();
         }
 
 

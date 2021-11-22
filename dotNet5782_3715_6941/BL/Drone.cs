@@ -36,7 +36,7 @@ namespace BL
             
             DroneToList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Matance)
-                throw new NotInRightStatus("drone is not in matance is: ", drony.DroneStat); 
+                throw new EnumNotInRightStatus<DroneStatuses>("drone is not in matance , it is: ", drony.DroneStat); 
             else 
             {
                 ///time perios is in hours 
@@ -52,8 +52,9 @@ namespace BL
                     data.UpdateStations(station); 
                     data.DeleteDroneCharge(drony.Id);
                 }
-                catch (Exception err)
-                { 
+                catch (IDAL.DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err); 
                     
                 }
          
@@ -66,23 +67,37 @@ namespace BL
         public void DroneCharge(int droneId)
         {
             DroneToList drony = GetDroneToList(droneId);
-            if (drony.DroneStat == DroneStatuses.Free)
+            if (drony.DroneStat != DroneStatuses.Free)
+                throw new EnumNotInRightStatus<DroneStatuses>("drone is not not Free  , it is :  ", drony.DroneStat);
+            else
             {
-                int stationID = getClosesStation(drony.Current);
-                IDAL.DO.Station station = data.PullDataStation(stationID);
-                Location stationLoct = new Location(station.Longitude, station.Lattitude);
-                double powerUsage = getPowerUsage(drony.Current, stationLoct);
-                if (drony.BatteryStat < powerUsage)
-                    throw new CantReachToDest("the charging port os too far to go with the current battery precantage",drony.BatteryStat , powerUsage); 
+                try
+                {
+                    int stationID = getClosesStation(drony.Current);
+                    IDAL.DO.Station station = data.PullDataStation(stationID);
+                    Location stationLoct = new Location(station.Longitude, station.Lattitude);
+                    double powerUsage = getPowerUsage(drony.Current, stationLoct);
+                    if (drony.BatteryStat < powerUsage)
+                        throw new CantReachToDest("the charging port os too far to go with the current battery precantage", drony.BatteryStat, powerUsage);
+                    drony.DroneStat = DroneStatuses.Matance;
+                    drony.Current = stationLoct;
+                    drony.BatteryStat -= powerUsage;
+                    station.ChargeSlots -= 1;
 
-                drony.DroneStat = DroneStatuses.Matance;
-                drony.Current = stationLoct;
-                drony.BatteryStat -= powerUsage;
-                station.ChargeSlots -= 1;
-                data.UpdateStations(station);
-                IDAL.DO.DroneCharge chargingport = new IDAL.DO.DroneCharge() { DroneId =drony.Id ,StaionId =station.Id};
-                data.AddDroneCharge(chargingport);
-            }        
+
+                    IDAL.DO.DroneCharge chargingport = new IDAL.DO.DroneCharge() { DroneId = drony.Id, StaionId = station.Id };
+
+                    data.AddDroneCharge(chargingport);
+                }
+                catch (IDAL.DO.IdAlreadyExists err)
+                {
+                    throw new IdAlreadyExists(err);
+                }
+                catch (IDAL.DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err);
+                }
+            }     
         }
         public void UpdateDrone(int droneId, string droneName)
         {
@@ -91,13 +106,15 @@ namespace BL
             try
             {
                 data.UpdateDrones(Drony);
+                GetDroneToList(droneId).Model = droneName;
             }
-            catch (Exception err)
-            { 
-            
-            
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err); 
+                
             } 
-            GetDroneToList(droneId).Model = droneName; 
+            
+            
         }
 
 
@@ -107,6 +124,8 @@ namespace BL
         }
         public void AddDrone(Drone drone, int stationId)
         {
+            isInEnum<DroneStatuses>(drone.DroneStat);
+            isInEnum<WeightCategories>(drone.Weight); 
             IDAL.DO.Drone DroneTmp = new IDAL.DO.Drone() { 
                 Id = drone.Id, 
                 MaxWeigth = ((IDAL.DO.WeightCategories)(int)drone.Weight), 
@@ -116,9 +135,9 @@ namespace BL
                 data.AddDrone(DroneTmp);
                 data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
             }
-            catch (Exception err)
-            { 
-            
+            catch (IDAL.DO.IdAlreadyExists err)
+            {
+                throw new IdAlreadyExists(err); 
             } 
             drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
             drone.DroneStat = IBL.BO.DroneStatuses.Matance;
@@ -127,7 +146,12 @@ namespace BL
                 IDAL.DO.Station PulledStaion = data.PullDataStation(stationId);
                 drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
             }
-            catch (Exception err) { } 
+            catch (IDAL.DO.IdDosntExists err) {
+
+
+                throw new IdDosntExists(err);
+            
+            } 
             
             DroneToList TmpDrnLst = new DroneToList() {
                 BatteryStat=drone.BatteryStat ,
@@ -140,7 +164,11 @@ namespace BL
             {
                 drones.Add(TmpDrnLst);
             }
-            catch (Exception err) { }  
+            catch (IDAL.DO.IdAlreadyExists err) {
+
+
+                throw new IdAlreadyExists(err); 
+            }  
        
 
         }

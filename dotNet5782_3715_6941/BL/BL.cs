@@ -174,7 +174,7 @@ namespace BL
             foreach (var station in data.StationsPrint())
             {
                 double distance = calculateDistance(new Location(station.Longitude, station.Lattitude), location);
-                if (distance < shortestDistance)
+                if (distance < shortestDistance && station.ChargeSlots >0 )
                 {
                     shortestDistance = distance;
                     stationId = station.Id;
