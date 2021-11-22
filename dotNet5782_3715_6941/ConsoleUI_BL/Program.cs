@@ -43,10 +43,6 @@ namespace ConsoleUI_BL
                                     {
                                         Console.WriteLine("Error : " + err);
                                     }
-                                    catch (LocationOutOfRange err)
-                                    {
-                                        Console.WriteLine("Error : " + err);
-                                    } 
 
                                 }
                                 break;
