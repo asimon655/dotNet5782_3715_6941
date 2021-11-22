@@ -338,7 +338,9 @@ namespace BL
 
         private Parcel ParcelC(IDAL.DO.Parcel parcel)
         {
-            List<IDAL.DO.Costumer> NameFinder = data.CostumersPrint().ToList(); 
+            IDAL.DO.Costumer sender = data.PullDataCostumer(parcel.SenderId);
+            IDAL.DO.Costumer getter = data.PullDataCostumer(parcel.TargetId);
+            DroneToList drone = GetDroneToList(parcel.DroneId);
             return new Parcel()
             {
                 Id = parcel.Id,
@@ -348,8 +350,9 @@ namespace BL
                 ParcelBinded = parcel.Schedulded,
                 Priority = (Priorities)parcel.Priority,
                 Weight = (WeightCategories)parcel.Weight,
-                SenderParcelToCostumer = new ParcelToCostumer() { id = parcel.SenderId, name =NameFinder.Find(x => x.Id == parcel.SenderId ).Name  },
-                GetterParcelToCostumer = new ParcelToCostumer() { id = parcel.TargetId ,  name = NameFinder.Find(x => x.Id == parcel.TargetId).Name }
+                ParcelDrone = new ParcelToDrone() {Id = drone.Id, BatteryStat = drone.BatteryStat, Loct = drone.Current},
+                SenderParcelToCostumer = new ParcelToCostumer() { id = sender.Id, name =sender.Name  },
+                GetterParcelToCostumer = new ParcelToCostumer() { id = getter.Id ,  name = getter.Name }
             };
         }
     }

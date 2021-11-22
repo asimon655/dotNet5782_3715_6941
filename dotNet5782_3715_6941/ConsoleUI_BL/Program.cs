@@ -84,7 +84,6 @@ namespace ConsoleUI_BL
                                     parcel.GetterParcelToCostumer = new ParcelToCostumer() { id = SysFunc.SafeEnterUInt("please enter Target ID: ") };
                                     Console.WriteLine("Priorty=>please enter a number from the menue : ");
                                     SysFunc.printEnum<Priorities>();
-                                    Console.WriteLine(EnumHelper.GetDescription<Priorities>((Priorities)enter));
                                     parcel.Priority = (IBL.BO.Priorities)SysFunc.SafeEnterUInt("enter a number from the numbers above");
                                     Console.WriteLine("weight=>please enter a number from the menue : ");
                                     SysFunc.printEnum<WeightCategories>();
