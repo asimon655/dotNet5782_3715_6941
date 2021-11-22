@@ -113,7 +113,7 @@ namespace ConsoleUI_BL
                         }
                         break;
                     case (int)Menu.Details:
-                        /// in all the details i just get a drone id and call the pulldaya method in Logistics and checks if that is not a null 
+                        /// in all the details i just get a drone id and call the pulldata method in Logistics
                         SysFunc.printEnum<Details>();
                         Console.WriteLine("please enter a number from the menue ");
                         Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
