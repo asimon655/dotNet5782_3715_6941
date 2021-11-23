@@ -184,35 +184,59 @@ namespace BL
 
         public IEnumerable<ParcelToList> ParcelsPrint()
         {
-            List<ParcelToList> tmpy = new List<ParcelToList>();
-            data.ParcelsPrint().ToList().ForEach(x => tmpy.Add( new ParcelToList() { Id = x.Id 
-                , ParcelStatus = ParcelStatC(x) 
-                , Priorety =(Priorities)x.Priority 
-                ,SenderName= data.CostumersPrint().ToList().Find(y =>y.Id == x.SenderId ).Name
-                , TargetName= data.CostumersPrint().ToList().Find(y => y.Id == x.TargetId).Name
-                , Weight=  (WeightCategories)x.Weight
-            } ));
-            return tmpy;
+            try
+            {
+                List<ParcelToList> tmpy = new List<ParcelToList>();
+                foreach (var x in data.ParcelsPrint())
+                    tmpy.Add(new ParcelToList()
+                    {
+                        Id = x.Id
+                        ,
+                        ParcelStatus = ParcelStatC(x)
+                        ,
+                        Priorety = (Priorities)x.Priority
+                        ,
+                        SenderName = data.PullDataCostumer(x.SenderId).Name
+                        ,
+                        TargetName = data.PullDataCostumer(x.TargetId).Name
+                        ,
+                        Weight = (WeightCategories)x.Weight
+                    });
+                return tmpy;
+            }
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
         }
         public IEnumerable<ParcelToList> ParcelsWithoutDronesPrint()
         {
-            List<ParcelToList> tmpy = new List<ParcelToList>();
-            data.ParcelsPrint().ToList().FindAll(y => y.Schedulded == DateTime.MinValue).ForEach(x => tmpy.Add(new ParcelToList()
+            try
             {
-                Id = x.Id
-                ,
-                ParcelStatus = ParcelStatC(x)
-                ,
-                Priorety = (Priorities)x.Priority
-                ,
-                SenderName = data.CostumersPrint().ToList().Find(y => y.Id == x.SenderId).Name
-                ,
-                TargetName = data.CostumersPrint().ToList().Find(y => y.Id == x.TargetId).Name
-                ,
-                Weight = (WeightCategories)x.Weight
-            }));
+                List<ParcelToList> tmpy = new List<ParcelToList>();
+                foreach (var x in data.ParcelsPrint().Where(y => y.Schedulded == DateTime.MinValue))
+                    tmpy.Add(new ParcelToList()
+                    {
+                        Id = x.Id
+                        ,
+                        ParcelStatus = ParcelStatC(x)
+                        ,
+                        Priorety = (Priorities)x.Priority
+                        ,
+                        SenderName = data.PullDataCostumer(x.SenderId).Name
+                        ,
+                        TargetName = data.PullDataCostumer(x.TargetId).Name
+                        ,
+                        Weight = (WeightCategories)x.Weight
+                    });
 
-            return tmpy;
+
+                return tmpy;
+            }
+            catch (IDAL.DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
         }
 
 
