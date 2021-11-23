@@ -21,6 +21,7 @@ namespace IDAL
         Station PullDataStation(int id);
         IEnumerable<Station> StationsPrint();
         void UpdateStations(Station station);
+        IEnumerable<Station> StaionsFreePortsPrint();
 
         void AddParcel(Parcel parcel);
         Parcel PullDataParcel(int id);
@@ -31,7 +32,7 @@ namespace IDAL
         DroneCharge PullDataDroneChargeByDroneId(int droneId);
         IEnumerable<DroneCharge> DronesChargesPrint();
         void DeleteDroneCharge(int droneId);
-
+        IEnumerable<Parcel> ParcelWithoutDronePrint();
         double[] GetPowerConsumption();
     }
 }

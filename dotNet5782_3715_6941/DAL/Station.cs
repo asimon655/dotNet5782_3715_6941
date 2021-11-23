@@ -56,6 +56,11 @@ namespace DAL
     {
         public partial class DalObject : IDAL.Idal
         {
+            public IEnumerable<Station> StaionsFreePortsPrint()
+            {
+                return DataSource.Stations.Where<Station>(x => x.ChargeSlots > 0); 
+            
+            }
             public void AddStation(Station station)
             {
                 if (DataSource.Stations.Any(s => s.Id == station.Id))

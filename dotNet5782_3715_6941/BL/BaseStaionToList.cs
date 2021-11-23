@@ -25,11 +25,10 @@ namespace BL
         public IEnumerable<BaseStaionToList> BaseStaionsFreePortsPrint()
         {
             List<BaseStaionToList> tmp = new List<BaseStaionToList>();
-            foreach (var station in data.StationsPrint())
+            foreach (var station in data.StaionsFreePortsPrint())
             {
                 int numOfNotFr = data.DronesChargesPrint().Count(x => x.StaionId == station.Id);
-                if (station.ChargeSlots > 0 ) 
-                    tmp.Add(new BaseStaionToList() { Id = station.Id, Name = station.Name, NumOfFreeOnes = station.ChargeSlots, NumOfNotFreeOne = numOfNotFr });
+                tmp.Add(new BaseStaionToList() { Id = station.Id, Name = station.Name, NumOfFreeOnes = station.ChargeSlots, NumOfNotFreeOne = numOfNotFr });
             }
             return tmp;
 

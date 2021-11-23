@@ -214,7 +214,7 @@ namespace BL
             try
             {
                 List<ParcelToList> tmpy = new List<ParcelToList>();
-                foreach (var x in data.ParcelsPrint().Where(y => y.Schedulded == DateTime.MinValue))
+                foreach (var x in data.ParcelWithoutDronePrint())
                     tmpy.Add(new ParcelToList()
                     {
                         Id = x.Id

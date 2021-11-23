@@ -88,6 +88,11 @@ namespace DAL
                 }
                 Update<Parcel>(DataSource.Parcels, parcel);
             }
+            public IEnumerable<Parcel> ParcelWithoutDronePrint()
+            {
+                return DataSource.Parcels.FindAll(x => x.Schedulded == DateTime.MinValue);
+            
+            }
         }
     }
 }
