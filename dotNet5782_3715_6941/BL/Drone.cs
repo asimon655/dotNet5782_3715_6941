@@ -102,7 +102,11 @@ namespace BL
         public void UpdateDrone(int droneId, string droneName)
         {
             
-            IDAL.DO.Drone Drony= new IDAL.DO.Drone() { Id=droneId , Modle=droneName};
+            IDAL.DO.Drone Drony= new IDAL.DO.Drone() { 
+                Id=droneId , 
+                Modle=droneName ,
+                MaxWeigth=data.PullDataDrone(droneId).MaxWeigth
+           };
             try
             {
                 data.UpdateDrones(Drony);

@@ -24,15 +24,28 @@ namespace BL
        
         public void UpdateStation(int stationId, int? stationName = null, int? stationChargeSlots = null)
         {
-            IDAL.DO.Station Stationy = new IDAL.DO.Station() { Id = stationId,Name=(int)stationName ,ChargeSlots= (int)stationChargeSlots - data.DronesChargesPrint().Count(x => x.StaionId == stationId) };
             try
             {
+                IDAL.DO.Station Stationy = data.PullDataStation(stationId);
+                if (!(stationName is null))
+                {
+                    Stationy.Name = (int)stationName;
+                }
+                if (!(stationChargeSlots is null))
+                {
+                    int chargeSlots = (int)(stationChargeSlots - data.DronesChargesPrint().Count(x => x.StaionId == stationId));
+                    if (chargeSlots < 0)
+                    {
+                        throw new InValidSumOfChargeSlots("you currently using more staions the you want to update :: ");
+                    }
+                    Stationy.ChargeSlots = chargeSlots;
+                }
                 data.UpdateStations(Stationy);
             }
             catch (IDAL.DO.IdDosntExists err) {
                 throw new IdDosntExists(err);
             } 
-            }
+        }
         public BaseStation PullDataStaion(int stationId)
         {
 

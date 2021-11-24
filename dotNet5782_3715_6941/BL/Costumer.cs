@@ -65,12 +65,19 @@ namespace BL
         }
         public void UpdateCostumer(int costumerId, string costumerName = null, string costumerPhone = null)
         {
-            IDAL.DO.Costumer Costumery = new IDAL.DO.Costumer() { Id = costumerId,
-                Name=costumerName  ,
-                Phone=costumerPhone };
+
+            
             try
             {
+
+                IDAL.DO.Costumer Costumery = data.PullDataCostumer(costumerId);
+                if (!(costumerName is null))
+                    Costumery.Name = costumerName;
+                if (!(costumerPhone is null))
+                    Costumery.Phone = costumerPhone;
                 data.UpdateCostumers(Costumery);
+     
+                    
             }
             catch (IDAL.DO.IdDosntExists err) {
 

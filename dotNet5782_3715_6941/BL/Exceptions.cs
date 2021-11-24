@@ -7,7 +7,23 @@ namespace IBL
 {
     namespace BO
     {
-
+        public class InValidSumOfChargeSlots : Exception
+        {
+            public int chargingstaionsenter { get; set; }
+            public  int usingchargingstaions { get; set; }
+            public InValidSumOfChargeSlots() : base() { }
+            public InValidSumOfChargeSlots(String message) : base(message) { }
+            public InValidSumOfChargeSlots(String message, int _chargings , int _chargingenterstaions) : base(message)
+            {
+                chargingstaionsenter = _chargingenterstaions;
+                usingchargingstaions = _chargings; 
+            }
+            public override string ToString()
+            {
+                return Message + " \nenter: " + chargingstaionsenter.ToString() + "\nin use: " +
+                    usingchargingstaions.ToString();
+            }
+        }
         public class CouldntFindRightParcel : Exception
         {
             public WeightCategories weight { get; set; }
