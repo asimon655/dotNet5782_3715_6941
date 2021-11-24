@@ -8,7 +8,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class ParcelInTransfer : Printable
+        public class ParcelInTransfer 
         {
             public int Id { set; get; }
             public Priorities Priorety{ set; get;  }
@@ -19,7 +19,17 @@ namespace IBL
             public Location Dst { set; get;  }
             public double Distance { set; get;  }
 
-            
+            public override string ToString()
+            {
+                return $"Id : {Id}\n" +
+                       $"Priorety : {Priorety}\n" +
+                       $"Weight : {Weight}\n" +
+                       $"Sender : {Sender}\n" +
+                       $"Target : {Target}\n" +
+                       $"Sender location : {Pickup}\n" +
+                       $"Getter location : {Dst}\n" +
+                       $"distance : {Distance}";
+            }
 
         }
     }

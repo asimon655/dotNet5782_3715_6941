@@ -6,7 +6,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class BaseStation : Printable
+        public class BaseStation 
         {
             public int Id { set; get; }
             public int Name { set; get; }
@@ -14,6 +14,14 @@ namespace IBL
             public int NumOfFreeOnes { set; get; }
             public List<DroneInCharge> DroneInChargeList { set ; get; }
 
+            public override string ToString()
+            {
+                return $"Id : {Id}\n" +
+                       $"Name : {Name}\n" +
+                       $"location : {LoctConstant}\n" +
+                       $"free charging slots : {NumOfFreeOnes}\n" +
+                       $"drones in charge : {string.Join('\n', DroneInChargeList)}";
+            }
         }
     }
 }

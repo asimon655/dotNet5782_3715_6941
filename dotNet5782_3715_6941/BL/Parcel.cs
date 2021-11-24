@@ -6,7 +6,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class Parcel : Printable
+        public class Parcel 
         {
             public int Id { set; get; }
             public IBL.BO.ParcelToCostumer SenderParcelToCostumer { set; get; }
@@ -20,6 +20,19 @@ namespace IBL
             public DateTime ParcelPickedUp { set; get; }
             public DateTime ParcelDelivered { set; get;  }
 
+            public override string ToString()
+            {
+                return $"Id : {Id}\n" +
+                       $"sender : {SenderParcelToCostumer}\n" +
+                       $"getter : {GetterParcelToCostumer}\n" +
+                       $"Weight : {Weight}\n" +
+                       $"Priority : {Priority}\n" +
+                       $"Priority : {(ParcelCreation == DateTime.MinValue ? ' ' : ParcelCreation)}\n" +
+                       $"Priority : {(ParcelBinded == DateTime.MinValue ? ' ' : ParcelBinded)}\n" +
+                       $"Priority : {(ParcelPickedUp == DateTime.MinValue ? ' ' : ParcelPickedUp)}\n" +
+                       $"Priority : {(ParcelDelivered == DateTime.MinValue ? ' ' : ParcelDelivered)}\n" +
+                       $"binded drone : {ParcelDrone}";
+            }
         }
     } 
 }

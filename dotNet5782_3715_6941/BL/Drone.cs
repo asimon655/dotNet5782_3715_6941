@@ -6,7 +6,7 @@ namespace IBL
 {
     namespace BO
     {
-        public class Drone : Printable
+        public class Drone 
         {
             public int Id { set; get;  }
             public String Model { set; get; }
@@ -16,6 +16,16 @@ namespace IBL
             public IBL.BO.ParcelInTransfer ParcelTransfer { set; get;  }
             public Location Current { set; get;  }
 
+            public override string ToString()
+            {
+                return $"Id : {Id}\n" +
+                       $"Model : {Model}\n" +
+                       $"location : {Current}\n" +
+                       $"battary : {BatteryStat}\n" +
+                       $"Max Weight : {Weight}\n" +
+                       $"Drone Status : {DroneStat}\n" +
+                       $"binded parcele : {ParcelTransfer}";
+            }
         }
     }
 }
