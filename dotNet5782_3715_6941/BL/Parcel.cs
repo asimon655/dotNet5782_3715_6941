@@ -175,6 +175,8 @@ namespace BL
             DroneToList drony = GetDroneToList(droneId);
             IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
             Location Target = getParcelLoctTarget(pack);
+            if (drony.DroneStat != DroneStatuses.Delivery)
+                throw new  EnumNotInRightStatus<DroneStatuses>("Drone Should be in delivry!! it is now in the status of: ", drony.DroneStat);
             if (ParcelStatC(pack) != ParcelStat.PickedUp)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("parcel is not in the status pickedup it is in : ", ParcelStatC(pack)); 
