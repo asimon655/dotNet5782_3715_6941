@@ -1,0 +1,24 @@
+﻿<Window x:Class="PL.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <Image Name="img"  HorizontalAlignment="Left" Height="243" Margin="6,82,0,0" VerticalAlignment="Top" Width="582"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="71" Margin="240,71,0,0" VerticalAlignment="Top" Width="350" Click="Button_Click"/>
+        <MediaElement Name="GifLoader"   Source="C:\Users\igalm\Source\Repos\dotNet5782_3715_6941\dotNet5782_3715_6941\PL\gif1.gif" Stretch="None" Margin="75,81,-56,-22" RenderTransformOrigin="0.3,0.3
+                      ">
+            <MediaElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.3" ScaleY="0.3"/>
+                    <SkewTransform AngleY="0.173"/>
+                    <RotateTransform Angle="-0.475"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </MediaElement.RenderTransform>
+        </MediaElement>
+    </Grid>
+</Window>

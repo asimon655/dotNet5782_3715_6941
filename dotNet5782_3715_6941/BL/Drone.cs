@@ -182,8 +182,14 @@ namespace BL
 
 
                 throw new IdAlreadyExists(err); 
-            }  
+            }
        
+
+
+        }
+        public IEnumerable<DroneToList> DronesPrintFiltered(Predicate<IBL.BO.DroneToList> drone , IEnumerable<DroneToList>  listy)
+        {
+            return listy.Where(new Func<DroneToList,bool> (drone) );
 
         }
     }
