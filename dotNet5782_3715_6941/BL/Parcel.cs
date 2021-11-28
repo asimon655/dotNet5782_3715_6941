@@ -40,6 +40,10 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
+        /// <summary>
+        /// return a list of delivered parcels
+        /// </summary>
+        /// <returns>List of IDAL.DO.Parcel</returns>
         List<IDAL.DO.Parcel> getDeliverdParcels()
         {
             IEnumerable<IDAL.DO.Parcel> parcels = data.ParcelsPrint();

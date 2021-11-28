@@ -7,7 +7,7 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-        IDAL.Idal data = new DAL.DalObject.DalObject();
+        IDAL.Idal data = new DalObject.DalObject();
 
         List<DroneToList> drones = new List<DroneToList>();
 
@@ -129,9 +129,6 @@ namespace BL
                 drones.Add(newDrone);
             }
         }
-
-        // return the id of the parcel that binded to a specific drone and the parcel not yet delivered
-        // if there isnt any return -1
 
 
       
