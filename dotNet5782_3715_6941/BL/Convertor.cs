@@ -1,4 +1,4 @@
-using IBL.BO;
+﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +19,13 @@ namespace BL
         private ParcelStat ParcelStatC(IDAL.DO.Parcel parcel)
         {
             int caseNum = 4;
-            if (parcel.PickedUp != DateTime.MinValue)
+            if (!(parcel.PickedUp is null))
                 caseNum--; 
-            else if (parcel.Delivered != DateTime.MinValue)
+            else if (!(parcel.Delivered is null))
                 caseNum--;
-            else if (parcel.Schedulded!= DateTime.MinValue)
+            else if (!(parcel.Schedulded is null))
                 caseNum--;
-            else if (parcel.Requested != DateTime.MinValue)
+            else if (!(parcel.Requested is null))
                 caseNum--;
             if (caseNum == 4)
                 throw new EnumOutOfRange("4 for parcelstat is forbidden ",4); 
@@ -111,7 +111,12 @@ namespace BL
             {
                 IDAL.DO.Costumer sender = data.PullDataCostumer(parcel.SenderId);
                 IDAL.DO.Costumer getter = data.PullDataCostumer(parcel.TargetId);
-                DroneToList drone = GetDroneToList(parcel.DroneId);
+                ParcelToDrone? droneInParcel = null;
+                if (ParcelStatC(parcel) != ParcelStat.Declared)
+                {
+                    DroneToList drone = GetDroneToList((int)parcel.DroneId);
+                    droneInParcel = new ParcelToDrone() { Id = drone.Id, BatteryStat = drone.BatteryStat, Loct = drone.Current };
+                }
                 return new Parcel()
                 {
                     Id = parcel.Id,
@@ -121,7 +126,7 @@ namespace BL
                     ParcelBinded = parcel.Schedulded,
                     Priority = (Priorities)parcel.Priority,
                     Weight = (WeightCategories)parcel.Weight,
-                    ParcelDrone = new ParcelToDrone() { Id = drone.Id, BatteryStat = drone.BatteryStat, Loct = drone.Current },
+                    ParcelDrone = droneInParcel,
                     SenderParcelToCostumer = new ParcelToCostumer() { id = sender.Id, name = sender.Name },
                     GetterParcelToCostumer = new ParcelToCostumer() { id = getter.Id, name = getter.Name }
                 };

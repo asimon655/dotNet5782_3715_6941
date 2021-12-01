@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace IBL
             public WeightCategories Weight { set; get; }
             public double BatteryStat { set; get;  }
             public DroneStatuses DroneStat { set; get;  }
-            public IBL.BO.ParcelInTransfer ParcelTransfer { set; get;  }
+            public IBL.BO.ParcelInTransfer? ParcelTransfer { set; get;  } = null;
             public Location Current { set; get;  }
 
             public override string ToString()

@@ -1,4 +1,4 @@
-using IBL.BO;
+﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +14,11 @@ namespace IBL
 
             public WeightCategories Weight {set; get ; }
             public Priorities Priority { set; get;  } 
-            public ParcelToDrone ParcelDrone { set; get;  }
-            public DateTime ParcelCreation { set; get;  } 
-            public DateTime ParcelBinded { set; get;  }
-            public DateTime ParcelPickedUp { set; get; }
-            public DateTime ParcelDelivered { set; get;  }
+            public ParcelToDrone? ParcelDrone { set; get;  } = null;
+            public DateTime? ParcelCreation { set; get;  } = null;
+            public DateTime? ParcelBinded { set; get;  } = null;
+            public DateTime? ParcelPickedUp { set; get; } = null;
+            public DateTime? ParcelDelivered { set; get;  } = null;
 
             public override string ToString()
             {
@@ -27,10 +27,10 @@ namespace IBL
                        $"getter : {GetterParcelToCostumer}\n" +
                        $"Weight : {Weight}\n" +
                        $"Priority : {Priority}\n" +
-                       $"Priority : {(ParcelCreation == DateTime.MinValue ? ' ' : ParcelCreation)}\n" +
-                       $"Priority : {(ParcelBinded == DateTime.MinValue ? ' ' : ParcelBinded)}\n" +
-                       $"Priority : {(ParcelPickedUp == DateTime.MinValue ? ' ' : ParcelPickedUp)}\n" +
-                       $"Priority : {(ParcelDelivered == DateTime.MinValue ? ' ' : ParcelDelivered)}\n" +
+                       $"Priority : {(ParcelCreation is null ? ' ' : ParcelCreation)}\n" +
+                       $"Priority : {(ParcelBinded is null ? ' ' : ParcelBinded)}\n" +
+                       $"Priority : {(ParcelPickedUp is null ? ' ' : ParcelPickedUp)}\n" +
+                       $"Priority : {(ParcelDelivered is null ? ' ' : ParcelDelivered)}\n" +
                        $"binded drone : {ParcelDrone}";
             }
         }
@@ -79,7 +79,11 @@ namespace BL
             isInEnum(parcel.Weight);
 
             IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() {
-                Requested= DateTime.Now, 
+                Requested= DateTime.Now,
+                Schedulded= null,
+                PickedUp= null,
+                Delivered= null,
+                DroneId=null,                 
                 SenderId=parcel.SenderParcelToCostumer.id,
                 TargetId=parcel.GetterParcelToCostumer.id ,
                 Priority=(IDAL.DO.Priorities)parcel.Priority,
@@ -107,7 +111,6 @@ namespace BL
             foreach (var pack in data.ParcelsPrint())
                 if (ParcelStatC(pack) == ParcelStat.Declared)
                     if (canreach(drony, pack, getParcelLoctSender))
-                    if (pack.Requested == DateTime.MinValue)
                     {
                         if (pack.Priority > resParcel.Priority)
                             resParcel = pack;
@@ -154,7 +157,7 @@ namespace BL
             {
                 throw new EnumNotInRightStatus<DroneStatuses>("the Drone Should be IN delivery mode , it is in: ", drony.DroneStat);
             }
-            IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
+            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
             if (ParcelStatC(pack) != ParcelStat.Binded)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("Parcel should be Binded when it is : ", ParcelStatC(pack)); 
@@ -178,18 +181,18 @@ namespace BL
         public void ParcelDeliveredToCostumer(int droneId)
         {
             DroneToList drony = GetDroneToList(droneId);
-            IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
-            Location Target = getParcelLoctTarget(pack);
             if (drony.DroneStat != DroneStatuses.Delivery)
                 throw new  EnumNotInRightStatus<DroneStatuses>("Drone Should be in delivry!! it is now in the status of: ", drony.DroneStat);
+            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
             if (ParcelStatC(pack) != ParcelStat.PickedUp)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("parcel is not in the status pickedup it is in : ", ParcelStatC(pack)); 
             }
+            Location Target = getParcelLoctTarget(pack);
             if (!canreach(drony, pack, getParcelLoctTarget))
                 throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.BatteryStat, getPowerUsage(drony.Current, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
             drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
-            drony.Current = Target;
+            drony.Current = new Location(Target.Longitude, Target.Lattitude);
             drony.DroneStat = DroneStatuses.Free;
             pack.Delivered = DateTime.Now;
             try

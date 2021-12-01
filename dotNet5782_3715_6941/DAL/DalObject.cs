@@ -86,6 +86,10 @@ namespace DalObject
                         Priority = (Priorities)RandomGen.Next(0, 2),
                         Weight = (WeightCategories)RandomGen.Next(0, 2),
                         Schedulded = scheduledtmp,
+                        Requested = null,
+                        PickedUp = null,
+                        Delivered = null,
+                        DroneId = null,
                         SenderId = Costumers[RandomGen.Next(Costumers.Count)].Id,
                         TargetId = Costumers[RandomGen.Next(Costumers.Count)].Id
                     };
