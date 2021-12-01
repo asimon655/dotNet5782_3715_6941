@@ -1,4 +1,4 @@
-using IBL.BO;
+﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,11 +51,9 @@ namespace BL
             {
                 ///time perios is in hours 
                 IDAL.DO.Station station = GetStationFromCharging(droneId);
-                double chargingSpeed = ChargingSpeed;
-                drony.BatteryStat = Math.Min((chargingSpeed * chargingPeriod), 100); 
+                drony.BatteryStat = Math.Min((drony.BatteryStat + ChargingSpeed * chargingPeriod), 100); 
                 drony.DroneStat = DroneStatuses.Free; 
                 BaseStation baseStation = StationC(station);
-                double powerUsage = getPowerUsage(drony.Current, baseStation.LoctConstant);
                 station.ChargeSlots += 1;
                 try
                 {
