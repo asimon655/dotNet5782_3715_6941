@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +50,7 @@ namespace BL
             List<IDAL.DO.Parcel> res = new List<IDAL.DO.Parcel>();
             foreach (var parcel in parcels)
             {
-                if (parcel.Delivered != DateTime.MinValue)
+                if (ParcelStatC(parcel) == ParcelStat.Delivered)
                 {
                     res.Add(parcel);
                 }
@@ -105,7 +105,8 @@ namespace BL
             IDAL.DO.Parcel  resParcel = list.First();
             DroneToList drony = GetDroneToList(droneId);
             foreach (var pack in data.ParcelsPrint())
-                if (canreach(drony, pack, getParcelLoctSender))
+                if (ParcelStatC(pack) == ParcelStat.Declared)
+                    if (canreach(drony, pack, getParcelLoctSender))
                     if (pack.Requested == DateTime.MinValue)
                     {
                         if (pack.Priority > resParcel.Priority)

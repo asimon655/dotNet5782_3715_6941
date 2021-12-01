@@ -1,4 +1,4 @@
-using IBL.BO;
+﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace BL
         {
             foreach (var parcel in data.ParcelsPrint())
             {
-                if (parcel.DroneId == droneId && parcel.Delivered == DateTime.MinValue)
+                if (parcel.DroneId == droneId && ParcelStatC(parcel) != ParcelStat.Delivered)
                 {
                     return parcel.Id;
                 }

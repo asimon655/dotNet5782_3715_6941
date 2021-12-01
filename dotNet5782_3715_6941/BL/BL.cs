@@ -54,7 +54,7 @@ namespace BL
                     Location targetLoct = new Location(target.Longitude, target.Lattitude);
 
                     // the parcel has been binded but not picked up yet
-                    if (parcel.PickedUp == DateTime.MinValue)
+                    if (ParcelStatC(parcel) == ParcelStat.Binded)
                     {
                         // set the location of the drone to the closest station to the sender
                         int senderStationId = getClosesStation(senderLoct);

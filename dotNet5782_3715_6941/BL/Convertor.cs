@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +9,12 @@ namespace BL
     {
          private ClientToList CltToLstC(IDAL.DO.Costumer gety) =>  new ClientToList() { 
                 Id = gety.Id 
-                , Name=gety.Name 
-                , Phone=gety.Phone 
-                ,ParcelDeliveredAndGot =data.ParcelsPrint().Count (x => x.SenderId == gety.Id && x.PickedUp != DateTime.MinValue)  
-                , InTheWay= data.ParcelsPrint().Count(x => x.SenderId == gety.Id && x.Schedulded != DateTime.MinValue && x.Delivered == DateTime.MinValue)
-                , ParcelGot = data.ParcelsPrint().Count(x => x.TargetId == gety.Id && x.Delivered != DateTime.MinValue) 
-                , ParcelDeliveredAndNotGot = data.ParcelsPrint().Count(x => x.SenderId == gety.Id && x.Delivered != DateTime.MinValue && x.PickedUp == DateTime.MinValue) };
+                ,Name=gety.Name 
+                ,Phone=gety.Phone 
+                ,ParcelDeliveredAndGot =data.ParcelsPrint().Count (x => x.SenderId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered)  
+                ,InTheWay= data.ParcelsPrint().Count(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered)
+                ,ParcelGot = data.ParcelsPrint().Count(x => x.TargetId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered) 
+                ,ParcelDeliveredAndNotGot = data.ParcelsPrint().Count(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered) };
 
         private ParcelStat ParcelStatC(IDAL.DO.Parcel parcel)
         {
