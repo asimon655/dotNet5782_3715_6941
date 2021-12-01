@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -128,9 +128,9 @@ namespace BL
         {
             DroneToList drone = drones.Find(s => s.Id == Id);
             /// if the Drone wasnt found throw error
-            if (drone.Id != Id)
+            if (drone is null)
             {
-                throw new Exception("the Id could not be found");
+                throw new IdDosntExists("the Id could not be found", Id);
             }
             return drone;
         }

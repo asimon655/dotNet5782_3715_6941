@@ -65,7 +65,7 @@ namespace BL
                 {
                     if (droneCharge.StaionId == stationId)
                     {
-                        DroneToList drone = drones.Find(s => s.Id == droneCharge.DroneId);
+                        DroneToList drone = GetDroneToList(droneCharge.DroneId);
                         // check if the drone exsists
                         DroneInCharge droneInCharge = new DroneInCharge
                         {
