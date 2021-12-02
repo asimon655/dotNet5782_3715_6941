@@ -89,6 +89,10 @@ namespace BL
         {
 
             DroneToList drony = GetDroneToList(droneId);
+            if (drony.DroneStat != DroneStatuses.Free)
+            {
+                throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
+            }
             IEnumerable<IDAL.DO.Parcel> parcels = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Declared && canreach(drony, x, getParcelLoctSender));
             IDAL.DO.Parcel resParcel;
             try
