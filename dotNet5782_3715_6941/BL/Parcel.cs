@@ -231,7 +231,7 @@ namespace BL
             {
                 List<ParcelToList> tmpy = new List<ParcelToList>();
                 // if the parcel.DroneId is null then the parcel is unbinded
-                foreach (var x in data.GetParcels(x => x.DroneId is null))
+                foreach (var x in data.GetParcels(x => x.DroneId is null && ParcelStatC(x) == ParcelStat.Declared))
                     tmpy.Add(new ParcelToList()
                     {
                         Id = x.Id
