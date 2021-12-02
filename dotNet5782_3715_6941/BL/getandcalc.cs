@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace BL
             foreach (var station in data.StationsPrint())
             {
                 double distance = calculateDistance(new Location(station.Longitude, station.Lattitude), location);
-                if (distance < shortestDistance && station.ChargeSlots > 0)
+                if (distance < shortestDistance)
                 {
                     shortestDistance = distance;
                     stationId = station.Id;
