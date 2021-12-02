@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Window1" Height="550" Width="800">
     
 
     <Grid>
@@ -36,7 +36,7 @@
 
         </Button>
         <Image Source="Images/frame_142_delay-0.04s.gif" Grid.Column="1" Stretch="Fill" Grid.Row="2" Margin="0,2,0,0"/>
-        <MediaElement  Name="GifLoader"   Source="Images/gif2.gif" Stretch="Fill"  LoadedBehavior="Play" Grid.ColumnSpan="2" Unloaded="GifLoader_Unloaded" MediaEnded="GifLoader_Unloaded" OpacityMask="#FF2AAC7A" Grid.Row="2" Margin="0,2,0,0" />
+        <MediaElement  Name="GifLoader"   Source="Images/gif2.gif" Stretch="Fill"  LoadedBehavior="Play" Grid.ColumnSpan="2"  MediaEnded="GifLoader_Unloaded" OpacityMask="#FF2AAC7A" Grid.Row="2" Margin="0,2,0,0" />
         <Grid HorizontalAlignment="Left"   Grid.ColumnSpan="2" Opacity="0.85" ClipToBounds="True" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="41*"/>

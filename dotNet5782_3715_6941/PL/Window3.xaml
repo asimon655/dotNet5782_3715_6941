@@ -7,7 +7,7 @@
         xmlns:interactivity="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"	
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
-        Title="Window3" Height="500" Width="850" WindowStyle="ToolWindow"  ResizeMode="CanResize"  BorderBrush="Yellow" BorderThickness="3"
+        Title="Window3" Height="625" Width="820" WindowStyle="ToolWindow"  ResizeMode="CanResize"  BorderBrush="Yellow" BorderThickness="3"
 
         >
     <Window.Resources>
@@ -31,8 +31,8 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="78*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="98*"/>
 
 
 
