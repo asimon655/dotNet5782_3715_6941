@@ -98,8 +98,9 @@ namespace BL
                 if (newDrone.DroneStat == DroneStatuses.Matance)
                 {
                     // set drone location to a random starion with free charging slots
-                    List<IDAL.DO.Station> stationsFreePorts = getStationsFreePorts();
-                    IDAL.DO.Station station = stationsFreePorts[RandomGen.Next(stationsFreePorts.Count)];
+                    IEnumerable<IDAL.DO.Station> stationsFreePorts = data.GetStations(x => x.ChargeSlots > 0);
+                    int random_i = RandomGen.Next(stationsFreePorts.Count());
+                    IDAL.DO.Station station = stationsFreePorts.ElementAt(random_i);
                     newDrone.Current = new Location(station.Longitude, station.Lattitude);
                     // register the matance in drone charge
                     data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = station.Id, DroneId = newDrone.Id });
@@ -108,9 +109,10 @@ namespace BL
                 }
                 if (newDrone.DroneStat == DroneStatuses.Free)
                 {
-                    // set drone location to a random customer that recived a message
-                    List<IDAL.DO.Parcel> parcelsDelivered = getDeliverdParcels();
-                    IDAL.DO.Parcel parcel = parcelsDelivered[RandomGen.Next(parcelsDelivered.Count)];
+                    // set drone location to a random customer that recived a parcel
+                    IEnumerable<IDAL.DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Delivered);
+                    int random_i = RandomGen.Next(parcelsDelivered.Count());
+                    IDAL.DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
                     IDAL.DO.Costumer costumer = data.PullDataCostumer(parcel.TargetId);
                     newDrone.Current = new Location(costumer.Longitude, costumer.Lattitude);
 

@@ -32,9 +32,10 @@ namespace BL
         public IEnumerable<BaseStaionToList> BaseStaionsFreePortsPrint()
         {
             List<BaseStaionToList> tmp = new List<BaseStaionToList>();
-            foreach (var station in data.StaionsFreePortsPrint())
+            // loop all stations with free charging slots
+            foreach (var station in data.GetStations(x => x.ChargeSlots > 0))
             {
-                int numOfNotFr = data.DronesChargesPrint().Count(x => x.StaionId == station.Id);
+                int numOfNotFr = data.CountDronesCharges(x => x.StaionId == station.Id);
                 tmp.Add(new BaseStaionToList() { Id = station.Id, Name = station.Name, NumOfFreeOnes = station.ChargeSlots, NumOfNotFreeOne = numOfNotFr });
             }
             return tmp;
@@ -46,7 +47,7 @@ namespace BL
             List<BaseStaionToList> tmp= new List<BaseStaionToList>();
             foreach (var station in data.StationsPrint())
             {
-                int numOfNotFr = data.DronesChargesPrint().Count(x=>x.StaionId==  station.Id);
+                int numOfNotFr = data.CountDronesCharges(x=>x.StaionId ==  station.Id);
                 tmp.Add(new BaseStaionToList() { Id = station.Id, Name = station.Name, NumOfFreeOnes = station.ChargeSlots, NumOfNotFreeOne = numOfNotFr  });
             }
             return tmp; 

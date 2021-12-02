@@ -40,23 +40,6 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-        /// <summary>
-        /// return a list of delivered parcels
-        /// </summary>
-        /// <returns>List of IDAL.DO.Parcel</returns>
-        List<IDAL.DO.Parcel> getDeliverdParcels()
-        {
-            IEnumerable<IDAL.DO.Parcel> parcels = data.ParcelsPrint();
-            List<IDAL.DO.Parcel> res = new List<IDAL.DO.Parcel>();
-            foreach (var parcel in parcels)
-            {
-                if (ParcelStatC(parcel) == ParcelStat.Delivered)
-                {
-                    res.Add(parcel);
-                }
-            }
-            return res;
-        }
         public void AddParcel(Parcel parcel)
         {
             isInEnum<WeightCategories>(parcel.Weight);
@@ -105,35 +88,41 @@ namespace BL
         public void BindParcelToDrone(int droneId)
         {
 
-            IEnumerable<IDAL.DO.Parcel> list = data.ParcelsPrint();
-            IDAL.DO.Parcel  resParcel = list.First();
             DroneToList drony = GetDroneToList(droneId);
-            foreach (var pack in data.ParcelsPrint())
-                if (ParcelStatC(pack) == ParcelStat.Declared)
-                    if (canreach(drony, pack, getParcelLoctSender))
+            IEnumerable<IDAL.DO.Parcel> parcels = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Declared && canreach(drony, x, getParcelLoctSender));
+            IDAL.DO.Parcel resParcel;
+            try
+            {
+                resParcel = parcels.First();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ThereArentAnyParcels("There arent any parcels to bind to drone");
+            }
+            foreach (var pack in parcels)
+            {
+                if (pack.Priority > resParcel.Priority)
+                    resParcel = pack;
+                else
+                {
+                    if (pack.Priority == resParcel.Priority)
                     {
-                        if (pack.Priority > resParcel.Priority)
+                        if ((int)pack.Weight <= (int)drony.Weight && pack.Weight > resParcel.Weight)
                             resParcel = pack;
                         else
                         {
-                            if (pack.Priority == resParcel.Priority)
+                            if ((int)pack.Weight <= (int)drony.Weight && pack.Weight == resParcel.Weight)
                             {
-                                if ((int)pack.Weight <= (int)drony.Weight && pack.Weight > resParcel.Weight)
+                                if (calculateDistance(drony.Current, getParcelLoctSender(pack)) < calculateDistance(drony.Current, getParcelLoctSender(resParcel)))
                                     resParcel = pack;
-                                else
-                                {
-                                    if ((int)pack.Weight <= (int)drony.Weight && pack.Weight == resParcel.Weight)
-                                    {
-                                        if (calculateDistance(drony.Current, getParcelLoctSender(pack)) < calculateDistance(drony.Current, getParcelLoctSender(resParcel)))
-                                            resParcel = pack;
-                                    }
-                                } 
-
                             }
                         } 
+
                     }
+                } 
+            }
             if ((WeightCategories)resParcel.Weight > drony.Weight)
-                throw new CouldntFindRightParcel("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
+                throw new CouldntFindRightParcelWeight("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
             drony.ParcelIdTransfer = resParcel.Id;
             resParcel.Schedulded = DateTime.Now;
             drony.DroneStat = DroneStatuses.Delivery;
@@ -237,7 +226,8 @@ namespace BL
             try
             {
                 List<ParcelToList> tmpy = new List<ParcelToList>();
-                foreach (var x in data.ParcelWithoutDronePrint())
+                // if the parcel.DroneId is null then the parcel is unbinded
+                foreach (var x in data.GetParcels(x => x.DroneId is null))
                     tmpy.Add(new ParcelToList()
                     {
                         Id = x.Id

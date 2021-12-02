@@ -87,7 +87,11 @@ namespace DalObject
             {
                 throw new IdDosntExists("the Id Drone is dosnt exists", drone.Id);
             }
-            Update<Drone>(DataSource.Drones, drone);
+            Update(DataSource.Drones, drone);
+        }
+        public IEnumerable<Drone> GetDrones(Predicate<Drone> expr)
+        {
+            return DataSource.Drones.FindAll(expr);
         }
     }
 }

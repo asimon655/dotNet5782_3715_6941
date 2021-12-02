@@ -11,10 +11,10 @@ namespace BL
                 Id = gety.Id 
                 ,Name=gety.Name 
                 ,Phone=gety.Phone 
-                ,ParcelDeliveredAndGot =data.ParcelsPrint().Count (x => x.SenderId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered)  
-                ,InTheWay= data.ParcelsPrint().Count(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered)
-                ,ParcelGot = data.ParcelsPrint().Count(x => x.TargetId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered) 
-                ,ParcelDeliveredAndNotGot = data.ParcelsPrint().Count(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered) };
+                ,ParcelDeliveredAndGot =data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered)  
+                ,InTheWay= data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered)
+                ,ParcelGot = data.CountParcels(x => x.TargetId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered) 
+                ,ParcelDeliveredAndNotGot = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered) };
 
         private ParcelStat ParcelStatC(IDAL.DO.Parcel parcel)
         {
@@ -89,7 +89,7 @@ namespace BL
                 NumOfFreeOnes = station.ChargeSlots,
                 LoctConstant = new Location(station.Longitude, station.Lattitude),
                 Name = station.Name , 
-                DroneInChargeList = (from drones in data.DronesChargesPrint() where (drones.StaionId ==station.Id) select (new DroneInCharge() { 
+                DroneInChargeList = (from drones in data.GetDronesCharges(x => x.StaionId == station.Id) select (new DroneInCharge() { 
                     id = drones.DroneId ,
                     BatteryStat = GetDroneToList(drones.DroneId).BatteryStat }  ) ).ToList ()  
                 };
@@ -100,8 +100,8 @@ namespace BL
             Loct = new Location(costumer.Longitude, costumer.Lattitude), 
             Name = costumer.Name, 
             Phone_Num = costumer.Phone , 
-            FromClient = ( from package in data.ParcelsPrint() where (package.SenderId == costumer.Id)  select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name})) ).ToList() ,
-            ToClient = (from package in data.ParcelsPrint() where (package.TargetId == costumer.Id) select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name}))).ToList()
+            FromClient = ( from package in data.GetParcels(x => x.SenderId == costumer.Id)  select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name})) ).ToList() ,
+            ToClient = (from package in data.GetParcels(x => x.TargetId == costumer.Id) select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name}))).ToList()
         };
 
 

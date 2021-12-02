@@ -96,5 +96,12 @@ namespace DalObject
                 throw new IdDosntExists("the Id Drone is dosnt exists", droneId);
             }
         }
+        public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> expr) {
+            return DataSource.DronesCharges.FindAll(expr);
+        }
+        public int CountDronesCharges(Func<IDAL.DO.DroneCharge, bool> expr)
+        {
+            return DataSource.DronesCharges.Count(expr);
+        }
     }
 }

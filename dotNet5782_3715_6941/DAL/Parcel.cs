@@ -82,10 +82,13 @@ namespace DalObject
             }
             Update(DataSource.Parcels, parcel);
         }
-        public IEnumerable<Parcel> ParcelWithoutDronePrint()
+        public IEnumerable<Parcel> GetParcels(Predicate<Parcel> expr)
         {
-            return DataSource.Parcels.FindAll(x => x.Schedulded == DateTime.MinValue);
-            
+            return DataSource.Parcels.FindAll(expr);
+        }
+        public int CountParcels(Func<IDAL.DO.Parcel, bool> expr)
+        {
+            return DataSource.Parcels.Count(expr);
         }
     }
 }

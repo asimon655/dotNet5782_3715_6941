@@ -24,13 +24,18 @@ namespace IBL
                     usingchargingstaions.ToString();
             }
         }
-        public class CouldntFindRightParcel : Exception
+        public class ThereArentAnyParcels : Exception
+        {
+            public ThereArentAnyParcels() : base() { }
+            public ThereArentAnyParcels(String message) : base(message) { }
+        }
+        public class CouldntFindRightParcelWeight : Exception
         {
             public WeightCategories weight { get; set; }
             public WeightCategories requiredWeigth { get; set; }
-            public CouldntFindRightParcel() : base() { }
-            public CouldntFindRightParcel(String message) : base(message) { }
-            public CouldntFindRightParcel(String message, WeightCategories _weight, WeightCategories _requiredWeigth) : base(message)
+            public CouldntFindRightParcelWeight() : base() { }
+            public CouldntFindRightParcelWeight(String message) : base(message) { }
+            public CouldntFindRightParcelWeight(String message, WeightCategories _weight, WeightCategories _requiredWeigth) : base(message)
             {
                 weight = _weight;
                 requiredWeigth = _requiredWeigth;

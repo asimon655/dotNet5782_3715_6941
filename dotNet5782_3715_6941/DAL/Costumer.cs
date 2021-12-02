@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDAL;
 using IDAL.DO;
 /*
 _________ ______            _______
@@ -82,6 +83,11 @@ namespace DalObject
             }
 
             Update(DataSource.Costumers, costumer);
+        }
+
+        public IEnumerable<Costumer> GetCostumers(Predicate<Costumer> expr)
+        {
+            return DataSource.Costumers.FindAll(expr);
         }
     }
 }

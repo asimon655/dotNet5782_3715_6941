@@ -1,4 +1,4 @@
-using IBL.BO;
+﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,16 +6,16 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
+        // get Binded Undelivered Parcel if not found return -1
         int getBindedUndeliveredParcel(int droneId)
         {
-            foreach (var parcel in data.ParcelsPrint())
+            IEnumerable<IDAL.DO.Parcel> parcels = data.GetParcels(x => x.DroneId == droneId && ParcelStatC(x) != ParcelStat.Delivered);
+            IDAL.DO.Parcel parcel = parcels.FirstOrDefault();
+            if (parcel.DroneId != droneId)
             {
-                if (parcel.DroneId == droneId && ParcelStatC(parcel) != ParcelStat.Delivered)
-                {
-                    return parcel.Id;
-                }
+                return -1;
             }
-            return -1;
+            return parcel.Id;
         }
         // calculate distance between two locations
 
@@ -73,7 +73,7 @@ namespace BL
             try
             {
                 IDAL.DO.Costumer CSMtmp = data.PullDataCostumer(parcel.SenderId);
-                return CostumerC(CSMtmp).Loct;
+                return new Location(CSMtmp.Longitude, CSMtmp.Lattitude);
             }
             catch (IDAL.DO.IdDosntExists err)
             {
