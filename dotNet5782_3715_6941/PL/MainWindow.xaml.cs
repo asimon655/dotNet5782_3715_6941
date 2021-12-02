@@ -78,8 +78,8 @@ namespace PL
 
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new Window2(a.PullDataDrone(((sender as ListView).SelectedItem as IBL.BO.DroneToList).Id)).Show( ) ;
-
+            ///new Window2(a.PullDataDrone(((sender as ListView).SelectedItem as IBL.BO.DroneToList).Id)).Show( ) ;
+            new Window2(a).Show();
 
         }
     }

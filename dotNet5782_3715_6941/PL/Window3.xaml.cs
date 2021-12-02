@@ -58,7 +58,8 @@ namespace PL
             Title = (Main.NavigationService.Content is null ? "None" : Main.NavigationService.Content.GetType().Name.ToString() ) ;
            // blabla = new CommandClose(status);
             object blublo = this;
-            this.DataContext = new Classy(status,this); 
+            
+            this.DataContext = new Classy(status,this,Main); 
 
         }
 

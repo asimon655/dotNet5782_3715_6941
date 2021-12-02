@@ -373,9 +373,9 @@
                             </Label>
                         </Viewbox>
                     </Grid>
-                    <Grid Grid.Column="1">
+                    <Grid Grid.Column="1"  Name="Model">
                         <Viewbox>
-                            <Label Name="Model" >
+                            <Label >
 
                             </Label>
                         </Viewbox>
@@ -396,14 +396,16 @@
                                 ID:
                             </Label>
                         </Viewbox>
-                        <Border Grid.Column="2" BorderThickness="7,7,0,7" BorderBrush="Black"/>
+                        <Border  BorderThickness="7,7,0,7" BorderBrush="Black">
+
+                        </Border>
                     </Grid>
-                    <Grid Grid.Column="1" >
-                        <Viewbox>
-                            <Label Name="ID"  HorizontalAlignment="Left">
-                            </Label>
-                        </Viewbox>
-                        <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black"/>
+                    <Border Grid.Column="0" BorderThickness="7,7,0,7" BorderBrush="Black"/>
+                    <Grid Grid.Column="1"  >
+                        <Grid Name="Id">
+                            
+                        </Grid>
+                        <Border  BorderThickness="0,7,7,7" BorderBrush="Black"/>
                     </Grid>
                 </Grid>
 

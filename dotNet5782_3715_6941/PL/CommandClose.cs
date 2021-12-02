@@ -26,13 +26,13 @@ namespace PL
     public class CommandClose : ICommand
     {
         public Stat ?  status;
-        public Window win; 
-        public CommandClose(Stat gets ,Window x )
+        public Window win;
+        System.Windows.Controls.Frame framey; 
+        public CommandClose(Stat gets ,Window x , System.Windows.Controls.Frame y)
         {
-            MessageBox.Show("hello2");
             status = gets;
-            win = x; 
-        
+            win = x;
+            framey = y; 
         }
         public event EventHandler CanExecuteChanged;
         //
@@ -54,7 +54,16 @@ namespace PL
         //     true if this command can be executed; otherwise, false.
         public bool CanExecute(object? parameter)
         {
-            MessageBox.Show("hello3");
+            if (!status.a)
+            {
+                MessageBox.Show("can't close safely -> going to previous page", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                framey.NavigationService.GoBack();
+                if (!framey.NavigationService.CanGoBack)
+                {
+                    status.a = true;
+                    return false; 
+                }
+            }
             return (status is null ? false : status.a);
         }
         //
@@ -67,10 +76,7 @@ namespace PL
         //     this object can be set to null.
         public void Execute(object? parameter )
         {
-            MessageBox.Show("hello");
            win.Close(); 
-        
-        
         }
     }
 }

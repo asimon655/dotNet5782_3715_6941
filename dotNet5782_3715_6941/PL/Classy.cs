@@ -27,9 +27,9 @@ namespace PL
         {
 
         public CommandClose blabla { private  set; get;  }
-        public Classy(Stat gets ,Window x )
+        public Classy(Stat gets ,Window x , System.Windows.Controls.Frame y )
         {
-            blabla = new CommandClose(gets,x); 
+            blabla = new CommandClose(gets,x,y); 
         
         }
         public void  dostuff() {
