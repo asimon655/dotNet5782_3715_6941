@@ -187,10 +187,16 @@ namespace BL
 
 
         }
-        public IEnumerable<DroneToList> DronesPrintFiltered(Predicate<IBL.BO.DroneToList> drone , IEnumerable<DroneToList>  listy)
+        public IEnumerable<DroneToList> DronesPrintFiltered(Predicate<IBL.BO.DroneToList> drone)
         {
-            return listy.Where(new Func<DroneToList,bool> (drone) );
+            return drones.Where(new Func<DroneToList,bool> (drone) );
 
         }
+        public Predicate<IDAL.DO.Station> conv(Predicate<BaseStaionToList> x)
+        {
+            return new Predicate<IDAL.DO.Station>(y => x(new BaseStaionToList() { Id = y.Id, Name = y.Name, NumOfFreeOnes = y.ChargeSlots }));  
+        
+        
+        } 
     }
 }

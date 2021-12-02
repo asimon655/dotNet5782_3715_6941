@@ -76,7 +76,7 @@ namespace DAL
                     for (int i = 0; i < DroneInit; i++)
                         Drones.Add( new Drone() {
                             Id = RandomGen.Next(100000000, 999999999),
-                            Modle = "V-Coptr Falcon",
+                            Modle = "Mavic "+RandomGen.Next(1,11),
                             MaxWeigth = (WeightCategories)RandomGen.Next(0, 2)
                         });
                     for (int i = 0; i < ParcelInit; i++)

@@ -1,0 +1,678 @@
+﻿<Window x:Class="PL.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="Window2" Height="450" Width="800" >
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Button Click="Button_Click">
+                <Viewbox>
+                    <Label  >
+                        Back To Menu
+                    </Label>
+                </Viewbox>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+
+
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions >
+
+                <Grid Grid.Column="0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions >
+                    <Grid Grid.Column="3">
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+
+
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Viewbox>
+                                    <Label >
+                                        Location
+                                    </Label>
+                                </Viewbox>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Viewbox>
+                                    <Label Name="SenderLocationX" >
+                                    </Label>
+                                </Viewbox>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Viewbox>
+                                    <Label Name="SenderLocationY" >
+
+                                    </Label>
+                                </Viewbox>
+                            </Grid>
+
+
+                        </Grid>
+
+
+
+                    </Grid>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="*"/>
+
+
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Image x:Name="Photo2" Source="Images/user.png" Stretch="Fill"></Image>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Viewbox>
+                                <Label>
+                                    Sender
+                                </Label>
+                            </Viewbox>
+                        </Grid>
+
+
+
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions >
+                        <Grid Grid.Row="0">
+
+                            <Viewbox>
+                                <Label>
+                                    ID
+                                </Label>
+                            </Viewbox>
+
+
+
+                        </Grid>
+                        <Grid Grid.Row="1">
+
+                            <Viewbox>
+                                <Label Name="SenderId">
+
+                                </Label>
+                            </Viewbox>
+
+
+
+                        </Grid>
+
+
+
+                    </Grid>
+                    <Grid Grid.Column="2">
+
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions >
+                        <Grid Grid.Row="0">
+
+                            <Viewbox>
+                                <Label>
+                                    Name
+                                </Label>
+                            </Viewbox>
+
+
+
+                        </Grid>
+                        <Grid Grid.Row="1">
+
+                            <Viewbox>
+                                <Label Name="SenderName">
+
+                                </Label>
+                            </Viewbox>
+
+
+
+                        </Grid>
+
+
+                    </Grid>
+
+                </Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions >
+                    <Grid Grid.Column="3">
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+
+
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Viewbox>
+                                    <Label >
+                                        Location
+                                    </Label>
+                                </Viewbox>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Viewbox>
+                                    <Label Name="TargetLocationX" >
+                                    </Label>
+                                </Viewbox>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Viewbox>
+                                    <Label Name="TargetLocationY" >
+
+                                    </Label>
+                                </Viewbox>
+                            </Grid>
+
+
+                        </Grid>
+
+
+
+                    </Grid>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="*"/>
+
+
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Image  x:Name="Photo1" Source="Images/user.png" Stretch="Fill"></Image>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Viewbox>
+                                <Label>
+                                    Target
+                                </Label>
+                            </Viewbox>
+                        </Grid>
+
+
+
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions >
+                        <Grid Grid.Row="0">
+
+                            <Viewbox>
+                                <Label>
+                                    ID
+                                </Label>
+                            </Viewbox>
+
+
+
+                        </Grid>
+                        <Grid Grid.Row="1">
+
+                            <Viewbox>
+                                <Label Name="TargetId">
+
+                                </Label>
+                            </Viewbox>
+
+
+
+                        </Grid>
+
+
+
+                    </Grid>
+                    <Grid Grid.Column="2">
+
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions >
+                        <Grid Grid.Row="0">
+
+                            <Viewbox>
+                                <Label>
+                                    Name
+                                </Label>
+                            </Viewbox>
+
+
+
+                        </Grid>
+                        <Grid Grid.Row="1">
+
+                            <Viewbox>
+                                <Label Name="TargetName">
+
+                                </Label>
+                            </Viewbox>
+
+
+
+                        </Grid>
+
+
+                    </Grid>
+
+                </Grid>
+
+
+
+
+
+                <Border BorderThickness="7" BorderBrush="Black">
+
+                </Border>
+                <Grid Grid.Column="1">
+                    <Border   BorderThickness="7" BorderBrush="Black">
+
+                    </Border>
+                </Grid>
+
+            </Grid>
+
+
+
+
+
+
+
+
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions >
+                <Grid Grid.Column="0">
+                    <Border BorderThickness="7" BorderBrush="Black">
+                        <Image x:Name="Photo0" Source="Images/drone_photo.jpg" Stretch="Fill" />
+                    </Border>
+
+                </Grid>
+                <Grid Grid.Column="1">
+
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions >
+                    <Grid Grid.Column="0">
+
+                        <Border BorderThickness="7,7,0,7" BorderBrush="Black">
+                        </Border>
+
+                        <Viewbox>
+                            <Label >
+                                Model:
+                            </Label>
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Viewbox>
+                            <Label Name="Model" >
+
+                            </Label>
+                        </Viewbox>
+                    </Grid>
+                    <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black">
+
+                    </Border>
+
+                </Grid>
+                <Grid  Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions >
+                    <Grid Grid.Column="0" >
+                        <Viewbox>
+                            <Label >
+                                ID:
+                            </Label>
+                        </Viewbox>
+                        <Border Grid.Column="2" BorderThickness="7,7,0,7" BorderBrush="Black"/>
+                    </Grid>
+                    <Grid Grid.Column="1" >
+                        <Viewbox>
+                            <Label Name="ID"  HorizontalAlignment="Left">
+                            </Label>
+                        </Viewbox>
+                        <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black"/>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Viewbox>
+                            <Label >
+                                Location
+                            </Label>
+
+
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Viewbox>
+                            <Label Name="LocationX" >
+                            </Label>
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Viewbox>
+                            <Label Name="LocationY" >
+
+                            </Label>
+                        </Viewbox>
+                    </Grid>
+
+
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions >
+                        <Grid Grid.Column="0">
+                            <Viewbox>
+                                <Label>
+                                    Max-Weight
+                                </Label>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Viewbox>
+                                <Label Name="MaxWeight">
+
+                                </Label>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions >
+                        <Grid Grid.Column="0">
+                            <Viewbox>
+                                <Label>
+                                    Status:
+                                </Label>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Viewbox>
+                                <Label Name="Status">
+
+                                </Label>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions >
+                        <Grid Grid.Column="0">
+                            <Viewbox>
+                                <Label>
+                                    Priorety:
+                                </Label>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Viewbox>
+                                <Label Name="Priorety">
+
+                                </Label>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="0">
+                        <Border BorderThickness="7" BorderBrush="Black">
+
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Border BorderThickness="7" BorderBrush="Black">
+
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Border BorderThickness="7" BorderBrush="Black">
+
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions >
+                    <Grid Grid.Column="0">
+                        <Viewbox>
+                            <Label RenderTransformOrigin="0.5,0.5">
+                                <Label.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="-90.418"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Label.RenderTransform>
+                                Battery
+                            </Label>
+                        </Viewbox>
+                    </Grid>
+                    <Border Grid.Column="1" BorderThickness="5" BorderBrush="Black"/>
+
+                    <Grid   Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions >
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions >
+                                <RowDefinition x:Name="EMPTY" Height="*"/>
+                                <RowDefinition x:Name="FULL" Height="*"/>
+
+
+
+                            </Grid.RowDefinitions>
+                            <Grid  Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions >
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions >
+                                        <RowDefinition Height="15*"/>
+                                        <RowDefinition  Height="1*"/>
+
+
+
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="1" Background="Black">
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid  Grid.Row="1" Background="LawnGreen">
+                                <Border Grid.Column="1" BorderThickness="5,5,5,5" BorderBrush="Black"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                </Grid>
+
+
+
+
+                <Grid Grid.Column="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions >
+                    <Grid Grid.Column="0">
+                        <Viewbox>
+                            <TextBlock>
+                                <Run> Binded </Run>
+                                <LineBreak> </LineBreak>
+                                <Run>parcels: </Run>
+                            </TextBlock>
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+
+                        <Viewbox>
+                            <Label Name="NoParcel">
+
+                            </Label>
+                        </Viewbox>
+
+                    </Grid>
+
+                </Grid>
+
+
+
+
+                <Grid Grid.Column="0">
+                    <Border BorderThickness="3.5" BorderBrush="Black">
+
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Border BorderThickness="3.5" BorderBrush="Black">
+
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Border BorderThickness="3.5" BorderBrush="Black">
+
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="3">
+                    <Border BorderThickness="3.5" BorderBrush="Black">
+
+                    </Border>
+                </Grid>
+
+
+
+
+
+
+
+
+            </Grid>
+            <Grid Grid.Row="1">
+                <Border BorderThickness="7" BorderBrush="Black">
+
+                </Border>
+            </Grid>
+
+        </Grid>
+
+
+        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="4">
+        </Border>
+    </Grid>
+
+
+
+
+</Window>

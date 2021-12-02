@@ -37,6 +37,6 @@ namespace IBL
         IEnumerable<BO.DroneToList> DronesPrint();
         IEnumerable<BO.ParcelToList> ParcelsPrint();
         IEnumerable<BO.ParcelToList> ParcelsWithoutDronesPrint();
-        IEnumerable<BO.DroneToList> DronesPrintFiltered(Predicate<BO.DroneToList> drone, IEnumerable<BO.DroneToList> listy);
+        IEnumerable<BO.DroneToList> DronesPrintFiltered(Predicate<BO.DroneToList> drone);
     }
 }
