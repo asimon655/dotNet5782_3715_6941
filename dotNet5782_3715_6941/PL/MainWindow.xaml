@@ -40,26 +40,44 @@ VerticalAlignment="Stretch" Width="auto">
 
                     </TextBlock>
                 </Viewbox>
+                <Button Click="Button_Click_2" Grid.Row="2" Background="Yellow" Margin="4,4,4,6">
+
+
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                    <Viewbox Margin="0,0,0,0">
+                            <Label>
+                                Add Drone
+                            </Label>
+                        </Viewbox>
+           
+                </Button>
+
             </Grid>
             <Grid Grid.Column="2" >
-                
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
 
-                    </Grid.RowDefinitions>
-                    <ComboBox Grid.Row="1" FontFamily="Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorWeigthStat" Grid.Column="2"  SelectionChanged="StatusSelector_SelectionChanged">
-                    <ComboBox.Background>
-                        <LinearGradientBrush EndPoint="0,1">
-                            <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#FF14FFDF" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ComboBox.Background>
-                    <ComboBox.Effect>
-                        <DropShadowEffect/>
-                    </ComboBox.Effect>
-                </ComboBox>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+                <Border Grid.Row="1"   BorderBrush="DimGray" BorderThickness="5">
+                    <Grid>
+                        <ComboBox  FontFamily="Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorWeigthStat" Grid.Column="2"  SelectionChanged="StatusSelector_SelectionChanged">
+                            <ComboBox.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="#FFF0F0F0"/>
+                                    <GradientStop Color="#FF14FFDF" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ComboBox.Background>
+                      
+                        </ComboBox>
+                    </Grid>
+                </Border>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="0">
 
@@ -72,21 +90,25 @@ VerticalAlignment="Stretch" Width="auto">
 
 
                 <ListBox Name="testListbox" HorizontalAlignment="Left" Height="161" Margin="370,80,0,0" VerticalAlignment="Top" Width="100" />
-                <ComboBox Grid.Row="1" FontFamily="Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat"  SelectionChanged="StatusSelectorDrnStat_SelectionChanged" >
+                <Border Grid.Row="1"  BorderBrush="DimGray" BorderThickness="5">
+                <ComboBox FontFamily="Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat"  SelectionChanged="StatusSelectorDrnStat_SelectionChanged" >
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1">
                             <GradientStop Color="#FFF0F0F0"/>
                             <GradientStop Color="#FF14FFDF" Offset="1"/>
                         </LinearGradientBrush>
                     </ComboBox.Background>
+                   
+                     
+            
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <CheckBox Name="chkCountry" Width="220">
+                            <CheckBox Name="chkCountry" Width="220"   IsChecked="{Binding Checked}" Content="{Binding statusof}" Checked="chkCountry_Checked" Unchecked="chkCountry_Checked" >
                             </CheckBox>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-
+                </Border>
             </Grid>
 
             <Grid Grid.Column="3">

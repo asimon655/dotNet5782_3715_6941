@@ -1,0 +1,34 @@
+﻿<Page x:Class="PL.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PL"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1" Background="#FFD5C5AC">
+
+    <Grid>
+        <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="*"/>
+  
+        </Grid.RowDefinitions >
+        <MediaElement Grid.Row="1" Source="https://cdn.dribbble.com/users/920643/screenshots/3363160/pwc_factory_loop_800x600.gif" Stretch="Fill" MediaEnded="MediaElement_MediaEnded" LoadedBehavior="Play"/>
+
+
+  
+            <ListView x:Name="ListOf"  Background="#FFD6C6AD">
+                <ListView.View >
+                    <GridView AllowsColumnReorder="true"  >
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id" Header="Id" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Model" Width="60"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=NumOfNotFreeOne}" Header="Bussy Ports" Width="60"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=NumOfFreeOnes}" Header="Free Ports"  Width="60"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+
+    </Grid>
+</Page>

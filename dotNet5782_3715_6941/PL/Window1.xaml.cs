@@ -23,12 +23,12 @@ namespace PL
     {
         public IBL.Ibl dat { set; get; }
         public Stat status; 
-        public Window1(Stat gets)
+        public Window1(Stat gets , IBL.Ibl dat)
         {
-            
+            this.dat = dat;
             status = gets; 
             InitializeComponent();
-            dat= new BL.Bl();
+           
             //Btn1.Content ="Idrones - SA ";  
             SolidColorBrush brush = new SolidColorBrush(Colors.Red);
             Btn1.Background = brush;
@@ -59,6 +59,11 @@ namespace PL
 
 
 
+        }
+        private void Button_Click2(object sender, RoutedEventArgs e)
+        {
+            status.a = false;
+            this.NavigationService.Navigate(new Page1(dat) );
         }
     }
 }

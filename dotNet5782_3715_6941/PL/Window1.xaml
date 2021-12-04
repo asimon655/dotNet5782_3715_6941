@@ -13,12 +13,48 @@
             <RowDefinition Height="0*"/>
             <RowDefinition Height="59*"/>
             <RowDefinition Height="158*"/>
+            <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
+
+
+
+
+
+   
+   
+
+
+
+
+
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="24*"/>
         </Grid.ColumnDefinitions>
 
+
+        <Grid Grid.Column="1"  Grid.Row="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="24*"/>
+                <ColumnDefinition Width="24*"/>
+                <ColumnDefinition Width="24*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Background="#FF17BF7E" Click="Button_Click2">
+            
+            <Viewbox>
+                <Label>
+                    staion List
+                </Label>
+            </Viewbox>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="25,0,25,0"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
         <Button BorderBrush="Black" BorderThickness="4"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontWeight="DemiBold" FontSize="32" FontStretch="UltraExpanded" FontFamily="Fonts/StartFont.ttf #Pacifico" Name="Btn1" Click="Button_Click" Grid.ColumnSpan="2"  Grid.Row="1" >
             <Viewbox Stretch="Fill">
                 <TextBlock Text="IDrones -SA"/>

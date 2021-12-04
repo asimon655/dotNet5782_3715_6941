@@ -47,14 +47,14 @@ namespace PL
 
         public  Stat status;
   
-
+        IBL.Ibl dat ; 
         public Window3()
         {
-
-        // WindowStyle =WindowStyle.None;
-        status = new Stat (){ a = true };
+            dat = new BL.Bl();
+            // WindowStyle =WindowStyle.None;
+            status = new Stat (){ a = true };
             InitializeComponent();
-            Main.NavigationService.Navigate(new Window1(status));
+            Main.NavigationService.Navigate(new Window1(status,dat));
             Title = (Main.NavigationService.Content is null ? "None" : Main.NavigationService.Content.GetType().Name.ToString() ) ;
            // blabla = new CommandClose(status);
             object blublo = this;
@@ -63,10 +63,6 @@ namespace PL
 
         }
 
-        
-
-     
-
-
+    
     }
 }

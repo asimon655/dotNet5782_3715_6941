@@ -9,7 +9,7 @@ namespace IBL
     namespace BO
     {
 
-        public class Location
+        public struct Location
         {
             public Location(double longitude, double lattitude)
             {

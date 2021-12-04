@@ -23,7 +23,7 @@
                 </Viewbox>
             </Button>
         </Grid>
-        <Image Source="Images/Blue-print.jpg" Stretch="Fill">
+        <Image Source="Images/Blue-print.jpg" Stretch="Fill" Opacity="0.84">
 
 
         </Image>
@@ -36,10 +36,10 @@
 
 
             </Grid.RowDefinitions>
-            <Grid Grid.Row="2" Name="ClintsORGif">
-                <Border BorderBrush="Black"  BorderThickness="6"/> 
-            </Grid>
 
+                <Grid Grid.Row="2" Name="ClintsORGif">
+
+                </Grid>
 
 
 

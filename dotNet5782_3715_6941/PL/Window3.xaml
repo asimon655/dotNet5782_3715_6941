@@ -8,6 +8,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="Window3" Height="625" Width="820" WindowStyle="ToolWindow"  ResizeMode="CanResize"  BorderBrush="Yellow" BorderThickness="3"
+        Icon="\Images\icon0.ico"
 
         >
     <Window.Resources>
