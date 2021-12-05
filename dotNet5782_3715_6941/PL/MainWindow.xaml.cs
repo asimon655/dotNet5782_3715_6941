@@ -28,11 +28,11 @@ namespace PL
     public partial class MainWindow : Page
     {
        List <CheckBoxStatus> predStat;
-        Predicate<T> combine<T>(Predicate<T> ? a, Predicate<T> ? b) =>  new Predicate<T>(x => ConvertorNullable<T>(a)(x) && ConvertorNullable<T>(b)(x));
+        public Predicate<T> combine<T>(Predicate<T> ? a, Predicate<T> ? b) =>  new Predicate<T>(x => ConvertorNullable<T>(a)(x) && ConvertorNullable<T>(b)(x));
         Predicate<T> OrGate<T>(Predicate<T>? a, Predicate<T>? b) => new Predicate<T>(x => ConvertorNullable<T>(a)(x) || ConvertorNullable<T>(b)(x));
         Predicate<T> ConvertorNullable<T>(Predicate<T>? a) => (a is null ? new Predicate<T>(x => true) : a); 
-        Predicate<IBL.BO.DroneToList>? Weight;
-         Predicate<IBL.BO.DroneToList>? Stat;
+        public Predicate<IBL.BO.DroneToList>? Weight;
+         public Predicate<IBL.BO.DroneToList>? Stat;
         public IBL.Ibl a { set; get;  }
         public Stat status; 
         public MainWindow(IBL.Ibl x ,Stat gets )
@@ -50,6 +50,7 @@ namespace PL
             StatusSelectorDrnStat.ItemsSource = predStat; 
             StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
             ListOf.ItemsSource = a.DronesPrintFiltered(combine<IBL.BO.DroneToList>(Weight, Stat));
+
             
         }
 
@@ -96,7 +97,7 @@ namespace PL
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            new Window2(a, ListOf ,this ).Show();
+            new Window2(a ,this ).Show();
         }
 
         private void chkCountry_Checked(object sender, RoutedEventArgs e)
@@ -105,6 +106,7 @@ namespace PL
             if (StatusSelectorDrnStat.ItemsSource is null)
             {
                 Stat = (x => false);
+                
 
             }
             else
@@ -120,6 +122,36 @@ namespace PL
             ListOf.ItemsSource = a.DronesPrintFiltered(combine<IBL.BO.DroneToList>(Weight, Stat));
 
 
+        }
+        static bool IsSorted<T>(IEnumerable<T> enumerable) where T : IComparable<T>
+        {
+            T prev = default(T);
+            bool prevSet = false;
+            foreach (var item in enumerable)
+            {
+                if (prevSet && (prev == null || prev.CompareTo(item) > 0))
+                    return false;
+                prev = item;
+                prevSet = true;
+            }
+            return true;
+        }
+
+        private void Battery_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<String, String> dict = new Dictionary<string, string>() ;
+            dict.Add("Id", "Id");
+            dict.Add("Model", "Model");
+            dict.Add("Battery", "BatteryStat");
+            dict.Add("Locartion", "Current");
+            dict.Add("MaxWeight", "Weight");
+            dict.Add("DroneStatus", "DroneStat");
+            dict.Add("Binded Parcel Id", "ParcelIdTransfer");
+            object IdLst = (object)
+            MessageBox.Show((e.OriginalSource as GridViewColumnHeader).Column.Header.ToString());
+      
+                ListOf.ItemsSource = ListOf.ItemsSource.Cast<IBL.BO.DroneToList>().OrderBy(x => (typeof(IBL.BO.DroneToList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null)));
+            ListOf.ItemsSource = ListOf.ItemsSource.Cast<IBL.BO.DroneToList>().Reverse();
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="IDrone-SA" Height="550" Width="800" Background="#FFC7F98B">
+        Title="IDrone-SA" Height="auto" Width="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFC7F98B">
     <Grid  Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -127,22 +127,22 @@ VerticalAlignment="Stretch" Width="auto">
             </Grid>
 
         </Grid>
- 
-                <ListView MouseDoubleClick="ListOf_MouseDoubleClick" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOf"  Grid.Row="1"  Background="#FF14FFDF">
+
+        <ListView GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOf"  Grid.Row="1"  Background="#FF14FFDF">
             <ListView.Effect>
                 <DropShadowEffect/>
             </ListView.Effect>
       
             <ListView.View>
 
-                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information">
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id" Header="Id" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Current}" x:Name="Location" Header="Locartion" Width="250"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=BatteryStat}" x:Name="Battery" Header="Battery" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="100"/>
-                    <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="100"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}" x:Name="ParcelId" Header="BindedParcel Id" Width="100"/>
+                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id" Header="Id" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Current}" x:Name="Location" Header="Locartion" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=BatteryStat}" x:Name="Battery" Header="Battery" Width="auto" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
+                    <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
                 </GridView>
 
             </ListView.View>

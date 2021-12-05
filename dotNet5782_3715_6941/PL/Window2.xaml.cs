@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace PL
         public List<string> ImageList;
         List<Object> pacads = new List<object>(); 
         IBL.Ibl log;
-        ListView listof;
+
         Page pageof; 
 
         private Viewbox creteLabel(string text)
@@ -51,7 +52,7 @@ namespace PL
         {
             Viewbox view1 = new Viewbox();
             TextBox textBox1 = new TextBox();
-            textBox1.Text = ">";
+            textBox1.Text = "";
             view1.Child = textBox1;
             return view1;
 
@@ -136,9 +137,15 @@ namespace PL
                 return false;
             using (FileStream fs1 = first.OpenRead())
             using (FileStream fs2 = second.OpenRead())
-                for (int i = 0; i < first.Length; i++)
-                    if (fs1.ReadByte() != fs2.ReadByte())
+            {
+                HMACSHA1 h1 = new HMACSHA1();
+    
+                byte[] hash1 = h1.ComputeHash(fs1);
+                byte[] hash2 = h1.ComputeHash(fs2);
+                for (int i = 0; i < hash2.Length; i++)
+                    if (hash1[i] != hash2[i])
                         return false;
+            }
             return true;
 
         }
@@ -480,9 +487,9 @@ namespace PL
         }
 
 
-        public Window2(IBL.Ibl x , ListView listy ,Page pg )
+        public Window2(IBL.Ibl x ,Page pg )
         {
-            listof = listy;
+           
             pageof = pg; 
 
             InitializeComponent();
@@ -550,8 +557,13 @@ namespace PL
 
 
                 log.AddDrone(drony, Convert.ToInt32((((pacads[3] as Viewbox).Child as TextBox).Text)));
-                listof.ItemsSource = log.DronesPrint();
-                pageof.NavigationService.Refresh();
+                (pageof as MainWindow).ListOf.ItemsSource = log.DronesPrintFiltered((pageof as MainWindow).combine<IBL.BO.DroneToList>((pageof as MainWindow).Weight, (pageof as MainWindow).Stat));
+                try
+                {
+                    pageof.NavigationService.Refresh();
+                }
+                catch { }
+             
             }
             catch (Exception err)
             {

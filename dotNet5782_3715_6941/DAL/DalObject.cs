@@ -59,7 +59,7 @@ namespace DAL
                     
                     for (int i = 0; i < StationInit; i++)
                         Stations.Add (new Station() {
-                            Id = 1,
+                            Id = RandomGen.Next(100000000, 999999999),
                             ChargeSlots = RandomGen.Next(0, 1000),
                             Name = i,
                             Lattitude = RandomGen.NextDouble() * 45,

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Window1" Height="550" Width="800">
+        Title="Window1" Height="auto" Width="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">  
     
 
     <Grid>
