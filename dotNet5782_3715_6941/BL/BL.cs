@@ -7,7 +7,7 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-        IDAL.Idal data = new DAL.DalObject.DalObject();
+        IDAL.Idal data = new DalObject.DalObject();
 
         List<DroneToList> drones = new List<DroneToList>();
 
@@ -54,7 +54,7 @@ namespace BL
                     Location targetLoct = new Location(target.Longitude, target.Lattitude);
 
                     // the parcel has been binded but not picked up yet
-                    if (parcel.PickedUp == DateTime.MinValue)
+                    if (ParcelStatC(parcel) == ParcelStat.Binded)
                     {
                         // set the location of the drone to the closest station to the sender
                         int senderStationId = getClosesStation(senderLoct);
@@ -98,8 +98,9 @@ namespace BL
                 if (newDrone.DroneStat == DroneStatuses.Matance)
                 {
                     // set drone location to a random starion with free charging slots
-                    List<IDAL.DO.Station> stationsFreePorts = getStationsFreePorts();
-                    IDAL.DO.Station station = stationsFreePorts[RandomGen.Next(stationsFreePorts.Count)];
+                    IEnumerable<IDAL.DO.Station> stationsFreePorts = data.GetStations(x => x.ChargeSlots > 0);
+                    int random_i = RandomGen.Next(stationsFreePorts.Count());
+                    IDAL.DO.Station station = stationsFreePorts.ElementAt(random_i);
                     newDrone.Current = new Location(station.Longitude, station.Lattitude);
                     // register the matance in drone charge
                     data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = station.Id, DroneId = newDrone.Id });
@@ -108,9 +109,10 @@ namespace BL
                 }
                 if (newDrone.DroneStat == DroneStatuses.Free)
                 {
-                    // set drone location to a random customer that recived a message
-                    List<IDAL.DO.Parcel> parcelsDelivered = getDeliverdParcels();
-                    IDAL.DO.Parcel parcel = parcelsDelivered[RandomGen.Next(parcelsDelivered.Count)];
+                    // set drone location to a random customer that recived a parcel
+                    IEnumerable<IDAL.DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Delivered);
+                    int random_i = RandomGen.Next(parcelsDelivered.Count());
+                    IDAL.DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
                     IDAL.DO.Costumer costumer = data.PullDataCostumer(parcel.TargetId);
                     newDrone.Current = new Location(costumer.Longitude, costumer.Lattitude);
 
@@ -129,9 +131,6 @@ namespace BL
                 drones.Add(newDrone);
             }
         }
-
-        // return the id of the parcel that binded to a specific drone and the parcel not yet delivered
-        // if there isnt any return -1
 
 
       

@@ -6,16 +6,16 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
+        // get Binded Undelivered Parcel if not found return -1
         int getBindedUndeliveredParcel(int droneId)
         {
-            foreach (var parcel in data.ParcelsPrint())
+            IEnumerable<IDAL.DO.Parcel> parcels = data.GetParcels(x => x.DroneId == droneId && ParcelStatC(x) != ParcelStat.Delivered);
+            IDAL.DO.Parcel parcel = parcels.FirstOrDefault();
+            if (parcel.DroneId != droneId)
             {
-                if (parcel.DroneId == droneId && parcel.Delivered == DateTime.MinValue)
-                {
-                    return parcel.Id;
-                }
+                return -1;
             }
-            return -1;
+            return parcel.Id;
         }
         // calculate distance between two locations
 
@@ -40,7 +40,7 @@ namespace BL
             foreach (var station in data.StationsPrint())
             {
                 double distance = calculateDistance(new Location(station.Longitude, station.Lattitude), location);
-                if (distance < shortestDistance && station.ChargeSlots > 0)
+                if (distance < shortestDistance)
                 {
                     shortestDistance = distance;
                     stationId = station.Id;
@@ -73,7 +73,7 @@ namespace BL
             try
             {
                 IDAL.DO.Costumer CSMtmp = data.PullDataCostumer(parcel.SenderId);
-                return CostumerC(CSMtmp).Loct;
+                return new Location(CSMtmp.Longitude, CSMtmp.Lattitude);
             }
             catch (IDAL.DO.IdDosntExists err)
             {
@@ -128,9 +128,9 @@ namespace BL
         {
             DroneToList drone = drones.Find(s => s.Id == Id);
             /// if the Drone wasnt found throw error
-            if (drone.Id != Id)
+            if (drone is null)
             {
-                throw new Exception("the Id could not be found");
+                throw new IdDosntExists("the Id could not be found", Id);
             }
             return drone;
         }

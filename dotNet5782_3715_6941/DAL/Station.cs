@@ -42,58 +42,50 @@ namespace IDAL
             public double Longitude { set; get; }
             public int ChargeSlots { set; get; }
 
-            public override string ToString()
-            {
-                return "ID: " + this.Id.ToString() + " Name: " + this.Name.ToString() + " Latitude: " + this.Lattitude.ToString() + " Longitude:" + this.Longitude.ToString()+ "Sexagesimal show of longitude  and lattitude :  " + DAL.DalObject.DalObject.DecimalToSexagesimal(Longitude,Lattitude)+ " ChargeSlots: " + this.ChargeSlots.ToString(); /// returns strings with all the args of the struct in string and longitude and lattiude in Sexagesimal show 
-            }
         }
 
     }
 }
-namespace DAL
+namespace DalObject
 {
-    namespace DalObject
+    public partial class DalObject : IDAL.Idal
     {
-        public partial class DalObject : IDAL.Idal
+        public void AddStation(Station station)
         {
-            public IEnumerable<Station> StaionsFreePortsPrint()
+            if (DataSource.Stations.Any(s => s.Id == station.Id))
             {
-                return DataSource.Stations.Where<Station>(x => x.ChargeSlots > 0); 
-            
+                throw new IdAlreadyExists("the station Id is already taken", station.Id);
             }
-            public void AddStation(Station station)
-            {
-                if (DataSource.Stations.Any(s => s.Id == station.Id))
-                {
-                    throw new IdAlreadyExists("the station Id is already taken", station.Id);
-                }
 
-                DataSource.Stations.Add(station);
-            }
-            public Station PullDataStation(int id)
+            DataSource.Stations.Add(station);
+        }
+        public Station PullDataStation(int id)
+        {
+            Station station = DataSource.Stations.Find(s => s.Id == id);
+            /// if the Station wasnt found throw error
+            if (station.Id != id)
             {
-                Station station = DataSource.Stations.Find(s => s.Id == id);
-                /// if the Station wasnt found throw error
-                if (station.Id != id)
-                {
-                    throw new IdDosntExists("the id could not be found", id);
-                }
-                return station;
+                throw new IdDosntExists("the id could not be found", id);
             }
-            public IEnumerable<Station> StationsPrint()
+            return station;
+        }
+        public IEnumerable<Station> StationsPrint()
+        {
+            return DataSource.Stations;
+        }
+        public void UpdateStations(Station station)
+        {
+            /// if the Station wasnt found throw error
+            if (!DataSource.Stations.Any(s => s.Id == station.Id))
             {
-                return DAL.DalObject.DataSource.Stations;
+                throw new IdDosntExists("the id could not be found", station.Id);
             }
-            public void UpdateStations(Station station)
-            {
-                /// if the Station wasnt found throw error
-                if (!DataSource.Stations.Any(s => s.Id == station.Id))
-                {
-                    throw new IdDosntExists("the id could not be found", station.Id);
-                }
 
-                Update<Station>(DataSource.Stations, station);
-            }
+            Update(DataSource.Stations, station);
+        }
+        public IEnumerable<Station> GetStations(Predicate<Station> expr)
+        {
+            return DataSource.Stations.FindAll(expr);
         }
     }
 }

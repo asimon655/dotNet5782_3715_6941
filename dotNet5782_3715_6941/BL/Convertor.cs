@@ -9,24 +9,24 @@ namespace BL
     {
          private ClientToList CltToLstC(IDAL.DO.Costumer gety) =>  new ClientToList() { 
                 Id = gety.Id 
-                , Name=gety.Name 
-                , Phone=gety.Phone 
-                ,ParcelDeliveredAndGot =data.ParcelsPrint().Count (x => x.SenderId == gety.Id && x.PickedUp != DateTime.MinValue)  
-                , InTheWay= data.ParcelsPrint().Count(x => x.SenderId == gety.Id && x.Schedulded != DateTime.MinValue && x.Delivered == DateTime.MinValue)
-                , ParcelGot = data.ParcelsPrint().Count(x => x.TargetId == gety.Id && x.Delivered != DateTime.MinValue) 
-                , ParcelDeliveredAndNotGot = data.ParcelsPrint().Count(x => x.SenderId == gety.Id && x.Delivered != DateTime.MinValue && x.PickedUp == DateTime.MinValue) };
+                ,Name=gety.Name 
+                ,Phone=gety.Phone 
+                ,ParcelDeliveredAndGot =data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered)  
+                ,InTheWay= data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered)
+                ,ParcelGot = data.CountParcels(x => x.TargetId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered) 
+                ,ParcelDeliveredAndNotGot = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered) };
 
         private ParcelStat ParcelStatC(IDAL.DO.Parcel parcel)
         {
 
             int caseNum = 4;
-            if (parcel.PickedUp != DateTime.MinValue)
+            if (!(parcel.PickedUp is null))
                 caseNum--; 
-            else if (parcel.Delivered != DateTime.MinValue)
+            else if (!(parcel.Delivered is null))
                 caseNum--;
-            else if (parcel.Schedulded!= DateTime.MinValue)
+            else if (!(parcel.Schedulded is null))
                 caseNum--;
-            else if (parcel.Requested != DateTime.MinValue)
+            else if (!(parcel.Requested is null))
                 caseNum--;
             if (caseNum == 4)
                 throw new EnumOutOfRange("4 for parcelstat is forbidden ",4); 
@@ -90,7 +90,7 @@ namespace BL
                 NumOfFreeOnes = station.ChargeSlots,
                 LoctConstant = new Location(station.Longitude, station.Lattitude),
                 Name = station.Name , 
-                DroneInChargeList = (from drones in data.DronesChargesPrint() where (drones.StaionId ==station.Id) select (new DroneInCharge() { 
+                DroneInChargeList = (from drones in data.GetDronesCharges(x => x.StaionId == station.Id) select (new DroneInCharge() { 
                     id = drones.DroneId ,
                     BatteryStat = GetDroneToList(drones.DroneId).BatteryStat }  ) ).ToList ()  
                 };
@@ -101,8 +101,8 @@ namespace BL
             Loct = new Location(costumer.Longitude, costumer.Lattitude), 
             Name = costumer.Name, 
             Phone_Num = costumer.Phone , 
-            FromClient = ( from package in data.ParcelsPrint() where (package.SenderId == costumer.Id)  select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name})) ).ToList() ,
-            ToClient = (from package in data.ParcelsPrint() where (package.TargetId == costumer.Id) select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name}))).ToList()
+            FromClient = ( from package in data.GetParcels(x => x.SenderId == costumer.Id)  select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name})) ).ToList() ,
+            ToClient = (from package in data.GetParcels(x => x.TargetId == costumer.Id) select (CustomerToParcelC(package, new ParcelToCostumer() {id = costumer.Id, name = costumer.Name}))).ToList()
         };
 
 
@@ -112,7 +112,12 @@ namespace BL
             {
                 IDAL.DO.Costumer sender = data.PullDataCostumer(parcel.SenderId);
                 IDAL.DO.Costumer getter = data.PullDataCostumer(parcel.TargetId);
-                DroneToList drone = GetDroneToList(parcel.DroneId);
+                ParcelToDrone? droneInParcel = null;
+                if (ParcelStatC(parcel) != ParcelStat.Declared)
+                {
+                    DroneToList drone = GetDroneToList((int)parcel.DroneId);
+                    droneInParcel = new ParcelToDrone() { Id = drone.Id, BatteryStat = drone.BatteryStat, Loct = drone.Current };
+                }
                 return new Parcel()
                 {
                     Id = parcel.Id,
@@ -122,7 +127,7 @@ namespace BL
                     ParcelBinded = parcel.Schedulded,
                     Priority = (Priorities)parcel.Priority,
                     Weight = (WeightCategories)parcel.Weight,
-                    ParcelDrone = new ParcelToDrone() { Id = drone.Id, BatteryStat = drone.BatteryStat, Loct = drone.Current },
+                    ParcelDrone = droneInParcel,
                     SenderParcelToCostumer = new ParcelToCostumer() { id = sender.Id, name = sender.Name },
                     GetterParcelToCostumer = new ParcelToCostumer() { id = getter.Id, name = getter.Name }
                 };

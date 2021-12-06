@@ -50,47 +50,48 @@ namespace IDAL
 
     }
 }
-namespace DAL
+namespace DalObject
 {
-    namespace DalObject
+    public partial class DalObject : IDAL.Idal
     {
-        public partial class DalObject : IDAL.Idal
+        public void AddDrone(Drone drone)
         {
-            public void AddDrone(Drone drone)
+            // if we find that the id is already taken by another drone 
+            if (DataSource.Drones.Any(s => s.Id == drone.Id))
             {
-                // if we find that the id is already taken by another drone 
-                if (DataSource.Drones.Any(s => s.Id == drone.Id))
-                {
-                    throw new IdAlreadyExists("the Id Drone is already taken", drone.Id);
-                }
+                throw new IdAlreadyExists("the Id Drone is already taken", drone.Id);
+            }
 
-                DataSource.Drones.Add(drone);
-            }
+            DataSource.Drones.Add(drone);
+        }
             
-            public Drone PullDataDrone(int id)
+        public Drone PullDataDrone(int id)
+        {
+            Drone drone = DataSource.Drones.Find(s => s.Id == id);
+            /// if the Drone wasnt found throw error
+            if (drone.Id != id)
             {
-                Drone drone = DataSource.Drones.Find(s => s.Id == id);
-                /// if the Drone wasnt found throw error
-                if (drone.Id != id)
-                {
-                    throw new IdDosntExists("the Id could not be found", id);
-                }
-                return drone;
+                throw new IdDosntExists("the Id could not be found", id);
             }
+            return drone;
+        }
             
-            public IEnumerable<Drone> DronesPrint()
+        public IEnumerable<Drone> DronesPrint()
+        {
+            return DataSource.Drones;
+        }
+        public void UpdateDrones(Drone drone)
+        {
+            // if we cant find that the id we throw error
+            if (!DataSource.Drones.Any(s => s.Id == drone.Id))
             {
-                return DAL.DalObject.DataSource.Drones;
+                throw new IdDosntExists("the Id Drone is dosnt exists", drone.Id);
             }
-            public void UpdateDrones(Drone drone)
-            {
-                // if we cant find that the id we throw error
-                if (!DataSource.Drones.Any(s => s.Id == drone.Id))
-                {
-                    throw new IdDosntExists("the Id Drone is dosnt exists", drone.Id);
-                }
-                Update<Drone>(DataSource.Drones, drone);
-            }
+            Update(DataSource.Drones, drone);
+        }
+        public IEnumerable<Drone> GetDrones(Predicate<Drone> expr)
+        {
+            return DataSource.Drones.FindAll(expr);
         }
     }
 }

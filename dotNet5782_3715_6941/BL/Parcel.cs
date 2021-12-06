@@ -14,11 +14,11 @@ namespace IBL
 
             public WeightCategories Weight {set; get ; }
             public Priorities Priority { set; get;  } 
-            public ParcelToDrone ParcelDrone { set; get;  }
-            public DateTime ParcelCreation { set; get;  } 
-            public DateTime ParcelBinded { set; get;  }
-            public DateTime ParcelPickedUp { set; get; }
-            public DateTime ParcelDelivered { set; get;  }
+            public ParcelToDrone? ParcelDrone { set; get;  } = null;
+            public DateTime? ParcelCreation { set; get;  } = null;
+            public DateTime? ParcelBinded { set; get;  } = null;
+            public DateTime? ParcelPickedUp { set; get; } = null;
+            public DateTime? ParcelDelivered { set; get;  } = null;
 
             public override string ToString()
             {
@@ -27,10 +27,10 @@ namespace IBL
                        $"getter : {GetterParcelToCostumer}\n" +
                        $"Weight : {Weight}\n" +
                        $"Priority : {Priority}\n" +
-                       $"Priority : {(ParcelCreation == DateTime.MinValue ? ' ' : ParcelCreation)}\n" +
-                       $"Priority : {(ParcelBinded == DateTime.MinValue ? ' ' : ParcelBinded)}\n" +
-                       $"Priority : {(ParcelPickedUp == DateTime.MinValue ? ' ' : ParcelPickedUp)}\n" +
-                       $"Priority : {(ParcelDelivered == DateTime.MinValue ? ' ' : ParcelDelivered)}\n" +
+                       $"Priority : {(ParcelCreation is null ? ' ' : ParcelCreation)}\n" +
+                       $"Priority : {(ParcelBinded is null ? ' ' : ParcelBinded)}\n" +
+                       $"Priority : {(ParcelPickedUp is null ? ' ' : ParcelPickedUp)}\n" +
+                       $"Priority : {(ParcelDelivered is null ? ' ' : ParcelDelivered)}\n" +
                        $"binded drone : {ParcelDrone}";
             }
         }
@@ -40,19 +40,6 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-        List<IDAL.DO.Parcel> getDeliverdParcels()
-        {
-            IEnumerable<IDAL.DO.Parcel> parcels = data.ParcelsPrint();
-            List<IDAL.DO.Parcel> res = new List<IDAL.DO.Parcel>();
-            foreach (var parcel in parcels)
-            {
-                if (parcel.Delivered != DateTime.MinValue)
-                {
-                    res.Add(parcel);
-                }
-            }
-            return res;
-        }
         public void AddParcel(Parcel parcel)
         {
             isInEnum<WeightCategories>(parcel.Weight);
@@ -75,7 +62,11 @@ namespace BL
             isInEnum(parcel.Weight);
 
             IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() {
-                Requested= DateTime.Now, 
+                Requested= DateTime.Now,
+                Schedulded= null,
+                PickedUp= null,
+                Delivered= null,
+                DroneId=null,                 
                 SenderId=parcel.SenderParcelToCostumer.id,
                 TargetId=parcel.GetterParcelToCostumer.id ,
                 Priority=(IDAL.DO.Priorities)parcel.Priority,
@@ -97,35 +88,45 @@ namespace BL
         public void BindParcelToDrone(int droneId)
         {
 
-            IEnumerable<IDAL.DO.Parcel> list = data.ParcelsPrint();
-            IDAL.DO.Parcel  resParcel = list.First();
             DroneToList drony = GetDroneToList(droneId);
-            foreach (var pack in data.ParcelsPrint())
-                if (canreach(drony, pack, getParcelLoctSender))
-                    if (pack.Requested == DateTime.MinValue)
+            if (drony.DroneStat != DroneStatuses.Free)
+            {
+                throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
+            }
+            IEnumerable<IDAL.DO.Parcel> parcels = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Declared && canreach(drony, x, getParcelLoctSender));
+            IDAL.DO.Parcel resParcel;
+            try
+            {
+                resParcel = parcels.First();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ThereArentAnyParcels("There arent any parcels to bind to drone");
+            }
+            foreach (var pack in parcels)
+            {
+                if (pack.Priority > resParcel.Priority)
+                    resParcel = pack;
+                else
+                {
+                    if (pack.Priority == resParcel.Priority)
                     {
-                        if (pack.Priority > resParcel.Priority)
+                        if ((int)pack.Weight <= (int)drony.Weight && pack.Weight > resParcel.Weight)
                             resParcel = pack;
                         else
                         {
-                            if (pack.Priority == resParcel.Priority)
+                            if ((int)pack.Weight <= (int)drony.Weight && pack.Weight == resParcel.Weight)
                             {
-                                if ((int)pack.Weight <= (int)drony.Weight && pack.Weight > resParcel.Weight)
+                                if (calculateDistance(drony.Current, getParcelLoctSender(pack)) < calculateDistance(drony.Current, getParcelLoctSender(resParcel)))
                                     resParcel = pack;
-                                else
-                                {
-                                    if ((int)pack.Weight <= (int)drony.Weight && pack.Weight == resParcel.Weight)
-                                    {
-                                        if (calculateDistance(drony.Current, getParcelLoctSender(pack)) < calculateDistance(drony.Current, getParcelLoctSender(resParcel)))
-                                            resParcel = pack;
-                                    }
-                                } 
-
                             }
                         } 
+
                     }
+                } 
+            }
             if ((WeightCategories)resParcel.Weight > drony.Weight)
-                throw new CouldntFindRightParcel("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
+                throw new CouldntFindRightParcelWeight("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
             drony.ParcelIdTransfer = resParcel.Id;
             resParcel.Schedulded = DateTime.Now;
             drony.DroneStat = DroneStatuses.Delivery;
@@ -149,7 +150,7 @@ namespace BL
             {
                 throw new EnumNotInRightStatus<DroneStatuses>("the Drone Should be IN delivery mode , it is in: ", drony.DroneStat);
             }
-            IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
+            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
             if (ParcelStatC(pack) != ParcelStat.Binded)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("Parcel should be Binded when it is : ", ParcelStatC(pack)); 
@@ -173,18 +174,18 @@ namespace BL
         public void ParcelDeliveredToCostumer(int droneId)
         {
             DroneToList drony = GetDroneToList(droneId);
-            IDAL.DO.Parcel pack = data.PullDataParcel(drony.ParcelIdTransfer);
-            Location Target = getParcelLoctTarget(pack);
             if (drony.DroneStat != DroneStatuses.Delivery)
                 throw new  EnumNotInRightStatus<DroneStatuses>("Drone Should be in delivry!! it is now in the status of: ", drony.DroneStat);
+            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
             if (ParcelStatC(pack) != ParcelStat.PickedUp)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("parcel is not in the status pickedup it is in : ", ParcelStatC(pack)); 
             }
+            Location Target = getParcelLoctTarget(pack);
             if (!canreach(drony, pack, getParcelLoctTarget))
                 throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.BatteryStat, getPowerUsage(drony.Current, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
             drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
-            drony.Current = Target;
+            drony.Current = new Location(Target.Longitude, Target.Lattitude);
             drony.DroneStat = DroneStatuses.Free;
             pack.Delivered = DateTime.Now;
             try
@@ -229,7 +230,8 @@ namespace BL
             try
             {
                 List<ParcelToList> tmpy = new List<ParcelToList>();
-                foreach (var x in data.ParcelWithoutDronePrint())
+                // if the parcel.DroneId is null then the parcel is unbinded
+                foreach (var x in data.GetParcels(x => x.DroneId is null && ParcelStatC(x) == ParcelStat.Declared))
                     tmpy.Add(new ParcelToList()
                     {
                         Id = x.Id

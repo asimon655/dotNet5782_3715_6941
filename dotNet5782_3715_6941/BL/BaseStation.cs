@@ -41,7 +41,7 @@ namespace BL
                 }
                 if (!(stationChargeSlots is null))
                 {
-                    int chargeSlots = (int)(stationChargeSlots - data.DronesChargesPrint().Count(x => x.StaionId == stationId));
+                    int chargeSlots = (int)(stationChargeSlots - data.CountDronesCharges(x => x.StaionId == stationId));
                     if (chargeSlots < 0)
                     {
                         throw new InValidSumOfChargeSlots("you currently using more staions the you want to update :: ");
@@ -61,22 +61,17 @@ namespace BL
             {
                 BaseStation TmpStation = StationC(data.PullDataStation(stationId));
                 List<DroneInCharge> dronesInCharges = new List<DroneInCharge>();
-                foreach (var droneCharge in data.DronesChargesPrint())
+                foreach (var droneCharge in data.GetDronesCharges(x => x.StaionId == stationId))
                 {
-                    if (droneCharge.StaionId == stationId)
+                    DroneToList drone = GetDroneToList(droneCharge.DroneId);
+                    // check if the drone exsists
+                    DroneInCharge droneInCharge = new DroneInCharge
                     {
-                        DroneToList drone = drones.Find(s => s.Id == droneCharge.DroneId);
-                        // check if the drone exsists
-                        DroneInCharge droneInCharge = new DroneInCharge
-                        {
-                            id = drone.Id,
-                            BatteryStat = drone.BatteryStat
-                        };
+                        id = drone.Id,
+                        BatteryStat = drone.BatteryStat
+                    };
 
-                        dronesInCharges.Add(droneInCharge);
-
-
-                    }
+                    dronesInCharges.Add(droneInCharge);
                 }
 
                 return TmpStation;
@@ -104,20 +99,6 @@ namespace BL
             {
                 throw new IdAlreadyExists(err);
             } 
-        }
-
-        List<IDAL.DO.Station> getStationsFreePorts()
-        {
-            IEnumerable<IDAL.DO.Station> stations = data.StationsPrint();
-            List<IDAL.DO.Station> res = new List<IDAL.DO.Station>();
-            foreach (var station in stations)
-            {
-                if (station.ChargeSlots > 0)
-                {
-                    res.Add(station);
-                }
-            }
-            return res;
         }
 
 
