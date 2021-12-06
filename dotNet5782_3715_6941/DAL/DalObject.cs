@@ -55,6 +55,7 @@ namespace DalObject
                 const int ParcelInit = 10;
                 const int CostumerInit = 10;
                     
+
                 for (int i = 0; i < StationInit; i++)
                     Stations.Add (new Station() {
                         Id = RandomGen.Next(100000000, 999999999),

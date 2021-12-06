@@ -21,7 +21,7 @@ namespace IBL
                        $"location : {LoctConstant}\n" +
                        $"free charging slots : {NumOfFreeOnes}\n" +
                        $"drones in charge : {string.Join('\n', DroneInChargeList)}";
-            }
+            } 
         }
     }
 }

@@ -1,0 +1,136 @@
+﻿<Window x:Class="PL.Window2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="Window2" Height="550" Width="800" >
+    <Grid>
+  
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Button Name ="Function">
+                <Viewbox>
+                    <Label  >
+                        Back To Menu
+                    </Label>
+                </Viewbox>
+            </Button>
+        </Grid>
+        <Image Source="Images/Blue-print.jpg" Stretch="Fill" Opacity="0.84">
+
+
+        </Image>
+        <Grid Grid.Row="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+
+
+            </Grid.RowDefinitions>
+
+                <Grid Grid.Row="2" Name="ClintsORGif">
+
+                </Grid>
+
+
+
+
+
+
+
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions >
+                <Grid Grid.Column="0">
+                    <Border BorderThickness="7" BorderBrush="Black">
+                        <Image x:Name="Photo0" Source="Images/drone_photo.jpg" Stretch="Fill" />
+                    </Border>
+
+                </Grid>
+                <Grid Grid.Column="1">
+
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions >
+                    <Grid Grid.Column="0">
+
+                        <Border BorderThickness="7,7,0,7" BorderBrush="Black">
+                        </Border>
+
+                        <Viewbox>
+                            <Label >
+                                Model:
+                            </Label>
+                        </Viewbox>
+                    </Grid>
+                    <Grid Grid.Column="1"  Name="Model">
+                        <Viewbox>
+                            <Label >
+
+                            </Label>
+                        </Viewbox>
+                    </Grid>
+                    <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black">
+
+                    </Border>
+
+                </Grid>
+                <Grid  Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions >
+                    <Grid Grid.Column="0" >
+                        <Viewbox>
+                            <Label >
+                                ID:
+                            </Label>
+                        </Viewbox>
+                        <Border  BorderThickness="7,7,0,7" BorderBrush="Black">
+
+                        </Border>
+                    </Grid>
+                    <Border Grid.Column="0" BorderThickness="7,7,0,7" BorderBrush="Black"/>
+                    <Grid Grid.Column="1"  >
+                        <Grid Name="Id">
+                            
+                        </Grid>
+                        <Border  BorderThickness="0,7,7,7" BorderBrush="Black"/>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Row="1" Name="Specs">
+        </Grid>
+            <Grid Grid.Row="1">
+                <Border BorderThickness="7" BorderBrush="Black">
+
+                </Border>
+            </Grid>
+
+        </Grid>
+
+
+        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="4">
+        </Border>
+    </Grid>
+
+
+
+    
+</Window>

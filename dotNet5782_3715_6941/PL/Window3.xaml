@@ -1,0 +1,75 @@
+﻿<Window x:Class="PL.Window3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL" 
+        xmlns:interactivity="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"	
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        Title="Window3" Height="625" Width="820" WindowStyle="ThreeDBorderWindow"  ResizeMode="CanResize"  BorderBrush="Yellow" BorderThickness="3"
+        Icon="\Images\icon0.ico"
+
+        >
+    <Window.Resources>
+        <Style TargetType="Border">
+            <Setter Property="CornerRadius" Value="15"/>
+        </Style>
+    </Window.Resources>
+
+        <Grid>
+
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Closing"
+                    SourceName="Closing">
+                    <i:InvokeCommandAction x:Name="Commands"  Command="{Binding blabla}"
+                              
+                               CommandParameter="{Binding blublo }" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="98*"/>
+
+
+
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions >
+
+
+                    <Button Grid.Column="1" Background="Red" Command="{Binding blabla}">
+                        <Viewbox>
+                            <Label>
+                                X
+                            </Label>
+                        </Viewbox>
+                    </Button>
+
+
+
+
+
+
+            </Grid>
+            <Grid Grid.Row="2">
+
+                <Frame Name="Main"  HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" >
+                </Frame>
+            </Grid>
+
+
+
+
+        </Grid>
+
+</Window>

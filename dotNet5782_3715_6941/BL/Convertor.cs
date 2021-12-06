@@ -18,6 +18,7 @@ namespace BL
 
         private ParcelStat ParcelStatC(IDAL.DO.Parcel parcel)
         {
+
             int caseNum = 4;
             if (!(parcel.PickedUp is null))
                 caseNum--; 
