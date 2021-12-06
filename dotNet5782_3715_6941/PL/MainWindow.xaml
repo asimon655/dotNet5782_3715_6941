@@ -128,7 +128,7 @@ VerticalAlignment="Stretch" Width="auto">
 
         </Grid>
 
-        <ListView GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOf"  Grid.Row="1"  Background="#FF14FFDF">
+        <ListView MouseDoubleClick="ListOf_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOf"  Grid.Row="1"  Background="#FF14FFDF">
             <ListView.Effect>
                 <DropShadowEffect/>
             </ListView.Effect>

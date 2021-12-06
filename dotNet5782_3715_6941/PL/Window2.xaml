@@ -17,8 +17,8 @@
         <Grid Grid.Row="1">
             <Button Name ="Function">
                 <Viewbox>
-                    <Label  >
-                        Back To Menu
+                    <Label>
+                        Add And Go Back To Menu
                     </Label>
                 </Viewbox>
             </Button>
