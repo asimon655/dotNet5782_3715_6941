@@ -138,7 +138,7 @@ VerticalAlignment="Stretch" Width="auto">
                 <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id" Header="Id" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Current}" x:Name="Location" Header="Locartion" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Current}" x:Name="Location" Header="Location" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=BatteryStat}" x:Name="Battery" Header="Battery" Width="auto" />
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
                     <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>

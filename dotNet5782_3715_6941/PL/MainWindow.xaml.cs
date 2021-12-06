@@ -143,14 +143,14 @@ namespace PL
             dict.Add("Id", "Id");
             dict.Add("Model", "Model");
             dict.Add("Battery", "BatteryStat");
-            dict.Add("Locartion", "Current");
+            dict.Add("Location", "Current");
             dict.Add("MaxWeight", "Weight");
             dict.Add("DroneStatus", "DroneStat");
             dict.Add("Binded Parcel Id", "ParcelIdTransfer");
             object IdLst = (object)
             MessageBox.Show((e.OriginalSource as GridViewColumnHeader).Column.Header.ToString());
       
-                ListOf.ItemsSource = ListOf.ItemsSource.Cast<IBL.BO.DroneToList>().OrderBy(x => (typeof(IBL.BO.DroneToList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null)));
+                ListOf.ItemsSource = ListOf.ItemsSource.Cast<IBL.BO.DroneToList>().OrderBy(x => typeof(IBL.BO.DroneToList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
             ListOf.ItemsSource = ListOf.ItemsSource.Cast<IBL.BO.DroneToList>().Reverse();
         }
     }

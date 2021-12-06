@@ -9,7 +9,7 @@ namespace IBL
     namespace BO
     {
 
-        public struct Location
+        public struct Location : IComparable
         {
             public Location(double longitude, double lattitude)
             {
@@ -18,6 +18,20 @@ namespace IBL
             }
             public double Longitude { set; get; }
             public double Lattitude { set; get; }
+
+            public int CompareTo(object? obj)
+            {
+                if (obj is null)
+                    return 1;
+
+                if (obj.GetType() != typeof(Location))
+                    return 1;
+
+                Location loct = (Location)obj;
+
+                return (Longitude + Lattitude).CompareTo(loct.Lattitude + loct.Longitude);
+            }
+
             public String DecimalToSexagesimal() /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
             {
                 String result = "";
