@@ -144,17 +144,6 @@ namespace BL
                 Modle = drone.Model };
             try
             {
-                data.AddDrone(DroneTmp);
-                data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
-            }
-            catch (IDAL.DO.IdAlreadyExists err)
-            {
-                throw new IdAlreadyExists(err); 
-            } 
-            drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
-            drone.DroneStat = IBL.BO.DroneStatuses.Matance;
-            try
-            {
                 IDAL.DO.Station PulledStaion = data.PullDataStation(stationId);
                 drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
             }
@@ -164,6 +153,17 @@ namespace BL
                 throw new IdDosntExists(err);
             
             } 
+            try
+            {
+                data.AddDrone(DroneTmp);
+                data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
+            }
+            catch (IDAL.DO.IdAlreadyExists err)
+            {
+                throw new IdAlreadyExists(err); 
+            } 
+            drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
+            drone.DroneStat = IBL.BO.DroneStatuses.Matance;
             
             DroneToList TmpDrnLst = new DroneToList() {
                 BatteryStat=drone.BatteryStat ,
