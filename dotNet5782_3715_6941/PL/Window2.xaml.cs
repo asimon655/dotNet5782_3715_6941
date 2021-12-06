@@ -35,7 +35,9 @@ namespace PL
         List<Object> pacads = new List<object>(); 
         IBL.Ibl log;
 
-        Page pageof; 
+        Page pageof;
+
+        string TMP = System.IO.Path.GetTempPath();
 
         private Viewbox creteLabel(string text)
         {
@@ -123,7 +125,7 @@ namespace PL
             document.LoadHtml(source);
             var nodes = document.DocumentNode.SelectNodes("//img[@src]");
             string link = nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value;
-            SaveImage(link, @"c:\temp\image" + Model.Replace(" ", "_") + ".png", ImageFormat.Png); ;
+            SaveImage(link, TMP + @"image" + Model.Replace(" ", "_") + ".png", ImageFormat.Png); ;
 
 
         }
@@ -340,10 +342,10 @@ namespace PL
                  SenderLocationY = creteLabel(Math.Round(drn.ParcelTransfer.Pickup.Longitude,3).ToString());
                  SenderNameLbl = creteLabel(drn.ParcelTransfer.Sender.name);
                 SenderIdLbl = creteLabel(drn.ParcelTransfer.Sender.id.ToString());
-                if (!File.Exists(@"c:\temp\image" + drn.ParcelTransfer.Sender.id.ToString() + ".png"))
-                    SaveImage("https://thispersondoesnotexist.com/image", @"c:\temp\image" + drn.ParcelTransfer.Sender.id.ToString() + ".png", ImageFormat.Png);
+                if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png"))
+                    SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png", ImageFormat.Png);
                 SenderPhoto = new System.Windows.Controls.Image();
-                SenderPhoto.Source = new BitmapImage(new Uri(@"c:\temp\image" + drn.ParcelTransfer.Sender.id.ToString() + ".png"));
+                SenderPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png"));
 
             } 
             else {
@@ -418,10 +420,10 @@ namespace PL
                 TargetLocationY = creteLabel(Math.Round(drn.ParcelTransfer.Pickup.Longitude, 3).ToString());
                 TargetNameLbl = creteLabel(drn.ParcelTransfer.Target.name);
                 TargetIdLbl = creteLabel(drn.ParcelTransfer.Target.id.ToString());
-                if (!File.Exists(@"c:\temp\image" + drn.ParcelTransfer.Target.id.ToString() + ".png"))
-                    SaveImage("https://thispersondoesnotexist.com/image", @"c:\temp\image" + drn.ParcelTransfer.Target.id.ToString() + ".png", ImageFormat.Png, @"c:\temp\image" + drn.ParcelTransfer.Sender.id.ToString() + ".png");
+                if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png"))
+                    SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png", ImageFormat.Png, TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png");
                 TargetPhoto = new System.Windows.Controls.Image();
-                TargetPhoto.Source = new BitmapImage(new Uri(@"c:\temp\image" + drn.ParcelTransfer.Target.id.ToString() + ".png"));
+                TargetPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png"));
 
             }
             else
@@ -479,9 +481,9 @@ namespace PL
            
             
 
-            if (!File.Exists(@"c:\temp\image" + drn.Model.Replace(" ", "_") + ".png"))
+            if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
                 SaveFirstImage(drn.Model);
-            Photo0.Source = new BitmapImage(new Uri(@"c:\temp\image" + drn.Model.Replace(" ", "_") + ".png"));
+            Photo0.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
             Function.Click += new RoutedEventHandler(Button_Click_Show);
 
         }
