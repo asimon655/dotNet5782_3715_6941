@@ -18,7 +18,7 @@
             <Button Name ="Function">
                 <Viewbox>
                     <Label>
-                        Add And Go Back To Menu
+                        Back To Menu
                     </Label>
                 </Viewbox>
             </Button>
