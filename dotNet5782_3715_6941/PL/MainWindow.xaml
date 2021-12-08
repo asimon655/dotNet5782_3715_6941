@@ -91,7 +91,7 @@ VerticalAlignment="Stretch" Width="auto">
 
                 <ListBox Name="testListbox" HorizontalAlignment="Left" Height="161" Margin="370,80,0,0" VerticalAlignment="Top" Width="100" />
                 <Border Grid.Row="1"  BorderBrush="DimGray" BorderThickness="5">
-                <ComboBox FontFamily="Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat"  SelectionChanged="StatusSelectorDrnStat_SelectionChanged" >
+                <ComboBox FontFamily="Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat">
                     <ComboBox.Background>
                         <LinearGradientBrush EndPoint="0,1">
                             <GradientStop Color="#FFF0F0F0"/>

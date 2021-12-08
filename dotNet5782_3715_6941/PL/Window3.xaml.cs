@@ -18,7 +18,6 @@ using System.Windows.Automation.Peers;
 using System.Windows.Shell;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
-using EO.WebBrowser;
 
 namespace PL
 {

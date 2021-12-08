@@ -144,6 +144,6 @@ namespace IBL
         /// </summary>
         /// <returns>IEnumerable of ParcelToList</returns>
         IEnumerable<BO.ParcelToList> ParcelsWithoutDronesPrint();
-        IEnumerable<BO.DroneToList> DronesPrintFiltered(Predicate<BO.DroneToList> drone);
+        IEnumerable<BO.DroneToList> DronesPrintFiltered(IEnumerable<BO.DroneStatuses> statuses, IEnumerable<BO.WeightCategories> weights);
     }
 }

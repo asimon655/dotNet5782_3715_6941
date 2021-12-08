@@ -559,7 +559,7 @@ namespace PL
 
 
                 log.AddDrone(drony, Convert.ToInt32((((pacads[3] as Viewbox).Child as TextBox).Text)));
-                (pageof as MainWindow).ListOf.ItemsSource = log.DronesPrintFiltered((pageof as MainWindow).combine<IBL.BO.DroneToList>((pageof as MainWindow).Weight, (pageof as MainWindow).Stat));
+                (pageof as MainWindow).ListOf.ItemsSource = log.DronesPrintFiltered((pageof as MainWindow).Stat, (pageof as MainWindow).Weight);
                 try
                 {
                     pageof.NavigationService.Refresh();

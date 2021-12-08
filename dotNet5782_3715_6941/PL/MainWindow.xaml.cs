@@ -31,8 +31,11 @@ namespace PL
         public Predicate<T> combine<T>(Predicate<T> ? a, Predicate<T> ? b) =>  new Predicate<T>(x => ConvertorNullable<T>(a)(x) && ConvertorNullable<T>(b)(x));
         Predicate<T> OrGate<T>(Predicate<T>? a, Predicate<T>? b) => new Predicate<T>(x => ConvertorNullable<T>(a)(x) || ConvertorNullable<T>(b)(x));
         Predicate<T> ConvertorNullable<T>(Predicate<T>? a) => (a is null ? new Predicate<T>(x => true) : a); 
-        public Predicate<IBL.BO.DroneToList>? Weight;
-         public Predicate<IBL.BO.DroneToList>? Stat;
+        public IEnumerable<IBL.BO.WeightCategories> Weight;
+        public IEnumerable<IBL.BO.DroneStatuses> Stat;
+        public IEnumerable<IBL.BO.WeightCategories> WeightDefault = (IBL.BO.WeightCategories[])Enum.GetValues(typeof(IBL.BO.WeightCategories));
+        public IEnumerable<IBL.BO.DroneStatuses> StatDefault = (IBL.BO.DroneStatuses[])Enum.GetValues(typeof(IBL.BO.DroneStatuses));
+
         public IBL.Ibl a { set; get;  }
         public Stat status; 
         public MainWindow(IBL.Ibl x ,Stat gets )
@@ -41,51 +44,41 @@ namespace PL
             status = gets;
             InitializeComponent();
             ListOf.ItemsSource = a.DronesPrint();
-            Weight= null; 
-           Stat = null;
+            Weight = WeightDefault;
+            Stat = StatDefault;
             
             predStat = new List<CheckBoxStatus>();
-            foreach (var enm in (IBL.BO.DroneStatuses[])Enum.GetValues(typeof(IBL.BO.WeightCategories)))
+            foreach (IBL.BO.DroneStatuses enm in StatDefault)
                 predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
             StatusSelectorDrnStat.ItemsSource = predStat; 
             StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
-            ListOf.ItemsSource = a.DronesPrintFiltered(combine<IBL.BO.DroneToList>(Weight, Stat));
+            
+
+            ListOf.ItemsSource = a.DronesPrintFiltered(Stat, Weight);
 
             
         }
-
+        // reset button action
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Weight = null;
-            Stat = null;
+            Weight = WeightDefault;
+            Stat = StatDefault;
             StatusSelectorWeigthStat.SelectedIndex = -1;
-            StatusSelectorDrnStat.SelectedIndex = -1; 
-            ListOf.ItemsSource =a.DronesPrintFiltered(combine<IBL.BO.DroneToList>(Weight, Stat));
-
+            StatusSelectorDrnStat.SelectedIndex = -1;
+            foreach (CheckBoxStatus item in predStat)
+            {
+                item.Checked = true;
+            }
+            ListOf.ItemsSource =a.DronesPrintFiltered(Stat, Weight);
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Weight = (x => (IBL.BO.WeightCategories)(( sender as ComboBox).SelectedItem  is null ? x.Weight : (sender as ComboBox).SelectedItem) == x.Weight);
-            ListOf.ItemsSource = a.DronesPrintFiltered(combine<IBL.BO.DroneToList>(Weight, Stat));
-        } 
-
- 
-
-
-
-        private void StatusSelectorDrnStat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-            Stat = (x =>   (IBL.BO.DroneStatuses)( (sender as ComboBox).SelectedItem is null ? x.DroneStat: (sender as ComboBox).SelectedItem )  == x.DroneStat);
-            ListOf.ItemsSource = a.DronesPrintFiltered(combine<IBL.BO.DroneToList>(Weight, Stat));
-  
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
+            if (!(( sender as ComboBox).SelectedItem  is null))
+            {
+                Weight = new List<IBL.BO.WeightCategories>() {(IBL.BO.WeightCategories)(sender as ComboBox).SelectedItem};
+            }
+            ListOf.ItemsSource = a.DronesPrintFiltered(Stat, Weight);
         }
 
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -102,24 +95,11 @@ namespace PL
 
         private void chkCountry_Checked(object sender, RoutedEventArgs e)
         {
-            Stat = (x => false);
-            if (StatusSelectorDrnStat.ItemsSource is null)
+            if (!(StatusSelectorDrnStat.ItemsSource is null))
             {
-                Stat = (x => false);
-                
-
-            }
-            else
-            {
-                foreach (var predi  in predStat)
-                {
-                    if (predi.Checked )
-                    {
-                        Stat = OrGate(Stat, (x => x.DroneStat == predi.statusof));
-                    }
-                }
+                Stat = predStat.Where(x => x.Checked).Select(x => x.statusof);
             } 
-            ListOf.ItemsSource = a.DronesPrintFiltered(combine<IBL.BO.DroneToList>(Weight, Stat));
+            ListOf.ItemsSource = a.DronesPrintFiltered(Stat, Weight);
 
 
         }

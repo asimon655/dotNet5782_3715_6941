@@ -185,9 +185,9 @@ namespace BL
 
 
         }
-        public IEnumerable<DroneToList> DronesPrintFiltered(Predicate<IBL.BO.DroneToList> drone)
+        public IEnumerable<DroneToList> DronesPrintFiltered(IEnumerable<DroneStatuses> statuses, IEnumerable<WeightCategories> weights)
         {
-            return drones.Where(new Func<DroneToList,bool> (drone) );
+            return drones.Where(x => statuses.Contains(x.DroneStat) && weights.Contains(x.Weight));
 
         }
         public Predicate<IDAL.DO.Station> conv(Predicate<BaseStaionToList> x)
