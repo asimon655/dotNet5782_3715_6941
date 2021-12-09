@@ -22,11 +22,11 @@ namespace BL
             int caseNum = 4;
             if (!(parcel.PickedUp is null))
                 caseNum--; 
-            else if (!(parcel.Delivered is null))
+            if (!(parcel.Delivered is null))
                 caseNum--;
-            else if (!(parcel.Schedulded is null))
+            if (!(parcel.Schedulded is null))
                 caseNum--;
-            else if (!(parcel.Requested is null))
+            if (!(parcel.Requested is null))
                 caseNum--;
             if (caseNum == 4)
                 throw new EnumOutOfRange("4 for parcelstat is forbidden ",4); 
