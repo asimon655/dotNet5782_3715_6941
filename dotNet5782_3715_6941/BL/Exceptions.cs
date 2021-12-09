@@ -111,7 +111,7 @@ namespace IBL
             {
                 id = _id;
             }
-            public IdAlreadyExists(IDAL.DO.IdAlreadyExists err) : base(err.Message)
+            public IdAlreadyExists(DO.IdAlreadyExists err) : base(err.Message)
             {
                 id = err.id;
             }
@@ -132,7 +132,7 @@ namespace IBL
             {
                 id = _id;
             }
-            public IdDosntExists(IDAL.DO.IdDosntExists err) : base(err.Message)
+            public IdDosntExists(DO.IdDosntExists err) : base(err.Message)
             {
                 id = err.id;
             }

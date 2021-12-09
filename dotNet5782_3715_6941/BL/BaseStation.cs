@@ -34,7 +34,7 @@ namespace BL
         {
             try
             {
-                IDAL.DO.Station Stationy = data.PullDataStation(stationId);
+                DO.Station Stationy = data.PullDataStation(stationId);
                 if (!(stationName is null))
                 {
                     Stationy.Name = (int)stationName;
@@ -50,7 +50,7 @@ namespace BL
                 }
                 data.UpdateStations(Stationy);
             }
-            catch (IDAL.DO.IdDosntExists err) {
+            catch (DO.IdDosntExists err) {
                 throw new IdDosntExists(err);
             } 
         }
@@ -76,7 +76,7 @@ namespace BL
 
                 return TmpStation;
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err); 
             }
@@ -89,13 +89,13 @@ namespace BL
             if (station.LoctConstant.Lattitude > 90 || station.LoctConstant.Lattitude < -90 || station.LoctConstant.Longitude > 180 || station.LoctConstant.Longitude < -180)
                 throw new LocationOutOfRange("the Location Values are out of boundries  :  ", station.LoctConstant.Longitude, station.LoctConstant.Lattitude);
             
-            IDAL.DO.Station StationTmp = new IDAL.DO.Station() {Id = station.Id,ChargeSlots=station.NumOfFreeOnes,Lattitude=station.LoctConstant.Lattitude,Longitude=station.LoctConstant.Longitude
+            DO.Station StationTmp = new DO.Station() {Id = station.Id,ChargeSlots=station.NumOfFreeOnes,Lattitude=station.LoctConstant.Lattitude,Longitude=station.LoctConstant.Longitude
             ,Name=station.Name};
             try
             {
                 data.AddStation(StationTmp);
             }
-            catch (IDAL.DO.IdAlreadyExists err)
+            catch (DO.IdAlreadyExists err)
             {
                 throw new IdAlreadyExists(err);
             } 

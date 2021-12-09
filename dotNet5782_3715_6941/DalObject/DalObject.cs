@@ -1,32 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Reflection;
-using IDAL.DO;
-/*  
- ___ ____  _   _ __  __
-|_ _|  _ \| | | |  \/  |
- | || | | | |_| | |\/| |
- | || |_| |  _  | |  | |
-|___|____/|_| |_|_|  |_| ©
+using DO;
 
 
-    _        _
-   / \   ___(_)_ __ ___   ___  _ __
-  / _ \ / __| | '_ ` _ \ / _ \| '_ \
- / ___ \\__ \ | | | | | | (_) | | | |
-/_/   \_\___/_|_| |_| |_|\___/|_| |_|
 
- */
 /// <summary>
 /// important note - i couldt use foreach to change the class because foreach is by value with struct(with class it is by refrence ) so i had to go all over the array with reg for and change in the spesific index is  a lit bit exsosting but i didnt have power to be (hebrew=>) hahmolog 
 /// </summary>
 namespace DalObject
 {
-
     class DataSource
     {
         internal static Random RandomGen = new Random();
@@ -142,7 +124,7 @@ namespace DalObject
         }
     }
 
-    public partial class DalObject : IDAL.Idal
+    public partial class DalObject : DalApi.IDal
     {
         public DalObject() => DataSource.Config.Initalize();
 

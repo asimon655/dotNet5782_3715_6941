@@ -7,7 +7,7 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-        IDAL.Idal data = new DalObject.DalObject();
+        DalApi.IDal data = new DalObject.DalObject();
 
         List<DroneToList> drones = new List<DroneToList>();
 
@@ -45,12 +45,12 @@ namespace BL
                     newDrone.DroneStat = DroneStatuses.Delivery;
                     newDrone.ParcelIdTransfer = parcelId;
                     // get the binded parcel
-                    IDAL.DO.Parcel parcel = data.PullDataParcel(parcelId);
+                    DO.Parcel parcel = data.PullDataParcel(parcelId);
 
                     // get the sender and target and there location
-                    IDAL.DO.Costumer sender = data.PullDataCostumer(parcel.SenderId);
+                    DO.Costumer sender = data.PullDataCostumer(parcel.SenderId);
                     Location senderLoct = new Location(sender.Longitude, sender.Lattitude);
-                    IDAL.DO.Costumer target = data.PullDataCostumer(parcel.TargetId);
+                    DO.Costumer target = data.PullDataCostumer(parcel.TargetId);
                     Location targetLoct = new Location(target.Longitude, target.Lattitude);
 
                     // the parcel has been binded but not picked up yet
@@ -58,12 +58,12 @@ namespace BL
                     {
                         // set the location of the drone to the closest station to the sender
                         int senderStationId = getClosesStation(senderLoct);
-                        IDAL.DO.Station senderStation = data.PullDataStation(senderStationId);
+                        DO.Station senderStation = data.PullDataStation(senderStationId);
                         Location senderStationLoct = new Location(senderStation.Longitude, senderStation.Lattitude);
                         newDrone.Current = senderStationLoct;
 
                         int targetStationId = getClosesStation(targetLoct);
-                        IDAL.DO.Station targetStation = data.PullDataStation(targetStationId);
+                        DO.Station targetStation = data.PullDataStation(targetStationId);
                         Location targetStationLoct = new Location(targetStation.Longitude, targetStation.Lattitude);
                         // calculate the minimum battery this trip will take
                         double minimumBattery = 0;
@@ -80,7 +80,7 @@ namespace BL
                         newDrone.Current = senderLoct;
 
                         int targetStationId = getClosesStation(targetLoct);
-                        IDAL.DO.Station targetStation = data.PullDataStation(targetStationId);
+                        DO.Station targetStation = data.PullDataStation(targetStationId);
                         Location targetStationLoct = new Location(targetStation.Longitude, targetStation.Lattitude);
                         // calculate the minimum battery this trip will take
                         double minimumBattery = 0;
@@ -98,27 +98,27 @@ namespace BL
                 if (newDrone.DroneStat == DroneStatuses.Matance)
                 {
                     // set drone location to a random starion with free charging slots
-                    IEnumerable<IDAL.DO.Station> stationsFreePorts = data.GetStations(x => x.ChargeSlots > 0);
+                    IEnumerable<DO.Station> stationsFreePorts = data.GetStations(x => x.ChargeSlots > 0);
                     int random_i = RandomGen.Next(stationsFreePorts.Count());
-                    IDAL.DO.Station station = stationsFreePorts.ElementAt(random_i);
+                    DO.Station station = stationsFreePorts.ElementAt(random_i);
                     newDrone.Current = new Location(station.Longitude, station.Lattitude);
                     // register the matance in drone charge
-                    data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = station.Id, DroneId = newDrone.Id });
+                    data.AddDroneCharge(new DO.DroneCharge { StaionId = station.Id, DroneId = newDrone.Id });
                     // set drone battery
                     newDrone.BatteryStat = RandomGen.NextDouble() * 20;
                 }
                 if (newDrone.DroneStat == DroneStatuses.Free)
                 {
                     // set drone location to a random customer that recived a parcel
-                    IEnumerable<IDAL.DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Delivered);
+                    IEnumerable<DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Delivered);
                     int random_i = RandomGen.Next(parcelsDelivered.Count());
-                    IDAL.DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
-                    IDAL.DO.Costumer costumer = data.PullDataCostumer(parcel.TargetId);
+                    DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
+                    DO.Costumer costumer = data.PullDataCostumer(parcel.TargetId);
                     newDrone.Current = new Location(costumer.Longitude, costumer.Lattitude);
 
                     // get the location of the closest station to that costumer
                     int stationId = getClosesStation(newDrone.Current);
-                    IDAL.DO.Station station = data.PullDataStation(stationId);
+                    DO.Station station = data.PullDataStation(stationId);
                     Location stationLoct = new Location(station.Longitude, station.Lattitude);
 
                     // calculate the minimum battery this trip will take

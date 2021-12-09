@@ -38,7 +38,7 @@ namespace BL
         {
             if (costumer.Loct.Lattitude > 90 || costumer.Loct.Lattitude < -90 || costumer.Loct.Longitude > 180 || costumer.Loct.Longitude < -180)
                 throw new LocationOutOfRange("the Location Values are out of boundries  :  ", costumer.Loct.Longitude, costumer.Loct.Lattitude);
-            IDAL.DO.Costumer CostumerTmp = new IDAL.DO.Costumer() { 
+            DO.Costumer CostumerTmp = new DO.Costumer() { 
                 Id = costumer.Id, 
                 Lattitude = costumer.Loct.Lattitude, 
                 Longitude = costumer.Loct.Longitude, 
@@ -50,7 +50,7 @@ namespace BL
             {
                 data.AddCostumer(CostumerTmp);
             }
-            catch (IDAL.DO.IdAlreadyExists err)
+            catch (DO.IdAlreadyExists err)
             {
 
 
@@ -65,7 +65,7 @@ namespace BL
             {
                 return CostumerC(data.PullDataCostumer(id));
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err); 
             
@@ -79,7 +79,7 @@ namespace BL
             try
             {
 
-                IDAL.DO.Costumer Costumery = data.PullDataCostumer(costumerId);
+                DO.Costumer Costumery = data.PullDataCostumer(costumerId);
                 if (!(costumerName is null))
                     Costumery.Name = costumerName;
                 if (!(costumerPhone is null))
@@ -88,7 +88,7 @@ namespace BL
      
                     
             }
-            catch (IDAL.DO.IdDosntExists err) {
+            catch (DO.IdDosntExists err) {
 
                 throw new IdDosntExists(err); 
             

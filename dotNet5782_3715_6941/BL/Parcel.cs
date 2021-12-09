@@ -50,7 +50,7 @@ namespace BL
                 data.PullDataCostumer(parcel.SenderParcelToCostumer.id);
                 data.PullDataCostumer(parcel.GetterParcelToCostumer.id);
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err);
             }
@@ -61,7 +61,7 @@ namespace BL
             isInEnum(parcel.Priority);
             isInEnum(parcel.Weight);
 
-            IDAL.DO.Parcel ParcelTmp = new IDAL.DO.Parcel() {
+            DO.Parcel ParcelTmp = new DO.Parcel() {
                 Requested= DateTime.Now,
                 Schedulded= null,
                 PickedUp= null,
@@ -69,8 +69,8 @@ namespace BL
                 DroneId=null,                 
                 SenderId=parcel.SenderParcelToCostumer.id,
                 TargetId=parcel.GetterParcelToCostumer.id ,
-                Priority=(IDAL.DO.Priorities)parcel.Priority,
-                Weight=(IDAL.DO.WeightCategories)parcel.Weight};
+                Priority=(DO.Priorities)parcel.Priority,
+                Weight=(DO.WeightCategories)parcel.Weight};
             data.AddParcel(ParcelTmp);
         }
         public Parcel PullDataParcel(int id)
@@ -79,7 +79,7 @@ namespace BL
             {
                 return ParcelC(data.PullDataParcel(id));
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err); 
             } 
@@ -93,8 +93,8 @@ namespace BL
             {
                 throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
             }
-            IEnumerable<IDAL.DO.Parcel> parcels = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Declared && canreach(drony, x, getParcelLoctSender));
-            IDAL.DO.Parcel resParcel;
+            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Declared && canreach(drony, x, getParcelLoctSender));
+            DO.Parcel resParcel;
             try
             {
                 resParcel = parcels.First();
@@ -134,7 +134,7 @@ namespace BL
             {
                 data.UpdateParcles(resParcel);
             }
-            catch(IDAL.DO.IdDosntExists err) {
+            catch(DO.IdDosntExists err) {
                 throw new IdDosntExists(err); 
                 
             } 
@@ -150,7 +150,7 @@ namespace BL
             {
                 throw new EnumNotInRightStatus<DroneStatuses>("the Drone Should be IN delivery mode , it is in: ", drony.DroneStat);
             }
-            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
+            DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
             if (ParcelStatC(pack) != ParcelStat.Binded)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("Parcel should be Binded when it is : ", ParcelStatC(pack)); 
@@ -165,7 +165,7 @@ namespace BL
             {
                 data.UpdateParcles(pack);
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err); 
             } 
@@ -176,7 +176,7 @@ namespace BL
             DroneToList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Delivery)
                 throw new  EnumNotInRightStatus<DroneStatuses>("Drone Should be in delivry!! it is now in the status of: ", drony.DroneStat);
-            IDAL.DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
+            DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
             if (ParcelStatC(pack) != ParcelStat.PickedUp)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("parcel is not in the status pickedup it is in : ", ParcelStatC(pack)); 
@@ -192,7 +192,7 @@ namespace BL
             {
                 data.UpdateParcles(pack);
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err); 
             } 
@@ -220,7 +220,7 @@ namespace BL
                     });
                 return tmpy;
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err);
             }
@@ -250,7 +250,7 @@ namespace BL
 
                 return tmpy;
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err);
             }

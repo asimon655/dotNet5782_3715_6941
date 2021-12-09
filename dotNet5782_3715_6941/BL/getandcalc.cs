@@ -9,8 +9,8 @@ namespace BL
         // get Binded Undelivered Parcel if not found return -1
         int getBindedUndeliveredParcel(int droneId)
         {
-            IEnumerable<IDAL.DO.Parcel> parcels = data.GetParcels(x => x.DroneId == droneId && ParcelStatC(x) != ParcelStat.Delivered);
-            IDAL.DO.Parcel parcel = parcels.FirstOrDefault();
+            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => x.DroneId == droneId && ParcelStatC(x) != ParcelStat.Delivered);
+            DO.Parcel parcel = parcels.FirstOrDefault();
             if (parcel.DroneId != droneId)
             {
                 return -1;
@@ -68,14 +68,14 @@ namespace BL
         // (this is a help function so its useful to return list than ienumerable)
 
 
-        private Location getParcelLoctSender(IDAL.DO.Parcel parcel)
+        private Location getParcelLoctSender(DO.Parcel parcel)
         {
             try
             {
-                IDAL.DO.Costumer CSMtmp = data.PullDataCostumer(parcel.SenderId);
+                DO.Costumer CSMtmp = data.PullDataCostumer(parcel.SenderId);
                 return new Location(CSMtmp.Longitude, CSMtmp.Lattitude);
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err);
 
@@ -84,14 +84,14 @@ namespace BL
 
         }
 
-        private Location getParcelLoctTarget(IDAL.DO.Parcel parcel)
+        private Location getParcelLoctTarget(DO.Parcel parcel)
         {
             try
             {
-                IDAL.DO.Costumer CSMtmp = data.PullDataCostumer(parcel.TargetId);
+                DO.Costumer CSMtmp = data.PullDataCostumer(parcel.TargetId);
                 return CostumerC(CSMtmp).Loct;
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err);
 
@@ -103,11 +103,11 @@ namespace BL
 
 
 
-        private bool canreach(DroneToList drony, IDAL.DO.Parcel parcel, Func<IDAL.DO.Parcel, Location> function)
+        private bool canreach(DroneToList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
             => getPowerUsage(drony.Current, function(parcel), (WeightCategories)parcel.Weight) <= drony.BatteryStat;
 
 
-        private IDAL.DO.Station GetStationFromCharging(int droneId)
+        private DO.Station GetStationFromCharging(int droneId)
         {
 
             try
@@ -115,7 +115,7 @@ namespace BL
                 return data.PullDataStation(data.PullDataDroneChargeByDroneId(droneId).StaionId);
 
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err);
             }

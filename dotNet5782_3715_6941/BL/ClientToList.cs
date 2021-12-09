@@ -40,7 +40,7 @@ namespace BL
         public IEnumerable<ClientToList> CostumersPrint()
         {
             List<ClientToList> tmpy = new List<ClientToList>();
-            foreach(var x in data.CostumersPrint())
+            foreach(DO.Costumer x in data.CostumersPrint())
             {
                 tmpy.Add(CltToLstC(x));
             }

@@ -1,54 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IDAL.DO;
-/*
-_________ ______            _______
-\__   __/(  __  \ |\     /|(       )
-   ) (   | (  \  )| )   ( || () () |
-   | |   | |   ) || (___) || || || |
-   | |   | |   | ||  ___  || |(_)| |
-   | |   | |   ) || (   ) || |   | |
-___) (___| (__/  )| )   ( || )   ( |
-\_______/(______/ |/     \||/     \|
+using DO;
 
 
-
- 
- _______  _______ _________ _______  _______  _
-(  ___  )(  ____ \\__   __/(       )(  ___  )( (    /|
-| (   ) || (    \/   ) (   | () () || (   ) ||  \  ( |
-| (___) || (_____    | |   | || || || |   | ||   \ | |
-|  ___  |(_____  )   | |   | |(_)| || |   | || (\ \) |
-| (   ) |      ) |   | |   | |   | || |   | || | \   |
-| )   ( |/\____) |___) (___| )   ( || (___) || )  \  |
-|/     \|\_______)\_______/|/     \|(_______)|/    )_)
-
-
- 
- */
-namespace IDAL
-{
-
-    namespace DO
-    {
-        public struct Station
-        {
-            public int Id { set; get; }
-            public int Name { set; get; }
-            public double Lattitude { set; get; }
-            public double Longitude { set; get; }
-            public int ChargeSlots { set; get; }
-
-        }
-
-    }
-}
 namespace DalObject
 {
-    public partial class DalObject : IDAL.Idal
+    public partial class DalObject : DalApi.IDal
     {
         public void AddStation(Station station)
         {

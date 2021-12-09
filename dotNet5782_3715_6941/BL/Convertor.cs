@@ -7,7 +7,7 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-         private ClientToList CltToLstC(IDAL.DO.Costumer gety) =>  new ClientToList() { 
+         private ClientToList CltToLstC(DO.Costumer gety) =>  new ClientToList() { 
                 Id = gety.Id 
                 ,Name=gety.Name 
                 ,Phone=gety.Phone 
@@ -16,7 +16,7 @@ namespace BL
                 ,ParcelGot = data.CountParcels(x => x.TargetId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered) 
                 ,ParcelDeliveredAndNotGot = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered) };
 
-        private ParcelStat ParcelStatC(IDAL.DO.Parcel parcel)
+        private ParcelStat ParcelStatC(DO.Parcel parcel)
         {
 
             int caseNum = 4;
@@ -33,7 +33,7 @@ namespace BL
             return (ParcelStat)caseNum; 
         }
         
-        private CustomerToParcel CustomerToParcelC(IDAL.DO.Parcel parcel, ParcelToCostumer parentCustomer)
+        private CustomerToParcel CustomerToParcelC(DO.Parcel parcel, ParcelToCostumer parentCustomer)
         {
             return new CustomerToParcel() {
                 Id = parcel.Id,
@@ -58,9 +58,9 @@ namespace BL
                 int parcelyId = getBindedUndeliveredParcel(newDrone.Id);
                 try
                 {
-                    IDAL.DO.Parcel parcely = data.PullDataParcel(parcelyId);
-                    IDAL.DO.Costumer Sender = data.PullDataCostumer(parcely.SenderId);
-                    IDAL.DO.Costumer Getter = data.PullDataCostumer(parcely.TargetId);  
+                    DO.Parcel parcely = data.PullDataParcel(parcelyId);
+                    DO.Costumer Sender = data.PullDataCostumer(parcely.SenderId);
+                    DO.Costumer Getter = data.PullDataCostumer(parcely.TargetId);  
                     Location SenderLCT = new Location(Sender.Longitude, Sender.Lattitude);
                     Location GetterLCT = new Location(Getter.Longitude, Getter.Lattitude);
                     ParcelInTransfer parcelTransfer = new ParcelInTransfer() {
@@ -75,7 +75,7 @@ namespace BL
                 };
                 newDrone.ParcelTransfer = parcelTransfer;
                 }
-                catch (IDAL.DO.IdDosntExists  err) {
+                catch (DO.IdDosntExists  err) {
                     throw new IdDosntExists(err); 
 
 
@@ -85,7 +85,7 @@ namespace BL
             return newDrone;
         }
 
-        private BaseStation StationC(IDAL.DO.Station station) => new BaseStation(){
+        private BaseStation StationC(DO.Station station) => new BaseStation(){
                 Id = station.Id,
                 NumOfFreeOnes = station.ChargeSlots,
                 LoctConstant = new Location(station.Longitude, station.Lattitude),
@@ -96,7 +96,7 @@ namespace BL
                 };
 
 
-        private Costumer CostumerC(IDAL.DO.Costumer costumer) => new Costumer() { 
+        private Costumer CostumerC(DO.Costumer costumer) => new Costumer() { 
             Id = costumer.Id, 
             Loct = new Location(costumer.Longitude, costumer.Lattitude), 
             Name = costumer.Name, 
@@ -106,12 +106,12 @@ namespace BL
         };
 
 
-        private Parcel ParcelC(IDAL.DO.Parcel parcel)
+        private Parcel ParcelC(DO.Parcel parcel)
         {
             try
             {
-                IDAL.DO.Costumer sender = data.PullDataCostumer(parcel.SenderId);
-                IDAL.DO.Costumer getter = data.PullDataCostumer(parcel.TargetId);
+                DO.Costumer sender = data.PullDataCostumer(parcel.SenderId);
+                DO.Costumer getter = data.PullDataCostumer(parcel.TargetId);
                 ParcelToDrone? droneInParcel = null;
                 if (ParcelStatC(parcel) != ParcelStat.Declared)
                 {
@@ -132,7 +132,7 @@ namespace BL
                     GetterParcelToCostumer = new ParcelToCostumer() { id = getter.Id, name = getter.Name }
                 };
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err); 
             } 

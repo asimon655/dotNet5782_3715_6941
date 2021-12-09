@@ -50,7 +50,7 @@ namespace BL
             else 
             {
                 ///time perios is in hours 
-                IDAL.DO.Station station = GetStationFromCharging(droneId);
+                DO.Station station = GetStationFromCharging(droneId);
                 drony.BatteryStat = Math.Min((drony.BatteryStat + ChargingSpeed * chargingPeriod), 100); 
                 drony.DroneStat = DroneStatuses.Free; 
                 BaseStation baseStation = StationC(station);
@@ -60,7 +60,7 @@ namespace BL
                     data.UpdateStations(station); 
                     data.DeleteDroneCharge(drony.Id);
                 }
-                catch (IDAL.DO.IdDosntExists err)
+                catch (DO.IdDosntExists err)
                 {
                     throw new IdDosntExists(err); 
                     
@@ -82,7 +82,7 @@ namespace BL
                 try
                 {
                     int stationID = getClosesStation(drony.Current);
-                    IDAL.DO.Station station = data.PullDataStation(stationID);
+                    DO.Station station = data.PullDataStation(stationID);
                     Location stationLoct = new Location(station.Longitude, station.Lattitude);
                     double powerUsage = getPowerUsage(drony.Current, stationLoct);
                     if (drony.BatteryStat < powerUsage)
@@ -93,15 +93,15 @@ namespace BL
                     station.ChargeSlots -= 1;
 
 
-                    IDAL.DO.DroneCharge chargingport = new IDAL.DO.DroneCharge() { DroneId = drony.Id, StaionId = station.Id };
+                    DO.DroneCharge chargingport = new DO.DroneCharge() { DroneId = drony.Id, StaionId = station.Id };
 
                     data.AddDroneCharge(chargingport);
                 }
-                catch (IDAL.DO.IdAlreadyExists err)
+                catch (DO.IdAlreadyExists err)
                 {
                     throw new IdAlreadyExists(err);
                 }
-                catch (IDAL.DO.IdDosntExists err)
+                catch (DO.IdDosntExists err)
                 {
                     throw new IdDosntExists(err);
                 }
@@ -110,7 +110,7 @@ namespace BL
         public void UpdateDrone(int droneId, string droneName)
         {
             
-            IDAL.DO.Drone Drony= new IDAL.DO.Drone() { 
+            DO.Drone Drony= new DO.Drone() { 
                 Id=droneId , 
                 Modle=droneName ,
                 MaxWeigth=data.PullDataDrone(droneId).MaxWeigth
@@ -120,7 +120,7 @@ namespace BL
                 data.UpdateDrones(Drony);
                 GetDroneToList(droneId).Model = droneName;
             }
-            catch (IDAL.DO.IdDosntExists err)
+            catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err); 
                 
@@ -138,16 +138,16 @@ namespace BL
         {
             isInEnum<DroneStatuses>(drone.DroneStat);
             isInEnum<WeightCategories>(drone.Weight); 
-            IDAL.DO.Drone DroneTmp = new IDAL.DO.Drone() { 
+            DO.Drone DroneTmp = new DO.Drone() { 
                 Id = drone.Id, 
-                MaxWeigth = ((IDAL.DO.WeightCategories)(int)drone.Weight), 
+                MaxWeigth = ((DO.WeightCategories)(int)drone.Weight), 
                 Modle = drone.Model };
             try
             {
-                IDAL.DO.Station PulledStaion = data.PullDataStation(stationId);
+                DO.Station PulledStaion = data.PullDataStation(stationId);
                 drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
             }
-            catch (IDAL.DO.IdDosntExists err) {
+            catch (DO.IdDosntExists err) {
 
 
                 throw new IdDosntExists(err);
@@ -156,9 +156,9 @@ namespace BL
             try
             {
                 data.AddDrone(DroneTmp);
-                data.AddDroneCharge(new IDAL.DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
+                data.AddDroneCharge(new DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
             }
-            catch (IDAL.DO.IdAlreadyExists err)
+            catch (DO.IdAlreadyExists err)
             {
                 throw new IdAlreadyExists(err); 
             } 
@@ -176,7 +176,7 @@ namespace BL
             {
                 drones.Add(TmpDrnLst);
             }
-            catch (IDAL.DO.IdAlreadyExists err) {
+            catch (DO.IdAlreadyExists err) {
 
 
                 throw new IdAlreadyExists(err); 
@@ -190,9 +190,9 @@ namespace BL
             return drones.Where(x => statuses.Contains(x.DroneStat) && weights.Contains(x.Weight));
 
         }
-        public Predicate<IDAL.DO.Station> conv(Predicate<BaseStaionToList> x)
+        public Predicate<DO.Station> conv(Predicate<BaseStaionToList> x)
         {
-            return new Predicate<IDAL.DO.Station>(y => x(new BaseStaionToList() { Id = y.Id, Name = y.Name, NumOfFreeOnes = y.ChargeSlots }));  
+            return new Predicate<DO.Station>(y => x(new BaseStaionToList() { Id = y.Id, Name = y.Name, NumOfFreeOnes = y.ChargeSlots }));  
         
         
         } 

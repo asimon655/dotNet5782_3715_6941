@@ -1,58 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IDAL.DO;
-/*
-_________ ______            _______
-\__   __/(  __  \ |\     /|(       )
-   ) (   | (  \  )| )   ( || () () |
-   | |   | |   ) || (___) || || || |
-   | |   | |   | ||  ___  || |(_)| |
-   | |   | |   ) || (   ) || |   | |
-___) (___| (__/  )| )   ( || )   ( |
-\_______/(______/ |/     \||/     \|
+using DO;
 
 
-
- 
- _______  _______ _________ _______  _______  _
-(  ___  )(  ____ \\__   __/(       )(  ___  )( (    /|
-| (   ) || (    \/   ) (   | () () || (   ) ||  \  ( |
-| (___) || (_____    | |   | || || || |   | ||   \ | |
-|  ___  |(_____  )   | |   | |(_)| || |   | || (\ \) |
-| (   ) |      ) |   | |   | |   | || |   | || | \   |
-| )   ( |/\____) |___) (___| )   ( || (___) || )  \  |
-|/     \|\_______)\_______/|/     \|(_______)|/    )_)
-
-
- 
- */
-namespace IDAL
-{
-
-    namespace DO
-    {
-
-        public struct Drone
-        {
-            public int Id { set; get; }
-            public String Modle { set; get; }
-            public WeightCategories MaxWeigth { set; get; }
-
-
-            public override string ToString()
-            {
-                return "ID: " + this.Id.ToString() + " Model: " + this.Modle.ToString() + " MaxWeight: " + this.MaxWeigth.ToString(); /// returns strings with all the args of the struct in string  
-            }
-        }
-
-    }
-}
 namespace DalObject
 {
-    public partial class DalObject : IDAL.Idal
+    public partial class DalObject : DalApi.IDal
     {
         public void AddDrone(Drone drone)
         {
