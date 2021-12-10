@@ -6,16 +6,15 @@ namespace DalFactory
 {
     public static class DalFactory
     {
-        public static IDal GetDal(string filename, string typename)
+        public static IDal GetDal(string typename)
         {
             string pathPrefix = AppDomain.CurrentDomain.BaseDirectory;
-            Console.WriteLine(pathPrefix);
-            Assembly assembly = Assembly.LoadFrom(pathPrefix + filename);
+            Assembly assembly = Assembly.LoadFrom(pathPrefix + typename + ".dll");
             if (assembly is null)
             {
                 throw new Exception("couldnt find the dll file");
             }
-            Type type = assembly.GetType(typename);
+            Type type = assembly.GetType("Dal." + typename);
             if (type is null)
             {
                 throw new Exception("couldnt find the type");

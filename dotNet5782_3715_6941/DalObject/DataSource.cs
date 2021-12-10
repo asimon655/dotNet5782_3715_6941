@@ -3,7 +3,7 @@ using System;
 using DO;
 
 
-namespace DalObject
+namespace Dal
 {
 
     class DataSource

@@ -23,7 +23,7 @@ namespace BL
         {
             try
             {
-                data = DalFactory.DalFactory.GetDal("DalObject.dll", "DalObject.DalObject");
+                data = DalFactory.DalFactory.GetDal("DalObject");
             }
             catch(Exception err)
             {

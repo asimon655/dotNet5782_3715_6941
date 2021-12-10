@@ -4,7 +4,7 @@ using System.Linq;
 using DO;
 
 
-namespace DalObject
+namespace Dal
 {
     public partial class DalObject : DalApi.IDal
     {
