@@ -7,7 +7,7 @@ namespace BL
 {
     public partial class Bl : IBL.Ibl
     {
-        DalApi.IDal data = new DalObject.DalObject();
+        DalApi.IDal data;
 
         List<DroneToList> drones = new List<DroneToList>();
 
@@ -21,6 +21,15 @@ namespace BL
 
         public Bl()
         {
+            try
+            {
+                data = DalFactory.DalFactory.GetDal("DalObject.dll", "DalObject.DalObject");
+            }
+            catch(Exception err)
+            {
+                Console.WriteLine(err.Message);
+                return;
+            }
             // initilazing power related consts
             double[] powerConst = data.GetPowerConsumption();
 
