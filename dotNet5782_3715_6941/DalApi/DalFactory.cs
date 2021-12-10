@@ -19,7 +19,8 @@ namespace DalFactory
             {
                 throw new Exception("couldnt find the type");
             }
-            IDal dal = (IDal)Activator.CreateInstance(type);
+            // IDal dal = (IDal)Activator.CreateInstance(type);
+            IDal dal = (IDal)type.GetProperty("Instance").GetValue(null, null);
             if (dal is null)
             {
                 throw new Exception("couldnt convert the type to IDal");

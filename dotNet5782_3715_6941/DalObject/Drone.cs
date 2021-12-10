@@ -6,7 +6,7 @@ using DO;
 
 namespace Dal
 {
-    public partial class DalObject : DalApi.IDal
+    internal partial class DalObject : DalApi.IDal
     {
         public void AddDrone(Drone drone)
         {
