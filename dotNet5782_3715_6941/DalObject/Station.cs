@@ -6,7 +6,7 @@ using DO;
 
 namespace Dal
 {
-    internal partial class DalObject : DalApi.IDal
+    internal sealed partial class DalObject : DalApi.IDal
     {
         public void AddStation(Station station)
         {

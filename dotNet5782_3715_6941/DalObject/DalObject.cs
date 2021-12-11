@@ -7,23 +7,26 @@
 /// </summary>
 namespace Dal
 {
-    internal partial class DalObject : DalApi.IDal
+    internal sealed partial class DalObject : DalApi.IDal
     {
         public DalObject() {
             DataSource.Config.Initalize();
         }
 
+        static DalObject() {}
         internal static readonly object padlock = new object();
         internal static DalObject instance;
         public static DalObject Instance {
-            get {  
-            lock(padlock) {  
-                if (instance == null) {  
-                    instance = new DalObject();  
-                }  
+            get {
+                if (instance == null) {
+                    lock(padlock) {  
+                        if (instance == null) {  
+                            instance = new DalObject();  
+                        }
+                    }
+                }
                 return instance;  
-            }  
-            }  
+            }
         }
 
         static public void Update<T>(List<T> listy, T updater)
