@@ -16,7 +16,7 @@ namespace Dal
         static DalObject() {}
         internal static readonly object padlock = new object();
         internal static DalObject instance;
-        public static DalObject Instance {
+         static DalObject Instance {
             get {
                 if (instance == null) {
                     lock(padlock) {  

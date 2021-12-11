@@ -1,13 +1,15 @@
 ﻿using System;
-using IBL.BO;
+using BO;
+using BlFactory;
+
 namespace ConsoleUI_BL
 {
     class Program
     {
-        static private IBL.Ibl Logistics;
+        static private BlApi.Ibl Logistics;
         static void Main(string[] args)
         {
-            Logistics = new BL.Bl();
+            Logistics = BlFactory.BlFactory.GetBl();
              
             int enter;/// for the sub switches 
             int command;
@@ -75,10 +77,10 @@ namespace ConsoleUI_BL
                                     parcel.GetterParcelToCostumer = new ParcelToCostumer() { id = SysFunc.SafeEnterUInt("please enter Target ID: ") };
                                     Console.WriteLine("Priorty=>please enter a number from the menue : ");
                                     SysFunc.printEnum<Priorities>();
-                                    parcel.Priority = (IBL.BO.Priorities)SysFunc.SafeEnterUInt("enter a number from the numbers above");
+                                    parcel.Priority = (BO.Priorities)SysFunc.SafeEnterUInt("enter a number from the numbers above");
                                     Console.WriteLine("weight=>please enter a number from the menue : ");
                                     SysFunc.printEnum<WeightCategories>();
-                                    parcel.Weight = (IBL.BO.WeightCategories)SysFunc.SafeEnterUInt("enter a number from the numbers above : "); ;
+                                    parcel.Weight = (BO.WeightCategories)SysFunc.SafeEnterUInt("enter a number from the numbers above : "); ;
                                     try
                                     {
                                         Logistics.AddParcel(parcel);

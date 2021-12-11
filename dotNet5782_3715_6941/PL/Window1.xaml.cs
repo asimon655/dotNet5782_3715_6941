@@ -21,9 +21,9 @@ namespace PL
     /// </summary>
     public partial class Window1 : Page
     {
-        public IBL.Ibl dat { set; get; }
+        public BlApi.Ibl dat { set; get; }
         public Stat status; 
-        public Window1(Stat gets , IBL.Ibl dat)
+        public Window1(Stat gets , BlApi.Ibl dat)
         {
             this.dat = dat;
             status = gets; 

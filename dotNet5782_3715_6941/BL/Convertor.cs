@@ -1,11 +1,9 @@
-﻿using IBL.BO;
-using System;
-using System.Collections.Generic;
+﻿using BO;
 using System.Linq;
 
 namespace BL
 {
-    public partial class Bl : IBL.Ibl
+    public sealed partial class Bl : BlApi.Ibl
     {
          private ClientToList CltToLstC(DO.Costumer gety) =>  new ClientToList() { 
                 Id = gety.Id 

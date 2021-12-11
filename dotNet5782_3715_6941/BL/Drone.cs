@@ -1,37 +1,37 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace IBL
-{
-    namespace BO
-    {
-        public class Drone 
-        {
-            public int Id { set; get;  }
-            public String Model { set; get; }
-            public WeightCategories Weight { set; get; }
-            public double BatteryStat { set; get;  }
-            public DroneStatuses DroneStat { set; get;  }
-            public IBL.BO.ParcelInTransfer? ParcelTransfer { set; get;  } = null;
-            public Location Current { set; get;  }
 
-            public override string ToString()
-            {
-                return $"Id : {Id}\n" +
-                       $"Model : {Model}\n" +
-                       $"location : {Current}\n" +
-                       $"battary : {BatteryStat}\n" +
-                       $"Max Weight : {Weight}\n" +
-                       $"Drone Status : {DroneStat}\n" +
-                       $"binded parcele : {ParcelTransfer}";
-            }
+
+namespace BO
+{
+    public class Drone 
+    {
+        public int Id { set; get;  }
+        public String Model { set; get; }
+        public WeightCategories Weight { set; get; }
+        public double BatteryStat { set; get;  }
+        public DroneStatuses DroneStat { set; get;  }
+        public ParcelInTransfer? ParcelTransfer { set; get;  } = null;
+        public Location Current { set; get;  }
+
+        public override string ToString()
+        {
+            return $"Id : {Id}\n" +
+                    $"Model : {Model}\n" +
+                    $"location : {Current}\n" +
+                    $"battary : {BatteryStat}\n" +
+                    $"Max Weight : {Weight}\n" +
+                    $"Drone Status : {DroneStat}\n" +
+                    $"binded parcele : {ParcelTransfer}";
         }
     }
 }
+
 namespace BL
 {
-    public partial class Bl : IBL.Ibl
+    public sealed partial class Bl : BlApi.Ibl
     {
 
 
@@ -163,7 +163,7 @@ namespace BL
                 throw new IdAlreadyExists(err); 
             } 
             drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
-            drone.DroneStat = IBL.BO.DroneStatuses.Matance;
+            drone.DroneStat = DroneStatuses.Matance;
             
             DroneToList TmpDrnLst = new DroneToList() {
                 BatteryStat=drone.BatteryStat ,

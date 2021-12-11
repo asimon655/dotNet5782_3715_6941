@@ -1,33 +1,29 @@
-﻿using IBL.BO;
-using System;
+﻿using BO;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace IBL
+
+namespace BO
 {
-    namespace BO
+    public class BaseStaionToList 
     {
-        public class BaseStaionToList 
-        {
-            public int Id { set; get; }
-            public int Name { set; get; }
-            public int NumOfNotFreeOne { set; get;  } 
-            public int NumOfFreeOnes { set; get; }
+        public int Id { set; get; }
+        public int Name { set; get; }
+        public int NumOfNotFreeOne { set; get;  } 
+        public int NumOfFreeOnes { set; get; }
 
-            public override string ToString()
-            {
-                return $"Id : {Id}\n" +
-                       $"Name : {Name}\n" +
-                       $"occupied charging slots : {NumOfNotFreeOne}\n" +
-                       $"free charging slots : {NumOfFreeOnes}";
-            }
+        public override string ToString()
+        {
+            return $"Id : {Id}\n" +
+                    $"Name : {Name}\n" +
+                    $"occupied charging slots : {NumOfNotFreeOne}\n" +
+                    $"free charging slots : {NumOfFreeOnes}";
         }
     }
 }
 
 namespace BL
 {
-    public partial class Bl : IBL.Ibl
+    public sealed partial class Bl : BlApi.Ibl
     {
         public IEnumerable<BaseStaionToList> BaseStaionsFreePortsPrint()
         {

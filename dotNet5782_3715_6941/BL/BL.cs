@@ -1,12 +1,30 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BL
 {
-    public partial class Bl : IBL.Ibl
+    public sealed partial class Bl : BlApi.Ibl
     {
+        static Bl() {}
+        internal static readonly object padlock = new object();
+        internal static Bl instance;
+        internal static Bl Instance {
+            get {
+                if (instance == null) {
+                    lock(padlock) {  
+                        if (instance == null) {  
+                            instance = new Bl();  
+                        }
+                    }
+                }
+                return instance;  
+            }
+        }
+
+
+
         DalApi.IDal data;
 
         List<DroneToList> drones = new List<DroneToList>();

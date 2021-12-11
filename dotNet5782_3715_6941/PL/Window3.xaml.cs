@@ -46,10 +46,10 @@ namespace PL
 
         public  Stat status;
   
-        IBL.Ibl dat ; 
+        BlApi.Ibl dat ; 
         public Window3()
         {
-            dat = new BL.Bl();
+            dat = BlFactory.BlFactory.GetBl();
             // WindowStyle =WindowStyle.None;
             status = new Stat (){ a = true };
             InitializeComponent();

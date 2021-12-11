@@ -1,38 +1,34 @@
-﻿using IBL.BO;
-using System;
+﻿using BO;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace IBL
+
+namespace BO
 {
-    namespace BO
+    public class Costumer 
     {
-        public class Costumer 
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Phone_Num { get; set; }
+        public Location Loct { get; set; }
+        public List<CustomerToParcel> FromClient { get; set; } 
+        public List<CustomerToParcel> ToClient { get; set; }
+
+        public override string ToString()
         {
-
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public string Phone_Num { get; set; }
-            public IBL.BO.Location Loct { get; set; }
-            public List<CustomerToParcel> FromClient { get; set; } 
-            public List<CustomerToParcel> ToClient { get; set; }
-
-            public override string ToString()
-            {
-                return $"Id : {Id}\n" +
-                       $"Name : {Name}\n" +
-                       $"location : {Loct}\n" +
-                       $"phone : {Phone_Num}\n" +
-                       $"parceles sent to him : {string.Join('\n', ToClient)}\n" +
-                       $"parceles he sent : {string.Join('\n', FromClient)}";
-            }
+            return $"Id : {Id}\n" +
+                    $"Name : {Name}\n" +
+                    $"location : {Loct}\n" +
+                    $"phone : {Phone_Num}\n" +
+                    $"parceles sent to him : {string.Join('\n', ToClient)}\n" +
+                    $"parceles he sent : {string.Join('\n', FromClient)}";
         }
-
     }
 }
+
 namespace BL
 {
-    public partial class Bl : IBL.Ibl
+    public sealed partial class Bl : BlApi.Ibl
     {
         public void AddCostumer(Costumer costumer)
         {

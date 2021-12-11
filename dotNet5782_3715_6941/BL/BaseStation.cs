@@ -1,33 +1,30 @@
-﻿using IBL.BO;
-using System;
+﻿using BO;
 using System.Collections.Generic;
-using System.Linq;
-namespace IBL
-{
-    namespace BO
-    {
-        public class BaseStation 
-        {
-            public int Id { set; get; }
-            public int Name { set; get; }
-            public Location LoctConstant { get; set;  }
-            public int NumOfFreeOnes { set; get; }
-            public List<DroneInCharge> DroneInChargeList { set ; get; }
 
-            public override string ToString()
-            {
-                return $"Id : {Id}\n" +
-                       $"Name : {Name}\n" +
-                       $"location : {LoctConstant}\n" +
-                       $"free charging slots : {NumOfFreeOnes}\n" +
-                       $"drones in charge : {string.Join('\n', DroneInChargeList)}";
-            } 
-        }
+namespace BO
+{
+    public class BaseStation 
+    {
+        public int Id { set; get; }
+        public int Name { set; get; }
+        public Location LoctConstant { get; set;  }
+        public int NumOfFreeOnes { set; get; }
+        public List<DroneInCharge> DroneInChargeList { set ; get; }
+
+        public override string ToString()
+        {
+            return $"Id : {Id}\n" +
+                    $"Name : {Name}\n" +
+                    $"location : {LoctConstant}\n" +
+                    $"free charging slots : {NumOfFreeOnes}\n" +
+                    $"drones in charge : {string.Join('\n', DroneInChargeList)}";
+        } 
     }
 }
+
 namespace BL
 {
-    public partial class Bl : IBL.Ibl
+    public sealed partial class Bl : BlApi.Ibl
     {
        
         public void UpdateStation(int stationId, int? stationName = null, int? stationChargeSlots = null)

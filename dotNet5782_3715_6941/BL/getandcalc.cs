@@ -1,10 +1,10 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace BL
 {
-    public partial class Bl : IBL.Ibl
+    public sealed partial class Bl : BlApi.Ibl
     {
         // get Binded Undelivered Parcel if not found return -1
         int getBindedUndeliveredParcel(int droneId)

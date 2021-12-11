@@ -33,7 +33,7 @@ namespace PL
        
         public List<string> ImageList;
         List<Object> pacads = new List<object>(); 
-        IBL.Ibl log;
+        BlApi.Ibl log;
 
         Page pageof;
 
@@ -182,7 +182,7 @@ namespace PL
         }
 
 
-        public Window2(IBL.BO.Drone drn)
+        public Window2(BO.Drone drn)
         {
             bool ClientsExsist = !(drn.ParcelTransfer is null); 
             InitializeComponent();
@@ -489,7 +489,7 @@ namespace PL
         }
 
 
-        public Window2(IBL.Ibl x ,Page pg )
+        public Window2(BlApi.Ibl x ,Page pg )
         {
            
             pageof = pg; 
@@ -511,7 +511,7 @@ namespace PL
             Grid.SetColumn(input1, 1);
             Grid.SetColumn(text2, 2);
             Grid rowsComb = CreateGridRow( 3, new int [3] {1,1,1} );
-            ComboBox combo1 = creteComboBox(Enum.GetValues(typeof(IBL.BO.WeightCategories)));
+            ComboBox combo1 = creteComboBox(Enum.GetValues(typeof(BO.WeightCategories)));
             pacads.Add(combo1);
             combo1.VerticalContentAlignment = VerticalAlignment.Stretch;
             combo1.HorizontalContentAlignment = HorizontalAlignment.Stretch;
@@ -551,11 +551,11 @@ namespace PL
         {
             try
             {
-                IBL.BO.Drone drony = new IBL.BO.Drone();
+                BO.Drone drony = new BO.Drone();
 
                 drony.Model = ((pacads[0] as Viewbox).Child as TextBox).Text;
                 drony.Id = Convert.ToInt32((((pacads[1] as Viewbox).Child as TextBox).Text));
-                drony.Weight = (IBL.BO.WeightCategories)(pacads[2] as ComboBox).SelectedItem;
+                drony.Weight = (BO.WeightCategories)(pacads[2] as ComboBox).SelectedItem;
 
 
                 log.AddDrone(drony, Convert.ToInt32((((pacads[3] as Viewbox).Child as TextBox).Text)));

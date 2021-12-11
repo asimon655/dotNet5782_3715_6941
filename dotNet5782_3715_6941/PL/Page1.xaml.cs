@@ -21,8 +21,8 @@ namespace PL
     /// </summary>
     public partial class Page1 : Page
     {
-        IBL.Ibl dat; 
-        public Page1(IBL.Ibl dat)
+        BlApi.Ibl dat; 
+        public Page1(BlApi.Ibl dat)
         {
             
             this.dat = dat; 
