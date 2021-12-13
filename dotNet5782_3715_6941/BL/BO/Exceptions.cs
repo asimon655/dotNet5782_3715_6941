@@ -183,19 +183,3 @@ namespace BO
     }
     
 }
-
-
-namespace BL
-{
-    public sealed partial class Bl : BlApi.Ibl
-    {
-        void isInEnum<T>(T value) where T : IConvertible
-        {
-            if (!Enum.IsDefined(typeof(T), value))
-            {
-                throw new EnumOutOfRange("value not defined in the enum " + typeof(T), Convert.ToInt32(value));
-            }
-        }
-
-    }
-} 
