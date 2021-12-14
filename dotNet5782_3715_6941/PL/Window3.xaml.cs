@@ -49,7 +49,7 @@ namespace PL
         BlApi.Ibl dat ; 
         public Window3()
         {
-            dat = BlFactory.BlFactory.GetBl();
+            dat = BlApi.BlFactory.GetBl();
             // WindowStyle =WindowStyle.None;
             status = new Stat (){ a = true };
             InitializeComponent();

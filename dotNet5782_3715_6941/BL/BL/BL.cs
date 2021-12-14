@@ -39,15 +39,8 @@ namespace BL
 
         public Bl()
         {
-            try
-            {
-                data = DalFactory.DalFactory.GetDal("DalObject");
-            }
-            catch(Exception err)
-            {
-                Console.WriteLine(err.Message);
-                return;
-            }
+            data = DalApi.DalFactory.GetDal();
+
             // initilazing power related consts
             double[] powerConst = data.GetPowerConsumption();
 

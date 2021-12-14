@@ -1,7 +1,7 @@
 using BlApi;
 using BL;
 
-namespace BlFactory 
+namespace BlApi 
 {
     public static class BlFactory 
     {

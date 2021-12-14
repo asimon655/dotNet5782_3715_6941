@@ -1,6 +1,6 @@
 ﻿using System;
 using BO;
-using BlFactory;
+using BlApi;
 
 namespace ConsoleUI_BL
 {
@@ -9,7 +9,7 @@ namespace ConsoleUI_BL
         static private BlApi.Ibl Logistics;
         static void Main(string[] args)
         {
-            Logistics = BlFactory.BlFactory.GetBl();
+            Logistics = BlApi.BlFactory.GetBl();
              
             int enter;/// for the sub switches 
             int command;
