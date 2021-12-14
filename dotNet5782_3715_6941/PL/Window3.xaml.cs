@@ -53,7 +53,9 @@ namespace PL
             // WindowStyle =WindowStyle.None;
             status = new Stat (){ a = true };
             InitializeComponent();
-            Main.NavigationService.Navigate(new Window1(status,dat));
+            ManngerWin adminWin = new ManngerWin(dat);
+            adminWin.Show();
+            Main.NavigationService.Navigate(new Window1(status,dat,adminWin));
             Title = (Main.NavigationService.Content is null ? "None" : Main.NavigationService.Content.GetType().Name.ToString() ) ;
            // blabla = new CommandClose(status);
             object blublo = this;

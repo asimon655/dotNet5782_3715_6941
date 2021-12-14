@@ -30,7 +30,7 @@ namespace PL
     public partial class Window2 : Window
     {
 
-       
+        ManngerWin admin;
         public List<string> ImageList;
         List<Object> pacads = new List<object>(); 
         BlApi.Ibl log;
@@ -489,9 +489,9 @@ namespace PL
         }
 
 
-        public Window2(BlApi.Ibl x ,Page pg )
+        public Window2(BlApi.Ibl x ,Page pg  ,ManngerWin admin )
         {
-           
+            this.admin = admin;
             pageof = pg; 
 
             InitializeComponent();
@@ -505,10 +505,16 @@ namespace PL
             ///////////////// second row /////////////////////////
             Grid colums = CreateGridColumn(4, new int[4] { 1, 1, 1, 1 });
             Viewbox text1 = creteLabel(" charging staion's ID :  ");
-            Viewbox input1 = creteTextBox();
+            Array StionsIds = (from stat in x.StaionsPrint() select stat.Id).ToArray();
+            ComboBox input1 = creteComboBox(StionsIds);
+            Grid input1GridC = CreateGridColumn(3, new int[3] { 1, 8, 1 });
+            Grid input1GridR = CreateGridRow(3, new int[3] { 1,1, 1 });
             Viewbox text2 = creteLabel("Wight:  ");
             Grid.SetColumn(text1, 0);
+            Grid.SetRow(input1GridC, 1);
+            Grid.SetColumn(input1GridR, 1);
             Grid.SetColumn(input1, 1);
+
             Grid.SetColumn(text2, 2);
             Grid rowsComb = CreateGridRow( 3, new int [3] {1,1,1} );
             ComboBox combo1 = creteComboBox(Enum.GetValues(typeof(BO.WeightCategories)));
@@ -522,7 +528,9 @@ namespace PL
             Grid.SetColumn(rowsComb, 3);
             colums.Children.Add(text1);
             colums.Children.Add(text2);
-            colums.Children.Add(input1);
+            colums.Children.Add(input1GridR);
+            input1GridR.Children.Add(input1GridC);
+            input1GridC.Children.Add(input1);
             colums.Children.Add(rowsComb);
             Specs.Children.Add(colums);
             pacads.Add(input1); 
@@ -558,14 +566,21 @@ namespace PL
                 drony.Weight = (BO.WeightCategories)(pacads[2] as ComboBox).SelectedItem;
 
 
-                log.AddDrone(drony, Convert.ToInt32((((pacads[3] as Viewbox).Child as TextBox).Text)));
+                log.AddDrone(drony, (int)(pacads[3] as ComboBox).SelectedItem);
                 (pageof as MainWindow).ListOf.ItemsSource = log.DronesPrintFiltered((pageof as MainWindow).Stat, (pageof as MainWindow).Weight);
                 try
                 {
                     pageof.NavigationService.Refresh();
+                 
                 }
                 catch { }
-             
+                IEnumerable<BO.DroneToList> Dronelst = log.DronesPrint();
+                string[] names = admin.GetNaemsDrones(Dronelst);
+                double[] vals = admin.GetValsDrone(Dronelst);
+                double[] pos = admin.GetPosDrones(vals.Length);
+                admin.createModelsBar(admin.WpfPlot2, pos, names, vals);
+                admin.CreateDountPie<BO.WeightCategories>(admin.WpfPlot1, admin.GetValsDroneWeight(Dronelst));
+                admin.CreateDountPie<BO.DroneStatuses>(admin.WpfPlot3, admin.GetValsDroneStat(Dronelst));
             }
             catch (Exception err)
             {

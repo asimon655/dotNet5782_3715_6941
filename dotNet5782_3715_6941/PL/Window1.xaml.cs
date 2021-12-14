@@ -22,9 +22,11 @@ namespace PL
     public partial class Window1 : Page
     {
         public BlApi.Ibl dat { set; get; }
-        public Stat status; 
-        public Window1(Stat gets , BlApi.Ibl dat)
+        public Stat status;
+        ManngerWin admin; 
+        public Window1(Stat gets , BlApi.Ibl dat ,ManngerWin admin)
         {
+            this.admin = admin; 
             this.dat = dat;
             status = gets; 
             InitializeComponent();
@@ -43,7 +45,7 @@ namespace PL
         {
 
             status.a = false;
-            this.NavigationService.Navigate(new MainWindow(dat,status));
+            this.NavigationService.Navigate(new MainWindow(dat,status,admin));
 }
         //new MainWindow(dat).ShowDialog();
     

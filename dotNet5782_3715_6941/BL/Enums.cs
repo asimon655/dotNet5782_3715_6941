@@ -41,11 +41,12 @@ namespace BO
     }
     public enum DroneStatuses
     {
-        [Description("free Drone  ")]
-        Free,
-        [Description("Drone need Matance  ")]
-        Matance,
         [Description("Drone is in Delivery ")]
         Delivery,
+        [Description("free Drone  ")]
+        Free,  
+        [Description("Drone need Matance  ")]
+        Matance,
+     
     };
 }
