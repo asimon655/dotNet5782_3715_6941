@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace DalApi
 
         static DalConfig()
         {
-            XElement dalConfig = XElement.Load(@"xml\dal-config.xml");
+            XElement dalConfig = XElement.Load(Path.Combine("xml", "dal-config.xml"));
             DalName = dalConfig.Element("dal").Value;
             DalPackages = (from pkg in dalConfig.Element("dal-packages").Elements()
                            select pkg
