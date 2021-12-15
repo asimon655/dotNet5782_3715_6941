@@ -19,7 +19,7 @@ namespace Dal
             DataSource.Drones.Add(drone);
         }
             
-        public Drone PullDataDrone(int id)
+        public Drone GetDrone(int id)
         {
             Drone drone = DataSource.Drones.Find(s => s.Id == id);
             /// if the Drone wasnt found throw error
@@ -30,7 +30,7 @@ namespace Dal
             return drone;
         }
             
-        public IEnumerable<Drone> DronesPrint()
+        public IEnumerable<Drone> GetDrones()
         {
             return DataSource.Drones;
         }

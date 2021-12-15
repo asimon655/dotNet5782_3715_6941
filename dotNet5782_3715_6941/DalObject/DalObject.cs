@@ -29,7 +29,7 @@ namespace Dal
             }
         }
 
-        static public void Update<T>(List<T> listy, T updater)
+        static void Update<T>(List<T> listy, T updater)
         {
 
             int IdObj = (int)(typeof(T).GetProperty("Id").GetValue(updater, null));

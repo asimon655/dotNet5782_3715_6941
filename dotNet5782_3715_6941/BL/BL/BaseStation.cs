@@ -10,7 +10,7 @@ namespace BL
         {
             try
             {
-                DO.Station Stationy = data.PullDataStation(stationId);
+                DO.Station Stationy = data.GetStation(stationId);
                 if (!(stationName is null))
                 {
                     Stationy.Name = (int)stationName;
@@ -30,21 +30,21 @@ namespace BL
                 throw new IdDosntExists(err);
             } 
         }
-        public BaseStation PullDataStaion(int stationId)
+        public Station GetStation(int stationId)
         {
 
             try
             {
-                BaseStation TmpStation = StationC(data.PullDataStation(stationId));
-                List<DroneInCharge> dronesInCharges = new List<DroneInCharge>();
+                Station TmpStation = StationC(data.GetStation(stationId));
+                List<DroneCharge> dronesInCharges = new List<DroneCharge>();
                 foreach (var droneCharge in data.GetDronesCharges(x => x.StaionId == stationId))
                 {
-                    DroneToList drone = GetDroneToList(droneCharge.DroneId);
+                    DroneList drone = GetDroneToList(droneCharge.DroneId);
                     // check if the drone exsists
-                    DroneInCharge droneInCharge = new DroneInCharge
+                    DroneCharge droneInCharge = new DroneCharge
                     {
-                        id = drone.Id,
-                        BatteryStat = drone.BatteryStat
+                        DroneId = drone.Id,
+                        Battery = drone.Battery
                     };
 
                     dronesInCharges.Add(droneInCharge);
@@ -60,7 +60,7 @@ namespace BL
            
         }
 
-        public void AddStation(BaseStation station)
+        public void AddStation(Station station)
         {
             if (station.LoctConstant.Lattitude > 90 || station.LoctConstant.Lattitude < -90 || station.LoctConstant.Longitude > 180 || station.LoctConstant.Longitude < -180)
                 throw new LocationOutOfRange("the Location Values are out of boundries  :  ", station.LoctConstant.Longitude, station.LoctConstant.Lattitude);

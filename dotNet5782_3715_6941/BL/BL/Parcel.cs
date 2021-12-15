@@ -14,8 +14,8 @@ namespace BL
             
             try
             {
-                data.PullDataCostumer(parcel.SenderParcelToCostumer.id);
-                data.PullDataCostumer(parcel.GetterParcelToCostumer.id);
+                data.GetCustomer(parcel.SenderParcelToCostumer.id);
+                data.GetCustomer(parcel.GetterParcelToCostumer.id);
             }
             catch (DO.IdDosntExists err)
             {
@@ -40,11 +40,11 @@ namespace BL
                 Weight=(DO.WeightCategories)parcel.Weight};
             data.AddParcel(ParcelTmp);
         }
-        public Parcel PullDataParcel(int id)
+        public Parcel GetParcel(int id)
         {
             try
             {
-                return ParcelC(data.PullDataParcel(id));
+                return ParcelC(data.GetParcel(id));
             }
             catch (DO.IdDosntExists err)
             {
@@ -55,7 +55,7 @@ namespace BL
         public void BindParcelToDrone(int droneId)
         {
 
-            DroneToList drony = GetDroneToList(droneId);
+            DroneList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Free)
             {
                 throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
@@ -84,7 +84,7 @@ namespace BL
                         {
                             if ((int)pack.Weight <= (int)drony.Weight && pack.Weight == resParcel.Weight)
                             {
-                                if (calculateDistance(drony.Current, getParcelLoctSender(pack)) < calculateDistance(drony.Current, getParcelLoctSender(resParcel)))
+                                if (calculateDistance(drony.Loct, getParcelLoctSender(pack)) < calculateDistance(drony.Loct, getParcelLoctSender(resParcel)))
                                     resParcel = pack;
                             }
                         } 
@@ -94,7 +94,7 @@ namespace BL
             }
             if ((WeightCategories)resParcel.Weight > drony.Weight)
                 throw new CouldntFindRightParcelWeight("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
-            drony.ParcelIdTransfer = resParcel.Id;
+            drony.ParcelId = resParcel.Id;
             resParcel.Schedulded = DateTime.Now;
             drony.DroneStat = DroneStatuses.Delivery;
             try
@@ -110,23 +110,23 @@ namespace BL
 
         }
 
-        public void PickUpByDrone(int droneId)
+        public void DronePickUp(int droneId)
         {
-            DroneToList drony = GetDroneToList(droneId);
+            DroneList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Delivery)
             {
                 throw new EnumNotInRightStatus<DroneStatuses>("the Drone Should be IN delivery mode , it is in: ", drony.DroneStat);
             }
-            DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
+            DO.Parcel pack = data.GetParcel((int)drony.ParcelId);
             if (ParcelStatC(pack) != ParcelStat.Binded)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("Parcel should be Binded when it is : ", ParcelStatC(pack)); 
             }
             if (!canreach(drony, pack, getParcelLoctSender))
-                throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.BatteryStat, getPowerUsage(drony.Current, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
+                throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
             ///battery status changed !!! 
-            drony.BatteryStat -= getPowerUsage(getParcelLoctSender(pack), drony.Current ,  (WeightCategories)pack.Weight);
-            drony.Current = getParcelLoctSender(pack);
+            drony.Battery -= getPowerUsage(getParcelLoctSender(pack), drony.Loct ,  (WeightCategories)pack.Weight);
+            drony.Loct = getParcelLoctSender(pack);
             pack.PickedUp = DateTime.Now;
             try
             {
@@ -138,21 +138,21 @@ namespace BL
             } 
         }
 
-        public void ParcelDeliveredToCostumer(int droneId)
+        public void DroneDelivere(int droneId)
         {
-            DroneToList drony = GetDroneToList(droneId);
+            DroneList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Delivery)
                 throw new  EnumNotInRightStatus<DroneStatuses>("Drone Should be in delivry!! it is now in the status of: ", drony.DroneStat);
-            DO.Parcel pack = data.PullDataParcel((int)drony.ParcelIdTransfer);
+            DO.Parcel pack = data.GetParcel((int)drony.ParcelId);
             if (ParcelStatC(pack) != ParcelStat.PickedUp)
             {
                 throw new EnumNotInRightStatus<ParcelStat>("parcel is not in the status pickedup it is in : ", ParcelStatC(pack)); 
             }
             Location Target = getParcelLoctTarget(pack);
             if (!canreach(drony, pack, getParcelLoctTarget))
-                throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.BatteryStat, getPowerUsage(drony.Current, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
-            drony.BatteryStat -= getPowerUsage(Target, drony.Current, (WeightCategories)pack.Weight);
-            drony.Current = new Location(Target.Longitude, Target.Lattitude);
+                throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
+            drony.Battery -= getPowerUsage(Target, drony.Loct, (WeightCategories)pack.Weight);
+            drony.Loct = new Location(Target.Longitude, Target.Lattitude);
             drony.DroneStat = DroneStatuses.Free;
             pack.Delivered = DateTime.Now;
             try
@@ -165,13 +165,13 @@ namespace BL
             } 
         }
 
-        public IEnumerable<ParcelToList> ParcelsPrint()
+        public IEnumerable<ParcelList> GetParcels()
         {
             try
             {
-                List<ParcelToList> tmpy = new List<ParcelToList>();
-                foreach (var x in data.ParcelsPrint())
-                    tmpy.Add(new ParcelToList()
+                List<ParcelList> tmpy = new List<ParcelList>();
+                foreach (var x in data.GetParcels())
+                    tmpy.Add(new ParcelList()
                     {
                         Id = x.Id
                         ,
@@ -179,9 +179,9 @@ namespace BL
                         ,
                         Priorety = (Priorities)x.Priority
                         ,
-                        SenderName = data.PullDataCostumer(x.SenderId).Name
+                        SenderName = data.GetCustomer(x.SenderId).Name
                         ,
-                        TargetName = data.PullDataCostumer(x.TargetId).Name
+                        TargetName = data.GetCustomer(x.TargetId).Name
                         ,
                         Weight = (WeightCategories)x.Weight
                     });
@@ -192,14 +192,14 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
-        public IEnumerable<ParcelToList> ParcelsWithoutDronesPrint()
+        public IEnumerable<ParcelList> GetUnbindedParcels()
         {
             try
             {
-                List<ParcelToList> tmpy = new List<ParcelToList>();
+                List<ParcelList> tmpy = new List<ParcelList>();
                 // if the parcel.DroneId is null then the parcel is unbinded
                 foreach (var x in data.GetParcels(x => x.DroneId is null && ParcelStatC(x) == ParcelStat.Declared))
-                    tmpy.Add(new ParcelToList()
+                    tmpy.Add(new ParcelList()
                     {
                         Id = x.Id
                         ,
@@ -207,9 +207,9 @@ namespace BL
                         ,
                         Priorety = (Priorities)x.Priority
                         ,
-                        SenderName = data.PullDataCostumer(x.SenderId).Name
+                        SenderName = data.GetCustomer(x.SenderId).Name
                         ,
-                        TargetName = data.PullDataCostumer(x.TargetId).Name
+                        TargetName = data.GetCustomer(x.TargetId).Name
                         ,
                         Weight = (WeightCategories)x.Weight
                     });

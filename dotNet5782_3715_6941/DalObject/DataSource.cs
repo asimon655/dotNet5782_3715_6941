@@ -11,7 +11,7 @@ namespace Dal
         internal static Random RandomGen = new Random();
 
         internal static List<Drone> Drones = new List<Drone>();
-        internal static List<Costumer> Costumers = new List<Costumer>();
+        internal static List<Customer> Costumers = new List<Customer>();
         internal static List<Station> Stations = new List<Station>();
         internal static List<Parcel> Parcels = new List<Parcel>();
         internal static List<DroneCharge> DronesCharges = new List<DroneCharge>();
@@ -44,7 +44,7 @@ namespace Dal
                         Longitude = RandomGen.NextDouble() * 45
                     });
                 for (int i = 0; i < CostumerInit; i++)
-                    Costumers.Add( new Costumer() {
+                    Costumers.Add( new Customer() {
                         Id = RandomGen.Next(100000000, 999999999),
                         Name = "Lev Cliet No." + i.ToString(),
                         Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(),

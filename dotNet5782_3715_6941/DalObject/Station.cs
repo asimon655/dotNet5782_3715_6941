@@ -17,7 +17,7 @@ namespace Dal
 
             DataSource.Stations.Add(station);
         }
-        public Station PullDataStation(int id)
+        public Station GetStation(int id)
         {
             Station station = DataSource.Stations.Find(s => s.Id == id);
             /// if the Station wasnt found throw error
@@ -27,7 +27,7 @@ namespace Dal
             }
             return station;
         }
-        public IEnumerable<Station> StationsPrint()
+        public IEnumerable<Station> GetStations()
         {
             return DataSource.Stations;
         }

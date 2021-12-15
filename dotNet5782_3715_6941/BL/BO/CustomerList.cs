@@ -1,6 +1,6 @@
 ﻿namespace BO
 {
-    public class ClientToList 
+    public class CustomerList 
     {
         public int Id { set; get; }
         public string Name { set; get; }

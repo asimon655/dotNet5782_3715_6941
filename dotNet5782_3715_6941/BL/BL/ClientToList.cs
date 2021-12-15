@@ -7,10 +7,10 @@ namespace BL
     public sealed partial class Bl : BlApi.Ibl
     {
 
-        public IEnumerable<ClientToList> CostumersPrint()
+        public IEnumerable<CustomerList> GetCustomers()
         {
-            List<ClientToList> tmpy = new List<ClientToList>();
-            foreach(DO.Costumer x in data.CostumersPrint())
+            List<CustomerList> tmpy = new List<CustomerList>();
+            foreach(DO.Customer x in data.GetCustomers())
             {
                 tmpy.Add(CltToLstC(x));
             }

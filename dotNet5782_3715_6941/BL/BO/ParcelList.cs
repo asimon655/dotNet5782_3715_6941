@@ -1,6 +1,6 @@
 ﻿namespace BO
 {
-    public class ParcelToList 
+    public class ParcelList 
     {
         public int Id { set; get;  }
         public string SenderName { set; get;  }

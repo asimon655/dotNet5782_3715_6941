@@ -1,6 +1,6 @@
 ﻿namespace DO
 {
-    public struct Costumer
+    public struct Customer
     {
         public int Id { set; get; }
         public string Name { set; get; }

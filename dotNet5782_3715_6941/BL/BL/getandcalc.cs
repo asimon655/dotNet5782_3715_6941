@@ -37,7 +37,7 @@ namespace BL
         {
             int stationId = 0;
             double shortestDistance = double.MaxValue;
-            foreach (var station in data.StationsPrint())
+            foreach (var station in data.GetStations())
             {
                 double distance = calculateDistance(new Location(station.Longitude, station.Lattitude), location);
                 if (distance < shortestDistance)
@@ -72,7 +72,7 @@ namespace BL
         {
             try
             {
-                DO.Costumer CSMtmp = data.PullDataCostumer(parcel.SenderId);
+                DO.Customer CSMtmp = data.GetCustomer(parcel.SenderId);
                 return new Location(CSMtmp.Longitude, CSMtmp.Lattitude);
             }
             catch (DO.IdDosntExists err)
@@ -88,7 +88,7 @@ namespace BL
         {
             try
             {
-                DO.Costumer CSMtmp = data.PullDataCostumer(parcel.TargetId);
+                DO.Customer CSMtmp = data.GetCustomer(parcel.TargetId);
                 return CostumerC(CSMtmp).Loct;
             }
             catch (DO.IdDosntExists err)
@@ -103,8 +103,8 @@ namespace BL
 
 
 
-        private bool canreach(DroneToList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
-            => getPowerUsage(drony.Current, function(parcel), (WeightCategories)parcel.Weight) <= drony.BatteryStat;
+        private bool canreach(DroneList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
+            => getPowerUsage(drony.Loct, function(parcel), (WeightCategories)parcel.Weight) <= drony.Battery;
 
 
         private DO.Station GetStationFromCharging(int droneId)
@@ -112,7 +112,7 @@ namespace BL
 
             try
             {
-                return data.PullDataStation(data.PullDataDroneChargeByDroneId(droneId).StaionId);
+                return data.GetStation(data.GetDroneCharge(droneId).StaionId);
 
             }
             catch (DO.IdDosntExists err)
@@ -124,9 +124,9 @@ namespace BL
 
         }
 
-        private DroneToList GetDroneToList(int Id)
+        private DroneList GetDroneToList(int Id)
         {
-            DroneToList drone = drones.Find(s => s.Id == Id);
+            DroneList drone = drones.Find(s => s.Id == Id);
             /// if the Drone wasnt found throw error
             if (drone is null)
             {

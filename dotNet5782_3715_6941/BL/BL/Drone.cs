@@ -10,25 +10,25 @@ namespace BL
     {
 
 
-        public IEnumerable<DroneToList> DronesPrint()
+        public IEnumerable<DroneList> GetDrones()
         {
             return drones;
         }
-        public void DroneChargeRelease(int droneId, double chargingPeriod)
+        public void DroneReleaseCharge(int droneId, double chargingPeriod)
         {
             if (chargingPeriod < 0)
                 throw new NotValidTimePeriod("you tried to enter time that is smaller than 0 (forbidden) ",chargingPeriod); 
             
-            DroneToList drony = GetDroneToList(droneId);
+            DroneList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Matance)
                 throw new EnumNotInRightStatus<DroneStatuses>("drone is not in matance , it is: ", drony.DroneStat); 
             else 
             {
                 ///time perios is in hours 
                 DO.Station station = GetStationFromCharging(droneId);
-                drony.BatteryStat = Math.Min((drony.BatteryStat + ChargingSpeed * chargingPeriod), 100); 
+                drony.Battery = Math.Min((drony.Battery + ChargingSpeed * chargingPeriod), 100); 
                 drony.DroneStat = DroneStatuses.Free; 
-                BaseStation baseStation = StationC(station);
+                Station baseStation = StationC(station);
                 station.ChargeSlots += 1;
                 try
                 {
@@ -49,22 +49,22 @@ namespace BL
 
         public void DroneCharge(int droneId)
         {
-            DroneToList drony = GetDroneToList(droneId);
+            DroneList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Free)
                 throw new EnumNotInRightStatus<DroneStatuses>("drone is not not Free  , it is :  ", drony.DroneStat);
             else
             {
                 try
                 {
-                    int stationID = getClosesStation(drony.Current);
-                    DO.Station station = data.PullDataStation(stationID);
+                    int stationID = getClosesStation(drony.Loct);
+                    DO.Station station = data.GetStation(stationID);
                     Location stationLoct = new Location(station.Longitude, station.Lattitude);
-                    double powerUsage = getPowerUsage(drony.Current, stationLoct);
-                    if (drony.BatteryStat < powerUsage)
-                        throw new CantReachToDest("the charging port os too far to go with the current battery precantage", drony.BatteryStat, powerUsage);
+                    double powerUsage = getPowerUsage(drony.Loct, stationLoct);
+                    if (drony.Battery < powerUsage)
+                        throw new CantReachToDest("the charging port os too far to go with the current battery precantage", drony.Battery, powerUsage);
                     drony.DroneStat = DroneStatuses.Matance;
-                    drony.Current = stationLoct;
-                    drony.BatteryStat -= powerUsage;
+                    drony.Loct = stationLoct;
+                    drony.Battery -= powerUsage;
                     station.ChargeSlots -= 1;
 
 
@@ -88,7 +88,7 @@ namespace BL
             DO.Drone Drony= new DO.Drone() { 
                 Id=droneId , 
                 Modle=droneName ,
-                MaxWeigth=data.PullDataDrone(droneId).MaxWeigth
+                MaxWeigth=data.GetDrone(droneId).MaxWeigth
            };
             try
             {
@@ -105,7 +105,7 @@ namespace BL
         }
 
 
-        public Drone PullDataDrone(int id)
+        public Drone GetDrone(int id)
         {
             return DronesC(GetDroneToList(id));
         }
@@ -119,7 +119,7 @@ namespace BL
                 Modle = drone.Model };
             try
             {
-                DO.Station PulledStaion = data.PullDataStation(stationId);
+                DO.Station PulledStaion = data.GetStation(stationId);
                 drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
             }
             catch (DO.IdDosntExists err) {
@@ -140,10 +140,10 @@ namespace BL
             drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
             drone.DroneStat = DroneStatuses.Matance;
             
-            DroneToList TmpDrnLst = new DroneToList() {
-                BatteryStat=drone.BatteryStat ,
+            DroneList TmpDrnLst = new DroneList() {
+                Battery=drone.BatteryStat ,
                 Id=drone.Id , 
-                Current=drone.Current , 
+                Loct=drone.Current , 
                 DroneStat=drone.DroneStat , 
                 Model=drone.Model ,   
                 Weight=drone.Weight};
@@ -160,14 +160,14 @@ namespace BL
 
 
         }
-        public IEnumerable<DroneToList> DronesPrintFiltered(IEnumerable<DroneStatuses> statuses, IEnumerable<WeightCategories> weights)
+        public IEnumerable<DroneList> GetDronesFiltered(IEnumerable<DroneStatuses> statuses, IEnumerable<WeightCategories> weights)
         {
             return drones.Where(x => statuses.Contains(x.DroneStat) && weights.Contains(x.Weight));
 
         }
-        public Predicate<DO.Station> conv(Predicate<BaseStaionToList> x)
+        public Predicate<DO.Station> conv(Predicate<StationList> x)
         {
-            return new Predicate<DO.Station>(y => x(new BaseStaionToList() { Id = y.Id, Name = y.Name, NumOfFreeOnes = y.ChargeSlots }));  
+            return new Predicate<DO.Station>(y => x(new StationList() { Id = y.Id, Name = y.Name, FreePorts = y.ChargeSlots }));  
         
         
         } 

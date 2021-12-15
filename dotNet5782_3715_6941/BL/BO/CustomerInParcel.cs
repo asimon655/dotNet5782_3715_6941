@@ -1,6 +1,6 @@
 ﻿namespace BO
 {
-    public class ParcelToCostumer 
+    public class CustomerInParcel 
     {
         public int id { set; get;  }
         public string name { set; get;  }

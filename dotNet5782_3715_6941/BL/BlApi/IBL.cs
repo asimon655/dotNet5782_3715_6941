@@ -4,14 +4,12 @@ namespace BlApi
 {
     public interface Ibl
     {
-        /// add section
-
-
+        #region Add
         /// <summary>
         /// add new customer
         /// </summary>
-        /// <param name="costumer"></param>
-        void AddCostumer(BO.Costumer costumer);
+        /// <param name="customer"></param>
+        void AddCustomer(BO.Customer customer);
         /// <summary>
         /// add new drone
         /// </summary>
@@ -27,40 +25,39 @@ namespace BlApi
         /// add a new station
         /// </summary>
         /// <param name="station"></param>
-        void AddStation(BO.BaseStation station);
+        void AddStation(BO.Station station);
+        #endregion
 
-        /// get section
-
-
+        #region Get
         /// <summary>
         /// get station by id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>BO.BaseStation</returns>
-        BO.BaseStation PullDataStaion(int id);
+        /// <returns>BO.Station</returns>
+        BO.Station GetStation(int id);
         /// <summary>
         /// get customerr by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns>BO.Costumer</returns>
-        BO.Costumer PullDataCostumer(int id);
+        BO.Customer GetCostumer(int id);
         /// <summary>
         /// get drone by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns>BO.Drone</returns>
-        BO.Drone PullDataDrone(int id);
+        BO.Drone GetDrone(int id);
         /// <summary>
         /// get parcel by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns>BO.Parcel</returns>
-        BO.Parcel PullDataParcel(int id);
-        
-        /// update section
+        BO.Parcel GetParcel(int id);
+        #endregion
 
+        #region Update
         /// <summary>
-        /// 
+        /// update drone name
         /// </summary>
         /// <param name="droneId"></param>
         /// <param name="droneName"></param>
@@ -89,12 +86,12 @@ namespace BlApi
         /// order a drone to pick up the parcel he owns from the sender
         /// </summary>
         /// <param name="droneId"></param>
-        void PickUpByDrone(int droneId);
+        void DronePickUp(int droneId);
         /// <summary>
         /// order a drone to deliver the parcel he owns to the target
         /// </summary>
         /// <param name="droneId">the id of the drone</param>
-        void ParcelDeliveredToCostumer(int droneId);
+        void DroneDelivere(int droneId);
         /// <summary>
         /// order a drone to go to the nearest station to matance
         /// </summary>
@@ -106,40 +103,47 @@ namespace BlApi
         /// </summary>
         /// <param name="droneId"></param>
         /// <param name="chargingPeriod"></param>
-        void DroneChargeRelease(int droneId, double chargingPeriod);
+        void DroneReleaseCharge(int droneId, double chargingPeriod);
+        #endregion
 
-        /// list show section
-
+        #region Get List
         /// <summary>
         /// returns the list of stations
         /// </summary>
-        /// <returns>IEnumerable of BaseStaionToList</returns>
-        IEnumerable<BO.BaseStaionToList> StaionsPrint();
+        /// <returns>IEnumerable of StationList</returns>
+        IEnumerable<BO.StationList> GetStaions();
         /// <summary>
         /// the function filter the stations and return thos with free charging slots
         /// </summary>
-        /// <returns>IEnumerable of BaseStaionToList</returns>
-        IEnumerable<BO.BaseStaionToList> BaseStaionsFreePortsPrint();
+        /// <returns>IEnumerable of StationList</returns>
+        IEnumerable<BO.StationList> GetStationsWithFreePorts();
         /// <summary>
         /// returns the list of customers
         /// </summary>
-        /// <returns>IEnumerable of ClientToList</returns>
-        IEnumerable<BO.ClientToList> CostumersPrint();
+        /// <returns>IEnumerable of CustomerList</returns>
+        IEnumerable<BO.CustomerList> GetCustomers();
         /// <summary>
         /// returns the list of drones
         /// </summary>
-        /// <returns>IEnumerable of DroneToList</returns>
-        IEnumerable<BO.DroneToList> DronesPrint();
+        /// <returns>IEnumerable of DroneList</returns>
+        IEnumerable<BO.DroneList> GetDrones();
         /// <summary>
         /// returns the list of parcels
         /// </summary>
-        /// <returns>IEnumerable of ParcelToList</returns>
-        IEnumerable<BO.ParcelToList> ParcelsPrint();
+        /// <returns>IEnumerable of ParcelList</returns>
+        IEnumerable<BO.ParcelList> GetParcels();
         /// <summary>
         /// the function filter the parcels and return thos that hasnt been binded to a drone
         /// </summary>
-        /// <returns>IEnumerable of ParcelToList</returns>
-        IEnumerable<BO.ParcelToList> ParcelsWithoutDronesPrint();
-        IEnumerable<BO.DroneToList> DronesPrintFiltered(IEnumerable<BO.DroneStatuses> statuses, IEnumerable<BO.WeightCategories> weights);
+        /// <returns>IEnumerable of ParcelList</returns>
+        IEnumerable<BO.ParcelList> GetUnbindedParcels();
+        /// <summary>
+        /// return drones who their status and weight is in the parameters
+        /// </summary>
+        /// <param name="statuses"></param>
+        /// <param name="weights"></param>
+        /// <returns>IEnumerable of </returns>
+        IEnumerable<BO.DroneList> GetDronesFiltered(IEnumerable<BO.DroneStatuses> statuses, IEnumerable<BO.WeightCategories> weights);
+        #endregion
     }
 }

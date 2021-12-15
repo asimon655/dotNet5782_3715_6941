@@ -98,7 +98,7 @@ namespace PL
 
 
         }
-        internal string[] GetNaemsDrones(IEnumerable<BO.DroneToList> Dronelst)
+        internal string[] GetNaemsDrones(IEnumerable<BO.DroneList> Dronelst)
         {
             IEnumerable<string> Models = from Drony in Dronelst select Drony.Model;
             Models = Models.Distinct();
@@ -117,7 +117,7 @@ namespace PL
             return positions;
 
         }
-        internal double []  GetValsDrone(IEnumerable<BO.DroneToList> Dronelst)
+        internal double []  GetValsDrone(IEnumerable<BO.DroneList> Dronelst)
         {
             string[] Models = GetNaemsDrones(Dronelst);
             double[] values2 = new double[Models.Count()];
@@ -127,7 +127,7 @@ namespace PL
 
 
         }
-        internal double[] GetValsDroneWeight(IEnumerable<BO.DroneToList> Dronelst )
+        internal double[] GetValsDroneWeight(IEnumerable<BO.DroneList> Dronelst )
         {
             BO.WeightCategories []  Weights = (BO.WeightCategories [] )Enum.GetValues(typeof(BO.WeightCategories));
             IEnumerable<double> filtered = from weight in Weights
@@ -137,7 +137,7 @@ namespace PL
 
 
         }
-        internal double[] GetValsDroneStat(IEnumerable<BO.DroneToList> Dronelst)
+        internal double[] GetValsDroneStat(IEnumerable<BO.DroneList> Dronelst)
         {
             BO.DroneStatuses[] Stats = (BO.DroneStatuses[])Enum.GetValues(typeof(BO.DroneStatuses));
             IEnumerable<double> filtered = from stat in Stats
@@ -151,7 +151,7 @@ namespace PL
         {
             this.dat = dat;
             InitializeComponent();
-            IEnumerable<BO.DroneToList> Dronelst = this.dat.DronesPrint();
+            IEnumerable<BO.DroneList> Dronelst = this.dat.GetDrones();
             string[] names = GetNaemsDrones(Dronelst);
             double[] vals = GetValsDrone(Dronelst);
             LengthStart = vals.Length; 
@@ -163,7 +163,7 @@ namespace PL
             WpfPlot2.Plot.Style(ScottPlot.Style.Blue3);
             WpfPlot3.Plot.Style(ScottPlot.Style.Blue3);
             WpfPlot1.Plot.Style(ScottPlot.Style.Blue3);
-            ListOf.ItemsSource = dat.DronesPrint();
+            ListOf.ItemsSource = dat.GetDrones();
             Weight = WeightDefault;
             Stat = StatDefault;
 
@@ -174,7 +174,7 @@ namespace PL
             //StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
 
 
-            ListOf.ItemsSource = dat.DronesPrintFiltered(Stat, Weight);
+            ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
 
 
                 Item1Ani.Message = new WPFSpark.StatusMessage("");
@@ -278,7 +278,7 @@ namespace PL
             {
                 item.Checked = true;
             }
-            ListOf.ItemsSource = dat.DronesPrintFiltered(Stat, Weight);
+            ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -287,12 +287,12 @@ namespace PL
             {
                 Weight = new List<BO.WeightCategories>() { (BO.WeightCategories)(sender as ComboBox).SelectedItem };
             }
-            ListOf.ItemsSource = dat.DronesPrintFiltered(Stat, Weight);
+            ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
         }
 
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new Window2(dat.PullDataDrone(((sender as ListView).SelectedItem as BO.DroneToList).Id)).Show();
+            new Window2(dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id)).Show();
             //new Window2(a).Show();
 
         }
@@ -328,16 +328,16 @@ namespace PL
             Dictionary<String, String> dict = new Dictionary<string, string>();
             dict.Add("Id", "Id");
             dict.Add("Model", "Model");
-            dict.Add("Battery", "BatteryStat");
-            dict.Add("Location", "Current");
+            dict.Add("Battery", "Battery");
+            dict.Add("Location", "Loct");
             dict.Add("MaxWeight", "Weight");
             dict.Add("DroneStatus", "DroneStat");
-            dict.Add("Binded Parcel Id", "ParcelIdTransfer");
+            dict.Add("Binded Parcel Id", "ParcelId");
             object IdLst = (object)
             MessageBox.Show((e.OriginalSource as GridViewColumnHeader).Column.Header.ToString());
 
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneToList>().OrderBy(x => typeof(BO.DroneToList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneToList>().Reverse();
+            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
+            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
         }
 
 

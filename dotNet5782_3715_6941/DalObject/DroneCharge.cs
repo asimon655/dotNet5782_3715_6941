@@ -19,7 +19,7 @@ namespace Dal
             DataSource.DronesCharges.Add(droneCharge);
         }
 
-        public DroneCharge PullDataDroneChargeByDroneId(int droneId)
+        public DroneCharge GetDroneCharge(int droneId)
         {
             DroneCharge droneCharge = DataSource.DronesCharges.Find(s => s.DroneId == droneId);
             /// if the Drone wasnt found throw error
@@ -30,7 +30,7 @@ namespace Dal
             return droneCharge;
         }
 
-        public IEnumerable<DroneCharge> DronesChargesPrint()
+        public IEnumerable<DroneCharge> GetDronesCharges()
         {
             return DataSource.DronesCharges;
         }

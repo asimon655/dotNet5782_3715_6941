@@ -4,11 +4,11 @@ namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
-        public void AddCostumer(Costumer costumer)
+        public void AddCustomer(Customer costumer)
         {
             if (costumer.Loct.Lattitude > 90 || costumer.Loct.Lattitude < -90 || costumer.Loct.Longitude > 180 || costumer.Loct.Longitude < -180)
                 throw new LocationOutOfRange("the Location Values are out of boundries  :  ", costumer.Loct.Longitude, costumer.Loct.Lattitude);
-            DO.Costumer CostumerTmp = new DO.Costumer() { 
+            DO.Customer CostumerTmp = new DO.Customer() { 
                 Id = costumer.Id, 
                 Lattitude = costumer.Loct.Lattitude, 
                 Longitude = costumer.Loct.Longitude, 
@@ -18,7 +18,7 @@ namespace BL
             };
             try
             {
-                data.AddCostumer(CostumerTmp);
+                data.AddCustomer(CostumerTmp);
             }
             catch (DO.IdAlreadyExists err)
             {
@@ -29,11 +29,11 @@ namespace BL
             
             } 
         }
-        public Costumer PullDataCostumer(int id)
+        public Customer GetCostumer(int id)
         {
             try
             {
-                return CostumerC(data.PullDataCostumer(id));
+                return CostumerC(data.GetCustomer(id));
             }
             catch (DO.IdDosntExists err)
             {
@@ -49,12 +49,12 @@ namespace BL
             try
             {
 
-                DO.Costumer Costumery = data.PullDataCostumer(costumerId);
+                DO.Customer Costumery = data.GetCustomer(costumerId);
                 if (!(costumerName is null))
                     Costumery.Name = costumerName;
                 if (!(costumerPhone is null))
                     Costumery.Phone = costumerPhone;
-                data.UpdateCostumers(Costumery);
+                data.UpdateCustomer(Costumery);
      
                     
             }

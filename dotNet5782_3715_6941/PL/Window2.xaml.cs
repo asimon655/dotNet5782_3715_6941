@@ -505,7 +505,7 @@ namespace PL
             ///////////////// second row /////////////////////////
             Grid colums = CreateGridColumn(4, new int[4] { 1, 1, 1, 1 });
             Viewbox text1 = creteLabel(" charging staion's ID :  ");
-            Array StionsIds = (from stat in x.StaionsPrint() select stat.Id).ToArray();
+            Array StionsIds = (from stat in x.GetStaions() select stat.Id).ToArray();
             ComboBox input1 = creteComboBox(StionsIds);
             Grid input1GridC = CreateGridColumn(3, new int[3] { 1, 8, 1 });
             Grid input1GridR = CreateGridRow(3, new int[3] { 1,1, 1 });
@@ -567,14 +567,14 @@ namespace PL
 
 
                 log.AddDrone(drony, (int)(pacads[3] as ComboBox).SelectedItem);
-                (pageof as MainWindow).ListOf.ItemsSource = log.DronesPrintFiltered((pageof as MainWindow).Stat, (pageof as MainWindow).Weight);
+                (pageof as MainWindow).ListOf.ItemsSource = log.GetDronesFiltered((pageof as MainWindow).Stat, (pageof as MainWindow).Weight);
                 try
                 {
                     pageof.NavigationService.Refresh();
                  
                 }
                 catch { }
-                IEnumerable<BO.DroneToList> Dronelst = log.DronesPrint();
+                IEnumerable<BO.DroneList> Dronelst = log.GetDrones();
                 string[] names = admin.GetNaemsDrones(Dronelst);
                 double[] vals = admin.GetValsDrone(Dronelst);
                 double[] pos = admin.GetPosDrones(vals.Length);

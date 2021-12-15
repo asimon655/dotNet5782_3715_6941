@@ -29,7 +29,7 @@ namespace ConsoleUI_BL
                         {
                             case (int)Add.Costumer:
                                 {
-                                    Costumer costumer = new Costumer();
+                                    Customer costumer = new Customer();
                                     costumer.Id = SysFunc.SafeEnterUInt("Id: ");
                                     costumer.Loct = new Location(SysFunc.SafeEnterDouble("Longitude: "), SysFunc.SafeEnterDouble("Lattitude: ")); 
                                     Console.Write("Name: ");
@@ -38,7 +38,7 @@ namespace ConsoleUI_BL
                                     costumer.Phone_Num = Console.ReadLine();
                                     try
                                     {
-                                        Logistics.AddCostumer(costumer);
+                                        Logistics.AddCustomer(costumer);
                                         Console.WriteLine("The costumer added succefully ");
                                     }
                                     catch (Exception err)
@@ -73,8 +73,8 @@ namespace ConsoleUI_BL
                             case (int)Add.Package:
                                 {
                                     Parcel parcel = new Parcel();
-                                    parcel.SenderParcelToCostumer = new ParcelToCostumer() { id = SysFunc.SafeEnterUInt("please enter Sender ID: ") };
-                                    parcel.GetterParcelToCostumer = new ParcelToCostumer() { id = SysFunc.SafeEnterUInt("please enter Target ID: ") };
+                                    parcel.SenderParcelToCostumer = new CustomerInParcel() { id = SysFunc.SafeEnterUInt("please enter Sender ID: ") };
+                                    parcel.GetterParcelToCostumer = new CustomerInParcel() { id = SysFunc.SafeEnterUInt("please enter Target ID: ") };
                                     Console.WriteLine("Priorty=>please enter a number from the menue : ");
                                     SysFunc.printEnum<Priorities>();
                                     parcel.Priority = (BO.Priorities)SysFunc.SafeEnterUInt("enter a number from the numbers above");
@@ -94,7 +94,7 @@ namespace ConsoleUI_BL
                                 break;
                             case (int)Add.Staion:
                                 {
-                                    BaseStation station = new BaseStation();
+                                    Station station = new Station();
                                     station.Id = SysFunc.SafeEnterUInt("Id: ");
                                     station.Name = SysFunc.SafeEnterUInt("Name: ");
                                     station.LoctConstant = new Location (SysFunc.SafeEnterDouble("Latitude: "), SysFunc.SafeEnterDouble("Longitude: "));
@@ -126,7 +126,7 @@ namespace ConsoleUI_BL
                                 Console.WriteLine("enter Station Id please : ");
                                 try
                                 {
-                                    BaseStation station = Logistics.PullDataStaion(SysFunc.SafeEnterUInt());
+                                    Station station = Logistics.GetStation(SysFunc.SafeEnterUInt());
                                     Console.WriteLine(station.ToString());
                                 }
                                 catch (Exception err)
@@ -138,7 +138,7 @@ namespace ConsoleUI_BL
                                 Console.WriteLine("enter Costumer Id please : ");
                                 try
                                 {
-                                    Costumer costumer = Logistics.PullDataCostumer(SysFunc.SafeEnterUInt());
+                                    Customer costumer = Logistics.GetCostumer(SysFunc.SafeEnterUInt());
                                     Console.WriteLine(costumer.ToString());
                                 }
                                 catch (Exception err)
@@ -151,7 +151,7 @@ namespace ConsoleUI_BL
                                 try
                                 {
 
-                                    Drone drone = Logistics.PullDataDrone(SysFunc.SafeEnterUInt());
+                                    Drone drone = Logistics.GetDrone(SysFunc.SafeEnterUInt());
                                     Console.WriteLine(drone.ToString());
 
                                 }
@@ -165,7 +165,7 @@ namespace ConsoleUI_BL
                                 try
                                 {
 
-                                    Parcel parcel = Logistics.PullDataParcel(SysFunc.SafeEnterUInt());
+                                    Parcel parcel = Logistics.GetParcel(SysFunc.SafeEnterUInt());
                                     Console.WriteLine(parcel.ToString());
 
                                 }
@@ -250,7 +250,7 @@ namespace ConsoleUI_BL
                                 try
                                 {
                                     int id = SysFunc.SafeEnterUInt("enter drone id: ");
-                                    Logistics.PickUpByDrone(id);
+                                    Logistics.DronePickUp(id);
 
                                     Console.WriteLine("Package has Taken by Drone succefuly  ");
                                 }
@@ -263,7 +263,7 @@ namespace ConsoleUI_BL
                                 try
                                 {
                                     int id = SysFunc.SafeEnterUInt("enter drone id : ");
-                                    Logistics.ParcelDeliveredToCostumer(id);
+                                    Logistics.DroneDelivere(id);
 
                                     Console.WriteLine("Package has Taken by Drone succefuly  ");
                                 }
@@ -290,7 +290,7 @@ namespace ConsoleUI_BL
                                 {
                                     int id = SysFunc.SafeEnterUInt("Drone ID: ");
                                     double chargingPeriod = SysFunc.SafeEnterDouble("enter how much time the drone was in charge : ");
-                                    Logistics.DroneChargeRelease(id, chargingPeriod);
+                                    Logistics.DroneReleaseCharge(id, chargingPeriod);
 
                                     Console.WriteLine("Drone has released from Charging port succefuly ");
                                 }
@@ -313,27 +313,27 @@ namespace ConsoleUI_BL
                         {
                             case (int)ListShow.BaseStaions:
                                 Console.WriteLine("Printing ... ");
-                                SysFunc.printList<BaseStaionToList>(Logistics.StaionsPrint());
+                                SysFunc.printList<StationList>(Logistics.GetStaions());
                                 break;
                             case (int)ListShow.BaseStaionsFreePorts:
                                 Console.WriteLine("Printing ... ");
-                                SysFunc.printList<BaseStaionToList>(Logistics.BaseStaionsFreePortsPrint());
+                                SysFunc.printList<StationList>(Logistics.GetStationsWithFreePorts());
                                 break;
                             case (int)ListShow.Costumers:
                                 Console.WriteLine("Printing ... ");
-                                SysFunc.printList<ClientToList>(Logistics.CostumersPrint());
+                                SysFunc.printList<CustomerList>(Logistics.GetCustomers());
                                 break;
                             case (int)ListShow.Drones:
                                 Console.WriteLine("Printing ... ");
-                                SysFunc.printList<DroneToList>(Logistics.DronesPrint());
+                                SysFunc.printList<DroneList>(Logistics.GetDrones());
                                 break;
                             case (int)ListShow.Packages:
                                 Console.WriteLine("Printing ... ");
-                                SysFunc.printList<ParcelToList>(Logistics.ParcelsPrint());
+                                SysFunc.printList<ParcelList>(Logistics.GetParcels());
                                 break;
                             case (int)ListShow.PackagesWithoutDrones:
                                 Console.WriteLine("Printing ... ");
-                                SysFunc.printList<ParcelToList>(Logistics.ParcelsWithoutDronesPrint());
+                                SysFunc.printList<ParcelList>(Logistics.GetUnbindedParcels());
                                 break;
                             case (int)ListShow.exit:
                                 break;

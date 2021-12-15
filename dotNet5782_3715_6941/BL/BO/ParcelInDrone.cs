@@ -1,12 +1,12 @@
 ﻿namespace BO
 {
-    public class ParcelInTransfer 
+    public class ParcelInDrone 
     {
         public int Id { set; get; }
         public Priorities Priorety{ set; get;  }
         public WeightCategories Weight { set; get;  }
-        public ParcelToCostumer Sender { set; get;  }
-        public ParcelToCostumer Target { set; get; }
+        public CustomerInParcel Sender { set; get;  }
+        public CustomerInParcel Target { set; get; }
         public Location Pickup { set; get;  }
         public Location Dst { set; get;  }
         public double Distance { set; get;  }

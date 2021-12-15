@@ -45,7 +45,7 @@ namespace PL
             a = x;
             status = gets;
             InitializeComponent();
-            ListOf.ItemsSource = a.DronesPrint();
+            ListOf.ItemsSource = a.GetDrones();
             Weight = WeightDefault;
             Stat = StatDefault;
             
@@ -56,7 +56,7 @@ namespace PL
             StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             
 
-            ListOf.ItemsSource = a.DronesPrintFiltered(Stat, Weight);
+            ListOf.ItemsSource = a.GetDronesFiltered(Stat, Weight);
 
             
         }
@@ -71,7 +71,7 @@ namespace PL
             {
                 item.Checked = true;
             }
-            ListOf.ItemsSource =a.DronesPrintFiltered(Stat, Weight);
+            ListOf.ItemsSource =a.GetDronesFiltered(Stat, Weight);
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -80,12 +80,12 @@ namespace PL
             {
                 Weight = new List<BO.WeightCategories>() {(BO.WeightCategories)(sender as ComboBox).SelectedItem};
             }
-            ListOf.ItemsSource = a.DronesPrintFiltered(Stat, Weight);
+            ListOf.ItemsSource = a.GetDronesFiltered(Stat, Weight);
         }
 
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new Window2(a.PullDataDrone(((sender as ListView).SelectedItem as BO.DroneToList).Id)).Show( ) ;
+            new Window2(a.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id)).Show( ) ;
             //new Window2(a).Show();
 
         }
@@ -101,7 +101,7 @@ namespace PL
             {
                 Stat = predStat.Where(x => x.Checked).Select(x => x.statusof);
             } 
-            ListOf.ItemsSource = a.DronesPrintFiltered(Stat, Weight);
+            ListOf.ItemsSource = a.GetDronesFiltered(Stat, Weight);
 
 
         }
@@ -124,16 +124,16 @@ namespace PL
             Dictionary<String, String> dict = new Dictionary<string, string>() ;
             dict.Add("Id", "Id");
             dict.Add("Model", "Model");
-            dict.Add("Battery", "BatteryStat");
-            dict.Add("Location", "Current");
+            dict.Add("Battery", "Battery");
+            dict.Add("Location", "Loct");
             dict.Add("MaxWeight", "Weight");
             dict.Add("DroneStatus", "DroneStat");
-            dict.Add("Binded Parcel Id", "ParcelIdTransfer");
+            dict.Add("Binded Parcel Id", "ParcelId");
             object IdLst = (object)
             MessageBox.Show((e.OriginalSource as GridViewColumnHeader).Column.Header.ToString());
       
-                ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneToList>().OrderBy(x => typeof(BO.DroneToList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneToList>().Reverse();
+                ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
+            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
         }
     }
 }

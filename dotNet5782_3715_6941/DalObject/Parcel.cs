@@ -13,7 +13,7 @@ namespace Dal
             parcel.Id = ++DataSource.Config.IdCreation;
             DataSource.Parcels.Add(parcel);
         }
-        public Parcel PullDataParcel(int id)
+        public Parcel GetParcel(int id)
         {
             Parcel parcel = DataSource.Parcels.Find(s => s.Id == id);
             /// if the Parcel wasnt found throw error
@@ -23,7 +23,7 @@ namespace Dal
             }
             return parcel;
         }
-        public IEnumerable<Parcel> ParcelsPrint()
+        public IEnumerable<Parcel> GetParcels()
         {
             return DataSource.Parcels;
         }

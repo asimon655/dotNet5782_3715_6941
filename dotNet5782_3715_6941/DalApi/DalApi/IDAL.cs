@@ -6,47 +6,52 @@ namespace DalApi
 {
     public interface IDal
     {
-        // CRUD of customer
-        void AddCostumer(Costumer costumer);
-        Costumer PullDataCostumer(int id);
-        IEnumerable<Costumer> CostumersPrint();
-        void UpdateCostumers(Costumer costumer);
-        IEnumerable<Costumer> GetCostumers(Predicate<Costumer> expr);
+        #region CRUD of customer
+        void AddCustomer(Customer customer);
+        Customer GetCustomer(int id);
+        IEnumerable<Customer> GetCustomers();
+        IEnumerable<Customer> GetCustomers(Predicate<Customer> expr);
+        void UpdateCustomer(Customer costumer);
+        #endregion
 
-        // CRUD of drone
+        #region CRUD of drone
         void AddDrone(Drone drone);
-        Drone PullDataDrone(int id);
-        IEnumerable<Drone> DronesPrint();
-        void UpdateDrones(Drone drone);
+        Drone GetDrone(int id);
+        IEnumerable<Drone> GetDrones();
         IEnumerable<Drone> GetDrones(Predicate<Drone> expr);
+        void UpdateDrones(Drone drone);
+        #endregion
 
-        // CRUD of station
+        #region CRUD of station
         void AddStation(Station station);
-        Station PullDataStation(int id);
-        IEnumerable<Station> StationsPrint();
-        void UpdateStations(Station station);
+        Station GetStation(int id);
+        IEnumerable<Station> GetStations();
         IEnumerable<Station> GetStations(Predicate<Station> expr);
+        void UpdateStations(Station station);
+        #endregion
 
-        // CRUD of parcel
+        #region CRUD of parcel
         void AddParcel(Parcel parcel);
-        Parcel PullDataParcel(int id);
-        IEnumerable<Parcel> ParcelsPrint();
-        void UpdateParcles(Parcel parcel);
+        Parcel GetParcel(int id);
+        IEnumerable<Parcel> GetParcels();
         IEnumerable<Parcel> GetParcels(Predicate<Parcel> expr);
+        void UpdateParcles(Parcel parcel);
         int CountParcels(Func<Parcel, bool> expr);
+        #endregion
 
-        // CRUD of dronecharge
+        #region CRUD of dronecharge
         void AddDroneCharge(DroneCharge droneCharge);
-        DroneCharge PullDataDroneChargeByDroneId(int droneId);
-        IEnumerable<DroneCharge> DronesChargesPrint();
+        DroneCharge GetDroneCharge(int droneId);
+        IEnumerable<DroneCharge> GetDronesCharges();
         IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> expr);
         int CountDronesCharges(Func<DroneCharge, bool> expr);
         void DeleteDroneCharge(int droneId);
+        #endregion
 
         /// <summary>
         /// return the power usage consts
         /// </summary>
-        /// <returns></returns>
+        /// <returns>double[]</returns>
         double[] GetPowerConsumption();
     }
 }

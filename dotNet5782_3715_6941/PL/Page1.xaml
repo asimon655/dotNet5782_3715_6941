@@ -23,8 +23,8 @@
                     <GridView AllowsColumnReorder="true"  >
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id" Header="Id" Width="100"/>
                         <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" Width="60"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=NumOfNotFreeOne}" Header="Bussy Ports" Width="60"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Path=NumOfFreeOnes}" Header="Free Ports"  Width="60"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=BusyPorts}" Header="Bussy Ports" Width="60"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=FreePorts}" Header="Free Ports"  Width="60"/>
                     </GridView>
                 </ListView.View>
             </ListView>

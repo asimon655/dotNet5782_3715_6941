@@ -5,12 +5,12 @@ namespace BO
     public class Parcel 
     {
         public int Id { set; get; }
-        public ParcelToCostumer SenderParcelToCostumer { set; get; }
-        public ParcelToCostumer GetterParcelToCostumer { set; get; }
+        public CustomerInParcel SenderParcelToCostumer { set; get; }
+        public CustomerInParcel GetterParcelToCostumer { set; get; }
 
         public WeightCategories Weight {set; get ; }
         public Priorities Priority { set; get;  } 
-        public ParcelToDrone? ParcelDrone { set; get;  } = null;
+        public DroneInParcel? ParcelDrone { set; get;  } = null;
         public DateTime? ParcelCreation { set; get;  } = null;
         public DateTime? ParcelBinded { set; get;  } = null;
         public DateTime? ParcelPickedUp { set; get; } = null;
