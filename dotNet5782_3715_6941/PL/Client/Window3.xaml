@@ -5,64 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL" 
         xmlns:interactivity="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"	
-       
         mc:Ignorable="d"
         Title="Window3" Height="625" Width="820" WindowStyle="ThreeDBorderWindow"  ResizeMode="CanResize"  BorderBrush="Yellow" BorderThickness="3"
-        Icon="..\Images\icon0.ico"
-
-        >
+        Icon="..\Images\icon0.ico" Closed="Window_Closed">
     <Window.Resources>
         <Style TargetType="Border">
             <Setter Property="CornerRadius" Value="15"/>
         </Style>
     </Window.Resources>
-
-        <Grid>
-
-
-           
-
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="98*"/>
-
-
-
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions >
-
-
-                    <Button Grid.Column="1" Background="Red" Command="{Binding blabla}">
-                        <Viewbox>
-                            <Label>
-                                X
-                            </Label>
-                        </Viewbox>
+    <Grid>
+      
+       
+  
+            <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions >
+            <Grid Grid.Column="0" Background="Blue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border  Grid.Row="0" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
+                    <Button Background="CornflowerBlue">
+                        <Image Source="..\Images\DroneMenu.jpg" Stretch="Fill"></Image></Button>
+                </Border>
+                <Border Grid.Row="1"  BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
+                    <Button  Background="CornflowerBlue">
+                        <Image Source="..\Images\ParcelToMenu.jpg" Stretch="Fill"></Image>
                     </Button>
-
-
-
-
-
-
+            
+                </Border>
+                <Border Grid.Row="2" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
+                    <Button Background="CornflowerBlue">
+                        <Image Source="..\Images\ClientToMenu.jpg" Stretch="Fill"></Image>
+                    </Button>
+                </Border>
+                <Border Grid.Row="3" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
+                    <Button  Background="CornflowerBlue">
+                        <Image Source="..\Images\StaionToList.jpg" Stretch="Fill"></Image>
+                    </Button>
+                </Border>
             </Grid>
-            <Grid Grid.Row="2">
-
-                <Frame Name="Main"  HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" >
+            <Frame Grid.Column="1" Name="Main"  HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" Navigated="Main_Navigated" >
                 </Frame>
             </Grid>
 
-
-
-
-        </Grid>
+ 
+    </Grid>
 
 </Window>

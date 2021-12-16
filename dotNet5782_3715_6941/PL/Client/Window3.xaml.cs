@@ -34,6 +34,7 @@ namespace PL
  
            protected override void OnClosing(CancelEventArgs e)
         {
+            
             if (status.a)
                 e.Cancel = false;
             else
@@ -62,6 +63,16 @@ namespace PL
 
         }
 
-    
+        private void Main_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
+            if (((Classy)this.DataContext).blabla.CanExecute(new object()))
+                ((Classy)this.DataContext).blabla.Execute(new object());
+        }
     }
 }
