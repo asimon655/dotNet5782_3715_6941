@@ -156,33 +156,27 @@ namespace PL
         }
         public ManngerWin(BlApi.Ibl dat)
         {
-            Random rng = new Random();
             this.dat = dat;
             InitializeComponent();
-          
+            Random rng = new Random();
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             var ly = new Mapsui.Layers.WritableLayer();
             Mapsui.Geometries.Point pt;
             Mapsui.Providers.Feature feature;
             Mapsui.Styles.VectorStyle x;
-
             foreach (var drn in dat.GetDrones())
             {
                 double px = (6371 * 1000) * Math.Sin(drn.Loct.Lattitude) * Math.Cos(drn.Loct.Longitude);
-                double py = (6371 * 1000) * Math.Cos(drn.Loct.Lattitude) ;
+                double py = (6371 * 1000) * Math.Cos(drn.Loct.Lattitude);
                 pt = new Mapsui.Geometries.Point(px, py);
-               feature = new Mapsui.Providers.Feature { Geometry = pt };
-                x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.FromArgb(rng.Next(0, 256), rng.Next(0,256), rng.Next(0, 256), rng.Next(0, 256))) };
+                feature = new Mapsui.Providers.Feature { Geometry = pt };
+                x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.FromArgb(rng.Next(0, 256), rng.Next(0, 256), rng.Next(0, 256), rng.Next(0, 256))) };
                 feature.Styles.Add(x);
                 ly.Add((IFeature)feature);
             }
-
-
-            double px2 = (6371 ) * Math.Sin((31.771959+ 35.217018)/2) * 35.217018;
-            double py2 = (6371 ) * 31.771959;
-            pt = new Mapsui.Geometries.Point(px2, py2);
-            feature = new Mapsui.Providers.Feature { Geometry = pt };
-            x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.Black )};
+            pt = new Mapsui.Geometries.Point(34, 32);
+           feature = new Mapsui.Providers.Feature { Geometry = pt };
+             x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.Gray) };
             feature.Styles.Add(x);
             ly.Add((IFeature)feature);
 
