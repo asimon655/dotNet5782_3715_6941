@@ -6,7 +6,7 @@
                       Title="CustomWindow"
                       WindowFrameMode="Pane"
                       Width="1500"
-                      Height="1000"
+                      Height="1000" Closing="Closing_Thread"
                       
                       
                       
@@ -31,15 +31,135 @@
                 <wpfspark:PivotItem.PivotContent>
                     <wpfspark:PivotContentControl>
                         <Border Background="WhiteSmoke"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
-                            <Border.Effect>
-                                <DropShadowEffect/>
-                            </Border.Effect>
-                            <wpfspark:FluidStatusBar x:Name="Item1Ani" FontFamily="Fonts/StartFont.ttf #Pacifico" >
-                                
-                                
-                            </wpfspark:FluidStatusBar>
+                            HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" Name="Item1" BorderThickness="4" BorderBrush="Black" CornerRadius="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="6*" />
+                                    <RowDefinition Height="7*" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="8*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="8*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="8*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="5*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" Grid.Column="1">
+                                        <Viewbox>
+                                            <TextBlock Foreground="OrangeRed">Status Pie</TextBlock>
+                                        </Viewbox>
+                                    </Grid>
+                                    <Grid Grid.Row="0" Grid.Column="3">
+                                        <Viewbox>
+                                            <TextBlock Foreground="OrangeRed">Weight Pie</TextBlock>
+                                        </Viewbox>
+                                    </Grid>
+                                    <Grid Grid.Row="0" Grid.Column="5">
+                                        <Viewbox>
+                                            <TextBlock Foreground="OrangeRed" >Priorety Pie</TextBlock>
+                                        </Viewbox>
+                                    </Grid>
+                                    <Border Grid.Row="1" Grid.Column="1"  BorderBrush="Black" BorderThickness="6" CornerRadius="5">
+                                        <Grid >
+                                            <WpfPlot Name="WpfPlotPack1"  />
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="6" CornerRadius="5">
+                                        <Grid >
+                                            <WpfPlot Name="WpfPlotPack2" />
+                                        </Grid>
+                                    </Border>
+                                    <Border Grid.Row="1" Grid.Column="5" BorderBrush="Black" BorderThickness="6" CornerRadius="5">
+                                        <Grid >
+
+                                            <WpfPlot Name="WpfPlotPack3" />
+                                        </Grid>
+                                    </Border>
+
+
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="10*" />
+                                        <RowDefinition Height="1*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="8*" />
+                                        <ColumnDefinition Width="3*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Row="1" Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition Width="10*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+
+
+                                    </Grid>
+
+                                    <Border Grid.Row="1" Grid.Column="1" CornerRadius="5" BorderBrush="Black" BorderThickness="6">
+                                        <ListView  
+                                                 MouseDoubleClick="ListOfPackges_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOfPackges"  >
+                                            <ListView.View>
+
+                                                <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id1" Header="Id" Width="auto"/>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Path=SenderName}" x:Name="SenderName" Header="Sender Name" Width="auto" />
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Path=TargetName}" x:Name="TargetName" Header="Target Name" Width="auto"/>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="Weight2" Header="Weight" Width="auto" />
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Priorety}" x:Name="Priorety" Header="Priorety" Width="auto"/>
+                                                    <GridViewColumn  DisplayMemberBinding="{Binding Path=ParcelStatus}" x:Name="ParcekStatus" Header="Parcel Status" Width="auto"/>
+                                                    <GridView.ColumnHeaderContainerStyle>
+                                                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                            <!-- Set any properties you want to set -->
+                                                            <Setter Property="Background" Value="LightBlue" />
+                                                            <Setter Property="Foreground" Value="Black" />
+                                                            <Setter Property="FontWeight" Value="Bold" />
+                                                        </Style>
+                                                    </GridView.ColumnHeaderContainerStyle>
+
+                                                </GridView>
+
+
+                                            </ListView.View>
+
+
+
+                                            <ListView.GroupStyle>
+                                                <GroupStyle>
+                                                    <GroupStyle.ContainerStyle>
+                                                        <Style TargetType="{x:Type GroupItem}">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate>
+                                                                        <Expander IsExpanded="True">
+                                                                            <Expander.Header>
+                                                                                <Label Content="{Binding Path=SenderName}"></Label>
+                                                                            </Expander.Header>
+                                                                            <ItemsPresenter />
+                                                                        </Expander>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </GroupStyle.ContainerStyle>
+                                                </GroupStyle>
+                                            </ListView.GroupStyle>
+                                        </ListView>
+                                    </Border>
+
+                                </Grid>
+                            </Grid>
                         </Border>
                     </wpfspark:PivotContentControl>
                 </wpfspark:PivotItem.PivotContent>
@@ -49,7 +169,7 @@
                     <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
                      FontSize="28"
                      ActiveForeground="BlueViolet"
-                     InactiveForeground="Black">
+                     InactiveForeground="Black" >
                         <TextBlock Margin="7">
                             Item 2
                             
@@ -61,8 +181,8 @@
                     <wpfspark:PivotContentControl>
                         <Border 
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
-                            <mapsui:MapControl Name="MyMapControl" ></mapsui:MapControl>
+                        VerticalAlignment="Stretch" Background="#2596be" >
+                            <mapsui:MapControl Name="MyMapControl" Background="#2596be" ></mapsui:MapControl>
                         </Border>
                     </wpfspark:PivotContentControl>
                 </wpfspark:PivotItem.PivotContent>

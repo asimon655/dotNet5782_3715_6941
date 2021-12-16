@@ -23,10 +23,10 @@ namespace PL
     {
         public BlApi.Ibl dat { set; get; }
         public Stat status;
-        ManngerWin admin; 
-        public Window1(Stat gets , BlApi.Ibl dat ,ManngerWin admin)
+
+        public Window1(Stat gets , BlApi.Ibl dat )
         {
-            this.admin = admin; 
+    
             this.dat = dat;
             status = gets; 
             InitializeComponent();
@@ -45,7 +45,7 @@ namespace PL
         {
 
             status.a = false;
-            this.NavigationService.Navigate(new MainWindow(dat,status,admin));
+            this.NavigationService.Navigate(new MainWindow(dat,status));
 }
         //new MainWindow(dat).ShowDialog();
     

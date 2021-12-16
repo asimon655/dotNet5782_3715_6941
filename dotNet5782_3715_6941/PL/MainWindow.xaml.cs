@@ -27,7 +27,7 @@ namespace PL
     }
     public partial class MainWindow : Page
     {
-        ManngerWin admin; 
+
        List <CheckBoxStatus> predStat;
         public Predicate<T> combine<T>(Predicate<T> ? a, Predicate<T> ? b) =>  new Predicate<T>(x => ConvertorNullable<T>(a)(x) && ConvertorNullable<T>(b)(x));
         Predicate<T> OrGate<T>(Predicate<T>? a, Predicate<T>? b) => new Predicate<T>(x => ConvertorNullable<T>(a)(x) || ConvertorNullable<T>(b)(x));
@@ -39,9 +39,9 @@ namespace PL
 
         public BlApi.Ibl a { set; get;  }
         public Stat status; 
-        public MainWindow(BlApi.Ibl x ,Stat gets ,ManngerWin admin  )
+        public MainWindow(BlApi.Ibl x ,Stat gets   )
         {
-            this.admin = admin;
+        
             a = x;
             status = gets;
             InitializeComponent();
@@ -92,7 +92,7 @@ namespace PL
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            new Window2(a ,this ,admin  ).Show();
+            new Window2(a ,this  ).Show();
         }
 
         private void chkCountry_Checked(object sender, RoutedEventArgs e)

@@ -21,11 +21,11 @@ namespace PL
     /// </summary>
     public partial class Page1 : Page
     {
-        BlApi.Ibl dat; 
+        BlApi.Ibl dat;
         public Page1(BlApi.Ibl dat)
         {
-            
-            this.dat = dat; 
+
+            this.dat = dat;
             InitializeComponent();
             ListOf.ItemsSource = dat.GetStaions();
             SolidColorBrush brush = new SolidColorBrush(Colors.Red);

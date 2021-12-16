@@ -489,9 +489,9 @@ namespace PL
         }
 
 
-        public Window2(BlApi.Ibl x ,Page pg  ,ManngerWin admin )
+        public Window2(BlApi.Ibl x ,Page pg   )
         {
-            this.admin = admin;
+   
             pageof = pg; 
 
             InitializeComponent();
@@ -575,12 +575,6 @@ namespace PL
                 }
                 catch { }
                 IEnumerable<BO.DroneList> Dronelst = log.GetDrones();
-                string[] names = admin.GetNaemsDrones(Dronelst);
-                double[] vals = admin.GetValsDrone(Dronelst);
-                double[] pos = admin.GetPosDrones(vals.Length);
-                admin.createModelsBar(admin.WpfPlot2, pos, names, vals);
-                admin.CreateDountPie<BO.WeightCategories>(admin.WpfPlot1, admin.GetValsDroneWeight(Dronelst));
-                admin.CreateDountPie<BO.DroneStatuses>(admin.WpfPlot3, admin.GetValsDroneStat(Dronelst));
             }
             catch (Exception err)
             {

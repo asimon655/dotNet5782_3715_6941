@@ -47,15 +47,13 @@ namespace PL
         public  Stat status;
   
         BlApi.Ibl dat ; 
-        public Window3()
+        public Window3( BlApi.Ibl dat)
         {
-            dat = BlApi.BlFactory.GetBl();
+            this.dat = dat;  
             // WindowStyle =WindowStyle.None;
             status = new Stat (){ a = true };
             InitializeComponent();
-            ManngerWin adminWin = new ManngerWin(dat);
-            adminWin.Show();
-            Main.NavigationService.Navigate(new Window1(status,dat,adminWin));
+            Main.NavigationService.Navigate(new Window1(status,dat));
             Title = (Main.NavigationService.Content is null ? "None" : Main.NavigationService.Content.GetType().Name.ToString() ) ;
            // blabla = new CommandClose(status);
             object blublo = this;

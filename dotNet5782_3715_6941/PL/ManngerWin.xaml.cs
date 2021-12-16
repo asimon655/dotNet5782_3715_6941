@@ -41,10 +41,12 @@ namespace PL
         public IEnumerable<BO.WeightCategories> WeightDefault = (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories));
         public IEnumerable<BO.DroneStatuses> StatDefault = (BO.DroneStatuses[])Enum.GetValues(typeof(BO.DroneStatuses));
         public Stat status;
+        bool cf = false;
+
 
 
         BlApi.Ibl dat;
-        internal int LengthStart { get; set;  }
+        internal int LengthStart { get; set; }
         internal void createModelsBar(ScottPlot.WpfPlot Bar, double[] pos, string[] names, double[] vals)
         {
             Bar.Plot.Clear();
@@ -64,11 +66,11 @@ namespace PL
             gauges.Clockwise = false;
 
             Gauge.Plot.AxisAuto(0);
-            
+
             Gauge.Render();
 
         }
-        internal void CreateDountPie<T>(ScottPlot.WpfPlot Pie ,double[] values  )
+        internal void CreateDountPie<T>(ScottPlot.WpfPlot Pie, double[] values)
         {
             Pie.Plot.Clear();
             string[] labels = Enum.GetNames(typeof(T));
@@ -77,11 +79,11 @@ namespace PL
             // Language colors from https://github.com/ozh/github-colors
             System.Drawing.Color[] sliceColors =
             {
-                ColorTranslator.FromHtml("#0000ff"),
-                ColorTranslator.FromHtml("#6600cc"),
-                ColorTranslator.FromHtml("#ff6699"),
-                ColorTranslator.FromHtml("#B845FC"),
-                ColorTranslator.FromHtml("#4F5D95"),
+                ColorTranslator.FromHtml("#DBCDC6"),
+                ColorTranslator.FromHtml("#DD99BB"),
+                ColorTranslator.FromHtml("#7B506F"),
+                ColorTranslator.FromHtml("#1F1A38"),
+                ColorTranslator.FromHtml("#C7EFCF"),
 };
 
             // Show labels using different transparencies
@@ -112,35 +114,25 @@ namespace PL
             return Models.ToArray();
 
         }
-        internal double [] GetPosDrones(int size)
+        internal double[] GetPosDrones(int size)
         {
             double[] positions = new double[size];
             for (int i = 0; i < size; i++)
             {
-                
-                positions[i] = i ;
+
+                positions[i] = i;
             }
 
             return positions;
 
         }
-        internal double []  GetValsDrone(IEnumerable<BO.DroneList> Dronelst)
+        internal double[] GetValsDrone(IEnumerable<BO.DroneList> Dronelst)
         {
             string[] Models = GetNaemsDrones(Dronelst);
             double[] values2 = new double[Models.Count()];
             for (int i = 0; i < values2.Length; i++)
                 values2[i] = Dronelst.Count(x => x.Model == Models.Skip(i).First());
-            return values2; 
-
-
-        }
-        internal double[] GetValsDroneWeight(IEnumerable<BO.DroneList> Dronelst )
-        {
-            BO.WeightCategories []  Weights = (BO.WeightCategories [] )Enum.GetValues(typeof(BO.WeightCategories));
-            IEnumerable<double> filtered = from weight in Weights
-                                        where Dronelst.Count(x => x.Weight == weight) > 0
-                                        select Convert.ToDouble(Dronelst.Count(x => x.Weight == weight));
-            return filtered.ToArray();
+            return values2;
 
 
         }
@@ -154,12 +146,55 @@ namespace PL
 
 
         }
+        internal double[] GetValsDroneWeight(IEnumerable<BO.DroneList> Dronelst)
+        {
+            BO.WeightCategories[] Weights = (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories));
+            IEnumerable<double> filtered = from weight in Weights
+                                           where Dronelst.Count(x => x.Weight == weight) > 0
+                                           select Convert.ToDouble(Dronelst.Count(x => x.Weight == weight));
+            return filtered.ToArray();
+
+
+        }
+        internal double[] GetValsPackgesPrioreties(IEnumerable<BO.ParcelList> Parcellst)
+        {
+            BO.Priorities[] Stats = (BO.Priorities[])Enum.GetValues(typeof(BO.Priorities));
+            IEnumerable<double> filtered = from stat in Stats
+                                           where Parcellst.Count(x => x.Priorety == stat) > 0
+                                           select Convert.ToDouble(Parcellst.Count(x => x.Priorety == stat));
+            return filtered.ToArray();
+
+        }
+
+        internal double[] GetValsPackgesParcelStat(IEnumerable<BO.ParcelList> Parcellst)
+        {
+            BO.ParcelStat[] Stats = (BO.ParcelStat[])Enum.GetValues(typeof(BO.ParcelStat));
+            IEnumerable<double> filtered = from stat in Stats
+                                           where Parcellst.Count(x => x.ParcelStatus == stat) > 0
+                                           select Convert.ToDouble(Parcellst.Count(x => x.ParcelStatus == stat));
+            return filtered.ToArray();
+
+
+        }
+        internal double[] GetValsPackgesWeight(IEnumerable<BO.ParcelList> Parcellst)
+        {
+            BO.WeightCategories[] Stats = (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories));
+            IEnumerable<double> filtered = from stat in Stats
+                                           where Parcellst.Count(x => x.Weight == stat) > 0
+                                           select Convert.ToDouble(Parcellst.Count(x => x.Weight == stat));
+            return filtered.ToArray();
+
+
+        }
+
+
         public ManngerWin(BlApi.Ibl dat)
         {
             this.dat = dat;
             InitializeComponent();
             Random rng = new Random();
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
+            MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255,171, 210, 223);
             var ly = new Mapsui.Layers.WritableLayer();
             Mapsui.Geometries.Point pt;
             Mapsui.Providers.Feature feature;
@@ -174,127 +209,41 @@ namespace PL
                 feature.Styles.Add(x);
                 ly.Add((IFeature)feature);
             }
-            pt = new Mapsui.Geometries.Point(34, 32);
-           feature = new Mapsui.Providers.Feature { Geometry = pt };
-             x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.Gray) };
-            feature.Styles.Add(x);
-            ly.Add((IFeature)feature);
+
 
             MyMapControl.Map.Layers.Add(ly);
             MyMapControl.Refresh();
 
             IEnumerable<BO.DroneList> Dronelst = this.dat.GetDrones();
+            IEnumerable<BO.ParcelList> Parcellst = dat.GetParcels();
             string[] names = GetNaemsDrones(Dronelst);
             double[] vals = GetValsDrone(Dronelst);
-            LengthStart = vals.Length; 
-            double[] pos = GetPosDrones(vals.Length );
+            LengthStart = vals.Length;
+            double[] pos = GetPosDrones(vals.Length);
             createModelsBar(WpfPlot2, pos, names, vals);
             CreateDountPie<BO.WeightCategories>(WpfPlot1, GetValsDroneWeight(Dronelst));
-            //CreateSingleGauge<BO.DroneStatuses>(WpfPlot3, GetValsDroneStat(Dronelst));
             CreateDountPie<BO.DroneStatuses>(WpfPlot3, GetValsDroneStat(Dronelst));
+            CreateDountPie<BO.ParcelStat>(WpfPlotPack1, GetValsPackgesParcelStat(Parcellst));
+            CreateDountPie<BO.WeightCategories>(WpfPlotPack2, GetValsPackgesWeight(Parcellst));
+            CreateDountPie<BO.Priorities>(WpfPlotPack3, GetValsPackgesPrioreties(Parcellst));
             WpfPlot2.Plot.Style(ScottPlot.Style.Blue3);
             WpfPlot3.Plot.Style(ScottPlot.Style.Blue3);
             WpfPlot1.Plot.Style(ScottPlot.Style.Blue3);
             ListOf.ItemsSource = dat.GetDrones();
             Weight = WeightDefault;
             Stat = StatDefault;
-
             predStat = new List<CheckBoxStatus>();
             foreach (BO.DroneStatuses enm in StatDefault)
                 predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
-           // StatusSelectorDrnStat.ItemsSource = predStat;
-            //StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
-
-
             ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
-
-
-                Item1Ani.Message = new WPFSpark.StatusMessage("");
-                Item1Ani.FontSize = 160;
-                Item1Ani.FontWeight = FontWeights.Bold;
-        
-                Item1Ani.FadeOutDirection = StatusDirection.Left;
-            Item1Ani.FadeOutDistance = 0;
-            Item1Ani.FadeOutDuration = new Duration(new TimeSpan(0, 0, 0, 0, 30));
-
-            Thread thread = new Thread(UpdateText);
-
-            thread.Start();
-
-
-
+            ListOfPackges.ItemsSource = dat.GetParcels();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfPackges.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
+            view.GroupDescriptions.Add(groupDescription);
         }
 
 
-
-        private void UpdateText()
-        {
-            while (true)
-            {
-                string text = "hello";
-               
-                    this.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                    for (int i = 0; i < text.Length; i++)
-                    {
-
-                        Item1Ani.SetStatus(text.Substring(0,i+1), true);
-                          
-                        }
-                    }));
-
-
-                Thread.Sleep(TimeSpan.FromSeconds(5));
-
-                text = "hola";
-                this.Dispatcher.BeginInvoke(new Action(() =>
-                {
-
-                    for (int i = 0; i < text.Length; i++)
-                    {
-
-                        Item1Ani.SetStatus(text.Substring(0, i + 1), true);
-         
-                    }
-
-                }));
-                Thread.Sleep(TimeSpan.FromSeconds(5));
-                text = "hallo";
-                this.Dispatcher.BeginInvoke(new Action(() =>
-                {
-
-                    for (int i = 0; i < text.Length; i++)
-                    {
-
-
-                        Item1Ani.SetStatus(text.Substring(0, i + 1), true);
-
-                    }
-
-                }));
-
-                Thread.Sleep(TimeSpan.FromSeconds(5));
-                text = "שלום";
-                this.Dispatcher.BeginInvoke(new Action(() =>
-                {
-
-                    for (int i = 0; i < text.Length; i++)
-                    {
-
-
-                        Item1Ani.SetStatus(text.Substring(0, i + 1), true);
-
-                    }
-
-                }));
-
-                Thread.Sleep(TimeSpan.FromSeconds(5));
-
-            }
-
-            
-
-        }
+    
 
 
 
@@ -372,9 +321,19 @@ namespace PL
             ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
         }
 
+        private void Closing_Thread(object sender, CancelEventArgs e)
+        {
+            cf = false;
+        }
 
+        private void ListOf1_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
 
+        }
 
+        private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
 
+        }
     }
 }
