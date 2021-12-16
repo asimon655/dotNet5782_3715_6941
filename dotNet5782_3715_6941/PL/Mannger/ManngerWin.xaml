@@ -109,7 +109,7 @@
 
                                     <Border Grid.Row="1" Grid.Column="1" CornerRadius="5" BorderBrush="Black" BorderThickness="6">
                                         <ListView  
-                                                 MouseDoubleClick="ListOfPackges_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOfPackges"  >
+                                                 MouseDoubleClick="ListOfPackges_MouseDoubleClick"  FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOfPackges"  >
                                             <ListView.View>
 
                                                 <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
@@ -118,7 +118,6 @@
                                                     <GridViewColumn DisplayMemberBinding="{Binding Path=TargetName}" x:Name="TargetName" Header="Target Name" Width="auto"/>
                                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="Weight2" Header="Weight" Width="auto" />
                                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Priorety}" x:Name="Priorety" Header="Priorety" Width="auto"/>
-                                                    <GridViewColumn  DisplayMemberBinding="{Binding Path=ParcelStatus}" x:Name="ParcekStatus" Header="Parcel Status" Width="auto"/>
                                                     <GridView.ColumnHeaderContainerStyle>
                                                         <Style TargetType="{x:Type GridViewColumnHeader}">
                                                             <!-- Set any properties you want to set -->
@@ -144,7 +143,11 @@
                                                                     <ControlTemplate>
                                                                         <Expander IsExpanded="True">
                                                                             <Expander.Header>
-                                                                                <Label Content="{Binding Path=SenderName}"></Label>
+                                                                                <StackPanel Orientation="Horizontal">
+                                                                                    <TextBlock Text="{Binding Name}" FontWeight="DemiBold" Foreground="DarkSlateGray" FontSize="20" VerticalAlignment="Bottom" />
+                                                                                    <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                                                    <TextBlock Text=" record(s)" FontSize="16" Foreground="Gray" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                                                </StackPanel>
                                                                             </Expander.Header>
                                                                             <ItemsPresenter />
                                                                         </Expander>

@@ -18,7 +18,7 @@
                 <BlurEffect/>
             </Ellipse.Effect>
         </Ellipse>
-        <TextBlock FontFamily="Fonts/StartFont.ttf #Pacifico"  Margin="250,10,190,232" FontSize="64"><Span Foreground="OrangeRed">ID</Span><Span Foreground="Orange">rones</Span><Span Foreground="GreenYellow">-</Span><Span Foreground="DarkGreen">SA</Span></TextBlock>
+        <TextBlock FontFamily="../Fonts/StartFont.ttf #Pacifico"  Margin="250,10,190,232" FontSize="64"><Span Foreground="OrangeRed">ID</Span><Span Foreground="Orange">rones</Span><Span Foreground="GreenYellow">-</Span><Span Foreground="DarkGreen">SA</Span></TextBlock>
         <Rectangle HorizontalAlignment="Left" Height="71" Margin="143,33,0,0" Stroke="#FFBF13DA" VerticalAlignment="Top" Width="520" StrokeThickness="6">
             <Rectangle.Effect>
                 <BlurEffect/>

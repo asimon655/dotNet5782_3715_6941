@@ -23,7 +23,7 @@
                 </Viewbox>
             </Button>
         </Grid>
-        <Image Source="Images/Blue-print.jpg" Stretch="Fill" Opacity="0.84">
+        <Image Source="..\Images/Blue-print.jpg" Stretch="Fill" Opacity="0.84">
 
 
         </Image>
@@ -56,7 +56,7 @@
                 </Grid.ColumnDefinitions >
                 <Grid Grid.Column="0">
                     <Border BorderThickness="7" BorderBrush="Black">
-                        <Image x:Name="Photo0" Source="Images/drone_photo.jpg" Stretch="Fill" />
+                        <Image x:Name="Photo0" Source="..\Images\drone_photo.jpg" Stretch="Fill" />
                     </Border>
 
                 </Grid>
