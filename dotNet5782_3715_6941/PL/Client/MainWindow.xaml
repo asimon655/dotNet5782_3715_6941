@@ -4,18 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
-        mc:Ignorable="d"
-        Title="IDrone-SA" Height="auto" Width="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFC7F98B">
+        mc:Ignorable="d" 
+        Title="IDrone-SA" Height="auto" Width="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#37423D" >
     <Grid  Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="167*"/>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
 VerticalAlignment="Stretch" Width="auto">
-            <Grid.Effect>
-                <DropShadowEffect/>
-            </Grid.Effect>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -26,8 +26,8 @@ VerticalAlignment="Stretch" Width="auto">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    
+                    <RowDefinition Height="4*"/>
+
                 </Grid.RowDefinitions>
                 <Viewbox Stretch="Uniform">
                     <TextBlock>
@@ -40,21 +40,12 @@ VerticalAlignment="Stretch" Width="auto">
 
                     </TextBlock>
                 </Viewbox>
-                <Button Click="Button_Click_2" Grid.Row="2" Background="Yellow" Margin="4,4,4,6">
+                <Button Click="Button_Click_2" Grid.Row="2" Background="#37423D" BorderBrush="#37423D" >
 
+                    <Image Source="..\Images\plus.jpg" Stretch="Uniform"></Image>
 
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="15"/>
-                        </Style>
-                    </Button.Resources>
-                    <Viewbox Margin="0,0,0,0">
-                            <Label>
-                                Add Drone
-                            </Label>
-                        </Viewbox>
-           
                 </Button>
+
 
             </Grid>
             <Grid Grid.Column="2" >
@@ -65,16 +56,16 @@ VerticalAlignment="Stretch" Width="auto">
                     <RowDefinition Height="*"/>
 
                 </Grid.RowDefinitions>
-                <Border Grid.Row="1"   BorderBrush="DimGray" BorderThickness="5">
+                <Border Grid.Row="1"   BorderBrush="#EF626C" BorderThickness="5" Background="#FFEF626C">
                     <Grid>
                         <ComboBox  FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorWeigthStat" Grid.Column="2"  SelectionChanged="StatusSelector_SelectionChanged">
                             <ComboBox.Background>
                                 <LinearGradientBrush EndPoint="0,1">
-                                    <GradientStop Color="#FFF0F0F0"/>
-                                    <GradientStop Color="#FF14FFDF" Offset="1"/>
+                                    <GradientStop Color="#84DCCF"/>
+                                    <GradientStop Color="#84DCCF" Offset="1"/>
                                 </LinearGradientBrush>
                             </ComboBox.Background>
-                      
+
                         </ComboBox>
                     </Grid>
                 </Border>
@@ -85,29 +76,29 @@ VerticalAlignment="Stretch" Width="auto">
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    
+
                 </Grid.RowDefinitions>
 
 
                 <ListBox Name="testListbox" HorizontalAlignment="Left" Height="161" Margin="370,80,0,0" VerticalAlignment="Top" Width="100" />
-                <Border Grid.Row="1"  BorderBrush="DimGray" BorderThickness="5">
-                <ComboBox FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat">
-                    <ComboBox.Background>
-                        <LinearGradientBrush EndPoint="0,1">
-                            <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#FF14FFDF" Offset="1"/>
-                        </LinearGradientBrush>
-                    </ComboBox.Background>
-                   
-                     
-            
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <CheckBox Name="chkCountry" Width="220"   IsChecked="{Binding Checked}" Content="{Binding statusof}" Checked="chkCountry_Checked" Unchecked="chkCountry_Checked" >
-                            </CheckBox>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <Border Grid.Row="1"  BorderBrush="#EF626C" BorderThickness="5">
+                    <ComboBox FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat"   >
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                <GradientStop Color="#EF626C"/>
+                                <GradientStop Color="#EF626C" Offset="1"/>
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+
+
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Name="chkCountry" Width="220"   IsChecked="{Binding Checked}" Content="{Binding statusof}" Checked="chkCountry_Checked" Unchecked="chkCountry_Checked" >
+                                </CheckBox>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </Border>
             </Grid>
 
@@ -117,36 +108,70 @@ VerticalAlignment="Stretch" Width="auto">
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions >
-                <Button Click="Button_Click" Background="OrangeRed" Grid.Column="1">
-                    <Viewbox Stretch="Uniform">
-                        <TextBlock FontStretch="Medium" Text="Reset"/>
-                    </Viewbox>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Click="Button_Click" Background="#EF626C" Grid.Column="1" Grid.Row="1" >
+                    <Image Source="..\Images\reset.jpg" Stretch="Fill" />
                 </Button>
 
 
             </Grid>
 
         </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
 
-        <ListView MouseDoubleClick="ListOf_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="..\Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOf"  Grid.Row="1"  Background="#FF14FFDF">
-            <ListView.Effect>
-                <DropShadowEffect/>
-            </ListView.Effect>
-      
-            <ListView.View>
+            <ListView  Grid.Column="1" MouseDoubleClick="ListOf_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="..\Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOf"  Grid.Row="1"  Background="#F6E8EA">
 
-                <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id" Header="Id" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" x:Name="Location" Header="Location" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery}" x:Name="Battery" Header="Battery" Width="auto" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
-                    <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelId}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
-                </GridView>
 
-            </ListView.View>
-        </ListView>
+                <ListView.Effect>
+                    <DropShadowEffect/>
+                </ListView.Effect>
+
+                <ListView.View>
+
+                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"   >
+                        <GridViewColumn Header="Image" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image  Source="..\Images\drone_photo.jpg" x:Name="Image_GridViewColumnName" Width="100" Height="50" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
+
+                        </GridViewColumn>
+
+                        <GridViewColumn x:Name="Id" Header="Id" Width="auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="15" >
+                                        <TextBlock Text="{Binding Path=Id}"></TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" x:Name="Location" Header="Location" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Battery}" x:Name="Battery" Header="Battery" Width="auto" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
+                        <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
+                    </GridView>
+
+                </ListView.View>
+            </ListView>
+        </Grid>
 
 
 
