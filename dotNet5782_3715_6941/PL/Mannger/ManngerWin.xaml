@@ -6,7 +6,7 @@
                       Title="CustomWindow"
                       WindowFrameMode="Pane"
                       Width="1500"
-                      Height="1000" Closing="Closing_Thread"
+                      Height="1000" 
                        Icon="..\Images\icon0.ico"  
                   >
     <Grid>
@@ -105,7 +105,7 @@
 
                                     <Border Grid.Row="1" Grid.Column="1" CornerRadius="5" BorderBrush="Black" BorderThickness="6">
                                         <ListView  
-                                                 MouseDoubleClick="ListOfPackges_MouseDoubleClick"  FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOfPackges"  >
+                                                 FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOfPackges"  >
                                             <ListView.View>
 
                                                 <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >

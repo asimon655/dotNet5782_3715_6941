@@ -9,7 +9,7 @@
         Title="LogIn" Height="450" Width="800" WindowStyle="ToolWindow" ResizeMode="NoResize"
          Icon="..\Images\icon0.ico">
 
-        <Grid >
+    <Grid >
         <PasswordBox x:Name="Password" Margin="523,204,47,190"/>
         <TextBox x:Name="UserName" TextWrapping="Wrap" Margin="159,204,411,190"/>
         <TextBlock TextWrapping="Wrap" Margin="20,192,646,119" Text="Name:" FontSize="25" HorizontalAlignment="Right"   />
@@ -54,15 +54,7 @@
                     </LinearGradientBrush>
                 </Button.Background>
                 <TextBlock FontSize="54" FontWeight="DemiBold">Enter</TextBlock>
-
-
-
             </Button>
-
         </Border>
-
-
-
     </Grid>
-
 </Window>
