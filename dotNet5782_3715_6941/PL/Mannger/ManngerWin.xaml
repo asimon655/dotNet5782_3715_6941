@@ -7,11 +7,7 @@
                       WindowFrameMode="Pane"
                       Width="1500"
                       Height="1000" Closing="Closing_Thread"
-                      
-                      
-                      
-                     
-                      
+                       Icon="..\Images\icon0.ico"  
                   >
     <Grid>
         <wpfspark:PivotPanel x:Name="RootPanel"

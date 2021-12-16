@@ -6,7 +6,8 @@
          xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="LogIn" Height="450" Width="800" WindowStyle="ToolWindow" ResizeMode="NoResize">
+        Title="LogIn" Height="450" Width="800" WindowStyle="ToolWindow" ResizeMode="NoResize"
+         Icon="..\Images\icon0.ico">
 
         <Grid >
         <PasswordBox x:Name="Password" Margin="523,204,47,190"/>
