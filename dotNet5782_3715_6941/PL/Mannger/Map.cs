@@ -45,6 +45,37 @@ namespace PL
 
                 return new Mapsui.Geometries.Point(x, y);
             }
+        void DrawPointsOnMap(IEnumerable<BO.Location> points )
+        {
+            Random rng = new Random();
+            var ly = new Mapsui.Layers.WritableLayer();
+            Mapsui.Geometries.Point pt;
+            Mapsui.Providers.Feature feature;
+            Mapsui.Styles.VectorStyle x;
+            foreach (BO.Location pnt in points)
+            {
+                pt = FromLonLat(pnt.Longitude, pnt.Lattitude);
+                feature = new Mapsui.Providers.Feature { Geometry = pt };
+                x = new Mapsui.Styles.VectorStyle()
+                {
+                    Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.FromArgb(
+                        rng.Next(0, 256),
+                        rng.Next(0, 256),
+                        rng.Next(0, 256),
+                        rng.Next(0, 256)))
+                };
+                feature.Styles.Add(x);
+                ly.Add((IFeature)feature);
+            }
+            pt = FromLonLat(35.2185521, 31.7445345);
+            feature = new Mapsui.Providers.Feature { Geometry = pt };
+            x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.Black) };
+            feature.Styles.Add(x);
+            ly.Add((IFeature)feature);
+            MyMapControl.Map.Layers.Add(ly);
+            MyMapControl.Refresh();
+        }
+
 
 
     }

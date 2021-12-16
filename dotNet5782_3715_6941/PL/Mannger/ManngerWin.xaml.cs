@@ -46,35 +46,8 @@ namespace PL
         {
             this.dat = dat;
             InitializeComponent();
-            Random rng = new Random();
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255,171, 210, 223);
-            var ly = new Mapsui.Layers.WritableLayer();
-            Mapsui.Geometries.Point pt;
-            Mapsui.Providers.Feature feature;
-            Mapsui.Styles.VectorStyle x;
-            foreach (var drn in dat.GetDrones())
-            {
-                pt = FromLonLat(drn.Loct.Longitude , drn.Loct.Lattitude);
-                feature = new Mapsui.Providers.Feature { Geometry = pt };
-                x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.FromArgb(
-                        rng.Next(0, 256), 
-                        rng.Next(0, 256), 
-                        rng.Next(0, 256), 
-                        rng.Next(0, 256))) 
-                };
-                feature.Styles.Add(x);
-                ly.Add((IFeature)feature);
-            }
-            pt = FromLonLat( 35.2185521, 31.7445345);
-            feature = new Mapsui.Providers.Feature { Geometry = pt };
-            x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.Black ) };
-            feature.Styles.Add(x);
-            ly.Add((IFeature)feature);
-
-            MyMapControl.Map.Layers.Add(ly);
-            MyMapControl.Refresh();
-
             IEnumerable<BO.DroneList> Dronelst = this.dat.GetDrones();
             IEnumerable<BO.ParcelList> Parcellst = dat.GetParcels();
             string[] names = GetNaemsDrones(Dronelst);
@@ -100,6 +73,8 @@ namespace PL
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfPackges.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
             view.GroupDescriptions.Add(groupDescription);
+            IEnumerable<BO.Location> pointsToDraw = from drn in dat.GetDrones() select drn.Loct;
+            DrawPointsOnMap(pointsToDraw);
         }
 
         // reset button action

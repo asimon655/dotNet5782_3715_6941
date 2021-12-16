@@ -31,11 +31,7 @@ namespace PL
             blabla = new CommandClose(gets,x,y); 
         
         }
-        public void  dostuff() {
-            MessageBox.Show("i am a pro"); 
-        
-        }
-
+    
 
         }
 

@@ -36,8 +36,8 @@ namespace PL
             bool ClientsExsist = !(drn.ParcelTransfer is null);
             InitializeComponent();
 
-            Model.Children.Add(creteLabel(drn.Model));
-            Id.Children.Add(creteLabel(drn.Id.ToString()));
+            Model.Children.Add(createLabel(drn.Model));
+            Id.Children.Add(createLabel(drn.Id.ToString()));
             ///////////////second row /////////////////
 
             Grid columnsMain = CreateGridColumn(5, new int[5] { 1, 2, 2, 2, 2 });
@@ -77,7 +77,7 @@ namespace PL
             battStatCols.Children.Add(batteryBorder);
             batteryBorder.Child = battStatShow;
             battStatShow.Children.Add(FullGrid);
-            FullGrid.Children.Add(creteLabel(Math.Round(drn.BatteryStat, 0).ToString() + '%'));
+            FullGrid.Children.Add(createLabel(Math.Round(drn.BatteryStat, 0).ToString() + '%'));
 
 
 
@@ -88,12 +88,12 @@ namespace PL
             Grid WeightGrid = CreateGridColumn(2, new int[2] { 1, 1 });
             Grid PriortyGrid = CreateGridColumn(2, new int[2] { 1, 1 });
             Grid StatusGrid = CreateGridColumn(2, new int[2] { 1, 1 });
-            Viewbox WeightConst = creteLabel("Weight: ");
-            Viewbox WeightLbl = creteLabel(drn.Weight.ToString());
-            Viewbox PriortyConst = creteLabel("Priorty: ");
-            Viewbox PriortyLbl = creteLabel((ClientsExsist ? drn.ParcelTransfer.Priorety.ToString() : "None"));
-            Viewbox StatusConst = creteLabel("Status: ");
-            Viewbox StatusLbl = creteLabel(drn.DroneStat.ToString());
+            Viewbox WeightConst = createLabel("Weight: ");
+            Viewbox WeightLbl = createLabel(drn.Weight.ToString());
+            Viewbox PriortyConst = createLabel("Priorty: ");
+            Viewbox PriortyLbl = createLabel((ClientsExsist ? drn.ParcelTransfer.Priorety.ToString() : "None"));
+            Viewbox StatusConst = createLabel("Status: ");
+            Viewbox StatusLbl = createLabel(drn.DroneStat.ToString());
             Grid.SetColumn(enumsRows, 1);
             Grid.SetRow(WeightGrid, 0);
             Grid.SetRow(PriortyGrid, 2);
@@ -117,9 +117,9 @@ namespace PL
             // location
             Grid Location = CreateGridColumn(2, new int[2] { 1, 1 });
             Grid LocationXY = CreateGridRow(4, new int[4] { 2, 3, 3, 2 });
-            Viewbox LocationConst = creteLabel("Location: ");
-            Viewbox LocationX = creteLabel(Math.Round(drn.Current.Lattitude, 3).ToString());
-            Viewbox LocationY = creteLabel(Math.Round(drn.Current.Longitude, 3).ToString());
+            Viewbox LocationConst = createLabel("Location: ");
+            Viewbox LocationX = createLabel(Math.Round(drn.Current.Lattitude, 3).ToString());
+            Viewbox LocationY = createLabel(Math.Round(drn.Current.Longitude, 3).ToString());
 
 
             Grid.SetColumn(Location, 2);
@@ -138,8 +138,8 @@ namespace PL
 
             //dist 
             Grid Dist = CreateGridColumn(2, new int[2] { 1, 1 });
-            Viewbox DistConst = creteLabel("Distance: ");
-            Viewbox DistLbl = creteLabel(ClientsExsist ? Math.Round(drn.ParcelTransfer.Distance, 3).ToString() : "None");
+            Viewbox DistConst = createLabel("Distance: ");
+            Viewbox DistLbl = createLabel(ClientsExsist ? Math.Round(drn.ParcelTransfer.Distance, 3).ToString() : "None");
 
 
 
@@ -153,8 +153,8 @@ namespace PL
 
             //binded parcels 
             Grid Bind = CreateGridColumn(2, new int[2] { 1, 1 });
-            Viewbox BindConst = creteLabel("Parcels's Id : ");
-            Viewbox BindLbl = creteLabel(ClientsExsist ? drn.ParcelTransfer.Id.ToString() : "None");
+            Viewbox BindConst = createLabel("Parcels's Id : ");
+            Viewbox BindLbl = createLabel(ClientsExsist ? drn.ParcelTransfer.Id.ToString() : "None");
 
 
 
@@ -176,10 +176,10 @@ namespace PL
             Grid SenderLocationGrid = CreateGridRow(2, new int[2] { 1, 1 });
             Grid SenderLocationRows = CreateGridRow(2, new int[2] { 1, 1 });
             Grid SenderPhotoGrid = CreateGridRow(2, new int[2] { 4, 1 });
-            Viewbox SenderIdConst = creteLabel("ID: ");
-            Viewbox SenderNameConst = creteLabel("Name: ");
-            Viewbox SenderLocationConst = creteLabel("Location: ");
-            Viewbox SenderPhotoConst = creteLabel("Sender");
+            Viewbox SenderIdConst = createLabel("ID: ");
+            Viewbox SenderNameConst = createLabel("Name: ");
+            Viewbox SenderLocationConst = createLabel("Location: ");
+            Viewbox SenderPhotoConst = createLabel("Sender");
 
             Viewbox SenderLocationX;
             Viewbox SenderLocationY;
@@ -188,10 +188,10 @@ namespace PL
             System.Windows.Controls.Image SenderPhoto;
             if (ClientsExsist)
             {
-                SenderLocationX = creteLabel(Math.Round(drn.ParcelTransfer.Pickup.Lattitude, 3).ToString());
-                SenderLocationY = creteLabel(Math.Round(drn.ParcelTransfer.Pickup.Longitude, 3).ToString());
-                SenderNameLbl = creteLabel(drn.ParcelTransfer.Sender.name);
-                SenderIdLbl = creteLabel(drn.ParcelTransfer.Sender.id.ToString());
+                SenderLocationX = createLabel(Math.Round(drn.ParcelTransfer.Pickup.Lattitude, 3).ToString());
+                SenderLocationY = createLabel(Math.Round(drn.ParcelTransfer.Pickup.Longitude, 3).ToString());
+                SenderNameLbl = createLabel(drn.ParcelTransfer.Sender.name);
+                SenderIdLbl = createLabel(drn.ParcelTransfer.Sender.id.ToString());
                 if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png"))
                     SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png", ImageFormat.Png);
                 SenderPhoto = new System.Windows.Controls.Image();
@@ -201,10 +201,10 @@ namespace PL
             else
             {
 
-                SenderLocationX = creteLabel("None");
-                SenderLocationY = creteLabel("None");
-                SenderNameLbl = creteLabel("None");
-                SenderIdLbl = creteLabel("None");
+                SenderLocationX = createLabel("None");
+                SenderLocationY = createLabel("None");
+                SenderNameLbl = createLabel("None");
+                SenderIdLbl = createLabel("None");
                 SenderPhoto = new System.Windows.Controls.Image();
                 SenderPhoto.Source = new BitmapImage(new Uri(@"https://media.istockphoto.com/vectors/male-user-icon-vector-id517998264?k=20&m=517998264&s=612x612&w=0&h=pdEwtkJlZsIoYBVeO2Bo4jJN6lxOuifgjaH8uMIaHTU="));
 
@@ -255,10 +255,10 @@ namespace PL
             Grid TargetLocationGrid = CreateGridRow(2, new int[2] { 1, 1 });
             Grid TargetLocationRows = CreateGridRow(2, new int[2] { 1, 1 });
             Grid TargetPhotoGrid = CreateGridRow(2, new int[2] { 4, 1 });
-            Viewbox TargetIdConst = creteLabel("ID: ");
-            Viewbox TargetNameConst = creteLabel("Name: ");
-            Viewbox TargetLocationConst = creteLabel("Location: ");
-            Viewbox TargetPhotoConst = creteLabel("Target");
+            Viewbox TargetIdConst = createLabel("ID: ");
+            Viewbox TargetNameConst = createLabel("Name: ");
+            Viewbox TargetLocationConst = createLabel("Location: ");
+            Viewbox TargetPhotoConst = createLabel("Target");
 
             Viewbox TargetLocationX;
             Viewbox TargetLocationY;
@@ -267,10 +267,10 @@ namespace PL
             System.Windows.Controls.Image TargetPhoto;
             if (ClientsExsist)
             {
-                TargetLocationX = creteLabel(Math.Round(drn.ParcelTransfer.Pickup.Lattitude, 3).ToString());
-                TargetLocationY = creteLabel(Math.Round(drn.ParcelTransfer.Pickup.Longitude, 3).ToString());
-                TargetNameLbl = creteLabel(drn.ParcelTransfer.Target.name);
-                TargetIdLbl = creteLabel(drn.ParcelTransfer.Target.id.ToString());
+                TargetLocationX = createLabel(Math.Round(drn.ParcelTransfer.Pickup.Lattitude, 3).ToString());
+                TargetLocationY = createLabel(Math.Round(drn.ParcelTransfer.Pickup.Longitude, 3).ToString());
+                TargetNameLbl = createLabel(drn.ParcelTransfer.Target.name);
+                TargetIdLbl = createLabel(drn.ParcelTransfer.Target.id.ToString());
                 if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png"))
                     SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png", ImageFormat.Png, TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png");
                 TargetPhoto = new System.Windows.Controls.Image();
@@ -280,10 +280,10 @@ namespace PL
             else
             {
 
-                TargetLocationX = creteLabel("None");
-                TargetLocationY = creteLabel("None");
-                TargetNameLbl = creteLabel("None");
-                TargetIdLbl = creteLabel("None");
+                TargetLocationX = createLabel("None");
+                TargetLocationY = createLabel("None");
+                TargetNameLbl = createLabel("None");
+                TargetIdLbl = createLabel("None");
                 TargetPhoto = new System.Windows.Controls.Image();
                 TargetPhoto.Source = new BitmapImage(new Uri(@"https://media.istockphoto.com/vectors/male-user-icon-vector-id517998264?k=20&m=517998264&s=612x612&w=0&h=pdEwtkJlZsIoYBVeO2Bo4jJN6lxOuifgjaH8uMIaHTU="));
 

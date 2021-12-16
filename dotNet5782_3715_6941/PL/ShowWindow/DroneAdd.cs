@@ -39,12 +39,12 @@ namespace PL
             pacads.Add(inputId);
             ///////////////// second row /////////////////////////
             Grid colums = CreateGridColumn(4, new int[4] { 1, 1, 1, 1 });
-            Viewbox text1 = creteLabel(" charging staion's ID :  ");
+            Viewbox text1 = createLabel(" charging staion's ID :  ");
             Array StionsIds = (from stat in x.GetStaions() select stat.Id).ToArray();
             ComboBox input1 = creteComboBox(StionsIds);
             Grid input1GridC = CreateGridColumn(3, new int[3] { 1, 8, 1 });
             Grid input1GridR = CreateGridRow(3, new int[3] { 1, 1, 1 });
-            Viewbox text2 = creteLabel("Wight:  ");
+            Viewbox text2 = createLabel("Wight:  ");
             Grid.SetColumn(text1, 0);
             Grid.SetRow(input1GridC, 1);
             Grid.SetColumn(input1GridR, 1);
