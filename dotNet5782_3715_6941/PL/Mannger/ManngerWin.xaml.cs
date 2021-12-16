@@ -55,15 +55,22 @@ namespace PL
             Mapsui.Styles.VectorStyle x;
             foreach (var drn in dat.GetDrones())
             {
-                double px = (6371 * 1000) * Math.Sin(drn.Loct.Lattitude) * Math.Cos(drn.Loct.Longitude);
-                double py = (6371 * 1000) * Math.Cos(drn.Loct.Lattitude);
-                pt = new Mapsui.Geometries.Point(px, py);
+                pt = FromLonLat(drn.Loct.Longitude , drn.Loct.Lattitude);
                 feature = new Mapsui.Providers.Feature { Geometry = pt };
-                x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.FromArgb(rng.Next(0, 256), rng.Next(0, 256), rng.Next(0, 256), rng.Next(0, 256))) };
+                x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.FromArgb(
+                        rng.Next(0, 256), 
+                        rng.Next(0, 256), 
+                        rng.Next(0, 256), 
+                        rng.Next(0, 256))) 
+                };
                 feature.Styles.Add(x);
                 ly.Add((IFeature)feature);
             }
-
+            pt = FromLonLat( 35.2185521, 31.7445345);
+            feature = new Mapsui.Providers.Feature { Geometry = pt };
+            x = new Mapsui.Styles.VectorStyle() { Fill = new Mapsui.Styles.Brush(Mapsui.Styles.Color.Black ) };
+            feature.Styles.Add(x);
+            ly.Add((IFeature)feature);
 
             MyMapControl.Map.Layers.Add(ly);
             MyMapControl.Refresh();
