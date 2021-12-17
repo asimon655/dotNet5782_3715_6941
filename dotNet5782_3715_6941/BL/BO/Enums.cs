@@ -25,7 +25,7 @@ namespace BO
         [Description("heavy weight  ")]
         Heavy,
     };
-    public  enum ParcelStat
+    public  enum ParcelStatus
     {
         [Description("Parcel Declared ")]
         Declared ,

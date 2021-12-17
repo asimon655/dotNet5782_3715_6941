@@ -92,19 +92,6 @@ namespace PL
 
 
         }
-        internal string[] GetNaemsDrones(IEnumerable<BO.DroneList> Dronelst)
-        {
-            IEnumerable<string> Models = from Drony in Dronelst select Drony.Model;
-            Models = Models.Distinct();
-            return Models.ToArray();
-
-        }
- 
-        
-
-
-
-
 
     }
 }

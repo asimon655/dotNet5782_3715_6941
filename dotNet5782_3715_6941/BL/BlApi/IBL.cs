@@ -145,5 +145,14 @@ namespace BlApi
         /// <returns>IEnumerable of </returns>
         IEnumerable<BO.DroneList> GetDronesFiltered(IEnumerable<BO.DroneStatuses> statuses, IEnumerable<BO.WeightCategories> weights);
         #endregion
+    
+        #region Get Stats
+        BO.DronesModelsStats GetDronesModelsStats();
+        double[] GetDronesWeightsStats();
+        double[] GetDronesStatusesStats();
+        double[] GetParcelsPrioretiesStats();
+        double[] GetParcelsStatusesStats();
+        double[] GetParcelsWeightsStats();
+        #endregion
     }
 }

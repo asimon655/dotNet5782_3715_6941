@@ -9,12 +9,12 @@ namespace BL
                 Id = gety.Id 
                 ,Name=gety.Name 
                 ,Phone=gety.Phone 
-                ,ParcelDeliveredAndGot =data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered)  
-                ,InTheWay= data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered)
-                ,ParcelGot = data.CountParcels(x => x.TargetId == gety.Id && ParcelStatC(x) == ParcelStat.Delivered) 
-                ,ParcelDeliveredAndNotGot = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatC(x) != ParcelStat.Delivered) };
+                ,ParcelDeliveredAndGot =data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) == ParcelStatus.Delivered)  
+                ,InTheWay= data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) != ParcelStatus.Delivered)
+                ,ParcelGot = data.CountParcels(x => x.TargetId == gety.Id && ParcelStatusC(x) == ParcelStatus.Delivered) 
+                ,ParcelDeliveredAndNotGot = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) != ParcelStatus.Delivered) };
 
-        private ParcelStat ParcelStatC(DO.Parcel parcel)
+        private ParcelStatus ParcelStatusC(DO.Parcel parcel)
         {
 
             int caseNum = 4;
@@ -28,7 +28,7 @@ namespace BL
                 caseNum--;
             if (caseNum == 4)
                 throw new EnumOutOfRange("4 for parcelstat is forbidden ",4); 
-            return (ParcelStat)caseNum; 
+            return (ParcelStatus)caseNum; 
         }
         
         private ParcelInCustomer CustomerToParcelC(DO.Parcel parcel, CustomerInParcel parentCustomer)
@@ -36,7 +36,7 @@ namespace BL
             return new ParcelInCustomer() {
                 Id = parcel.Id,
                 Priority = (Priorities)parcel.Priority,
-                Status = ParcelStatC(parcel),
+                Status = ParcelStatusC(parcel),
                 Weight = (WeightCategories)parcel.Weight,
                 ParentCustomer = parentCustomer
             };
@@ -111,7 +111,7 @@ namespace BL
                 DO.Customer sender = data.GetCustomer(parcel.SenderId);
                 DO.Customer getter = data.GetCustomer(parcel.TargetId);
                 DroneInParcel? droneInParcel = null;
-                if (ParcelStatC(parcel) != ParcelStat.Declared)
+                if (ParcelStatusC(parcel) != ParcelStatus.Declared)
                 {
                     DroneList drone = GetDroneToList((int)parcel.DroneId);
                     droneInParcel = new DroneInParcel() { Id = drone.Id, Battery = drone.Battery, Loct = drone.Loct };

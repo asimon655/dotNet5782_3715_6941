@@ -5,7 +5,7 @@ namespace BO
         public int Id { set; get; }
         public WeightCategories Weight {set; get ; }
         public Priorities Priority { set; get;  } 
-        public ParcelStat Status { set; get; }
+        public ParcelStatus Status { set; get; }
         public CustomerInParcel ParentCustomer { set; get; }
 
         public override string ToString()

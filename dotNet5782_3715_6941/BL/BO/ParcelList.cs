@@ -7,7 +7,7 @@
         public string TargetName { set; get;  }
         public WeightCategories Weight { set; get;  }
         public Priorities Priorety { set; get;  }
-        public ParcelStat ParcelStatus { set; get;  }
+        public ParcelStatus ParcelStatus { set; get;  }
 
         public override string ToString()
         {

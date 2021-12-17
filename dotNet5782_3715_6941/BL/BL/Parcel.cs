@@ -60,7 +60,7 @@ namespace BL
             {
                 throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
             }
-            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Declared && canreach(drony, x, getParcelLoctSender));
+            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Declared && canreach(drony, x, getParcelLoctSender));
             DO.Parcel resParcel;
             try
             {
@@ -118,9 +118,9 @@ namespace BL
                 throw new EnumNotInRightStatus<DroneStatuses>("the Drone Should be IN delivery mode , it is in: ", drony.DroneStat);
             }
             DO.Parcel pack = data.GetParcel((int)drony.ParcelId);
-            if (ParcelStatC(pack) != ParcelStat.Binded)
+            if (ParcelStatusC(pack) != ParcelStatus.Binded)
             {
-                throw new EnumNotInRightStatus<ParcelStat>("Parcel should be Binded when it is : ", ParcelStatC(pack)); 
+                throw new EnumNotInRightStatus<ParcelStatus>("Parcel should be Binded when it is : ", ParcelStatusC(pack)); 
             }
             if (!canreach(drony, pack, getParcelLoctSender))
                 throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
@@ -144,9 +144,9 @@ namespace BL
             if (drony.DroneStat != DroneStatuses.Delivery)
                 throw new  EnumNotInRightStatus<DroneStatuses>("Drone Should be in delivry!! it is now in the status of: ", drony.DroneStat);
             DO.Parcel pack = data.GetParcel((int)drony.ParcelId);
-            if (ParcelStatC(pack) != ParcelStat.PickedUp)
+            if (ParcelStatusC(pack) != ParcelStatus.PickedUp)
             {
-                throw new EnumNotInRightStatus<ParcelStat>("parcel is not in the status pickedup it is in : ", ParcelStatC(pack)); 
+                throw new EnumNotInRightStatus<ParcelStatus>("parcel is not in the status pickedup it is in : ", ParcelStatusC(pack)); 
             }
             Location Target = getParcelLoctTarget(pack);
             if (!canreach(drony, pack, getParcelLoctTarget))
@@ -175,7 +175,7 @@ namespace BL
                     {
                         Id = x.Id
                         ,
-                        ParcelStatus = ParcelStatC(x)
+                        ParcelStatus = ParcelStatusC(x)
                         ,
                         Priorety = (Priorities)x.Priority
                         ,
@@ -198,12 +198,12 @@ namespace BL
             {
                 List<ParcelList> tmpy = new List<ParcelList>();
                 // if the parcel.DroneId is null then the parcel is unbinded
-                foreach (var x in data.GetParcels(x => x.DroneId is null && ParcelStatC(x) == ParcelStat.Declared))
+                foreach (var x in data.GetParcels(x => x.DroneId is null && ParcelStatusC(x) == ParcelStatus.Declared))
                     tmpy.Add(new ParcelList()
                     {
                         Id = x.Id
                         ,
-                        ParcelStatus = ParcelStatC(x)
+                        ParcelStatus = ParcelStatusC(x)
                         ,
                         Priorety = (Priorities)x.Priority
                         ,

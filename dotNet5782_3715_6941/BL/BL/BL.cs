@@ -74,7 +74,7 @@ namespace BL
                     Location targetLoct = new Location(target.Longitude, target.Lattitude);
 
                     // the parcel has been binded but not picked up yet
-                    if (ParcelStatC(parcel) == ParcelStat.Binded)
+                    if (ParcelStatusC(parcel) == ParcelStatus.Binded)
                     {
                         // set the location of the drone to the closest station to the sender
                         int senderStationId = getClosesStation(senderLoct);
@@ -130,7 +130,7 @@ namespace BL
                 if (newDrone.DroneStat == DroneStatuses.Free)
                 {
                     // set drone location to a random customer that recived a parcel
-                    IEnumerable<DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatC(x) == ParcelStat.Delivered);
+                    IEnumerable<DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Delivered);
                     int random_i = RandomGen.Next(parcelsDelivered.Count());
                     DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
                     DO.Customer costumer = data.GetCustomer(parcel.TargetId);

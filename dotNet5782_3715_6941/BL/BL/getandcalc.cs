@@ -9,7 +9,7 @@ namespace BL
         // get Binded Undelivered Parcel if not found return -1
         int getBindedUndeliveredParcel(int droneId)
         {
-            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => x.DroneId == droneId && ParcelStatC(x) != ParcelStat.Delivered);
+            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => x.DroneId == droneId && ParcelStatusC(x) != ParcelStatus.Delivered);
             DO.Parcel parcel = parcels.FirstOrDefault();
             if (parcel.DroneId != droneId)
             {
