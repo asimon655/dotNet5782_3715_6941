@@ -16,8 +16,10 @@ namespace BL
             res.names = Models.ToArray();
 
             IEnumerable<int> range = Enumerable.Range(0, Models.Count());
-            res.pos = range.Cast<double>().ToArray();
-
+            double []res_dd = new double[range.Count()];
+            for (int i = 0; i < range.Count(); i++)
+                res_dd[i] = Convert.ToDouble(range.Skip(i).First());
+            res.pos = res_dd;
             IEnumerable<double> vals = from model in Models select (double)drones.Count(x => x.Model == model);
             res.vals = vals.ToArray();
 
