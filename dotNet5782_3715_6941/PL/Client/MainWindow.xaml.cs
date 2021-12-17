@@ -57,8 +57,11 @@ namespace PL
             
 
             ListOf.ItemsSource = a.GetDronesFiltered(Stat, Weight);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("DroneStat");
+            view.GroupDescriptions.Add(groupDescription);
 
-            
+
         }
         // reset button action
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -129,11 +132,13 @@ namespace PL
             dict.Add("MaxWeight", "Weight");
             dict.Add("DroneStatus", "DroneStat");
             dict.Add("Binded Parcel Id", "ParcelId");
-            object IdLst = (object)
-            MessageBox.Show((e.OriginalSource as GridViewColumnHeader).Column.Header.ToString());
-      
+           
+
+
+      if (!((e.OriginalSource as GridViewColumnHeader) is null)) {
                 ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
+                ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
+            }
         }
     }
 }
