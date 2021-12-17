@@ -88,6 +88,7 @@ namespace PL
 
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if ( !((sender as ListView).SelectedItem is null ) )
             new Window2(a.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id)).Show( ) ;
             //new Window2(a).Show();
 

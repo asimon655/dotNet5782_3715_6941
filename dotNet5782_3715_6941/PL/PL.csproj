@@ -24,6 +24,7 @@
     <None Remove="Images\reset.jpg" />
     <None Remove="Images\StaionToList.jpg" />
     <None Remove="Images\user.png" />
+    <None Remove="Mannger\imageMavic_8.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,6 +72,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\user.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mannger\imageMavic_8.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

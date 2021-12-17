@@ -30,8 +30,8 @@ namespace PL
     public partial class Window2 : Window
     {
 
-        string TMP = System.IO.Path.GetTempPath();
-        private void SaveFirstImage(string Model)
+        static internal  string TMP = System.IO.Path.GetTempPath();
+         static internal void SaveFirstImage(string Model)
         {
             // Declaring 'x' as a new WebClient() method
             WebClient x = new WebClient();
@@ -52,7 +52,7 @@ namespace PL
         }
 
 
-        private bool AreEqule(string filepath1, string filepath2)
+       static internal bool AreEqule(string filepath1, string filepath2)
         {
             FileInfo first = new FileInfo(filepath1);
             FileInfo second = new FileInfo(filepath2);
@@ -73,7 +73,7 @@ namespace PL
 
         }
 
-        public void SaveImage(string imageUrl, string filename, ImageFormat format, String? FileOther = null)
+        static public void SaveImage(string imageUrl, string filename, ImageFormat format, String? FileOther = null)
         {
             Thread.Sleep(10);
 

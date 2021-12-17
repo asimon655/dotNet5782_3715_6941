@@ -33,23 +33,24 @@ namespace Dal
                 const int DroneInit = 5;
                 const int ParcelInit = 10;
                 const int CostumerInit = 10;
-                    
+
 
                 for (int i = 0; i < StationInit; i++)
-                    Stations.Add (new Station() {
+                    Stations.Add(new Station()
+                    {
                         Id = RandomGen.Next(100000000, 999999999),
                         ChargeSlots = RandomGen.Next(0, 1000),
                         Name = i,
-                        Lattitude = RandomGen.NextDouble() * 45,
-                        Longitude = RandomGen.NextDouble() * 45
-                    });
+                        Lattitude = RandomGen.NextDouble() * 3 + 29,
+                        Longitude = RandomGen.NextDouble() * 1 + 34.4
+                    }) ;
                 for (int i = 0; i < CostumerInit; i++)
                     Costumers.Add( new Customer() {
                         Id = RandomGen.Next(100000000, 999999999),
                         Name = "Lev Cliet No." + i.ToString(),
                         Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(),
-                        Lattitude = RandomGen.NextDouble() * 45,
-                        Longitude = RandomGen.NextDouble() * 45
+                        Lattitude = RandomGen.NextDouble() * 3 + 29,
+                        Longitude = RandomGen.NextDouble() * 1 + 34.4
                     });
                 for (int i = 0; i < DroneInit; i++)
                     Drones.Add( new Drone() {

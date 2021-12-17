@@ -70,7 +70,9 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
             view.GroupDescriptions.Add(groupDescription);
             IEnumerable<BO.Location> pointsToDraw = from drn in dat.GetDrones() select drn.Loct;
-            DrawPointsOnMap(pointsToDraw);
+            IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
+            IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
+            DrawPointsOnMap(pointsToDraw,ids,Models);
         }
 
         // reset button action
