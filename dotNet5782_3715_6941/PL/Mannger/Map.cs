@@ -79,10 +79,10 @@ namespace PL
                 pt = FromLonLat(points.Skip(i).First().Longitude, points.Skip(i).First().Lattitude);
                 feature = new Mapsui.Providers.Feature { Geometry = pt };
                 BGColor = Mapsui.Styles.Color.FromArgb(
-                            rng.Next(0, 256),
-                            rng.Next(0, 256),
-                            rng.Next(0, 256),
-                            rng.Next(0, 256));
+                            rng.Next(120, 256),
+                            rng.Next(120, 256),
+                            rng.Next(120, 256),
+                            0);
              x = new Mapsui.Styles.LabelStyle() {
                 Text = ids.Skip(i).First().ToString(),
                 Font = new Mapsui.Styles.Font { FontFamily = "Courier New", Bold = true, Italic = true, },

@@ -69,10 +69,24 @@ namespace PL
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfPackges.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
             view.GroupDescriptions.Add(groupDescription);
-            IEnumerable<BO.Location> pointsToDraw = from drn in dat.GetDrones() select drn.Loct;
+            IEnumerable<BO.Location> pointsToDraw =from drn in dat.GetDrones() select drn.Loct;
+            List<BO.Location> pointsonce = new List<BO.Location>();
+            int i = 0;
+            foreach (var loct in pointsToDraw)
+            {
+                if (pointsToDraw.Count(x => x.Lattitude == loct.Lattitude && loct.Longitude ==x.Longitude) > 1)
+                    pointsonce.Add(new BO.Location(
+                        loct.Longitude + 0.0001* pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude)
+                        , loct.Lattitude + 0.0001* pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude)
+                        ));
+                else
+                    pointsonce.Add(new BO.Location(loct.Longitude, loct.Lattitude ));
+                i++;
+            
+            }
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
             IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
-            DrawPointsOnMap(pointsToDraw,ids,Models);
+            DrawPointsOnMap(pointsonce, ids,Models);
         }
 
         // reset button action
