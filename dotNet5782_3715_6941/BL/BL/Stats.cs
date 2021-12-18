@@ -58,7 +58,7 @@ namespace BL
             BO.ParcelStatus[] statuses = (BO.ParcelStatus[])Enum.GetValues(typeof(BO.ParcelStatus));
             IEnumerable<double> filtered = from status in statuses
                                            where data.CountParcels(x => ParcelStatusC(x) == status) > 0
-                                           select (double)data.CountParcels(x => x.Priority == (DO.Priorities)status);
+                                           select (double)data.CountParcels(x => ParcelStatusC(x) == status);
             return filtered.ToArray();
         }
 
