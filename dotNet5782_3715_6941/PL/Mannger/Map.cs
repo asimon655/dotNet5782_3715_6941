@@ -23,6 +23,7 @@ using HarfBuzzSharp;
 using Mapsui.Styles;
 using Mapsui.Providers;
 using System.IO;
+using System.Drawing.Imaging;
 
 namespace PL
     {
@@ -62,7 +63,7 @@ namespace PL
             var bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
             return new SymbolStyle { BitmapId = bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = scale, SymbolOffset = new Offset(0.0, 0.0, true) };
         }
-        void DrawPointsOnMap(IEnumerable<BO.Location> points , IEnumerable<int> ids  ,IEnumerable<string>Models)
+        void DrawPointsOnMapDrone(IEnumerable<BO.Location> points , IEnumerable<int> ids  ,IEnumerable<string>Models)
         {
             Random rng = new Random();
             var ly = new Mapsui.Layers.WritableLayer();
@@ -102,6 +103,100 @@ namespace PL
                 if (!File.Exists(Window2.TMP + @"image" + Models.Skip(i).First().Replace(" ", "_") + ".png"))
                     Window2.SaveFirstImage(Models.Skip(i).First());
                 feature.Styles.Add(CreateSymbolStyle(Window2.TMP + @"image" + Models.Skip(i).First().Replace(" ", "_") + ".png", 0.4));
+                feature.Styles.Add(x);
+                ly.Add((IFeature)feature);
+            }
+
+
+            MyMapControl.Map.Layers.Add(ly);
+            MyMapControl.Refresh();
+        }
+
+        void DrawPointsOnMapStation(IEnumerable<BO.Location> points, IEnumerable<int> ids)
+        {
+            Random rng = new Random();
+            var ly = new Mapsui.Layers.WritableLayer();
+            Mapsui.Geometries.Point pt;
+            Mapsui.Providers.Feature feature;
+            Mapsui.Styles.LabelStyle x;
+            Mapsui.Styles.VectorStyle x2;
+            Mapsui.Styles.Color BGColor;
+
+            ly.Style = null;
+
+            for (int i = 0; i < points.Count(); i++)
+            {
+                pt = FromLonLat(points.Skip(i).First().Longitude, points.Skip(i).First().Lattitude);
+                feature = new Mapsui.Providers.Feature { Geometry = pt };
+                BGColor = Mapsui.Styles.Color.FromArgb(
+                            rng.Next(120, 256),
+                            rng.Next(120, 256),
+                            rng.Next(120, 256),
+                            0);
+                x = new Mapsui.Styles.LabelStyle()
+                {
+                    Text = ids.Skip(i).First().ToString(),
+                    Font = new Mapsui.Styles.Font { FontFamily = "Courier New", Bold = true, Italic = true, },
+                    BackColor = new Mapsui.Styles.Brush(BGColor),
+                    ForeColor = BGColor,
+                    Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 2),
+                    HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
+                    MaxWidth = 10,
+                    WordWrap = LabelStyle.LineBreakMode.TailTruncation
+                };
+                x2 = new Mapsui.Styles.VectorStyle
+                {
+                    Fill = new Mapsui.Styles.Brush(BGColor),
+                };
+
+                feature.Styles.Add(CreateSymbolStyle(Directory.GetCurrentDirectory() + "\\PL\\Images\\BASESTATION.png", 0.35));
+                feature.Styles.Add(x);
+                ly.Add((IFeature)feature);
+            }
+
+
+            MyMapControl.Map.Layers.Add(ly);
+            MyMapControl.Refresh();
+        }
+        void DrawPointsOnMapUser(IEnumerable<BO.Location> points, IEnumerable<int> ids)
+        {
+            Random rng = new Random();
+            var ly = new Mapsui.Layers.WritableLayer();
+            Mapsui.Geometries.Point pt;
+            Mapsui.Providers.Feature feature;
+            Mapsui.Styles.LabelStyle x;
+            Mapsui.Styles.VectorStyle x2;
+            Mapsui.Styles.Color BGColor;
+
+            ly.Style = null;
+
+            for (int i = 0; i < points.Count(); i++)
+            {
+                pt = FromLonLat(points.Skip(i).First().Longitude, points.Skip(i).First().Lattitude);
+                feature = new Mapsui.Providers.Feature { Geometry = pt };
+                BGColor = Mapsui.Styles.Color.FromArgb(
+                            rng.Next(120, 256),
+                            rng.Next(120, 256),
+                            rng.Next(120, 256),
+                            0);
+                x = new Mapsui.Styles.LabelStyle()
+                {
+                    Text = ids.Skip(i).First().ToString(),
+                    Font = new Mapsui.Styles.Font { FontFamily = "Courier New", Bold = true, Italic = true, },
+                    BackColor = new Mapsui.Styles.Brush(BGColor),
+                    ForeColor = BGColor,
+                    Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 2),
+                    HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
+                    MaxWidth = 10,
+                    WordWrap = LabelStyle.LineBreakMode.TailTruncation
+                };
+                x2 = new Mapsui.Styles.VectorStyle
+                {
+                    Fill = new Mapsui.Styles.Brush(BGColor),
+                };
+
+
+                feature.Styles.Add(CreateSymbolStyle(Directory.GetCurrentDirectory() + "\\PL\\Images\\user.png", 0.15));
                 feature.Styles.Add(x);
                 ly.Add((IFeature)feature);
             }
