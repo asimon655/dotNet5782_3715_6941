@@ -6,7 +6,7 @@ Minip project by Idan Maman and Abraham Simon .
    ![image](https://user-images.githubusercontent.com/90776557/146778990-9c55dc53-fcac-476b-abd0-3a459a8b8165.png)
 
 
-    in the map you can see all the **clients** , **drones** and **base stations** 
+in the map you can see all the **clients** , **drones** and **base stations** 
   
   # **Graphs:**
 
@@ -14,8 +14,8 @@ Minip project by Idan Maman and Abraham Simon .
 
 
 
-    in the graphs you can see important data about the **drone** / # **parcels**/ **base staions**/ **costumers** 
-    > in precantage pies or in bars
+ in the graphs you can see important data about the **drone** / # **parcels**/ **base staions**/ **costumers** 
+ > in precantage pies or in bars
 
 # Tabels Features : 
 ## Grouping : 
