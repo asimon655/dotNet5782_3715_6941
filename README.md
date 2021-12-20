@@ -11,10 +11,10 @@ Minip project by Idan Maman and Abraham Simon .
   #**Graphs:**
 
 ![image](https://user-images.githubusercontent.com/90776557/146779144-96fd73ef-085b-42da-a771-7691df4e8b78.png) ![image](https://user-images.githubusercontent.com/90776557/146779160-48786fc0-197f-43cc-88e4-e53fcaccd0d7.png)
-![image](https://user-images.githubusercontent.com/90776557/146779161-34b6313f-1526-4bc3-a494-7644a9fbf467.png)
 
 
-in the graphs yyou can see important data about the **drone**/**parcels**/**base staions**/**costumers** in pracentace
+
+in the graphs yyou can see important data about the **drone**/**parcels**/**base staions**/**costumers** 
 > in precantage pies or in bars
 
 
