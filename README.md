@@ -11,8 +11,10 @@ Minip project by Idan Maman and Abraham Simon .
 > I wanted to Make the program fill real so i genrated with AI photos of humans , I genrated the photos with : 
 >       "https://thispersondoesnotexist.com/" 
 > so the photos look real and adds to the project . 
-
-
+### **Battery Animations:**
+>the battery is animated : Ecample : 
+>![image](https://user-images.githubusercontent.com/90776557/146791426-0ddb4cef-f60b-46a4-97b7-fcb566a8ca8b.png)
+![image](https://user-images.githubusercontent.com/90776557/146791521-77814542-d7d4-4de3-a8a6-bc70ca851466.png)
 # **Admin Window** 
 ## **Map:**
     
