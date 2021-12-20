@@ -8,7 +8,7 @@ Minip project by Idan Maman and Abraham Simon .
 
   in the map you can see all the **clients** , **drones** and **base stations** 
   
-  #**Graphs:**
+  # **Graphs:**
 
 ![image](https://user-images.githubusercontent.com/90776557/146779144-96fd73ef-085b-42da-a771-7691df4e8b78.png) ![image](https://user-images.githubusercontent.com/90776557/146779160-48786fc0-197f-43cc-88e4-e53fcaccd0d7.png)
 
