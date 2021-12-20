@@ -2,7 +2,7 @@
 Minip project by Idan Maman and Abraham Simon . 
 # **Show Window :**
 ## **Drone Show** 
-### **Drone Photo:**
+### **Drone's Photo:**
 > The photo is Taking with Scarping with Html AligityPack from google Photosby the Model Name - that means that if the Model name of the drone will be Bibbop 2 the photo will be of the real model Bibop2 and if it will be Mavic3 the photo will be of Mavic 3 : 
 ![image](https://user-images.githubusercontent.com/90776557/146790583-bc74a6c9-d321-412d-bcf2-f2d771a457b3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791060-30131d56-1d03-45f5-8060-e16d40988af8.png)
@@ -11,7 +11,7 @@ Minip project by Idan Maman and Abraham Simon .
 > I wanted to Make the program fill real so i genrated with AI photos of humans , I genrated the photos with : 
 >       "https://thispersondoesnotexist.com/" 
 > so the photos look real and adds to the project . 
-> we took care that each client will have only  one photo and it's photo not will be genrated each time newly 
+> we took care that each client will have only  one photo and it's photo will not be genrated each time newly 
 > ![image](https://user-images.githubusercontent.com/90776557/146791904-dffa5192-b169-4a48-8b62-9e68386fc5a3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791935-4c6d41e3-2d02-4ee2-bb7f-0565e8f647e9.png)
 
