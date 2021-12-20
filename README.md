@@ -7,7 +7,7 @@ Minip project by Idan Maman and Abraham Simon .
 ![image](https://user-images.githubusercontent.com/90776557/146790583-bc74a6c9-d321-412d-bcf2-f2d771a457b3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791060-30131d56-1d03-45f5-8060-e16d40988af8.png)
 
-### **Clients Photos: ** 
+### **Clients Photos:** 
 > I wanted to Make the program fill real so i genrated with AI photos of humans , I genrated the photos with : 
 >       "https://thispersondoesnotexist.com/" 
 > so the photos look real and adds to the project . 
