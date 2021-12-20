@@ -3,6 +3,7 @@ Minip project by Idan Maman and Abraham Simon .
 # **Admin Window** 
 # **Map:**
     
-![image](https://user-images.githubusercontent.com/90776557/146778546-e602249d-2e16-4f34-8830-8aeefe83344c.png)
+![image](https://user-images.githubusercontent.com/90776557/146778990-9c55dc53-fcac-476b-abd0-3a459a8b8165.png)
+
 
   in the map you can see all the **clients** , **drones** and **base stations** 
