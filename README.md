@@ -3,7 +3,7 @@ Minip project by Idan Maman and Abraham Simon .
 # **Show Window :**
 ## **Drone Show** 
 ### **Drone Photo:**
-> The photo is Taking with Scarping with Html AligityPack from google Photosby the Model Name - that means that if the Model name of the drone will be Bibbop 2 the photo will be > of the real model Bibop2 and if it will be Mavic3 the photo will be of Mavic 3 : 
+> The photo is Taking with Scarping with Html AligityPack from google Photosby the Model Name - that means that if the Model name of the drone will be Bibbop 2 the photo will be of the real model Bibop2 and if it will be Mavic3 the photo will be of Mavic 3 : 
 ![image](https://user-images.githubusercontent.com/90776557/146790583-bc74a6c9-d321-412d-bcf2-f2d771a457b3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791060-30131d56-1d03-45f5-8060-e16d40988af8.png)
 
