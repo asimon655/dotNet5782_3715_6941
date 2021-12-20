@@ -14,7 +14,9 @@ Minip project by Idan Maman and Abraham Simon .
 
 
 
-in the graphs yyou can see important data about the **drone**/**parcels**/**base staions**/**costumers** 
+in the graphs you can see important data about the **drone**/**parcels**/**base staions**/**costumers** 
 > in precantage pies or in bars
+
+# Tabels Features : 
 
 
