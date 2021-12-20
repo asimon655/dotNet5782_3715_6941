@@ -14,6 +14,6 @@ Minip project by Idan Maman and Abraham Simon .
 ![image](https://user-images.githubusercontent.com/90776557/146779161-34b6313f-1526-4bc3-a494-7644a9fbf467.png)
 
 
-in the graphs yyou can see important data about the **drone**/**parcels**/**base staions**/**costumers** in pracentace (>%) 
+in the graphs yyou can see important data about the **drone**/**parcels**/**base staions**/**costumers** in pracentace (> %) 
 or in Bars . 
 
