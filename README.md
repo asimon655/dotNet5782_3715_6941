@@ -18,16 +18,16 @@ in the graphs you can see important data about the **drone** / # **parcels**/ **
 > in precantage pies or in bars
 
 # Tabels Features : 
-   ## Grouping : 
-   ![image](https://user-images.githubusercontent.com/90776557/146788793-009394bf-e129-45e0-b48f-24b7641a7fac.png)
-   ![image](https://user-images.githubusercontent.com/90776557/146788762-459eab16-874d-4f76-9fea-286da31dd7cb.png)
-    ## Sort by click on the Header : 
-        ![image](https://user-images.githubusercontent.com/90776557/146788892-b014681d-1fbc-47a7-9c0d-e73ac8719646.png)
-        ![image](https://user-images.githubusercontent.com/90776557/146788945-54a31a84-3494-46ae-8c25-b16c4233ca64.png)
-    ## Progress Bar for Battery : 
-        NOT IMPLEMNTED YET - CONVERT BOMUS ----- 
-    ## Open Detials by click ojn the row: 
-        ![image](https://user-images.githubusercontent.com/90776557/146789064-1cc00acc-6594-45d2-9d6b-52183aaaffd4.png)
+## Grouping : 
+![image](https://user-images.githubusercontent.com/90776557/146788793-009394bf-e129-45e0-b48f-24b7641a7fac.png)
+![image](https://user-images.githubusercontent.com/90776557/146788762-459eab16-874d-4f76-9fea-286da31dd7cb.png)
+## Sort by click on the Header : 
+![image](https://user-images.githubusercontent.com/90776557/146788892-b014681d-1fbc-47a7-9c0d-e73ac8719646.png)
+![image](https://user-images.githubusercontent.com/90776557/146788945-54a31a84-3494-46ae-8c25-b16c4233ca64.png)
+## Progress Bar for Battery : 
+    NOT IMPLEMNTED YET - CONVERT BOMUS ----- 
+## Open Detials by click ojn the row: 
+![image](https://user-images.githubusercontent.com/90776557/146789064-1cc00acc-6594-45d2-9d6b-52183aaaffd4.png)
 
 
 
