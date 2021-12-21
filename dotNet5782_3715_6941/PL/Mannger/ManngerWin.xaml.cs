@@ -76,7 +76,7 @@ namespace PL
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
             IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
             DrawPointsOnMapDrone(pointsonce, ids, Models);
-            IEnumerable<int> idStation = from stat in dat.GetStaions() select stat.Id;
+            IEnumerable<int> idStation = from stat in dat.GetStations() select stat.Id;
             IEnumerable<BO.Location> StationsPoints = from statID in idStation select dat.GetStation(statID).LoctConstant;
             DrawPointsOnMapStation(StationsPoints, idStation);
             IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
