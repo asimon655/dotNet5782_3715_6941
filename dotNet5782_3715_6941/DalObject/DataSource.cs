@@ -29,17 +29,17 @@ namespace Dal
                 //all the data is realistic - phone number have 10 digits  and id have 9 digits  
 
                 /// constant for loop limit - right programing rules 
-                const int StationInit = 2;
-                const int DroneInit = 5;
-                const int ParcelInit = 10;
-                const int CostumerInit = 10;
+                const int StationInit = 20;
+                const int DroneInit = 50;
+                const int ParcelInit = 100;
+                const int CostumerInit = 100;
 
 
                 for (int i = 0; i < StationInit; i++)
                     Stations.Add(new Station()
                     {
                         Id = RandomGen.Next(100000000, 999999999),
-                        ChargeSlots = RandomGen.Next(0, 1000),
+                        ChargeSlots = RandomGen.Next(0, 50),
                         Name = i,
                         Lattitude = RandomGen.NextDouble() * 3 + 29,
                         Longitude = RandomGen.NextDouble() * 1 + 34.4
