@@ -1,0 +1,47 @@
+﻿@page
+@model DronesModel
+@{
+    ViewData["Title"] = "Drones";
+}
+
+
+@{
+    BlApi.Ibl logic = BlApi.BlFactory.GetBl();
+    IEnumerable<BO.DroneList> drones = logic.GetDrones();
+}
+
+<table class="table table-hover table-striped">
+    <thead class="font-weight-bold">
+        <tr>
+            @foreach (var property in typeof(BO.DroneList).GetProperties())
+            {
+                <td scope="col">@property.Name</td>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (BO.DroneList drone in drones)
+        {
+            string status = "";
+            @switch (drone.DroneStat)
+            {
+                case BO.DroneStatuses.Free:
+                    status = "table-success";
+                    break;
+                case BO.DroneStatuses.Delivery:
+                    status = "table-secondary";
+                    break;
+                case BO.DroneStatuses.Matance:
+                    status = "table-warning";
+                    break;
+            }
+            <tr class=@status>
+                @foreach (var property in typeof(BO.DroneList).GetProperties())
+                {
+                    <td>@property.GetValue(drone)</td>
+                }
+                <td><a href="/Drone/Get?Id=@drone.Id">Modify</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

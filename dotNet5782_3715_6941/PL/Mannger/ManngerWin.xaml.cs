@@ -58,7 +58,7 @@ namespace PL
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
             IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
-            IEnumerable<int> idStation = from stat in dat.GetStaions() select stat.Id;
+            IEnumerable<int> idStation = from stat in dat.GetStations() select stat.Id;
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
             IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
             IEnumerable<BO.Location>[] ALLPOINTSMOVED = SetPoints();

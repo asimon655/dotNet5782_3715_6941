@@ -93,7 +93,7 @@ namespace PL
         private IEnumerable<BO.Location>[] SetPoints()
         {
             IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
-            IEnumerable<int> idStation = from stat in dat.GetStaions() select stat.Id;
+            IEnumerable<int> idStation = from stat in dat.GetStations() select stat.Id;
             IEnumerable<BO.Location> DronePoints = from drn in dat.GetDrones() select drn.Loct;
             IEnumerable<BO.Location> StationsPoints = from statID in idStation select dat.GetStation(statID).LoctConstant;
             IEnumerable<BO.Location> UserPoints = from userID in idUser select dat.GetCostumer(userID).Loct;

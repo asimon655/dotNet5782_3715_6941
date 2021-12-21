@@ -1,0 +1,22 @@
+@model BO.Station
+
+<form id="update-station" method="post", action="/Drone/UpdateDrone/">
+</form>
+<div class="row">
+    <div class="col">
+        <label for="Id">Id : </label>
+        <input form="update-station" class="form-control" type="number" name="Id" value=@Model.Id readonly>
+    </div>
+    <div class="col">
+        <label for="stationName">Name : </label>
+        <input form="update-station" class="form-control" type="text" name="stationName" value="@Model.Name">
+    </div>
+    <div class="col">
+        <label for="LoctConstant">Location : </label>
+        <input class="form-control" type="text" name="LoctConstant" value="@Model.LoctConstant">
+    </div>
+</div>
+
+
+<br>
+<button type="submit" form="update-drone" class="btn btn-primary">Submit Changes</button>

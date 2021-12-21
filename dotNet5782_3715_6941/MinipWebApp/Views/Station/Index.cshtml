@@ -1,0 +1,12 @@
+﻿@model BO.Station
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<h1 class="text-center">Drone</h1>
+
+<form method="get" action="/Station/Get">
+    <div class="form-row align-items-center justify-content-center">
+        <div class="col-auto"><input class="form-control" type="number" asp-for="Id" placeholder="station id..."></div>
+        <div class="col-auto"><button type="submit" class="btn btn-primary">Get Station</button></div>
+    </div>
+</form>

@@ -1,0 +1,152 @@
+@model BO.Drone
+
+<form id="update-drone" method="post", action="/Drone/UpdateDrone/">
+    <div class="row">
+        <div class="col">
+            <label for="id">Id : </label>
+            <input class="form-control" type="number" name="Id" value=@Model.Id readonly>
+        </div>
+        <div class="col">
+            <label for="Model">Model : </label>
+            <input class="form-control" type="text" name="droneName" value="@Model.Model">
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col">
+        <label for="Weight">Weight : </label>
+        <input class="form-control" type="text" name="Weight" value=@Model.Weight readonly>
+    </div>
+    <div class="col">
+        <label for="BatteryStat">Battery Status : </label>
+        <input class="form-control" type="number" name="BatteryStat" value=@Math.Round(Model.BatteryStat,3) readonly>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <label for="DroneStat">Drone Status : </label>
+        <input class="form-control" type="text" name="DroneStat" value=@Model.DroneStat readonly>
+    </div>
+    <div class="col">
+        <label for="Current">Current Location : </label>
+        <input class="form-control" type="text" name="Current" value="@Model.Current" readonly>
+    </div>
+</div>
+@if(Model.DroneStat == BO.DroneStatuses.Delivery && !(Model.ParcelTransfer is null))
+{
+    <fieldset style="margin: 3%;">
+        <legend class="text-center">Parcel:</legend>
+        <div class="row">
+            <div class="col">
+                <label for="Parcel_Id">Parcel Id : </label>
+                <input type="text" class="form-control" name="Parcel_Id" value=@Model.ParcelTransfer.Id readonly>
+            </div>
+            <div class="col">
+                <label for="Parcel_Priorety">Parcel Priorety : </label>
+                <input type="text" class="form-control" name="Parcel_Priorety" value=@Model.ParcelTransfer.Priorety readonly>
+            </div>
+            <div class="col">
+                <label for="Parcel_Weight">Parcel Weight : </label>
+                <input type="text" class="form-control" name="Parcel_Weight" value=@Model.ParcelTransfer.Weight readonly>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="Parcel_Pickup">Parcel Pickup : </label>
+                <input type="text" class="form-control" name="Parcel_Pickup" value=@Model.ParcelTransfer.Pickup readonly>
+            </div>
+            <div class="col">
+                <label for="Parcel_Dst">Parcel Destination : </label>
+                <input type="text" class="form-control" name="Parcel_Dst" value=@Model.ParcelTransfer.Dst readonly>
+            </div>
+            <div class="col">
+                <label for="Parcel_Distance">Parcel Travel Distance : </label>
+                <input type="text" class="form-control" name="Parcel_Distance" value=@Model.ParcelTransfer.Distance readonly>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <fieldset style="margin: 2%;">
+                    <legend class="text-center">Sender:</legend>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Parcel_Sender_Id">Id : </label>
+                            <input type="text" class="form-control" name="Parcel_Sender_Id" value=@Model.ParcelTransfer.Sender.id readonly>
+                        </div>
+                        <div class="col">
+                            <label for="Parcel_Sender_Name">Name : </label>
+                            <input type="text" class="form-control" name="Parcel_Sender_Name" value="@Model.ParcelTransfer.Sender.name" readonly>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col">
+                <fieldset style="margin: 2%;">
+                    <legend class="text-center">Target:</legend>
+                    <div class="row">
+                        <div class="col">
+                            <label for="Parcel_Target_Id">Id : </label>
+                            <input type="text" class="form-control" name="Parcel_Target_Id" value=@Model.ParcelTransfer.Target.id readonly>
+                        </div>
+                        <div class="col">
+                            <label for="Parcel_Target_Name">Name : </label>
+                            <input type="text" class="form-control" name="Parcel_Target_Name" value="@Model.ParcelTransfer.Target.name" readonly>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </fieldset>
+}
+<br>
+<button type="submit" form="update-drone" class="btn btn-primary">Submit Changes</button>
+
+<br>
+<br>
+<br>
+<div class="row align-items-center justify-content-center">
+@if (Model.DroneStat == BO.DroneStatuses.Free)
+{
+    <div class="col-auto">
+        <form method="post" action="/Drone/BindParcelToDrone/">
+            <input type="hidden" name="Id" value="@Model.Id"/>
+            <input class="btn btn-success" type="submit" value="Bind Parcel" />
+        </form>
+    </div>
+    <div class="col-auto">
+        <form method="post" action="/Drone/DroneCharge/">
+            <input type="hidden" name="Id" value="@Model.Id"/>
+            <input class="btn btn-success" type="submit" value="Send To Charge" />
+        </form>
+    </div>
+}
+@if (Model.DroneStat == BO.DroneStatuses.Delivery)
+{
+    @* if (Model.ParcelTransfer.Id) *@
+    <div class="col-auto">
+        <form method="post" action="/Drone/DronePickUp/">
+            <input type="hidden" name="Id" value="@Model.Id"/>
+            <input class="btn btn-success" type="submit" value="Drone PickUp" />
+        </form>
+    </div>
+    @* if (Model.ParcelTransfer.Id) *@
+    <div class="col-auto">
+        <form method="post" action="/Drone/DroneDelivere/">
+            <input type="hidden" name="Id" value="@Model.Id"/>
+            <input class="btn btn-success" type="submit" value="Drone Delivere" />
+        </form>
+    </div>
+}
+@if (Model.DroneStat == BO.DroneStatuses.Matance)
+{
+    <div class="col-auto">
+        <form method="post" action="/Drone/DroneReleaseCharge/">
+            <div class="form-row align-items-center justify-content-center">
+                <input type="hidden" name="Id" value="@Model.Id"/>
+                <div class="col-auto"><input type="number" step="0.001" min="0" class="form-control" name="chargingPeriod" placeholder="charging period... (in hours)" required/></div>
+                <div class="col-auto"><input class="btn btn-success" type="submit" value="Release From Charge" /></div>
+            </div>
+        </form>
+    </div>
+}
+</div>

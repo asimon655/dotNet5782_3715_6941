@@ -1,0 +1,43 @@
+﻿@page
+@model MinipWebApp.Pages.StationsModel
+@{
+    ViewData["Title"] = "Stations";
+}
+
+
+@{
+    BlApi.Ibl logic = BlApi.BlFactory.GetBl();
+    IEnumerable<BO.StationList> stations = logic.GetStations();
+}
+
+<table class="table table-hover table-striped">
+    <thead class="font-weight-bold">
+        <tr>
+            @foreach (var property in typeof(BO.StationList).GetProperties())
+            {
+                <td scope="col">@property.Name</td>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (BO.StationList station in stations)
+        {
+            string status = "table-success";
+            @if (station.FreePorts <= 10)
+            {
+                status = "table-warning";
+            }
+            @if (station.FreePorts <= 0)
+            {
+                status = "table-danger";
+            }
+            <tr class=@status>
+                @foreach (var property in typeof(BO.StationList).GetProperties())
+                {
+                    <td>@property.GetValue(station)</td>
+                }
+                <td><a href="/Station/Get?Id=@station.Id">Modify</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
