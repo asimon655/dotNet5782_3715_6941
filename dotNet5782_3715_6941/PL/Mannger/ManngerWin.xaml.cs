@@ -57,31 +57,14 @@ namespace PL
             #region Map Initialize 
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
-            IEnumerable<BO.Location> pointsToDraw = from drn in dat.GetDrones() select drn.Loct;
-            List<BO.Location> pointsonce = new List<BO.Location>();
-            int i = 0;
-            foreach (var loct in pointsToDraw)
-            {
-                if (pointsToDraw.Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude) > 1)
-                    pointsonce.Add(new BO.Location(
-                        loct.Longitude + 0.0001 * pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude)
-                        , loct.Lattitude + 0.0001 * pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude)
-                        ));
-                else
-                    pointsonce.Add(new BO.Location(loct.Longitude, loct.Lattitude));
-                i++;
-
-            }
-
+            IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
+            IEnumerable<int> idStation = from stat in dat.GetStaions() select stat.Id;
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
             IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
-            DrawPointsOnMapDrone(pointsonce, ids, Models);
-            IEnumerable<int> idStation = from stat in dat.GetStaions() select stat.Id;
-            IEnumerable<BO.Location> StationsPoints = from statID in idStation select dat.GetStation(statID).LoctConstant;
-            DrawPointsOnMapStation(StationsPoints, idStation);
-            IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
-            IEnumerable<BO.Location> UserPoints = from userID in idUser select dat.GetCostumer(userID).Loct;
-            DrawPointsOnMapUser(UserPoints, idUser);
+            IEnumerable<BO.Location>[] ALLPOINTSMOVED = SetPoints();
+            DrawPointsOnMap(ALLPOINTSMOVED[0], ids,0.4,null, Models);
+            DrawPointsOnMap(ALLPOINTSMOVED[1], idStation,0.3, "\\PL\\Images\\BASESTATION.png");
+            DrawPointsOnMap(ALLPOINTSMOVED[2], idUser,0.1, "\\PL\\Images\\user.png");
             #endregion
 
             #region Plots Initialize 
@@ -92,9 +75,6 @@ namespace PL
             CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, dat.GetParcelsStatusesStats());
             CreateDountPie<BO.WeightCategories>(WpfPlotPack2, dat.GetParcelsWeightsStats());
             CreateDountPie<BO.Priorities>(WpfPlotPack3, dat.GetParcelsPrioretiesStats());
-            WpfPlot2.Plot.Style(ScottPlot.Style.Blue3);
-            WpfPlot3.Plot.Style(ScottPlot.Style.Blue3);
-            WpfPlot1.Plot.Style(ScottPlot.Style.Blue3);
             #endregion
 
             #region Predicts Initialize 
@@ -116,8 +96,6 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
             view.GroupDescriptions.Add(groupDescription);
             #endregion
-
-
 
         }
         #endregion
