@@ -313,7 +313,7 @@ namespace ConsoleUI_BL
                         {
                             case (int)ListShow.BaseStaions:
                                 Console.WriteLine("Printing ... ");
-                                SysFunc.printList<StationList>(Logistics.GetStaions());
+                                SysFunc.printList<StationList>(Logistics.GetStations());
                                 break;
                             case (int)ListShow.BaseStaionsFreePorts:
                                 Console.WriteLine("Printing ... ");
