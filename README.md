@@ -1,3 +1,18 @@
+# **__ TO DO LIST __ **
+>## Clients List 
+>## Clients display
+>## parcel display 
+>## base staion isplay 
+>## Clients add
+>## parcel add 
+>## base staion add
+>## parcel list filter by time
+>## Map fix 
+
+
+
+
+
 # dotNet5782_3715_6941
 Minip project by Idan Maman and Abraham Simon . 
 # **Show Window :**
