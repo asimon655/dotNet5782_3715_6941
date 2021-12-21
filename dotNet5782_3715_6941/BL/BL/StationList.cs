@@ -20,7 +20,7 @@ namespace BL
 
         }
 
-        public IEnumerable<StationList> GetStaions()
+        public IEnumerable<StationList> GetStations()
         {
             List<StationList> tmp= new List<StationList>();
             foreach (var station in data.GetStations())

@@ -27,7 +27,7 @@ namespace PL
 
             this.dat = dat;
             InitializeComponent();
-            ListOf.ItemsSource = dat.GetStaions();
+            ListOf.ItemsSource = dat.GetStations();
             SolidColorBrush brush = new SolidColorBrush(Colors.Red);
             ListOf.Background = brush;
             ColorAnimation anima = new ColorAnimation((Color)ColorConverter.ConvertFromString("#FF948473"), (Color)ColorConverter.ConvertFromString("#FFE7CEB6"),

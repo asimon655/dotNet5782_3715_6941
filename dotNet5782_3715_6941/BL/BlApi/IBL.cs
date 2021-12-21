@@ -111,7 +111,7 @@ namespace BlApi
         /// returns the list of stations
         /// </summary>
         /// <returns>IEnumerable of StationList</returns>
-        IEnumerable<BO.StationList> GetStaions();
+        IEnumerable<BO.StationList> GetStations();
         /// <summary>
         /// the function filter the stations and return thos with free charging slots
         /// </summary>
