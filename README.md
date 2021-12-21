@@ -1,3 +1,19 @@
+# **__ TO DO LIST __ **
+>## Clients List 
+>## Clients display
+>## parcel display 
+>## base staion isplay 
+>## Clients add
+>## parcel add 
+>## base staion add
+>## parcel list filter by time
+>## Map fix 
+>## Add Actions SelectormFor Each Object
+
+
+
+
+
 # dotNet5782_3715_6941
 Minip project by Idan Maman and Abraham Simon . 
 # **Show Window :**
@@ -8,9 +24,9 @@ Minip project by Idan Maman and Abraham Simon .
 ![image](https://user-images.githubusercontent.com/90776557/146791060-30131d56-1d03-45f5-8060-e16d40988af8.png)
 
 ### **Clients Photos:** 
-> I wanted to Make the program fill real so i genrated with AI photos of humans , I genrated the photos with : 
+> I wanted to Make the program fill realistic so i generated with AI photos of humans , I genrated the photos with : 
 >       "https://thispersondoesnotexist.com/" 
-> so the photos look real and adds to the project . 
+> so the photos look realistic . 
 > we took care that each client will have only  one photo and it's photo will not be genrated each time newly 
 > ![image](https://user-images.githubusercontent.com/90776557/146791904-dffa5192-b169-4a48-8b62-9e68386fc5a3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791935-4c6d41e3-2d02-4ee2-bb7f-0565e8f647e9.png)
