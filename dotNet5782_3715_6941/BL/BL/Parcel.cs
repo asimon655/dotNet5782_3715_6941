@@ -96,18 +96,16 @@ namespace BL
                 throw new CouldntFindRightParcelWeight("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
             drony.ParcelId = resParcel.Id;
             resParcel.Schedulded = DateTime.Now;
+            resParcel.DroneId = drony.Id;
             drony.DroneStat = DroneStatuses.Delivery;
             try
             {
                 data.UpdateParcles(resParcel);
             }
-            catch(DO.IdDosntExists err) {
-                throw new IdDosntExists(err); 
-                
-            } 
-            
-            
-
+            catch(DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
         }
 
         public void DronePickUp(int droneId)
