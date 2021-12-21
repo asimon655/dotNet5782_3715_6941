@@ -30,7 +30,7 @@ namespace PL
     public partial class Window2 : Window
     {
 
-
+        #region DroneShow
         public Window2(BO.Drone drn)
         {
             bool ClientsExsist = !(drn.ParcelTransfer is null);
@@ -344,4 +344,5 @@ namespace PL
 
 
     }
+    #endregion
 }

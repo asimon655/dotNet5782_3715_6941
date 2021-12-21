@@ -204,6 +204,7 @@ namespace PL
 
             MyMapControl.Map.Layers.Add(ly);
             MyMapControl.Refresh();
+            
         }
 
 
