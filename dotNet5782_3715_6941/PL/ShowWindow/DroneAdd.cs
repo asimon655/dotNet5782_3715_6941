@@ -25,7 +25,7 @@ namespace PL
     /// </summary>
     public partial class Window2 : Window
     {
-
+        #region addDrone
         public Window2(BlApi.Ibl x, Page pg)
         {
             pageof = pg;
@@ -81,4 +81,5 @@ namespace PL
 
         }
     }
+    #endregion
 }

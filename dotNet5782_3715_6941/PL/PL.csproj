@@ -10,6 +10,7 @@
     <None Remove="Fonts\Cinzel-VariableFont_wght.ttf" />
     <None Remove="Fonts\RoadRage-Regular.ttf" />
     <None Remove="Fonts\StartFont.ttf" />
+    <None Remove="Images\BASESTATION.png" />
     <None Remove="Images\Blue-print.jpg" />
     <None Remove="Images\ClientToMenu.jpg" />
     <None Remove="Images\DroneMenu.jpg" />
@@ -24,7 +25,6 @@
     <None Remove="Images\reset.jpg" />
     <None Remove="Images\StaionToList.jpg" />
     <None Remove="Images\user.png" />
-    <None Remove="Mannger\imageMavic_8.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Images\BASESTATION.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Blue-print.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -74,14 +77,12 @@
     <Content Include="Images\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Mannger\imageMavic_8.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.38" />
     <PackageReference Include="Mapsui.Wpf" Version="3.0.2" />
+    <PackageReference Include="MaterialDesignExtensions" Version="4.0.0-a02" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="Remora.Behaviours" Version="6.1.1" />
     <PackageReference Include="ScottPlot.WPF" Version="4.1.27" />
