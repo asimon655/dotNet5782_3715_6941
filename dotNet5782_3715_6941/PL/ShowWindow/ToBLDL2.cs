@@ -31,23 +31,31 @@ namespace PL
     {
 
         static internal  string TMP = System.IO.Path.GetTempPath();
-         static internal void SaveFirstImage(string Model)
+         static internal bool SaveFirstImage(string Model)
         {
             // Declaring 'x' as a new WebClient() method
             WebClient x = new WebClient();
 
-            // Setting the URL, then downloading the data from the URL.
-            string source = x.DownloadString(@"https://www.google.com/search?q=" + Model.Replace(" ", "+") + @"+drone&tbm=isch&ved=2ahUKEwj2__aHx8P0AhVNwoUKHWOxAyMQ2-cCegQIABAA&oq=mavic+3+cine&gs_lcp=CgNpbWcQAzIHCCMQ7wMQJzIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGFCPDliPDmDuD2gAcAB4AIABhQGIAfoBkgEDMC4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cOqnYfaHCc2ElwTj4o6YAg&bih=596&biw=1229");
+            try
+            {
+                // Setting the URL, then downloading the data from the URL.
+                string source = x.DownloadString(@"https://www.google.com/search?q=" + Model.Replace(" ", "+") + @"+drone&tbm=isch&ved=2ahUKEwj2__aHx8P0AhVNwoUKHWOxAyMQ2-cCegQIABAA&oq=mavic+3+cine&gs_lcp=CgNpbWcQAzIHCCMQ7wMQJzIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGFCPDliPDmDuD2gAcAB4AIABhQGIAfoBkgEDMC4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cOqnYfaHCc2ElwTj4o6YAg&bih=596&biw=1229");
+                HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
 
+                // Loading document's source via HtmlAgilityPack
+                document.LoadHtml(source);
+                var nodes = document.DocumentNode.SelectNodes("//img[@src]");
+                string link = nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value;
+                SaveImage(link, TMP + @"image" + Model.Replace(" ", "_") + ".png", ImageFormat.Png); ;
+            }
+            catch {
+
+                MessageBox.Show("please connect to unfiltered intenet ", "ERROR");
+                return false; 
+            }
             // Declaring 'document' as new HtmlAgilityPack() method
-            HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
 
-            // Loading document's source via HtmlAgilityPack
-            document.LoadHtml(source);
-            var nodes = document.DocumentNode.SelectNodes("//img[@src]");
-            string link = nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value;
-            SaveImage(link, TMP + @"image" + Model.Replace(" ", "_") + ".png", ImageFormat.Png); ;
-
+            return true; 
 
         }
 
@@ -73,13 +81,15 @@ namespace PL
 
         }
 
-        static public void SaveImage(string imageUrl, string filename, ImageFormat format, String? FileOther = null)
+        static public bool SaveImage(string imageUrl, string filename, ImageFormat format, String? FileOther = null)
         {
             Thread.Sleep(10);
 
             WebClient client = new WebClient();
 
             client = new WebClient();
+             try
+            {
             Stream stream = client.OpenRead(imageUrl);
             Bitmap bitmap; bitmap = new Bitmap(stream);
 
@@ -100,6 +110,14 @@ namespace PL
                 }
 
             }
+            }
+            catch
+            {
+
+                MessageBox.Show("please connect to unfiltered intenet ", "ERROR");
+                return false; 
+            }
+            return true; 
         }
 
 

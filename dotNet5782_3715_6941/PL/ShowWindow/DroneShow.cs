@@ -188,16 +188,22 @@ namespace PL
             System.Windows.Controls.Image SenderPhoto;
             if (ClientsExsist)
             {
+                bool valid=true; 
                 SenderLocationX = createLabel(Math.Round(drn.ParcelTransfer.Pickup.Lattitude, 3).ToString());
                 SenderLocationY = createLabel(Math.Round(drn.ParcelTransfer.Pickup.Longitude, 3).ToString());
                 SenderNameLbl = createLabel(drn.ParcelTransfer.Sender.name);
                 SenderIdLbl = createLabel(drn.ParcelTransfer.Sender.id.ToString());
                 if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png"))
-                    SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png", ImageFormat.Png);
-                SenderPhoto = new System.Windows.Controls.Image();
-                SenderPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png"));
-
-            }
+                   valid =   SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png", ImageFormat.Png);
+                if (valid)
+                {
+                    SenderPhoto = new System.Windows.Controls.Image();
+                    SenderPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png"));
+                    Grid.SetRow(SenderPhoto, 0);
+                    SenderPhotoGrid.Children.Add(SenderPhoto);
+                }
+            
+                }
             else
             {
 
@@ -221,7 +227,6 @@ namespace PL
             Grid.SetRow(SenderNameConst, 0);
             Grid.SetRow(SenderLocationConst, 0);
             Grid.SetRow(SenderPhotoConst, 1);
-            Grid.SetRow(SenderPhoto, 0);
             Grid.SetRow(SenderIdLbl, 1);
             Grid.SetRow(SenderNameLbl, 1);
             Grid.SetRow(SenderLocationRows, 1);
@@ -235,7 +240,7 @@ namespace PL
             SenderCostumer1.Children.Add(SenderNameGrid);
             SenderCostumer1.Children.Add(SenderLocationGrid);
             SenderPhotoGrid.Children.Add(SenderPhotoConst);
-            SenderPhotoGrid.Children.Add(SenderPhoto);
+
             SenderIdGrid.Children.Add(SenderIdConst);
             SenderIdGrid.Children.Add(SenderIdLbl);
             SenderNameGrid.Children.Add(SenderNameConst);
@@ -267,16 +272,22 @@ namespace PL
             System.Windows.Controls.Image TargetPhoto;
             if (ClientsExsist)
             {
+                bool valid = true; 
                 TargetLocationX = createLabel(Math.Round(drn.ParcelTransfer.Pickup.Lattitude, 3).ToString());
                 TargetLocationY = createLabel(Math.Round(drn.ParcelTransfer.Pickup.Longitude, 3).ToString());
                 TargetNameLbl = createLabel(drn.ParcelTransfer.Target.name);
                 TargetIdLbl = createLabel(drn.ParcelTransfer.Target.id.ToString());
                 if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png"))
-                    SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png", ImageFormat.Png, TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png");
-                TargetPhoto = new System.Windows.Controls.Image();
-                TargetPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png"));
-
-            }
+                    valid = SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png", ImageFormat.Png, TMP + @"image" + drn.ParcelTransfer.Sender.id.ToString() + ".png");
+                if (valid)
+                {
+                    TargetPhoto = new System.Windows.Controls.Image();
+                    TargetPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Target.id.ToString() + ".png"));
+                    Grid.SetRow(TargetPhoto, 0);
+                    TargetPhotoGrid.Children.Add(TargetPhoto);
+                }
+           
+                }
             else
             {
 
@@ -300,7 +311,7 @@ namespace PL
             Grid.SetRow(TargetNameConst, 0);
             Grid.SetRow(TargetLocationConst, 0);
             Grid.SetRow(TargetPhotoConst, 1);
-            Grid.SetRow(TargetPhoto, 0);
+
             Grid.SetRow(TargetIdLbl, 1);
             Grid.SetRow(TargetNameLbl, 1);
             Grid.SetRow(TargetLocationRows, 1);
@@ -314,7 +325,7 @@ namespace PL
             TargetCostumer1.Children.Add(TargetNameGrid);
             TargetCostumer1.Children.Add(TargetLocationGrid);
             TargetPhotoGrid.Children.Add(TargetPhotoConst);
-            TargetPhotoGrid.Children.Add(TargetPhoto);
+
             TargetIdGrid.Children.Add(TargetIdConst);
             TargetIdGrid.Children.Add(TargetIdLbl);
             TargetNameGrid.Children.Add(TargetNameConst);
@@ -330,13 +341,16 @@ namespace PL
             //adds 
             ClintsORGif.Children.Add(Costumers);
 
-
-
-            if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
-                SaveFirstImage(drn.Model);
-            Photo0.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
-            Function.Click += new RoutedEventHandler(Button_Click_Show);
-
+            {
+                bool valid = true;
+                if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
+                    valid = SaveFirstImage(drn.Model);
+                if (valid)
+                {
+                    Photo0.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
+                }
+                Function.Click += new RoutedEventHandler(Button_Click_Show);
+            }
         }
 
 
