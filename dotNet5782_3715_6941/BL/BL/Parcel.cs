@@ -152,6 +152,7 @@ namespace BL
             drony.Battery -= getPowerUsage(Target, drony.Loct, (WeightCategories)pack.Weight);
             drony.Loct = new Location(Target.Longitude, Target.Lattitude);
             drony.DroneStat = DroneStatuses.Free;
+            drony.ParcelId = null;
             pack.Delivered = DateTime.Now;
             try
             {
