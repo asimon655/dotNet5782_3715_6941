@@ -1,0 +1,118 @@
+﻿<Window x:Class="PL.ShowWindow.ParcelShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.ShowWindow"
+        mc:Ignorable="d"
+        Title="ParcelShow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Source="https://content.parcelsolutions.net/13ecae39-c9be-4cb8-b6ab-198fc72f286b/landing-pages/parcel-collection-image.png"></Image>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Viewbox Grid.Row="0">
+                    <Label >WEIGHT:</Label>
+                </Viewbox>
+                <Viewbox Grid.Row="1">
+                    <Label ></Label>
+                </Viewbox>
+                <Viewbox Grid.Row="2">
+                    <Label  >Priorty</Label>
+                </Viewbox>
+                <Viewbox Grid.Row="3">
+                    <Label  Grid.Row="3"></Label>
+                </Viewbox>
+
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Viewbox Grid.Column="0">
+                    <Label >
+                        ID:
+                    </Label>
+                </Viewbox>
+                <Viewbox  Grid.Column="1">
+                    <Label Content="{Binding Id}"></Label>
+                </Viewbox>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border BorderBrush="Black" BorderThickness="3,3,3,0">
+            <Viewbox Grid.Row="0" Grid.Column="0">
+                <Label>Parcel Creation</Label>
+            </Viewbox>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="0"  BorderBrush="Black" BorderThickness="3,0,3,3">
+            <Viewbox  >
+                <Label></Label>
+            </Viewbox>
+            </Border>
+            <Border  Grid.Row="0" Grid.Column="1">          
+                <Viewbox >
+                <Label>Parcel Binded</Label>
+            </Viewbox>
+            
+            </Border>
+
+            <Border  Grid.Row="1" Grid.Column="1">
+            <Viewbox >
+                <Label></Label>
+            </Viewbox>
+            </Border>
+            <Border  Grid.Row="0" Grid.Column="2">
+            <Viewbox >
+                <Label>
+                    Parcel Picked Up 
+                </Label>
+            </Viewbox>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="2">
+            <Viewbox  >
+                <Label></Label>
+            </Viewbox>
+            </Border>
+            <Border Grid.Row="0" Grid.Column="3">
+            <Viewbox  >
+                <Label>
+                    Parcel Delivered
+                </Label>
+                </Viewbox>
+            </Border>
+            <Viewbox  Grid.Row="1" Grid.Column="3">
+                <Label></Label>
+            </Viewbox>
+
+        </Grid>
+        <Grid></Grid>
+    </Grid>
+</Window>
