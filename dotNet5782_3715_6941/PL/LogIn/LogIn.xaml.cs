@@ -20,7 +20,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for LogIn.xaml
     /// </summary>
-    public partial class LogIn : Window
+    public partial class LogIn : SparkWindow
     {
         
         public LogIn()
