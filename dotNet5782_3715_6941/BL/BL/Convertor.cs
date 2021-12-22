@@ -17,18 +17,26 @@ namespace BL
         private ParcelStatus ParcelStatusC(DO.Parcel parcel)
         {
 
-            int caseNum = 4;
-            if (!(parcel.PickedUp is null))
-                caseNum--; 
-            if (!(parcel.Delivered is null))
-                caseNum--;
+            int caseNum = -1;
             if (!(parcel.Schedulded is null))
-                caseNum--;
-            if (!(parcel.Requested is null))
-                caseNum--;
-            if (caseNum == 4)
-                throw new EnumOutOfRange("4 for parcelstat is forbidden ",4); 
-            return (ParcelStatus)caseNum; 
+            {
+                caseNum++;
+                if (!(parcel.Requested is null))
+                {
+                    caseNum++;
+                    if (!(parcel.PickedUp is null))
+                    {
+                        caseNum++; 
+                        if (!(parcel.Delivered is null))
+                        {
+                            caseNum++;
+                        }
+                    }
+                }
+            }
+            if (caseNum == -1)
+                throw new EnumOutOfRange("the parcel is not even decleared ",-1); 
+            return (ParcelStatus)caseNum;
         }
         
         private ParcelInCustomer CustomerToParcelC(DO.Parcel parcel, CustomerInParcel parentCustomer)
@@ -51,34 +59,30 @@ namespace BL
                 Current = drone.Loct,
                 DroneStat = drone.DroneStat,
             };
-            if (newDrone.DroneStat == DroneStatuses.Delivery)
+            if (newDrone.DroneStat == DroneStatuses.Delivery && !(drone.ParcelId is null))
             {
-                int parcelyId = getBindedUndeliveredParcel(newDrone.Id);
                 try
                 {
-                    DO.Parcel parcely = data.GetParcel(parcelyId);
+                    DO.Parcel parcely = data.GetParcel((int)drone.ParcelId);
                     DO.Customer Sender = data.GetCustomer(parcely.SenderId);
                     DO.Customer Getter = data.GetCustomer(parcely.TargetId);  
                     Location SenderLCT = new Location(Sender.Longitude, Sender.Lattitude);
                     Location GetterLCT = new Location(Getter.Longitude, Getter.Lattitude);
                     ParcelInDrone parcelTransfer = new ParcelInDrone() {
-                    Id = parcely.Id , 
-                    Pickup = SenderLCT   , 
-                    Dst =   GetterLCT,
-                    Distance =calculateDistance(SenderLCT , GetterLCT ) , 
-                    Weight = (WeightCategories)parcely.Weight , 
-                    Priorety = (Priorities)parcely.Priority , 
-                    Sender = new CustomerInParcel() { id = parcely.SenderId, name = data.GetCustomer(parcely.SenderId).Name } , 
-                    Target = new CustomerInParcel() { id = parcely.TargetId, name = data.GetCustomer(parcely.TargetId).Name }
-                };
-                newDrone.ParcelTransfer = parcelTransfer;
+                        Id = parcely.Id , 
+                        Pickup = SenderLCT   , 
+                        Dst =   GetterLCT,
+                        Distance =calculateDistance(SenderLCT , GetterLCT ) , 
+                        Weight = (WeightCategories)parcely.Weight , 
+                        Priorety = (Priorities)parcely.Priority , 
+                        Sender = new CustomerInParcel() { id = parcely.SenderId, name = Sender.Name } , 
+                        Target = new CustomerInParcel() { id = parcely.TargetId, name = Getter.Name }
+                    };
+                    newDrone.ParcelTransfer = parcelTransfer;
                 }
-                catch (DO.IdDosntExists  err) {
+                catch (DO.IdDosntExists err) {
                     throw new IdDosntExists(err); 
-
-
-                } 
-              
+                }
             }
             return newDrone;
         }

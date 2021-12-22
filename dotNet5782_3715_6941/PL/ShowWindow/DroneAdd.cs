@@ -25,7 +25,7 @@ namespace PL
     /// </summary>
     public partial class Window2 : Window
     {
-
+        #region addDrone
         public Window2(BlApi.Ibl x, Page pg)
         {
             pageof = pg;
@@ -40,7 +40,7 @@ namespace PL
             ///////////////// second row /////////////////////////
             Grid colums = CreateGridColumn(4, new int[4] { 1, 1, 1, 1 });
             Viewbox text1 = createLabel(" charging staion's ID :  ");
-            Array StionsIds = (from stat in x.GetStaions() select stat.Id).ToArray();
+            Array StionsIds = (from stat in x.GetStations() select stat.Id).ToArray();
             ComboBox input1 = creteComboBox(StionsIds);
             Grid input1GridC = CreateGridColumn(3, new int[3] { 1, 8, 1 });
             Grid input1GridR = CreateGridRow(3, new int[3] { 1, 1, 1 });
@@ -81,4 +81,5 @@ namespace PL
 
         }
     }
+    #endregion
 }

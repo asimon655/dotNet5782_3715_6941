@@ -95,19 +95,17 @@ namespace BL
             if ((WeightCategories)resParcel.Weight > drony.Weight)
                 throw new CouldntFindRightParcelWeight("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
             drony.ParcelId = resParcel.Id;
-            resParcel.Schedulded = DateTime.Now;
+            resParcel.Requested = DateTime.Now;
+            resParcel.DroneId = drony.Id;
             drony.DroneStat = DroneStatuses.Delivery;
             try
             {
                 data.UpdateParcles(resParcel);
             }
-            catch(DO.IdDosntExists err) {
-                throw new IdDosntExists(err); 
-                
-            } 
-            
-            
-
+            catch(DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
         }
 
         public void DronePickUp(int droneId)
@@ -154,6 +152,7 @@ namespace BL
             drony.Battery -= getPowerUsage(Target, drony.Loct, (WeightCategories)pack.Weight);
             drony.Loct = new Location(Target.Longitude, Target.Lattitude);
             drony.DroneStat = DroneStatuses.Free;
+            drony.ParcelId = null;
             pack.Delivered = DateTime.Now;
             try
             {
