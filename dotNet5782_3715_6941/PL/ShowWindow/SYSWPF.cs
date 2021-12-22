@@ -17,6 +17,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+//observercollection 
+//Inotifable 
+//PO
+// convertor and progress Bar 
+//mvvm
+//trigers 
 
 namespace PL
 {

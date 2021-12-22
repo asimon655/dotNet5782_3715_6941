@@ -46,6 +46,7 @@ namespace PL
         {
             this.dat = dat;
             InitializeComponent();
+          
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255,171, 210, 223);
             BO.DronesModelsStats dronesStats = dat.GetDronesModelsStats();
@@ -58,7 +59,7 @@ namespace PL
             WpfPlot2.Plot.Style(ScottPlot.Style.Blue3);
             WpfPlot3.Plot.Style(ScottPlot.Style.Blue3);
             WpfPlot1.Plot.Style(ScottPlot.Style.Blue3);
-            ListOf.ItemsSource = dat.GetDrones();
+           ListOf.ItemsSource = dat.GetDrones();
             Weight = WeightDefault;
             Stat = StatDefault;
             predStat = new List<CheckBoxStatus>();
@@ -106,7 +107,7 @@ namespace PL
             {
                 item.Checked = true;
             }
-            ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
+           ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -148,8 +149,8 @@ namespace PL
             dict.Add("Binded Parcel Id", "ParcelId");
             object IdLst = (object)
             MessageBox.Show((e.OriginalSource as GridViewColumnHeader).Column.Header.ToString());
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
+           ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
+           ListOf.ItemsSource =ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
         }
     }
 }
