@@ -41,5 +41,10 @@ namespace PL
             #endregion
   
         }
+
+        private void ListOfClients_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new CostumerShow(dat, dat.GetCostumer(((sender as ListView).SelectedItem as BO.CustomerList).Id)).Show();
+        }
     }
 }

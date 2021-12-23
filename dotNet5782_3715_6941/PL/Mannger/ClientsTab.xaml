@@ -87,7 +87,7 @@
                     </Grid>
 
                     <Border Grid.Row="1" Grid.Column="1" CornerRadius="5" BorderBrush="Black" BorderThickness="6">
-                        <ListView  
+                        <ListView  MouseDoubleClick="ListOfClients_MouseDoubleClick"
                                                  FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOfClients"  >
                             <ListView.View>
 

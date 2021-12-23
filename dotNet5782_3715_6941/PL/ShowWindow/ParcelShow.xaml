@@ -205,7 +205,7 @@
                                     <Label Content="Source"/>
 
                                 </Viewbox>
-                                <Image Grid.Row="1" x:Name="Sender"/>
+                                <Image Grid.Row="1" x:Name="Sender" Stretch="Fill"/>
                                 </Grid>
                         </Border>
                    
@@ -262,7 +262,7 @@
                                     <Label Content="Target"/>
 
                                 </Viewbox>
-                                <Image Grid.Row="1" x:Name="Target"/>
+                                <Image Grid.Row="1" x:Name="Target" Stretch="Fill"/>
                             </Grid>
                         </Border>
 
@@ -294,7 +294,7 @@
                         </Border>
                         <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="0,3,3,3">
                             <Viewbox>
-                                <Label Content="{Binding SenderParcelToCostumer.name}"></Label>
+                                <Label Content="{Binding GetterParcelToCostumer.name}"></Label>
                             </Viewbox>
                         </Border>
 

@@ -1,0 +1,211 @@
+﻿<Window x:Class="PL.CostumerShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.ShowWindow"
+        mc:Ignorable="d"
+        Title="CostumerShow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Image Source="https://content.parcelsolutions.net/13ecae39-c9be-4cb8-b6ab-198fc72f286b/landing-pages/parcel-collection-image.png" Stretch="Fill" Name="CostumerPhoto"></Image>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Black" BorderThickness="3,3,3,0">
+                    <Viewbox Grid.Row="0" >
+                        <Label >Name:</Label>
+                    </Viewbox>
+                </Border>
+
+                <Border  Grid.Row="1" BorderBrush="Black" BorderThickness="3,0,3,3">
+                    <Viewbox>
+                        <Label Content="{Binding Name}" ></Label>
+                    </Viewbox>
+                </Border>
+
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="3,3,3,0">
+                    <Viewbox >
+                        <Label  >Phone:</Label>
+                    </Viewbox>
+                </Border>
+                <Border  Grid.Row="3" BorderBrush="Black" BorderThickness="3,0,3,3">
+                    <Viewbox>
+                        <Label Content="{Binding Phone_Num}" Grid.Row="3"></Label>
+                    </Viewbox>
+                </Border>
+
+
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" BorderBrush="Black" BorderThickness="3,3,0,3">
+                    <Viewbox >
+                        <Label  >
+                            ID:
+                        </Label>
+                    </Viewbox>
+                </Border>
+                <Border  Grid.Column="1" BorderBrush="Black" BorderThickness="0,3,3,3">
+                    <Viewbox >
+                        <Label Content="{Binding Id}"></Label>
+                    </Viewbox>
+                </Border>
+
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border  Grid.Column="1" BorderBrush="Black" BorderThickness="3,3,3,3">
+                <Grid>                
+                    <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="4*" />
+                </Grid.RowDefinitions>
+                    <Viewbox>
+                        <Label Content="From" />
+                    </Viewbox>
+                    <ListView ItemsSource="{Binding FromClient}" Grid.Row="1"  MouseDoubleClick="ListOfPackges_MouseDoubleClick"
+                                                 FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOfPackgesFrom"  >
+                        <ListView.View>
+
+                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Id}"  Header="Id" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParentCustomer.name}"  Header="Sender Name" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParentCustomer.id}"  Header="Sender id" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Status}"  Header="Status" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}"  Header="Weight" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Priorety}"  Header="Priority" Width="auto"/>
+                                    <GridView.ColumnHeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <!-- Set any properties you want to set -->
+                                        <Setter Property="Background" Value="LightBlue" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+
+                            </GridView>
+
+
+                        </ListView.View>
+
+
+
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.ContainerStyle>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Expander IsExpanded="True">
+                                                        <Expander.Header>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding Name}" FontWeight="DemiBold" Foreground="DarkSlateGray" FontSize="20" VerticalAlignment="Bottom" />
+                                                                <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                                <TextBlock Text=" record(s)" FontSize="16" Foreground="Gray" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                            </StackPanel>
+                                                        </Expander.Header>
+                                                        <ItemsPresenter />
+                                                    </Expander>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.ContainerStyle>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+                    </ListView>
+                </Grid>
+
+            </Border>
+            <Border  Grid.Column="0"  BorderBrush="Black" BorderThickness="3,3,3,3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="4*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox>
+                        <Label Content="To" />
+                    </Viewbox>
+                    <ListView  ItemsSource="{Binding ToClient}" Grid.Row="1"  MouseDoubleClick="ListOfPackges_MouseDoubleClick"
+                                                 FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOfPackges"  >
+                        <ListView.View>
+
+                            <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Id}"  Header="Id" Width="auto"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ParentCustomer.name}"  Header="Sender Name" Width="auto" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ParentCustomer.id}"  Header="Sender id" Width="auto" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Status}"  Header="Status" Width="auto"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}"  Header="Weight" Width="auto" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Priorety}"  Header="Priority" Width="auto"/>
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <!-- Set any properties you want to set -->
+                                        <Setter Property="Background" Value="LightBlue" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+
+                            </GridView>
+
+
+                        </ListView.View>
+
+
+
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.ContainerStyle>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Expander IsExpanded="True">
+                                                        <Expander.Header>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding Name}" FontWeight="DemiBold" Foreground="DarkSlateGray" FontSize="20" VerticalAlignment="Bottom" />
+                                                                <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                                <TextBlock Text=" record(s)" FontSize="16" Foreground="Gray" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                            </StackPanel>
+                                                        </Expander.Header>
+                                                        <ItemsPresenter />
+                                                    </Expander>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.ContainerStyle>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+                    </ListView>
+                </Grid>
+            </Border>
+            
+        </Grid>
+
+    </Grid>
+</Window>
