@@ -32,10 +32,6 @@ namespace PL
     public partial class ManngerWin : SparkWindow
     {
 
-      
-
-  
-
         #region Fields
         public Stat status;
         BlApi.Ibl dat;
@@ -59,25 +55,10 @@ namespace PL
             DrawPointsOnMap(ALLPOINTSMOVED[2], idUser,0.1, "\\PL\\Images\\user.png",true);
             #endregion
 
-            #region Plots Initialize 
-            CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, dat.GetParcelsStatusesStats());
-            CreateDountPie<BO.WeightCategories>(WpfPlotPack2, dat.GetParcelsWeightsStats());
-            CreateDountPie<BO.Priorities>(WpfPlotPack3, dat.GetParcelsPrioretiesStats());
-            #endregion
-
-
-            #region ListView Grouping 
-            ListOfPackges.ItemsSource = dat.GetParcels();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfPackges.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
-            view.GroupDescriptions.Add(groupDescription);
-            #endregion
-
-            #region Framses Initialize 
+            #region Framses-Initialize 
             DroneFrame.NavigationService.Navigate(new DroneTab(dat));
+            ParcelFrame.NavigationService.Navigate(new ParcelTab(dat));
             #endregion
-            
-
         }
         #endregion
 
