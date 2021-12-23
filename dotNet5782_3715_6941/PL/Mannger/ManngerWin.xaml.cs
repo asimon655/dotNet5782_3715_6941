@@ -42,12 +42,11 @@ namespace PL
         {
             this.dat = dat;
             InitializeComponent();
-
-
             #region Framses-Initialize 
             DroneFrame.NavigationService.Navigate(new DroneTab(dat));
             ParcelFrame.NavigationService.Navigate(new ParcelTab(dat));
             MapFrame.NavigationService.Navigate(new MapTab(dat));
+            CostumerTab.NavigationService.Navigate(new ClientsTab(dat));
             #endregion
         }
         #endregion

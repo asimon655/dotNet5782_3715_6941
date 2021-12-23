@@ -13,16 +13,32 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL.Mannger
+namespace PL
 {
     /// <summary>
     /// Interaction logic for ClientsTab.xaml
     /// </summary>
+    /// 
     public partial class ClientsTab : Page
     {
-        public ClientsTab()
+        #region Fields 
+        BlApi.Ibl dat;
+        #endregion
+        public ClientsTab(BlApi.Ibl dat)
         {
+            this.dat = dat;
             InitializeComponent();
+
+            #region List Initialize 
+            ListOfClients.ItemsSource = dat.GetCustomers();
+            #endregion
+
+            #region ListView Grouping 
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfClients.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelGot");
+            view.GroupDescriptions.Add(groupDescription);
+            #endregion
+  
         }
     }
 }
