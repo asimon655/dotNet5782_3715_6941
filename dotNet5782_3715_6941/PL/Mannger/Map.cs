@@ -121,7 +121,7 @@ namespace PL
             var bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
             return new SymbolStyle { BitmapId = bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = scale, SymbolOffset = new Offset(0.0, 0.0, true) };
         }
-        void DrawPointsOnMap(IEnumerable<BO.Location> points , IEnumerable<int> ids ,double scale  , string ?  path , IEnumerable<string> ? Names = null)
+        void DrawPointsOnMap(IEnumerable<BO.Location> points , IEnumerable<int> ids ,double scale  , string ?  path ,bool FILL=false, IEnumerable<string> ? Names = null )
         {
             Random rng = new Random();
             var ly = new Mapsui.Layers.WritableLayer();
@@ -143,18 +143,20 @@ namespace PL
              x = new Mapsui.Styles.LabelStyle() {
                 Text = ids.Skip(i).First().ToString(),
                 Font = new Mapsui.Styles.Font { FontFamily = "Courier New", Bold = true, Italic = true, },
-                BackColor = new Mapsui.Styles.Brush(BGColor),
                 ForeColor = BGColor,
                 Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 1),
                 HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
                 MaxWidth = 10,
                 WordWrap = LabelStyle.LineBreakMode.TailTruncation
             };
-                x2 = new Mapsui.Styles.VectorStyle
+                if (FILL)
                 {
-                    Fill = new Mapsui.Styles.Brush(BGColor),
-                };
-                feature.Styles.Add(x2);
+                    x2 = new Mapsui.Styles.VectorStyle
+                    {
+                        Fill = new Mapsui.Styles.Brush(BGColor),
+                    };
+                    feature.Styles.Add(x2);
+                } 
                 if (path is null)
                 {
                     if (!File.Exists(Window2.TMP + @"image" + Names.Skip(i).First().Replace(" ", "_") + ".png"))
