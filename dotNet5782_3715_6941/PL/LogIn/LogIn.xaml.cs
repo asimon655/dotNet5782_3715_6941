@@ -20,7 +20,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for LogIn.xaml
     /// </summary>
-    public partial class LogIn : Window
+    public partial class LogIn : SparkWindow
     {
         
         public LogIn()
@@ -51,6 +51,11 @@ namespace PL
 
 
             }
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Add Client Not implemnted Yet", "Message");
         }
     }
 }

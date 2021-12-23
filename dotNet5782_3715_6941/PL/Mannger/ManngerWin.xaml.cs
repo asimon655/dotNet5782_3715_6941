@@ -114,7 +114,7 @@ namespace PL
             {
                 item.Checked = true;
             }
-            ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
+           ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
         }
 
 
@@ -163,8 +163,8 @@ namespace PL
             dict.Add("Binded Parcel Id", "ParcelId");
             object IdLst = (object)
             MessageBox.Show((e.OriginalSource as GridViewColumnHeader).Column.Header.ToString());
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
+           ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
+           ListOf.ItemsSource =ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
         }
         #endregion
     }
