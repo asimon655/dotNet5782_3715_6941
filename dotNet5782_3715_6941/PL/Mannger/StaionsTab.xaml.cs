@@ -13,16 +13,32 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL.Mannger
+namespace PL
 {
     /// <summary>
     /// Interaction logic for StaionsTab.xaml
     /// </summary>
+
     public partial class StaionsTab : Page
     {
-        public StaionsTab()
+        #region Fields 
+        BlApi.Ibl dat;
+        #endregion
+        public StaionsTab(BlApi.Ibl dat)
         {
+            this.dat = dat;
             InitializeComponent();
+            #region List Initialize 
+            ListOfStations.ItemsSource = dat.GetStations();
+            #endregion
+
+            #region ListView Grouping 
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfStations.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("BusyPorts");
+            view.GroupDescriptions.Add(groupDescription);
+            #endregion
         }
     }
 }
+namespace PL.Mannger
+{ }

@@ -71,10 +71,8 @@ VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" />
                 </wpfspark:PivotItem.PivotHeader>
                 <wpfspark:PivotItem.PivotContent>
                     <wpfspark:PivotContentControl>
-                        <Border 
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch" Background="#2596be" >
-                        </Border>
+                        <Frame Grid.Column="1" x:Name="StationFrame"  HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden"  />
                     </wpfspark:PivotContentControl>
                 </wpfspark:PivotItem.PivotContent>
             </wpfspark:PivotItem>
@@ -97,7 +95,7 @@ VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" />
                 <wpfspark:PivotItem.PivotContent>
 
                             <wpfspark:PivotContentControl>
-                                <Frame Grid.Column="1" x:Name="CostumerTab"  HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+                                <Frame Grid.Column="1" x:Name="CostumerFrame"  HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
 VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden"  />
   
                     </wpfspark:PivotContentControl>
