@@ -26,6 +26,7 @@ namespace PL
         #endregion
         public ClientsTab(BlApi.Ibl dat)
         {
+
             this.dat = dat;
             InitializeComponent();
 

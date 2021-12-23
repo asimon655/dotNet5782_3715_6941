@@ -108,8 +108,12 @@ namespace PL
 
         }
 
+
         #endregion
 
-
+        private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelList).Id)).Show();
+        }
     }
 }
