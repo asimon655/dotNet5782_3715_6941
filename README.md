@@ -14,7 +14,7 @@
 
 
 # dotNet5782_3715_6941
-##Minip project by Idan Maman and Abraham Simon . 
+## Minip project by Idan Maman and Abraham Simon . 
 ## important Notes:
 >### All the except the login page is relative to the window size(and not the screen resulation 
 >### there is also web app in asp in the brench "WebAPP" 
