@@ -31,8 +31,8 @@ namespace PL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
 
-    public partial class ManngerWin : SparkWindow
-        {
+    public partial class MapTab : Page
+    {
         #region TO Bl 
         #region Constans 
         private const double Radius = 6378137;

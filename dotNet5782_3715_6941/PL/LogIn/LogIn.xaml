@@ -25,9 +25,8 @@
         <BlurEffect/>
       </Ellipse.Effect>
     </Ellipse>
-    <TextBlock FontFamily="../Fonts/StartFont.ttf #Pacifico"  Margin="230,7,160,235" FontSize="64">
-      <Span Foreground="OrangeRed">ID</Span>
-      <Span Foreground="Orange">rones</Span>
+    <TextBlock FontFamily="../Fonts/StartFont.ttf #Pacifico"  Margin="217,10,147,277" FontSize="64">
+      <Span Foreground="OrangeRed">ID</Span><Span Foreground="Orange">rones</Span>
       <Span Foreground="GreenYellow">-</Span>
       <Span Foreground="DarkGreen">SA</Span>
     </TextBlock>
