@@ -11,8 +11,9 @@
                   >
     <Grid>
         <wpfspark:PivotPanel x:Name="RootPanel"
-                     HeaderHeight="70"
+                     HeaderHeight="50"
                      HorizontalAlignment="Stretch">
+            <!--#region Tab Parcels-->
             <wpfspark:PivotItem>
                 <wpfspark:PivotItem.PivotHeader>
                     <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
@@ -20,9 +21,10 @@
                  ActiveForeground="OrangeRed"
                  InactiveForeground="Black">
                         <TextBlock Margin="7">
-                            Item 1 
-                            
-                        </TextBlock>   </wpfspark:PivotHeaderControl>
+                            Parcels
+
+                        </TextBlock>
+                    </wpfspark:PivotHeaderControl>
                 </wpfspark:PivotItem.PivotHeader>
                 <wpfspark:PivotItem.PivotContent>
                     <wpfspark:PivotContentControl>
@@ -163,6 +165,30 @@
                     </wpfspark:PivotContentControl>
                 </wpfspark:PivotItem.PivotContent>
             </wpfspark:PivotItem>
+            <!--#endregion-->
+            
+            <!--#region Tab Drones-->
+            <wpfspark:PivotItem>
+                <wpfspark:PivotItem.PivotHeader>
+                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                 FontSize="28"
+                 ActiveForeground="LawnGreen"
+                 InactiveForeground="Black">
+                        <TextBlock Margin="7">
+                            Drones
+                        </TextBlock>
+                    </wpfspark:PivotHeaderControl>
+                </wpfspark:PivotItem.PivotHeader>
+                <wpfspark:PivotItem.PivotContent>
+                    <wpfspark:PivotContentControl>
+                        <Frame Grid.Column="1" x:Name="DroneFrame"  HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" />
+                    </wpfspark:PivotContentControl>
+                </wpfspark:PivotItem.PivotContent>
+            </wpfspark:PivotItem>
+            <!--#endregion-->
+            
+            <!--#region  Tab Stations -->
             <wpfspark:PivotItem>
                 <wpfspark:PivotItem.PivotHeader>
                     <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
@@ -170,8 +196,58 @@
                      ActiveForeground="BlueViolet"
                      InactiveForeground="Black" >
                         <TextBlock Margin="7">
-                            Item 2
-                            
+                          Stations
+
+
+                        </TextBlock>
+                    </wpfspark:PivotHeaderControl>
+                </wpfspark:PivotItem.PivotHeader>
+                <wpfspark:PivotItem.PivotContent>
+                    <wpfspark:PivotContentControl>
+                        <Border 
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" Background="#2596be" >
+                        </Border>
+                    </wpfspark:PivotContentControl>
+                </wpfspark:PivotItem.PivotContent>
+            </wpfspark:PivotItem>
+            <!--#endregion-->
+            
+            <!--#region Tab Costumers -->
+            <wpfspark:PivotItem>
+                <wpfspark:PivotItem.PivotHeader>
+                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                     FontSize="28"
+                     ActiveForeground="BlueViolet"
+                     InactiveForeground="Black" >
+                        <TextBlock Margin="7">
+                           Costumers
+
+
+                        </TextBlock>
+                    </wpfspark:PivotHeaderControl>
+                </wpfspark:PivotItem.PivotHeader>
+                <wpfspark:PivotItem.PivotContent>
+                    <wpfspark:PivotContentControl>
+                        <Border 
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" Background="#2596be" >
+                        </Border>
+                    </wpfspark:PivotContentControl>
+                </wpfspark:PivotItem.PivotContent>
+            </wpfspark:PivotItem>
+            <!--#endregion-->
+            
+            <!--#region Tab Map-->
+            <wpfspark:PivotItem>
+                <wpfspark:PivotItem.PivotHeader>
+                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                     FontSize="28"
+                     ActiveForeground="BlueViolet"
+                     InactiveForeground="Black" >
+                        <TextBlock Margin="7">
+                            Map
+
 
                         </TextBlock>
                     </wpfspark:PivotHeaderControl>
@@ -186,135 +262,32 @@
                     </wpfspark:PivotContentControl>
                 </wpfspark:PivotItem.PivotContent>
             </wpfspark:PivotItem>
+            <!--#endregion-->
+            
+            <!--#region Tab Settings -->
             <wpfspark:PivotItem>
                 <wpfspark:PivotItem.PivotHeader>
                     <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
-                 FontSize="28"
-                 ActiveForeground="LawnGreen"
-                 InactiveForeground="Black">
+                     FontSize="28"
+                     ActiveForeground="BlueViolet"
+                     InactiveForeground="Black" >
                         <TextBlock Margin="7">
-                            Item 3
+                          Settings
+
 
                         </TextBlock>
                     </wpfspark:PivotHeaderControl>
                 </wpfspark:PivotItem.PivotHeader>
                 <wpfspark:PivotItem.PivotContent>
                     <wpfspark:PivotContentControl>
-                        <Border Background="WhiteSmoke"
-                            HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch" Name="Item3" BorderThickness="4" BorderBrush="Black" CornerRadius="5">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="6*" />
-                                    <RowDefinition Height="7*" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="8*" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="8*" />
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="8*" />
-                                    <ColumnDefinition Width="1*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*" />
-                                        <RowDefinition Height="5*" />
-                                    </Grid.RowDefinitions>
-                                <Grid Grid.Row="0" Grid.Column="1">
-                                    <Viewbox>
-                                        <TextBlock Foreground="Blue">Models Bars </TextBlock></Viewbox></Grid>
-                                <Grid Grid.Row="0" Grid.Column="3">
-                                    <Viewbox>
-                                        <TextBlock Foreground="Blue">Weight Pie</TextBlock>
-                                    </Viewbox>
-                                </Grid>
-                                <Grid Grid.Row="0" Grid.Column="5">
-                                    <Viewbox>
-                                        <TextBlock Foreground="Blue" >Status Pie</TextBlock>
-                                    </Viewbox>
-                                </Grid>
-                                    <Border Grid.Row="1" Grid.Column="1"  BorderBrush="Black" BorderThickness="6" CornerRadius="5">
-                                        <Grid >
-                                    <WpfPlot Name="WpfPlot2"  />
-                                </Grid>
-                                    </Border>
-                                    <Border Grid.Row="1" Grid.Column="3" BorderBrush="Black" BorderThickness="6" CornerRadius="5">
-                                        <Grid >
-                                    <WpfPlot Name="WpfPlot1" />
-                                </Grid>
-                                    </Border>
-                                    <Border Grid.Row="1" Grid.Column="5" BorderBrush="Black" BorderThickness="6" CornerRadius="5">
-                                        <Grid >
-                                    
-                                    <WpfPlot Name="WpfPlot3" />
-                                </Grid>
-                        </Border>
-
-
-    </Grid>
-                                <Grid Grid.Row="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*" />
-                                        <RowDefinition Height="10*" />
-                                        <RowDefinition Height="1*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="8*" />
-                                        <ColumnDefinition Width="3*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid Grid.Row="1" Grid.Column="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*" />
-                                            <ColumnDefinition Width="10*" />
-                                            <ColumnDefinition Width="1*" />
-                                        </Grid.ColumnDefinitions>
-                                    
-
-                                    </Grid>
-                                   
-                                    <Border Grid.Row="1" Grid.Column="1" CornerRadius="5" BorderBrush="Black" BorderThickness="6">
-                                      <ListView
-                                        
-                                               MouseDoubleClick="ListOf_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOf"  >
-
-
-
-
-
-
-                                        <ListView.View>
-
-                                          <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
-                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto" />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" x:Name="Location" Header="Location" Width="auto"/>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Battery, StringFormat=\{0:f2\}}" x:Name="Battery" Header="Battery" Width="auto" />
-                                            <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
-                                            <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>
-                                            <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
-                                            <GridView.ColumnHeaderContainerStyle>
-                                              <Style TargetType="{x:Type GridViewColumnHeader}">
-                                                <!-- Set any properties you want to set -->
-                                                <Setter Property="Background" Value="LightBlue" />
-                                                <Setter Property="Foreground" Value="Black" />
-                                                <Setter Property="FontWeight" Value="Bold" />
-                                              </Style>
-                                            </GridView.ColumnHeaderContainerStyle>
-
-                                          </GridView>
-
-                                        </ListView.View>
-                                      </ListView>
-                                    </Border>
-
-                                </Grid>
-                            </Grid>
+                        <Border 
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch" Background="#2596be" >
                         </Border>
                     </wpfspark:PivotContentControl>
                 </wpfspark:PivotItem.PivotContent>
             </wpfspark:PivotItem>
+            <!--#endregion-->
         </wpfspark:PivotPanel>
     </Grid>
 </wpfspark:SparkWindow>

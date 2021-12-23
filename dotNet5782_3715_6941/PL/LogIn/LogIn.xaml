@@ -7,10 +7,12 @@
                     WindowFrameMode="CanMinimize"
                Height="450" Width="800"
                      Icon="..\Images\icon0.ico"
+                       ResizeMode="NoResize"
+                       
                   >
 
   <Grid >
-        <TextBlock  Margin="344,259,210,130">
+        <TextBlock  Margin="331,249,223,140">
     <Hyperlink Click="Hyperlink_Click" FontSize="24">Sign Up </Hyperlink>
         </TextBlock>
 
