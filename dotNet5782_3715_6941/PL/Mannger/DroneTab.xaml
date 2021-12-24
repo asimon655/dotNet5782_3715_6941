@@ -75,6 +75,7 @@
                         <ColumnDefinition Width="8*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
+                    <Button Content="Add Drone" Grid.Row="1" Grid.Column="0" Click="Button_Click_1"/>
                     <Grid Grid.Row="1" Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />

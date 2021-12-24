@@ -13,16 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PL.ShowWindow
+namespace PL
 {
     /// <summary>
     /// Interaction logic for StationsShow.xaml
     /// </summary>
-    public partial class StationsShow : Page
+
+    public partial class StationsShow : Window
     {
-        public StationsShow()
+        BlApi.Ibl dat;
+        public StationsShow(BlApi.Ibl dat, BO.Station stat)
         {
             InitializeComponent();
+            this.dat = dat;
+            this.DataContext = stat;
+
+        }
+
+        private void ListOfPackgesFrom_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new Window2(dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneCharge).DroneId)).Show();
         }
     }
 }

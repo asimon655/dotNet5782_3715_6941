@@ -38,7 +38,10 @@ namespace PL
             view.GroupDescriptions.Add(groupDescription);
             #endregion
         }
+
+        private void ListOfStations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new StationsShow(dat, dat.GetStation(((sender as ListView).SelectedItem as BO.StationList).Id)).Show();
+        }
     }
 }
-namespace PL.Mannger
-{ }

@@ -201,10 +201,11 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="4*" />
                                 </Grid.RowDefinitions>
-                                <Viewbox>
-                                    <Label Content="Source"/>
-
-                                </Viewbox>
+                                <Button Click="Button_Click_1" >
+                                    <Viewbox>
+                                        <Label Content="Source"/>
+                                    </Viewbox>
+                                </Button>
                                 <Image Grid.Row="1" x:Name="Sender" Stretch="Fill"/>
                                 </Grid>
                         </Border>
@@ -258,10 +259,14 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="4*" />
                                 </Grid.RowDefinitions>
-                                <Viewbox>
-                                    <Label Content="Target"/>
+                                
+                                    <Button Click="Button_Click" >
+                                    <Viewbox>
+                                        <Label Content="Target"/>
+                                    </Viewbox>
+                                </Button>
 
-                                </Viewbox>
+                      
                                 <Image Grid.Row="1" x:Name="Target" Stretch="Fill"/>
                             </Grid>
                         </Border>

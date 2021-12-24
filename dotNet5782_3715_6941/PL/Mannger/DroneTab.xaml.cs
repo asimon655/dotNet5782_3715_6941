@@ -194,5 +194,10 @@ namespace PL
 
         #endregion
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new Window2(dat,this).Show();
+
+        }
     }
 }

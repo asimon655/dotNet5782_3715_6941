@@ -35,17 +35,32 @@ namespace PL
                 Sender.Source = new BitmapImage(new Uri(TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png"));
             valid = true;
             if (!File.Exists(TMP + @"image" + parcely.GetterParcelToCostumer.id + ".png"))
-                valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + parcely.GetterParcelToCostumer.id + ".png", ImageFormat.Png);
+                valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + parcely.GetterParcelToCostumer.id + ".png", ImageFormat.Png, TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png");
             if (valid)
                 Target.Source = new BitmapImage(new Uri(TMP + @"image" + parcely.GetterParcelToCostumer.id + ".png"));
             valid = true;
-            BO.Drone drn = dat.GetDrone(parcely.ParcelDrone.Id); 
-            if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
-                valid = Window2.SaveFirstImage(drn.Model);
-            if (valid)
+            try
             {
-                Drone.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
+                BO.Drone drn = dat.GetDrone(parcely.ParcelDrone.Id);
+                if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
+                    valid = Window2.SaveFirstImage(drn.Model);
+                if (valid)
+                {
+                    Drone.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
+                }
             }
+            catch { } 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new CostumerShow(dat, dat.GetCostumer((DataContext as BO.Parcel).GetterParcelToCostumer.id)).Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new CostumerShow(dat, dat.GetCostumer((DataContext as BO.Parcel).SenderParcelToCostumer.id)).Show();
+          
         }
     }
 }

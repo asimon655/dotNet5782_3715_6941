@@ -45,14 +45,19 @@ namespace PL
 
 
                 log.AddDrone(drony, (int)(pacads[3] as ComboBox).SelectedItem);
-                (pageof as MainWindow).ListOf.ItemsSource = log.GetDronesFiltered((pageof as MainWindow).Stat, (pageof as MainWindow).Weight);
+                if (pageof is MainWindow)
+                    (pageof as MainWindow).ListOf.ItemsSource = log.GetDronesFiltered((pageof as MainWindow).Stat, (pageof as MainWindow).Weight);
+                if (pageof is DroneTab)
+                    (pageof as DroneTab).ListOf.ItemsSource = log.GetDrones();
                 try
-                {
-                    pageof.NavigationService.Refresh();
-                 
-                }
-                catch { }
-                IEnumerable<BO.DroneList> Dronelst = log.GetDrones();
+                    {
+                        pageof.NavigationService.Refresh();
+
+                    }
+                    catch { }
+                    IEnumerable<BO.DroneList> Dronelst = log.GetDrones();
+
+               
             }
             catch (Exception err)
             {
