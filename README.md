@@ -1,14 +1,16 @@
 # **__ TO DO LIST __ **
->## Clients List 
->## Clients display
->## parcel display 
->## base staion isplay 
->## Clients add
->## parcel add 
->## base staion add
->## parcel list filter by time
->## Map fix 
->## Add Actions SelectormFor Each Object
+>## Clients List  v
+>## Clients display v
+>## parcel display  v
+>## base staion isplay x
+>## Clients add x
+>## parcel add  x
+>## base staion add x
+>## parcel list filter by time x
+>## Map fix v
+>## Add Actions SelectormFor Each Object x
+>## Add try to any BL function call  x
+>## Add Convertors x
 
 
 
