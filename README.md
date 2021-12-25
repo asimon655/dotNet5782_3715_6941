@@ -2,8 +2,8 @@
 >## Clients List  v
 >## Clients display v
 >## parcel display  v
->## base staion isplay x
->## Clients add x
+>## base staion isplay v
+>## Clients add vx
 >## parcel add  x
 >## base staion add x
 >## parcel list filter by time x
