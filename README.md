@@ -17,6 +17,10 @@
 
 # dotNet5782_3715_6941
 ## Minip project by Idan Maman and Abraham Simon . 
+## Requirment: 
+>### Windows 10+ Computer(dont work on windows systems that are under of the version 10.0. 10240) 
+>### unfilterd(Rimon or NetSpark) Internet stable connection  . 
+>### 200MB of free Memory spaces(all teh pictures data base is saved localy ).   
 ## important Notes:
 >### All the except the login page is relative to the window size(and not the screen resulation 
 >### there is also web app in asp in the brench "WebAPP" 
