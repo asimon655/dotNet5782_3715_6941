@@ -39,7 +39,7 @@ namespace PL
             if (valid)
                 Target.Source = new BitmapImage(new Uri(TMP + @"image" + parcely.GetterParcelToCostumer.id + ".png"));
             valid = true;
-            try
+            if (!(parcely.ParcelDrone is null))
             {
                 BO.Drone drn = dat.GetDrone(parcely.ParcelDrone.Id);
                 if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
@@ -49,7 +49,7 @@ namespace PL
                     Drone.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
                 }
             }
-            catch { } 
+  
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -61,6 +61,11 @@ namespace PL
         {
             new CostumerShow(dat, dat.GetCostumer((DataContext as BO.Parcel).SenderParcelToCostumer.id)).Show();
           
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            new Window2(dat.GetDrone((DataContext as BO.Parcel).ParcelDrone.Id)).Show();
         }
     }
 }

@@ -17,6 +17,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace PL
 {
@@ -119,7 +121,31 @@ namespace PL
             }
             return true; 
         }
+        static public  List<string> GetCapchaQuestion()
+        {
+            WebClient client = new WebClient();
+            try
+            {
 
+                Stream stream = client.OpenRead("http://api.textcaptcha.com/idangolo123@gmail.com.xml");
+                StreamReader reader = new StreamReader(stream);
+                string plaintext = reader.ReadToEnd();
+                XmlDocument doc = new XmlDocument();
+                List<String> QuestionAndAnswers = new List<string>();
+                doc.LoadXml(plaintext);
+                QuestionAndAnswers.Add(doc.DocumentElement.FirstChild.InnerText);
+                
+                foreach(XmlNode Element in doc.DocumentElement.ChildNodes)
+                    QuestionAndAnswers.Add(Element.InnerText);
+                return QuestionAndAnswers;
+            }
+            catch {
+                throw new NotImplementedException("Ethenet connection is filterd (by rimon or net spark) or weak ");
+            }
+
+            
+            
+        }
 
 
     }

@@ -150,7 +150,9 @@
                             </Grid.ColumnDefinitions>
 
                             <Border Grid.Column="0" BorderBrush="Black" BorderThickness="3,3,3,3">
-                                <Image Name ="Drone"  Source="..\Images\drone_photo.jpg" Stretch="Fill"></Image>
+                                <Button Click="Button_Click_2">
+                                    <Image Name ="Drone"  Source="..\Images\drone_photo.jpg" Stretch="Fill"></Image>
+                                </Button>
                             </Border>
                             <Border Grid.Column="1" BorderBrush="Black" BorderThickness="3,3,0,3">
                                 <Viewbox>
