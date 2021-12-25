@@ -62,7 +62,11 @@
 # **Admin Window** 
 ## **Map:**
     
-   ![image](https://user-images.githubusercontent.com/90776557/146778990-9c55dc53-fcac-476b-abd0-3a459a8b8165.png)
+   ![image](https://user-images.githubusercontent.com/90776557/147394053-9cd1629f-a131-412d-b588-442e5e8fd753.png)
+   >### Moving Points Function : 
+   >to enable clear view of two points that is in one spot we moved some points a little from the spot. 
+![image](https://user-images.githubusercontent.com/90776557/147394057-0c107749-97d3-4aff-bc28-98adf44f793a.png)
+
 
 
 >in the map you can see all the **clients** , **drones** and **base stations** 
