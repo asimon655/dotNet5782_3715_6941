@@ -40,6 +40,19 @@
 >the battery is animated : Ecample : 
 >![image](https://user-images.githubusercontent.com/90776557/146791426-0ddb4cef-f60b-46a4-97b7-fcb566a8ca8b.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791521-77814542-d7d4-4de3-a8a6-bc70ca851466.png)
+
+## **Client Sign Up**
+>![image](https://user-images.githubusercontent.com/90776557/147393846-e20c8d8c-a158-4da3-bd6d-ec2b2a83b5d6.png)
+>### When you press the Captch Toggle button a popup window will open and you will need to ansert a question of first grade kid , if the answer will be correct and you will be 
+>### detected as a human the the button of sign up will be Enabeld to press ( will be Colored) . 
+>![image](https://user-images.githubusercontent.com/90776557/147393865-2e91b662-c97f-407e-a3c7-8d47f4a642f0.png)
+>![image](https://user-images.githubusercontent.com/90776557/147393879-65a9e5e9-0e50-4326-beab-48e58a0ba6b5.png)
+
+
+
+
+
+
 # **Admin Window** 
 ## **Map:**
     
