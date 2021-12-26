@@ -104,5 +104,10 @@ namespace PL
                 }
             }
         }
+
+        private void CaptchaChecker_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
