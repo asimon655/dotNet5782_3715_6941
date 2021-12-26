@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
      xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
+        xmlns:local="clr-namespace:PL"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="PL.CostumerShow"
         mc:Ignorable="d"
         Title="CostumerShow" Height="450" Width="800">
     <Grid>
-        <Grid x:Name="Add" Visibility="Hidden">
+        <Grid x:Name="Add" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
@@ -18,6 +18,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+ 
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*" />
@@ -29,6 +30,7 @@
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
+           
                 <ToggleButton Name="Captcha" Click="Button_Click_1" Background="#FFD9D1D1" Grid.Row="1" Grid.Column="1">
                     <ToggleButton.Resources>
                         <Style TargetType="{x:Type Border}">
@@ -39,15 +41,37 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="3*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="https://www.gadgety.co.il/wp-content/themes/main/thumbs/2017/03/reCAPTCHA.png"/>
+                        <Image Name="ScaleSpin" Grid.Column="0" Source="https://www.gadgety.co.il/wp-content/themes/main/thumbs/2017/03/reCAPTCHA.png"/>
                         <Viewbox  Stretch="Fill" Grid.Column="1">
-                            <TextBlock><Span FontWeight="Heavy" Foreground="#FF508EF5" ><Run Text="C"/></Span><Span  FontWeight="Light" Foreground="#FF3865CC"><Run Text="aptcha"/></Span></TextBlock>
+                            <TextBlock><Span FontWeight="Heavy" Foreground="#FF508EF5" ForceCursor="False" ><Run Text="C"/></Span><Span  FontWeight="Light" Foreground="#FF3865CC"><Run Text="aptcha"/></Span></TextBlock>
                         </Viewbox>
-                        <Label Grid.Column="2"/>
-                        <RadioButton x:Name="CaptchaChecker" FontStretch="UltraExpanded" AllowDrop="True" Grid.Column="3" IsEnabled="False" VerticalAlignment="Center" Foreground="LawnGreen" Background="LawnGreen"  BorderBrush="LawnGreen"  BorderThickness="5" Checked="CaptchaChecker_Checked"/>
+                        <Label  Grid.Column="2"/>
+
+                        <Viewbox Grid.Column="3">
+                            <wpfspark:SprocketControl 
+                                      HorizontalAlignment="Center"
+                                      Name="sprocketControl1"
+                                      VerticalAlignment="Top"
+                                      Height="{Binding  ActualHeight ,ElementName=ScaleSpin}" 
+                                      Width="{Binding  ActualWidth  ,ElementName=ScaleSpin}"
+                                      TickColor="Red"
+                                                      
+                                      TickWidth="3"
+                                      TickCount="10"
+                                      StartAngle="-90"
+                                      IsIndeterminate="True"
+                                      Interval="60"
+                                      LowestAlpha="50"
+                                      AlphaTicksPercentage="50"
+                                      TickStyle="Triangle"
+                                      InnerRadius="0.4"
+                                      OuterRadius="0.5" />
+                        </Viewbox>
+         
+                        <Image Grid.Column="3" Stretch="Fill" Source="../Images/v.png" Visibility="Hidden" Name="Vi"/> 
 
                         <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"  >
                             <Grid Background="#FFB8D0CE" Height="{Binding  ActualHeight ,ElementName=Add}" Width="{Binding  ActualWidth  ,ElementName=Add}">
@@ -127,6 +151,7 @@
 
 
             </Grid>
+
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -140,8 +165,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="1">
-                        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock FontWeight="Light" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but for your secuirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
+                        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="200" >
+                            <TextBlock ForceCursor="False" FontWeight="Light" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but for your secuirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
 
                         </Viewbox>
                         
@@ -149,7 +174,15 @@
                     </Border>
                     
                 </Grid>
+                <Grid  Grid.Column="2">
+                    <Rectangle  Name="DropScale" Stroke="#FF000000"  StrokeThickness="1" StrokeDashArray="4 4" SnapsToDevicePixels="True"/>
 
+
+                    <TextBox Height="{Binding  ActualHeight ,ElementName=DropScale}" Width="{Binding  ActualWidth  ,ElementName=DropScale}"  TextAlignment="Center" VerticalContentAlignment="Center"  x:Name="RtbInputFile" AllowDrop="True" Text="-Drag and Drop-" VerticalAlignment="Center" BorderBrush="White"  FontWeight="Light"  >
+
+                        </TextBox>
+        
+                </Grid>
                 <Border Grid.Column="1" BorderBrush="Purple" BorderThickness="3" CornerRadius="45">
                     <Grid >
                         <Grid.RowDefinitions>
@@ -182,8 +215,8 @@
                                     <ColumnDefinition Width="4*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                    <TextBox FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill"  MaxHeight="200" >
+                                    <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                                 </Viewbox>
                             </Grid>
                         </Grid>
@@ -207,8 +240,8 @@
                                     <ColumnDefinition Width="4*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                    <TextBox  FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                <Viewbox  MaxHeight="200"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                    <TextBox ForceCursor="False"  FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                                 </Viewbox>
                             </Grid>
                         </Grid>
@@ -237,8 +270,8 @@
                                 <ColumnDefinition Width="8*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Viewbox  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                <TextBox FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            <Viewbox   MaxHeight="200"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                             </Viewbox>
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="1">
@@ -253,8 +286,8 @@
                                 <ColumnDefinition Width="8*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                <TextBox FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            <Viewbox   MaxHeight="200" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox ForceCursor="False" FontStretch="Normal" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                             </Viewbox>
                         </Grid>
                         <Grid Grid.Row="2" Grid.Column="1">
@@ -269,8 +302,8 @@
                                 <ColumnDefinition Width="8*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                <TextBox FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            <Viewbox   MaxHeight="200" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                             </Viewbox>
                         </Grid>
 
@@ -321,7 +354,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Border  Grid.Column="1" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
-                    <Button Click="Button_Click"  IsEnabled="{Binding IsChecked, ElementName=CaptchaChecker}" >
+                    <Button Click="Button_Click" Name="ButtonAdd"  IsEnabled="False" >
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>
@@ -349,7 +382,7 @@
 
 
         </Grid>
-        <Grid x:Name="Show" Visibility="Visible">
+        <Grid x:Name="Show" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />

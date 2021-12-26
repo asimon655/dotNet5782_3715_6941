@@ -22,14 +22,14 @@ namespace PL
     /// <summary>
     /// Interaction logic for CostumerShow.xaml
     /// </summary>
-    public partial class CostumerShow :Window
+    public partial class CostumerShow : Window
     {
         #region Fields 
         BlApi.Ibl dat;
-        IEnumerable<string> Answers; 
+        IEnumerable<string> Answers;
         static internal string TMP = System.IO.Path.GetTempPath();
         #endregion
-        public CostumerShow(BlApi.Ibl dat , BO.Customer cst)
+        public CostumerShow(BlApi.Ibl dat, BO.Customer cst)
         {
             this.dat = dat;
             InitializeComponent();
@@ -42,8 +42,8 @@ namespace PL
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(cst.ToClient);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Priority");
             view.GroupDescriptions.Add(groupDescription);
-             view = (CollectionView)CollectionViewSource.GetDefaultView(cst.FromClient);
-             groupDescription = new PropertyGroupDescription("Priority");
+            view = (CollectionView)CollectionViewSource.GetDefaultView(cst.FromClient);
+            groupDescription = new PropertyGroupDescription("Priority");
             view.GroupDescriptions.Add(groupDescription);
             #endregion
             bool valid = true;
@@ -64,7 +64,9 @@ namespace PL
             Answers = resCaptcha.Skip(1);
             Add.Visibility = Visibility.Visible;
             Show.Visibility = Visibility.Hidden;
-             
+            RtbInputFile.Drop += RtbInputFile_Drop;
+            RtbInputFile.PreviewDragOver += RtbInputFile_PreviewDragOver;
+
         }
 
 
@@ -91,7 +93,7 @@ namespace PL
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            myPopup.IsOpen = false; 
+            myPopup.IsOpen = false;
         }
         public static string MD5Hash(string input)
         {
@@ -107,18 +109,21 @@ namespace PL
         }
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-           
-           
-            string plaintextans = EnterPop.Text; 
+
+
+            string plaintextans = EnterPop.Text;
             string res = MD5Hash(plaintextans.ToLower());
             foreach (string ans in Answers)
             {
-                
-                if (ans.Equals(res) )
+
+                if (ans.Equals(res))
                 {
                     myPopup.IsOpen = false;
-                    CaptchaChecker.IsChecked = true;
+                    ButtonAdd.IsEnabled = true;
+                    Vi.Visibility = Visibility.Visible;
+                    sprocketControl1.Visibility = Visibility.Hidden;
                 }
+
             }
         }
 
@@ -126,5 +131,23 @@ namespace PL
         {
 
         }
+        private void RtbInputFile_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Note that you can have more than one file.
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                var file = files[0];
+                RtbInputFile.Text = file;
+
+            }
+        }
+        
+
+private void RtbInputFile_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+        }
+
     }
 }
