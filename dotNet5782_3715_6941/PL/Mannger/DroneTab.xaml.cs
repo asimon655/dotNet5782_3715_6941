@@ -51,7 +51,9 @@ namespace PL
             #endregion
 
             #region ListView Initialize 
-            ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
+            Binding myBinding = new Binding();
+            myBinding.Source = dat.GetDronesFiltered(Stat, Weight);
+            BindingOperations.SetBinding(ListOf, ListView.ItemsSourceProperty, myBinding);
             #endregion
 
             #region Plots Initialize 

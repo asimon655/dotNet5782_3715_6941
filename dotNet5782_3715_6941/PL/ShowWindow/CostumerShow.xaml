@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="CostumerShow" Height="450" Width="800">
     <Grid>
-        <Grid x:Name="Add" Visibility="Visible">
+        <Grid x:Name="Add" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
                 <RowDefinition Height="*" />
@@ -47,25 +47,9 @@
                             <TextBlock><Span FontWeight="Heavy" Foreground="#FF508EF5" ><Run Text="C"/></Span><Span  FontWeight="Light" Foreground="#FF3865CC"><Run Text="aptcha"/></Span></TextBlock>
                         </Viewbox>
                         <Label Grid.Column="2"/>
-                        <Grid Grid.Column="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*" />
-                                <RowDefinition Height="8*" />
-                                <RowDefinition Height="2*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="8*" />
-                                <ColumnDefinition Width="2*" />
-                            </Grid.ColumnDefinitions>
-                            <Viewbox Grid.Row="1" Grid.Column="1">
-                                <RadioButton x:Name="CaptchaChecker" FontStretch="UltraExpanded" AllowDrop="True"  IsEnabled="False" VerticalAlignment="Center" Foreground="#FF73F00B"  BorderBrush="#FF66EB06" Background="#FF1FFF07" OpacityMask="#FF55F40D"  />
-                            </Viewbox>
+                        <RadioButton x:Name="CaptchaChecker" FontStretch="UltraExpanded" AllowDrop="True" Grid.Column="3" IsEnabled="False" VerticalAlignment="Center" Foreground="LawnGreen" Background="LawnGreen"  BorderBrush="LawnGreen"  BorderThickness="5" Checked="CaptchaChecker_Checked"/>
 
-
-                        </Grid>
-           
-                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Relative"  >
+                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"  >
                             <Grid Background="#FFB8D0CE" Height="{Binding  ActualHeight ,ElementName=Add}" Width="{Binding  ActualWidth  ,ElementName=Add}">
 
                                 <Grid.RowDefinitions>
@@ -91,9 +75,9 @@
                                 </TextBlock>
                                     </Viewbox>
                                 </Border>
-                                <Border Background="White" Grid.Column="1"   Grid.Row="4" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
-                                    <Viewbox>
-                                    <TextBox  HorizontalAlignment="Center" VerticalAlignment="Center"  FontStretch="Condensed" x:Name="EnterPop" BorderBrush="White">
+                                <Border Grid.Column="1"   Grid.Row="4" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <TextBox   FontStretch="Condensed" x:Name="EnterPop" BorderBrush="BlueViolet" Background="#FFB8D0CE">
                                         <TextBox.Resources>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="CornerRadius" Value="25"/>
@@ -101,6 +85,7 @@
                                         </TextBox.Resources>
                                     </TextBox>
                                     </Viewbox>
+
                                 </Border>
                                 <Border  Grid.Row="6"  Grid.Column="1" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
                                 <Button Click="Button_Click_3">
@@ -156,11 +141,13 @@
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="1">
                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock FontWeight="Light" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but fot your sequirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
+                            <TextBlock FontWeight="Light" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but for your secuirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
 
                         </Viewbox>
+                        
 
                     </Border>
+                    
                 </Grid>
 
                 <Border Grid.Column="1" BorderBrush="Purple" BorderThickness="3" CornerRadius="45">
@@ -183,8 +170,24 @@
                             <Viewbox>
                                 <Label FontWeight="Light" Content="Lat:"/>
                             </Viewbox>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="*" />
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                    <TextBox FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                </Viewbox>
+                            </Grid>
                         </Grid>
-                        <Grid Grid.Row="3" Grid.Column="1">
+                        <Grid Grid.Row="3" Grid.Column="1" Name="InputSizeScale">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -192,6 +195,22 @@
                             <Viewbox >
                                 <Label FontWeight="Light" Content="Long:"/>
                             </Viewbox>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="*" />
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                    <TextBox  FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                </Viewbox>
+                            </Grid>
                         </Grid>
 
 
@@ -203,9 +222,57 @@
                         <Viewbox Grid.Row="1" Grid.Column="0">
                             <Label FontWeight="Light" Content="Name:"/>
                         </Viewbox>
-                        <Viewbox Grid.Row="2" Grid.Column="0">
+                        <Viewbox Grid.Row="2" Grid.Column="0" >
                             <Label FontWeight="Light" Content="Phone:"/>
                         </Viewbox>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="*" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="*" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="*" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            </Viewbox>
+                        </Grid>
 
 
 
@@ -282,7 +349,7 @@
 
 
         </Grid>
-        <Grid x:Name="Show" Visibility="Hidden">
+        <Grid x:Name="Show" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
