@@ -16,12 +16,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Security.Cryptography;
+using WPFSpark;
 namespace PL
 {
     /// <summary>
     /// Interaction logic for CostumerShow.xaml
     /// </summary>
-    public partial class CostumerShow : Window
+    public partial class CostumerShow :Window
     {
         #region Fields 
         BlApi.Ibl dat;
@@ -32,13 +33,12 @@ namespace PL
         {
             this.dat = dat;
             InitializeComponent();
-            List<String> resCaptcha = Window2.GetCapchaQuestion();
-            myPopup.DataContext = resCaptcha.First();
-            Answers = resCaptcha.Skip(1); 
-            //CaptchaQuestion.Content = Window2.GetCapchaQuestion(); 
+
+
+            Show.Visibility = Visibility.Visible;
+            Add.Visibility = Visibility.Hidden;
             this.DataContext = cst;
             #region ListView Grouping 
-
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(cst.ToClient);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Priority");
             view.GroupDescriptions.Add(groupDescription);
@@ -52,6 +52,23 @@ namespace PL
             if (valid)
                 CostumerPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + cst.Id + ".png"));
         }
+
+
+
+        public CostumerShow(BlApi.Ibl dat)
+        {
+            this.dat = dat;
+            InitializeComponent();
+            List<String> resCaptcha = Window2.GetCapchaQuestion();
+            myPopup.DataContext = resCaptcha.First();
+            Answers = resCaptcha.Skip(1);
+            Add.Visibility = Visibility.Visible;
+            Show.Visibility = Visibility.Hidden;
+             
+        }
+
+
+
         private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelInCustomer).Id)).Show();

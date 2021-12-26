@@ -133,8 +133,6 @@ namespace PL
                 XmlDocument doc = new XmlDocument();
                 List<String> QuestionAndAnswers = new List<string>();
                 doc.LoadXml(plaintext);
-                QuestionAndAnswers.Add(doc.DocumentElement.FirstChild.InnerText);
-                
                 foreach(XmlNode Element in doc.DocumentElement.ChildNodes)
                     QuestionAndAnswers.Add(Element.InnerText);
                 return QuestionAndAnswers;

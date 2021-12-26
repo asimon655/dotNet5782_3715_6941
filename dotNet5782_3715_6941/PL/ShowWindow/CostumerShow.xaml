@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.ShowWindow"
+        xmlns:local="clr-namespace:PL"
+     xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="PL.CostumerShow"
         mc:Ignorable="d"
         Title="CostumerShow" Height="450" Width="800">
@@ -46,9 +47,25 @@
                             <TextBlock><Span FontWeight="Heavy" Foreground="#FF508EF5" ><Run Text="C"/></Span><Span  FontWeight="Light" Foreground="#FF3865CC"><Run Text="aptcha"/></Span></TextBlock>
                         </Viewbox>
                         <Label Grid.Column="2"/>
-                        <RadioButton x:Name="CaptchaChecker" FontStretch="UltraExpanded" AllowDrop="True" Grid.Column="3" IsEnabled="False" VerticalAlignment="Center" Foreground="#FF73F00B"  BorderBrush="#FF66EB06"  />
+                        <Grid Grid.Column="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="2*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Grid.Row="1" Grid.Column="1">
+                                <RadioButton x:Name="CaptchaChecker" FontStretch="UltraExpanded" AllowDrop="True"  IsEnabled="False" VerticalAlignment="Center" Foreground="#FF73F00B"  BorderBrush="#FF66EB06" Background="#FF1FFF07" OpacityMask="#FF55F40D"  />
+                            </Viewbox>
 
-                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"  >
+
+                        </Grid>
+           
+                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Relative"  >
                             <Grid Background="#FFB8D0CE" Height="{Binding  ActualHeight ,ElementName=Add}" Width="{Binding  ActualWidth  ,ElementName=Add}">
 
                                 <Grid.RowDefinitions>
@@ -68,20 +85,23 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Border Grid.Row="2" Grid.Column="1"  CornerRadius="25" BorderBrush="Black" BorderThickness="3">
-                                    <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Text="{Binding}"  Name="myPopupText" Foreground="Blue" >
+                                    <Viewbox>
+                                    <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Text="{Binding}" FontWeight="ExtraBold" FontFamily="../Fonts/StartFont.ttf #Pacifico" FontStretch="UltraCondensed"  Foreground="OrangeRed"  Name="myPopupText"  >
                                 
                                 </TextBlock>
-                               
+                                    </Viewbox>
                                 </Border>
-                                <Border Grid.Column="1"   Grid.Row="4" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
-                                    <TextBox   FontStretch="Condensed" x:Name="EnterPop">
+                                <Border Background="White" Grid.Column="1"   Grid.Row="4" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
+                                    <Viewbox>
+                                    <TextBox  HorizontalAlignment="Center" VerticalAlignment="Center"  FontStretch="Condensed" x:Name="EnterPop" BorderBrush="White">
                                         <TextBox.Resources>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="CornerRadius" Value="25"/>
                                             </Style>
                                         </TextBox.Resources>
                                     </TextBox>
-</Border>
+                                    </Viewbox>
+                                </Border>
                                 <Border  Grid.Row="6"  Grid.Column="1" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
                                 <Button Click="Button_Click_3">
                                         <Button.Resources>
@@ -465,4 +485,4 @@
 
         </Grid>
     </Grid>
-</Window>
+    </Window>

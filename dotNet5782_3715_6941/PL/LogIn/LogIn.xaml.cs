@@ -55,7 +55,7 @@ namespace PL
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Add Client Not implemnted Yet", "Message");
+            new CostumerShow(dat).Show();
         }
     }
 }

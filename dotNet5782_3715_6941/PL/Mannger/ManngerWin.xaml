@@ -1,9 +1,9 @@
-﻿<wpfspark:SparkWindow x:Class="PL.ManngerWin"
+﻿<Window x:Class="PL.ManngerWin"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
                       Title="CustomWindow"
-                      WindowFrameMode="Pane"
+                     
                       Width="1500"
                       Height="1000" 
                        Icon="..\Images\icon0.ico"  
@@ -152,4 +152,4 @@ VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden"  />
             <!--#endregion-->
         </wpfspark:PivotPanel>
     </Grid>
-</wpfspark:SparkWindow>
+</Window>

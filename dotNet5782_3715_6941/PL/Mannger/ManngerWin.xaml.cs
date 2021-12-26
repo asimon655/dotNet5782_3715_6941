@@ -29,7 +29,7 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ManngerWin : SparkWindow
+    public partial class ManngerWin :Window
     {
 
         #region Fields
