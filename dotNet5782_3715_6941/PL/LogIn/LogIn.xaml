@@ -7,10 +7,16 @@
                     WindowFrameMode="CanMinimize"
                Height="450" Width="800"
                      Icon="..\Images\icon0.ico"
+                       ResizeMode="NoResize"
+                       
                   >
 
   <Grid >
-    <PasswordBox x:Name="Password" Margin="523,204,47,190"/>
+        <TextBlock  Margin="331,249,223,140">
+    <Hyperlink Click="Hyperlink_Click" FontSize="24">Sign Up </Hyperlink>
+        </TextBlock>
+
+        <PasswordBox x:Name="Password" Margin="523,204,47,190"/>
     <TextBox x:Name="UserName" TextWrapping="Wrap" Margin="159,204,411,190"/>
     <TextBlock TextWrapping="Wrap" Margin="20,192,646,119" Text="Name:" FontSize="25" HorizontalAlignment="Right"   />
     <TextBlock Text="Password:" TextWrapping="Wrap" Margin="400,192,266,119" FontSize="25"  />
@@ -19,9 +25,8 @@
         <BlurEffect/>
       </Ellipse.Effect>
     </Ellipse>
-    <TextBlock FontFamily="../Fonts/StartFont.ttf #Pacifico"  Margin="230,7,160,235" FontSize="64">
-      <Span Foreground="OrangeRed">ID</Span>
-      <Span Foreground="Orange">rones</Span>
+    <TextBlock FontFamily="../Fonts/StartFont.ttf #Pacifico"  Margin="217,10,147,277" FontSize="64">
+      <Span Foreground="OrangeRed">ID</Span><Span Foreground="Orange">rones</Span>
       <Span Foreground="GreenYellow">-</Span>
       <Span Foreground="DarkGreen">SA</Span>
     </TextBlock>
@@ -60,6 +65,7 @@
         </Button.Background>
         <TextBlock FontSize="54" FontWeight="DemiBold">Enter</TextBlock>
       </Button>
+        
     </Border>
   </Grid>
 </wpfspark:SparkWindow>

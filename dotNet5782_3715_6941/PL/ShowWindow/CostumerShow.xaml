@@ -1,0 +1,588 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
+        xmlns:local="clr-namespace:PL"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="PL.CostumerShow"
+        mc:Ignorable="d"
+        Title="CostumerShow" Height="450" Width="800">
+    <Grid>
+        <Grid x:Name="Add" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+ 
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+           
+                <ToggleButton Name="Captcha" Click="Button_Click_1" Background="#FFD9D1D1" Grid.Row="1" Grid.Column="1">
+                    <ToggleButton.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="20"/>
+                        </Style>
+                    </ToggleButton.Resources>
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Name="ScaleSpin" Grid.Column="0" Source="https://www.gadgety.co.il/wp-content/themes/main/thumbs/2017/03/reCAPTCHA.png"/>
+                        <Viewbox  Stretch="Fill" Grid.Column="1">
+                            <TextBlock><Span FontWeight="Heavy" Foreground="#FF508EF5" ForceCursor="False" ><Run Text="C"/></Span><Span  FontWeight="Light" Foreground="#FF3865CC"><Run Text="aptcha"/></Span></TextBlock>
+                        </Viewbox>
+                        <Label  Grid.Column="2"/>
+
+                        <Viewbox Grid.Column="3">
+                            <wpfspark:SprocketControl 
+                                      HorizontalAlignment="Center"
+                                      Name="sprocketControl1"
+                                      VerticalAlignment="Top"
+                                      Height="{Binding  ActualHeight ,ElementName=ScaleSpin}" 
+                                      Width="{Binding  ActualWidth  ,ElementName=ScaleSpin}"
+                                      TickColor="Red"
+                                                      
+                                      TickWidth="3"
+                                      TickCount="10"
+                                      StartAngle="-90"
+                                      IsIndeterminate="True"
+                                      Interval="60"
+                                      LowestAlpha="50"
+                                      AlphaTicksPercentage="50"
+                                      TickStyle="Triangle"
+                                      InnerRadius="0.4"
+                                      OuterRadius="0.5" />
+                        </Viewbox>
+         
+                        <Image Grid.Column="3" Stretch="Fill" Source="../Images/v.png" Visibility="Hidden" Name="Vi"/> 
+
+                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"  >
+                            <Grid Background="#FFB8D0CE" Height="{Binding  ActualHeight ,ElementName=Add}" Width="{Binding  ActualWidth  ,ElementName=Add}">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10*" />
+                                    <RowDefinition Height="26*" />
+                                    <RowDefinition Height="26*" />
+                                    <RowDefinition Height="26*" />
+                                    <RowDefinition Height="26*" />
+                                    <RowDefinition Height="26*" />
+                                    <RowDefinition Height="26*" />
+                                    <RowDefinition Height="26*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="26*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Row="2" Grid.Column="1"  CornerRadius="25" BorderBrush="Black" BorderThickness="3">
+                                    <Viewbox>
+                                    <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Text="{Binding}" FontWeight="ExtraBold" FontFamily="../Fonts/StartFont.ttf #Pacifico" FontStretch="UltraCondensed"  Foreground="OrangeRed"  Name="myPopupText"  >
+                                
+                                </TextBlock>
+                                    </Viewbox>
+                                </Border>
+                                <Border Grid.Column="1"   Grid.Row="4" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
+                                    <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <TextBox   FontStretch="Condensed" x:Name="EnterPop" BorderBrush="BlueViolet" Background="#FFB8D0CE">
+                                        <TextBox.Resources>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="CornerRadius" Value="25"/>
+                                            </Style>
+                                        </TextBox.Resources>
+                                    </TextBox>
+                                    </Viewbox>
+
+                                </Border>
+                                <Border  Grid.Row="6"  Grid.Column="1" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
+                                <Button Click="Button_Click_3">
+                                        <Button.Resources>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="CornerRadius" Value="15"/>
+                                            </Style>
+                                        </Button.Resources>
+                                        <Viewbox>
+                                        <Label Content="Check" FontWeight="Bold"/>
+                                    </Viewbox>
+                                </Button>
+                                </Border>
+                                <Border Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                    <Button   Click="Button_Click_2">
+              
+                                        <Viewbox>
+                                        <Label Content="X" FontWeight="Bold"/> 
+                                    </Viewbox>
+                                </Button>
+                                </Border>
+                            </Grid>
+                        </Popup>
+
+
+
+                    </Grid>
+                </ToggleButton>
+
+
+
+
+
+
+     
+
+
+
+
+
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1">
+                        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="200" >
+                            <TextBlock ForceCursor="False" FontWeight="Light" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but for your secuirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
+
+                        </Viewbox>
+                        
+
+                    </Border>
+                    
+                </Grid>
+                <Grid  Grid.Column="2">
+                    <Rectangle  Name="DropScale" Stroke="#FF000000"  StrokeThickness="1" StrokeDashArray="4 4" SnapsToDevicePixels="True"/>
+
+
+                    <TextBox Height="{Binding  ActualHeight ,ElementName=DropScale}" Width="{Binding  ActualWidth  ,ElementName=DropScale}"  TextAlignment="Center" VerticalContentAlignment="Center"  x:Name="RtbInputFile" AllowDrop="True" Text="-Drag and Drop-" VerticalAlignment="Center" BorderBrush="White"  FontWeight="Light"  >
+
+                        </TextBox>
+        
+                </Grid>
+                <Border Grid.Column="1" BorderBrush="Purple" BorderThickness="3" CornerRadius="45">
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox>
+                                <Label FontWeight="Light" Content="Lat:"/>
+                            </Viewbox>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="*" />
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill"  MaxHeight="200" >
+                                    <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                </Viewbox>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="3" Grid.Column="1" Name="InputSizeScale">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox >
+                                <Label FontWeight="Light" Content="Long:"/>
+                            </Viewbox>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="4*" />
+                                    <RowDefinition Height="*" />
+
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox  MaxHeight="200"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                    <TextBox ForceCursor="False"  FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                </Viewbox>
+                            </Grid>
+                        </Grid>
+
+
+
+
+                        <Viewbox Grid.Row="0" Grid.Column="0">
+                            <Label  FontWeight="Light" Content="Id:"/>
+                        </Viewbox>
+                        <Viewbox Grid.Row="1" Grid.Column="0">
+                            <Label FontWeight="Light" Content="Name:"/>
+                        </Viewbox>
+                        <Viewbox Grid.Row="2" Grid.Column="0" >
+                            <Label FontWeight="Light" Content="Phone:"/>
+                        </Viewbox>
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="*" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox   MaxHeight="200"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="*" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox   MaxHeight="200" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox ForceCursor="False" FontStretch="Normal" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            </Viewbox>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="*" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="8*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox   MaxHeight="200" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                            </Viewbox>
+                        </Grid>
+
+
+
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="0">
+                <Rectangle Stroke="#FF2152D4" StrokeThickness="3">
+                    <Rectangle.Effect>
+                        <BlurEffect/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Ellipse StrokeThickness="6"  Stroke="#FF12DE94" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Viewbox  Grid.Row="1" HorizontalAlignment="Center">
+                        <Grid>
+                            <Rectangle Stroke="#FFBF13DA" StrokeThickness="6">
+                                <Rectangle.Effect>
+                                    <BlurEffect/>
+                                </Rectangle.Effect>
+                            </Rectangle>
+
+
+                            <TextBlock FontFamily="../Fonts/StartFont.ttf #Pacifico"  FontSize="64" ><Span Foreground="OrangeRed"><Run Text="ID"/></Span><Span Foreground="Orange"><Run Text="rones"/></Span><Run Text=" "/><Span Foreground="GreenYellow"><Run Text="-"/></Span><Run Text=" "/><Span Foreground="DarkGreen"><Run Text="SA"/></Span></TextBlock>
+
+
+                        </Grid>
+                    </Viewbox>
+
+                </Grid>
+
+
+
+
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border  Grid.Column="1" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
+                    <Button Click="Button_Click" Name="ButtonAdd"  IsEnabled="False" >
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Color="MistyRose" Offset="0.0" />
+                                <GradientStop Color="LightPink" Offset="0.25" />
+                                <GradientStop Color="Pink" Offset="0.75" />
+                                <GradientStop Color="HotPink" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Viewbox>
+                            <Label FontWeight="DemiBold" Content="Sign In"/>
+                        </Viewbox>
+                    </Button>
+                </Border>
+            </Grid>
+
+
+
+
+
+
+
+        </Grid>
+        <Grid x:Name="Show" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="https://content.parcelsolutions.net/13ecae39-c9be-4cb8-b6ab-198fc72f286b/landing-pages/parcel-collection-image.png" Stretch="Fill" x:Name="CostumerPhoto"/>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="3,3,3,0">
+                        <Viewbox Grid.Row="0" >
+                            <Label Content="Name:" />
+                        </Viewbox>
+                    </Border>
+
+                    <Border  Grid.Row="1" BorderBrush="Black" BorderThickness="3,0,3,3">
+                        <Viewbox>
+                            <Label Content="{Binding Name}" />
+                        </Viewbox>
+                    </Border>
+
+                    <Border Grid.Row="2" BorderBrush="Black" BorderThickness="3,3,3,0">
+                        <Viewbox >
+                            <Label Content="Phone:"  />
+                        </Viewbox>
+                    </Border>
+                    <Border  Grid.Row="3" BorderBrush="Black" BorderThickness="3,0,3,3">
+                        <Viewbox>
+                            <Label Content="{Binding Phone_Num}" Grid.Row="3"/>
+                        </Viewbox>
+                    </Border>
+
+
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderBrush="Black" BorderThickness="3,3,0,3">
+                        <Viewbox >
+                            <Label Content="ID:"  />
+                        </Viewbox>
+                    </Border>
+                    <Border  Grid.Column="1" BorderBrush="Black" BorderThickness="0,3,3,3">
+                        <Viewbox >
+                            <Label Content="{Binding Id}"/>
+                        </Viewbox>
+                    </Border>
+
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border  Grid.Column="1" BorderBrush="Black" BorderThickness="1.5,3,3,3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="4*" />
+                        </Grid.RowDefinitions>
+                        <Viewbox>
+                            <Label Content="From" />
+                        </Viewbox>
+                        <ListView ItemsSource="{Binding FromClient}" Grid.Row="1"  MouseDoubleClick="ListOfPackges_MouseDoubleClick"
+                                                 FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" x:Name="ListOfPackgesFrom"  >
+                            <ListView.View>
+
+                                <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                                    <GridView.ColumnHeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                                            <!-- Set any properties you want to set -->
+                                            <Setter Property="Background" Value="LightBlue" />
+                                            <Setter Property="Foreground" Value="Black" />
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </Style>
+                                    </GridView.ColumnHeaderContainerStyle>
+
+                                    <GridViewColumn DisplayMemberBinding="{Binding Id}"  Header="Id" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.name}"  Header="Sender Name" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.id}"  Header="Sender id" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Status}"  Header="Status" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Weight}"  Header="Weight" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Priorety}"  Header="Priority" Width="auto"/>
+
+                                </GridView>
+
+
+                            </ListView.View>
+
+
+
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Expander IsExpanded="True">
+                                                            <Expander.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="{Binding Name}" FontWeight="DemiBold" Foreground="DarkSlateGray" FontSize="20" VerticalAlignment="Bottom" />
+                                                                    <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                                    <TextBlock Text=" record(s)" FontSize="16" Foreground="Gray" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                                </StackPanel>
+                                                            </Expander.Header>
+                                                            <ItemsPresenter />
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+                    </Grid>
+
+                </Border>
+                <Border  Grid.Column="0"  BorderBrush="Black" BorderThickness="3,3,1.5,3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="4*" />
+                        </Grid.RowDefinitions>
+                        <Viewbox>
+                            <Label Content="To" />
+                        </Viewbox>
+                        <ListView  ItemsSource="{Binding ToClient}" Grid.Row="1"  MouseDoubleClick="ListOfPackges_MouseDoubleClick"
+                                                 FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" x:Name="ListOfPackges"  >
+                            <ListView.View>
+
+                                <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                                    <GridView.ColumnHeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                                            <!-- Set any properties you want to set -->
+                                            <Setter Property="Background" Value="LightBlue" />
+                                            <Setter Property="Foreground" Value="Black" />
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        </Style>
+                                    </GridView.ColumnHeaderContainerStyle>
+
+                                    <GridViewColumn DisplayMemberBinding="{Binding Id}"  Header="Id" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.name}"  Header="Sender Name" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.id}"  Header="Sender id" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Status}"  Header="Status" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Weight}"  Header="Weight" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Priorety}"  Header="Priority" Width="auto"/>
+
+                                </GridView>
+
+
+                            </ListView.View>
+
+
+
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Expander IsExpanded="True">
+                                                            <Expander.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="{Binding Name}" FontWeight="DemiBold" Foreground="DarkSlateGray" FontSize="20" VerticalAlignment="Bottom" />
+                                                                    <TextBlock Text="{Binding ItemCount}" FontSize="18" Foreground="Gray" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                                    <TextBlock Text=" record(s)" FontSize="16" Foreground="Gray" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                                </StackPanel>
+                                                            </Expander.Header>
+                                                            <ItemsPresenter />
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                        </ListView>
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+    </Window>

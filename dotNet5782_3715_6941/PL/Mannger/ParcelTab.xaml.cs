@@ -1,11 +1,8 @@
-﻿using ScottPlot;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,21 +13,39 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPFSpark;
-using Mapsui.Utilities;
-using Mapsui.Layers;
-using HarfBuzzSharp;
-using Mapsui.Styles;
-using Mapsui.Providers;
-
 
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ParcelTab.xaml
     /// </summary>
-    public partial class ManngerWin : Window
+    public partial class ParcelTab : Page
     {
+        #region Fields 
+        BlApi.Ibl dat;
+        #endregion
+        public ParcelTab(BlApi.Ibl dat )
+        {
+            InitializeComponent();
+            this.dat = dat;
+
+            #region ListView Grouping 
+            ListOfPackges.ItemsSource = dat.GetParcels();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfPackges.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
+            view.GroupDescriptions.Add(groupDescription);
+            #endregion
+
+            #region Plots Initialize 
+            CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, dat.GetParcelsStatusesStats());
+            CreateDountPie<BO.WeightCategories>(WpfPlotPack2, dat.GetParcelsWeightsStats());
+            CreateDountPie<BO.Priorities>(WpfPlotPack3, dat.GetParcelsPrioretiesStats());
+            #endregion
+
+        }
+
+
+        #region ScottPlot
         internal void createModelsBar(ScottPlot.WpfPlot Bar, double[] pos, string[] names, double[] vals)
         {
             Bar.Plot.Clear();
@@ -93,5 +108,12 @@ namespace PL
 
         }
 
+
+        #endregion
+
+        private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelList).Id)).Show();
+        }
     }
 }

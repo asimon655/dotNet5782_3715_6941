@@ -1,9 +1,9 @@
-﻿<Window x:Class="PL.ShowWindow.ParcelShow"
+﻿<Window x:Class="PL.ParcelShow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.ShowWindow"
+        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="ParcelShow" Height="450" Width="800">
     <Grid>
@@ -26,18 +26,29 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Viewbox Grid.Row="0">
+                <Border BorderBrush="Black" BorderThickness="3,3,3,0">
+                    <Viewbox Grid.Row="0" >
                     <Label >WEIGHT:</Label>
                 </Viewbox>
-                <Viewbox Grid.Row="1">
-                    <Label ></Label>
+                </Border>
+
+                <Border  Grid.Row="1" BorderBrush="Black" BorderThickness="3,0,3,3">       
+                    <Viewbox>
+                    <Label Content="{Binding Weight}" ></Label>
                 </Viewbox>
-                <Viewbox Grid.Row="2">
-                    <Label  >Priorty</Label>
+                </Border>
+
+                <Border Grid.Row="2" BorderBrush="Black" BorderThickness="3,3,3,0">    
+                    <Viewbox >
+                    <Label  >Priorty:</Label>
                 </Viewbox>
-                <Viewbox Grid.Row="3">
-                    <Label  Grid.Row="3"></Label>
+                </Border>
+                <Border  Grid.Row="3" BorderBrush="Black" BorderThickness="3,0,3,3">    
+                    <Viewbox>
+                    <Label Content="{Binding Priority}" Grid.Row="3"></Label>
                 </Viewbox>
+                </Border>
+            
 
             </Grid>
             <Grid Grid.Column="2">
@@ -45,15 +56,18 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-
-                <Viewbox Grid.Column="0">
-                    <Label >
+                <Border Grid.Column="0" BorderBrush="Black" BorderThickness="3,3,0,3">
+                <Viewbox >
+                    <Label  >
                         ID:
                     </Label>
-                </Viewbox>
-                <Viewbox  Grid.Column="1">
+                    </Viewbox>
+                </Border>
+                <Border  Grid.Column="1" BorderBrush="Black" BorderThickness="0,3,3,3">       <Viewbox >
                     <Label Content="{Binding Id}"></Label>
                 </Viewbox>
+                </Border>
+         
             </Grid>
         </Grid>
         <Grid Grid.Row="1" >
@@ -74,45 +88,228 @@
             </Border>
             <Border Grid.Row="1" Grid.Column="0"  BorderBrush="Black" BorderThickness="3,0,3,3">
             <Viewbox  >
-                <Label></Label>
+                    <Label  Content="{Binding ParcelCreation}"></Label>
             </Viewbox>
             </Border>
-            <Border  Grid.Row="0" Grid.Column="1">          
+            <Border  Grid.Row="0" Grid.Column="1"  BorderBrush="Black" BorderThickness="3,3,3,0">          
                 <Viewbox >
                 <Label>Parcel Binded</Label>
             </Viewbox>
             
             </Border>
 
-            <Border  Grid.Row="1" Grid.Column="1">
+            <Border  Grid.Row="1" Grid.Column="1"  BorderBrush="Black" BorderThickness="3,0,3,3">
             <Viewbox >
-                <Label></Label>
+                    <Label Content="{Binding ParcelBinded}"></Label>
             </Viewbox>
             </Border>
-            <Border  Grid.Row="0" Grid.Column="2">
+            <Border  Grid.Row="0" Grid.Column="2"  BorderBrush="Black" BorderThickness="3,3,3,0">
             <Viewbox >
                 <Label>
                     Parcel Picked Up 
                 </Label>
             </Viewbox>
             </Border>
-            <Border Grid.Row="1" Grid.Column="2">
+            <Border Grid.Row="1" Grid.Column="2"  BorderBrush="Black" BorderThickness="3,0,3,3">
             <Viewbox  >
-                <Label></Label>
+                    <Label Content="{Binding ParcelPickedUp}"></Label>
             </Viewbox>
             </Border>
-            <Border Grid.Row="0" Grid.Column="3">
+            <Border Grid.Row="0" Grid.Column="3"  BorderBrush="Black" BorderThickness="3,3,3,0">
             <Viewbox  >
                 <Label>
                     Parcel Delivered
                 </Label>
                 </Viewbox>
             </Border>
-            <Viewbox  Grid.Row="1" Grid.Column="3">
-                <Label></Label>
-            </Viewbox>
+            <Border Grid.Row="1" Grid.Column="3"  BorderBrush="Black" BorderThickness="3,0,3,3">
+                <Viewbox  Grid.Row="1" Grid.Column="3">
+                    <Label Content="{Binding ParcelDelivered}"></Label>
+                </Viewbox>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="3,3,3,3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="3,3,3,3">
+                                <Button Click="Button_Click_2">
+                                    <Image Name ="Drone"  Source="..\Images\drone_photo.jpg" Stretch="Fill"></Image>
+                                </Button>
+                            </Border>
+                            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="3,3,0,3">
+                                <Viewbox>
+                                    <Label>ID:</Label>
+                                </Viewbox>
+                            </Border>
+                            <Border Grid.Column="2" BorderBrush="Black" BorderThickness="0,3,3,3">
+                                <Viewbox>
+                                    <Label Content="{Binding ParcelDrone.Id}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </Viewbox>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <Border  BorderBrush="Black" BorderThickness="3,3,3,3" Grid.Row="1">
+                        <Grid>
+                            <ProgressBar Background="WhiteSmoke" Value="{Binding ParcelDrone.Battery}" Foreground="LawnGreen"></ProgressBar>
+                            <Viewbox  VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Label Content="{Binding ParcelDrone.Battery}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="3,3,3,3" Grid.Row="2">
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Grid.Column="0">
+                                <Label >Location:</Label>
+                            </Viewbox>
+                            <Viewbox Grid.Column="1">
+                                <Label Content="{Binding ParcelDrone.Loct}" ></Label>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="3,3,3,3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" >
+                        <Border BorderBrush="Black" BorderThickness="3,3,3,3">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="4*" />
+                                </Grid.RowDefinitions>
+                                <Button Click="Button_Click_1" >
+                                    <Viewbox>
+                                        <Label Content="Source"/>
+                                    </Viewbox>
+                                </Button>
+                                <Image Grid.Row="1" x:Name="Sender" Stretch="Fill"/>
+                                </Grid>
+                        </Border>
+                   
+                    </Grid>
+                    <Grid Grid.Column="1" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="3,3,0,3">
+                            <Viewbox>
+                                <Label>ID:
+                                </Label>
+                            </Viewbox>
+                        </Border>
+                        <Border Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="3,3,0,3">
+                            <Viewbox>
+                                <Label>Name</Label>
+                            </Viewbox>
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" BorderBrush="Black" BorderThickness="0,3,3,3"> 
+                            <Viewbox>
+                                <Label Content="{Binding SenderParcelToCostumer.id}"></Label>
+                            </Viewbox>
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="0,3,3,3">
+                            <Viewbox>
+                                <Label Content="{Binding SenderParcelToCostumer.name}"></Label>
+                            </Viewbox>
+                        </Border>
+
+                    </Grid>
+
+                </Grid>
+            </Border>
+            <Border Grid.Column="2" BorderBrush="Black" BorderThickness="3,3,3,3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" >
+                        <Border BorderBrush="Black" BorderThickness="3,3,3,3">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="4*" />
+                                </Grid.RowDefinitions>
+                                
+                                    <Button Click="Button_Click" >
+                                    <Viewbox>
+                                        <Label Content="Target"/>
+                                    </Viewbox>
+                                </Button>
+
+                      
+                                <Image Grid.Row="1" x:Name="Target" Stretch="Fill"/>
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+                    <Grid Grid.Column="1" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="3,3,0,3">
+                            <Viewbox>
+                                <Label>ID:
+                                </Label>
+                            </Viewbox>
+                        </Border>
+                        <Border Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="3,3,0,3">
+                            <Viewbox>
+                                <Label>Name</Label>
+                            </Viewbox>
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="0" BorderBrush="Black" BorderThickness="0,3,3,3">
+                            <Viewbox>
+                                <Label Content="{Binding GetterParcelToCostumer.id}"></Label>
+                            </Viewbox>
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="0,3,3,3">
+                            <Viewbox>
+                                <Label Content="{Binding GetterParcelToCostumer.name}"></Label>
+                            </Viewbox>
+                        </Border>
+
+                    </Grid>
+
+                </Grid>
+            </Border>
 
         </Grid>
-        <Grid></Grid>
     </Grid>
 </Window>

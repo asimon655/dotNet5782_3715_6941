@@ -52,5 +52,10 @@ namespace PL
 
             }
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            new CostumerShow(dat).Show();
+        }
     }
 }

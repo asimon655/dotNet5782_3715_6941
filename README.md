@@ -1,21 +1,29 @@
 # **__ TO DO LIST __ **
->## Clients List 
->## Clients display
->## parcel display 
->## base staion isplay 
->## Clients add
->## parcel add 
->## base staion add
->## parcel list filter by time
->## Map fix 
->## Add Actions SelectormFor Each Object
-
+>## Clients List  v
+>## Clients display v
+>## parcel display  v
+>## base staion isplay v
+>## Clients add vx
+>## parcel add  x
+>## base staion add x
+>## parcel list filter by time x
+>## Map fix v
+>## Add Actions SelectormFor Each Object x
+>## Add try to any BL function call  x
+>## Add Convertors x
 
 
 
 
 # dotNet5782_3715_6941
-Minip project by Idan Maman and Abraham Simon . 
+## Minip project by Idan Maman and Abraham Simon . 
+## Requirment: 
+>### *Windows 10+ Computer(dont work on windows systems that are under of the version 10.0. 10240) 
+>### *unfilterd(Rimon or NetSpark) Internet stable connection  . 
+>### *200MB of free Memory spaces(all teh pictures data base is saved localy ).   
+## important Notes:
+>### All the except the login page is relative to the window size(and not the screen resulation 
+>### there is also web app in asp in the brench "WebAPP" 
 # **Show Window :**
 ## **Drone Show** 
 ### **Drone's Photo:**
@@ -36,10 +44,29 @@ Minip project by Idan Maman and Abraham Simon .
 >the battery is animated : Ecample : 
 >![image](https://user-images.githubusercontent.com/90776557/146791426-0ddb4cef-f60b-46a4-97b7-fcb566a8ca8b.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791521-77814542-d7d4-4de3-a8a6-bc70ca851466.png)
+
+## **Client Sign Up**
+>![image](https://user-images.githubusercontent.com/90776557/147393846-e20c8d8c-a158-4da3-bd6d-ec2b2a83b5d6.png)
+>When you press the Captcha Toggle button a popup window will open and you will need to answer a question of first grade kid level, if the answer will be correct  you will be detected as a human and the the button of sign up will be Enabeld to press ( will be Colored) and the Inputs fields will be checked for valid data. 
+>![image](https://user-images.githubusercontent.com/90776557/147393865-2e91b662-c97f-407e-a3c7-8d47f4a642f0.png)
+>![image](https://user-images.githubusercontent.com/90776557/147393879-65a9e5e9-0e50-4326-beab-48e58a0ba6b5.png)
+
+>### Sequirty: 
+>all the answers to the Captcha saved and transferd over the intenet hashed(MD5) so hacking to the Captcha system is almost impossible. 
+
+
+
+
+
+
 # **Admin Window** 
 ## **Map:**
     
-   ![image](https://user-images.githubusercontent.com/90776557/146778990-9c55dc53-fcac-476b-abd0-3a459a8b8165.png)
+   ![image](https://user-images.githubusercontent.com/90776557/147394053-9cd1629f-a131-412d-b588-442e5e8fd753.png)
+   >### Moving Points Function : 
+   >to enable clear view of two points that is in one spot we moved some points a little from the spot. 
+![image](https://user-images.githubusercontent.com/90776557/147394057-0c107749-97d3-4aff-bc28-98adf44f793a.png)
+
 
 
 >in the map you can see all the **clients** , **drones** and **base stations** 
