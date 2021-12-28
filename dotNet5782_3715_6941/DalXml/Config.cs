@@ -16,5 +16,13 @@ namespace Dal
             return (from num in dalConfig.Element("power-usage").Elements()
                            select Convert.ToDouble(num.Value)).ToArray();
         }
+        public static int GetPromoteParcelIndex()
+        {
+            XElement dalConfig = XElement.Load(Path.Combine("Data", "config.xml"));
+            int index = Convert.ToInt32(dalConfig.Element("parcel-index").Value);
+            dalConfig.Element("parcel-index").SetValue(index+1);
+            dalConfig.Save(Path.Combine("Data", "config.xml"));
+            return index;
+        }
     }
 }

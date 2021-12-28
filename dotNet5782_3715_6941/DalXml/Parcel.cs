@@ -12,9 +12,8 @@ namespace Dal
         public void AddParcel(Parcel parcel)
         {
             List<Parcel> parcels = Read<Parcel>();
-            
-            if (parcels.Any(x => x.Id == parcel.Id))
-                throw new IdAlreadyExists("there is already a parcel with that id", parcel.Id);
+
+            parcel.Id = XmlConfig.GetPromoteParcelIndex();
 
             parcels.Add(parcel);
 
