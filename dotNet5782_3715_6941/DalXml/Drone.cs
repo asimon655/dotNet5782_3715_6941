@@ -21,6 +21,7 @@ namespace Dal
 
         public IEnumerable<Drone> GetDrones()
         {
+            //this is not inmplemented yet just so Bl could run
             return new List<Drone>();
         }
 

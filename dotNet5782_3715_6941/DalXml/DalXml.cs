@@ -99,5 +99,16 @@ namespace Dal
             }
         }
 
+        static int Update<T>(List<T> listy, T updater)
+        {
+            var id = typeof(T).GetProperty("Id");
+
+            int index = listy.FindIndex(x => (int)id.GetValue(x, null) == (int)id.GetValue(updater, null));
+
+            if (index != -1)
+                listy[index] = updater;
+            
+            return index;
+        }
     }
 }
