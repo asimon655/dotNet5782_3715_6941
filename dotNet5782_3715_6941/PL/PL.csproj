@@ -26,6 +26,7 @@
     <None Remove="Images\StaionToList.jpg" />
     <None Remove="Images\user.png" />
     <None Remove="Images\v.png" />
+    <None Remove="Images\WMTB.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +80,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\v.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\WMTB.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
