@@ -70,11 +70,13 @@
                                       InnerRadius="0.4"
                                       OuterRadius="0.5" BorderBrush="Black" Background="White" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" Foreground="#FF042271" FontSize="20" />
                         </Viewbox>
-
+         
                         <Image Grid.Column="3" Stretch="Fill" Source="../Images/v.png" Visibility="Hidden" Name="Vi"/>
 
-                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"  >
-                            <Grid Background="#FFB8D0CE" Height="{Binding  ActualHeight ,ElementName=Add}" Width="{Binding  ActualWidth  ,ElementName=Add}">
+                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+            PopupAnimation="Slide" >
+                 
+                            <Grid Background="#FF508EF5" Height="400" Width="500" >
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="10*" />
@@ -92,46 +94,39 @@
                                     <ColumnDefinition Width="1*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Border Grid.Row="2" Grid.Column="1"  CornerRadius="25" BorderBrush="Black" BorderThickness="3">
+                                <Border Grid.Row="2" Grid.Column="1"  BorderBrush="Black" BorderThickness="3">
                                     <Viewbox>
-                                        <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Text="{Binding}" FontWeight="ExtraBold" FontFamily="../Fonts/StartFont.ttf #Pacifico" FontStretch="UltraCondensed"  Foreground="OrangeRed"  Name="myPopupText"  >
-
-                                        </TextBlock>
+                                    <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Text="{Binding}" FontWeight="ExtraBold" FontStretch="UltraCondensed"    Name="myPopupText"  >
+                                
+                                </TextBlock>
                                     </Viewbox>
                                 </Border>
-                                <Border Grid.Column="1"   Grid.Row="4" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
+                                <Border Grid.Column="1"   Grid.Row="4"  BorderBrush="Black" BorderThickness="3">
                                     <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                        <TextBox   FontStretch="Condensed" x:Name="EnterPop" BorderBrush="BlueViolet" Background="#FFB8D0CE">
-                                            <TextBox.Resources>
-                                                <Style TargetType="{x:Type Border}">
-                                                    <Setter Property="CornerRadius" Value="25"/>
-                                                </Style>
-                                            </TextBox.Resources>
-                                        </TextBox>
+                                        <TextBox Background="#FF508EF5"  FontStretch="Condensed" x:Name="EnterPop" BorderBrush="BlueViolet" >
+                              
+                                    </TextBox>
                                     </Viewbox>
 
                                 </Border>
-                                <Border  Grid.Row="6"  Grid.Column="1" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
-                                    <Button Click="Button_Click_3">
-                                        <Button.Resources>
-                                            <Style TargetType="{x:Type Border}">
-                                                <Setter Property="CornerRadius" Value="15"/>
-                                            </Style>
-                                        </Button.Resources>
+                      
+                                    <Button Click="Button_Click_3"  Grid.Row="6"  Grid.Column="1">
+  
                                         <Viewbox>
-                                            <Label Content="Check" FontWeight="Bold"/>
-                                        </Viewbox>
-                                    </Button>
-                                </Border>
-                                <Border Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
-                                    <Button   Click="Button_Click_2">
-
+                                        <Label Content="Check" FontWeight="Bold"/>
+                                    </Viewbox>
+                                </Button>
+                                
+                            
+                                    <Button   Click="Button_Click_2" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+              
                                         <Viewbox>
-                                            <Label Content="X" FontWeight="Bold"/>
-                                        </Viewbox>
-                                    </Button>
-                                </Border>
+                                        <Label Content="X" FontWeight="Bold"/> 
+                                    </Viewbox>
+                                </Button>
+                         
                             </Grid>
+
                         </Popup>
 
 
@@ -161,96 +156,158 @@
                 <Grid Grid.Column="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="20*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="1">
-                        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="200" >
-                            <TextBlock ForceCursor="False" FontWeight="Light" RenderTransformOrigin="0.5,0.5" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but for your secuirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
-
+                        <Viewbox>
+                            <TextBlock FontSize="8" ForceCursor="False"  FontWeight="Light" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but for your secuirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
                         </Viewbox>
+
 
 
                     </Border>
 
                 </Grid>
-                <Grid  Grid.Column="2">
-                    <Rectangle  Name="DropScale" Stroke="#FF000000"  StrokeThickness="1" StrokeDashArray="4 4" SnapsToDevicePixels="True"/>
-
-
-                    <TextBox Height="{Binding  ActualHeight ,ElementName=DropScale}" Width="{Binding  ActualWidth  ,ElementName=DropScale}"  TextAlignment="Center" VerticalContentAlignment="Center"  x:Name="RtbInputFile" AllowDrop="True" Text="-Drag and Drop-" VerticalAlignment="Center" BorderBrush="White"  FontWeight="Light"  >
-
-                    </TextBox>
-
-                </Grid>
-                <Border Grid.Column="1" BorderBrush="Purple" BorderThickness="3" CornerRadius="45">
+   
+                <Border Grid.Column="1" BorderBrush="Purple" BorderThickness="3" CornerRadius="45" Name="PopUpScale">
                     <Grid >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                         
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Viewbox>
-                                <Label FontWeight="Light" Content="Lat:"/>
-                            </Viewbox>
-                            <Grid Grid.Row="0" Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="4*" />
-                                    <RowDefinition Height="*" />
+                        <Grid Grid.Row="3" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
 
-                                </Grid.RowDefinitions>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill"  MaxHeight="200" >
-                                    <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                <Viewbox>
+                                    <Label FontWeight="Light" Content="Lat:"/>
                                 </Viewbox>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Row="3" Grid.Column="1" Name="InputSizeScale">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Viewbox >
-                                <Label FontWeight="Light" Content="Long:"/>
-                            </Viewbox>
-                            <Grid Grid.Row="0" Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="4*" />
-                                    <RowDefinition Height="*" />
+                                <Grid Grid.Row="1" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="4*" />
+                                        <RowDefinition Height="*" />
 
-                                </Grid.RowDefinitions>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="4*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill"  MaxHeight="200" >
+                                        <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                    </Viewbox>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.Column="1" Name="InputSizeScale">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Viewbox  MaxHeight="200"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                    <TextBox ForceCursor="False"  FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                <Viewbox >
+                                    <Label FontWeight="Light" Content="Long:"/>
                                 </Viewbox>
+                                <Grid Grid.Row="1" Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="4*" />
+                                        <RowDefinition Height="*" />
+
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="4*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Viewbox  MaxHeight="200"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
+                                        <TextBox ForceCursor="False"  FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                    </Viewbox>
+                                </Grid>
                             </Grid>
                         </Grid>
+                        <Grid Grid.Row="3" Grid.Column="1">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.7*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="1.7*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="1" Grid.Column="1"  BorderBrush="Purple" BorderThickness="1.5"  Name="DropScale1">
 
 
 
+                                <Grid>
+                                    <Image Visibility="Hidden" x:Name="UserPhoto" Stretch="Fill" >
+                                 
+                                    </Image>
+                                    <Grid Name="WaterMark">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="*" />
 
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="2*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Viewbox Grid.Row="1" Grid.Column="1">
+
+                                            <TextBlock Text="Drag &amp; Drop" Opacity="0.8"  Foreground="LightGray"  VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="SearchTermTextBox" >
+                                                <TextBlock.Style>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Text, ElementName=RtbInputFile}" Value="">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+
+                                        </Viewbox>
+                                    </Grid>
+
+                                    <TextBox   Opacity="0" Height="{Binding  ActualHeight ,ElementName=DropScale1}" Width="{Binding  ActualWidth  ,ElementName=DropScale1}"  TextAlignment="Center" VerticalContentAlignment="Center"  x:Name="RtbInputFile" AllowDrop="True" VerticalAlignment="Center" BorderBrush="White"  FontWeight="Light" >
+                                        <TextBox.Resources>
+
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="CornerRadius" Value="50"/>
+                                            </Style>
+
+                                        </TextBox.Resources>
+                                    </TextBox>
+                     
+
+                                </Grid>
+
+                            </Border>
+
+                        </Grid>
                         <Viewbox Grid.Row="0" Grid.Column="0">
-                            <Label  FontWeight="Light" Content="Id:"/>
+                            <Label  FontWeight="Light" Content="Id:" />
                         </Viewbox>
                         <Viewbox Grid.Row="1" Grid.Column="0">
                             <Label FontWeight="Light" Content="Name:"/>
