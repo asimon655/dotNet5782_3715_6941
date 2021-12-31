@@ -18,7 +18,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
- 
+
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*" />
@@ -30,7 +30,7 @@
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
-           
+
                 <ToggleButton Name="Captcha" Click="Button_Click_1" Background="#FFD9D1D1" Grid.Row="1" Grid.Column="1">
                     <ToggleButton.Resources>
                         <Style TargetType="{x:Type Border}">
@@ -68,10 +68,10 @@
                                       AlphaTicksPercentage="50"
                                       TickStyle="Triangle"
                                       InnerRadius="0.4"
-                                      OuterRadius="0.5" />
+                                      OuterRadius="0.5" BorderBrush="Black" Background="White" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" Foreground="#FF042271" FontSize="20" />
                         </Viewbox>
-         
-                        <Image Grid.Column="3" Stretch="Fill" Source="../Images/v.png" Visibility="Hidden" Name="Vi"/> 
+
+                        <Image Grid.Column="3" Stretch="Fill" Source="../Images/v.png" Visibility="Hidden" Name="Vi"/>
 
                         <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"  >
                             <Grid Background="#FFB8D0CE" Height="{Binding  ActualHeight ,ElementName=Add}" Width="{Binding  ActualWidth  ,ElementName=Add}">
@@ -94,42 +94,42 @@
 
                                 <Border Grid.Row="2" Grid.Column="1"  CornerRadius="25" BorderBrush="Black" BorderThickness="3">
                                     <Viewbox>
-                                    <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Text="{Binding}" FontWeight="ExtraBold" FontFamily="../Fonts/StartFont.ttf #Pacifico" FontStretch="UltraCondensed"  Foreground="OrangeRed"  Name="myPopupText"  >
-                                
-                                </TextBlock>
+                                        <TextBlock VerticalAlignment="Center"  HorizontalAlignment="Center" Text="{Binding}" FontWeight="ExtraBold" FontFamily="../Fonts/StartFont.ttf #Pacifico" FontStretch="UltraCondensed"  Foreground="OrangeRed"  Name="myPopupText"  >
+
+                                        </TextBlock>
                                     </Viewbox>
                                 </Border>
                                 <Border Grid.Column="1"   Grid.Row="4" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
                                     <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" >
                                         <TextBox   FontStretch="Condensed" x:Name="EnterPop" BorderBrush="BlueViolet" Background="#FFB8D0CE">
-                                        <TextBox.Resources>
-                                            <Style TargetType="{x:Type Border}">
-                                                <Setter Property="CornerRadius" Value="25"/>
-                                            </Style>
-                                        </TextBox.Resources>
-                                    </TextBox>
+                                            <TextBox.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="25"/>
+                                                </Style>
+                                            </TextBox.Resources>
+                                        </TextBox>
                                     </Viewbox>
 
                                 </Border>
                                 <Border  Grid.Row="6"  Grid.Column="1" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
-                                <Button Click="Button_Click_3">
+                                    <Button Click="Button_Click_3">
                                         <Button.Resources>
                                             <Style TargetType="{x:Type Border}">
                                                 <Setter Property="CornerRadius" Value="15"/>
                                             </Style>
                                         </Button.Resources>
                                         <Viewbox>
-                                        <Label Content="Check" FontWeight="Bold"/>
-                                    </Viewbox>
-                                </Button>
+                                            <Label Content="Check" FontWeight="Bold"/>
+                                        </Viewbox>
+                                    </Button>
                                 </Border>
                                 <Border Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
                                     <Button   Click="Button_Click_2">
-              
+
                                         <Viewbox>
-                                        <Label Content="X" FontWeight="Bold"/> 
-                                    </Viewbox>
-                                </Button>
+                                            <Label Content="X" FontWeight="Bold"/>
+                                        </Viewbox>
+                                    </Button>
                                 </Border>
                             </Grid>
                         </Popup>
@@ -144,7 +144,7 @@
 
 
 
-     
+
 
 
 
@@ -166,13 +166,13 @@
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="1">
                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Center" MaxHeight="200" >
-                            <TextBlock ForceCursor="False" FontWeight="Light" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but for your secuirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
+                            <TextBlock ForceCursor="False" FontWeight="Light" RenderTransformOrigin="0.5,0.5" ><Span FontSize="15"><Run Text="Thanks,"/></Span><Run Text=" "/><Span><Run Text="for joining us"/></Span><LineBreak/><Span><Run Text="we are realy appreciating"/></Span><LineBreak/><Span><Run Text="that , but for your secuirty"/></Span><LineBreak/><Span><Run Text="you need to fill the Captcha"/></Span><LineBreak/><Span><Run Text="For any help you can"/></Span><LineBreak/><Span><Run Text="contact us via mail :"/></Span><LineBreak/><Span FontSize="15"><Run Text="- idangolo123@gmail.com"/></Span><LineBreak/><Span><Run Text="or"/></Span><LineBreak/><Span FontSize="15"><Run Text="- asimon@yatmal.co.il"/></Span></TextBlock>
 
                         </Viewbox>
-                        
+
 
                     </Border>
-                    
+
                 </Grid>
                 <Grid  Grid.Column="2">
                     <Rectangle  Name="DropScale" Stroke="#FF000000"  StrokeThickness="1" StrokeDashArray="4 4" SnapsToDevicePixels="True"/>
@@ -180,8 +180,8 @@
 
                     <TextBox Height="{Binding  ActualHeight ,ElementName=DropScale}" Width="{Binding  ActualWidth  ,ElementName=DropScale}"  TextAlignment="Center" VerticalContentAlignment="Center"  x:Name="RtbInputFile" AllowDrop="True" Text="-Drag and Drop-" VerticalAlignment="Center" BorderBrush="White"  FontWeight="Light"  >
 
-                        </TextBox>
-        
+                    </TextBox>
+
                 </Grid>
                 <Border Grid.Column="1" BorderBrush="Purple" BorderThickness="3" CornerRadius="45">
                     <Grid >
@@ -585,4 +585,4 @@
 
         </Grid>
     </Grid>
-    </Window>
+</Window>
