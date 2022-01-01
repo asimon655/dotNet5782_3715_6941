@@ -138,7 +138,17 @@ namespace PL
                 // Note that you can have more than one file.
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 var file = files[0];
-                RtbInputFile.Text = file;
+                WaterMark.Visibility = Visibility.Hidden;
+                UserPhoto.Visibility = Visibility.Visible;
+                try
+                {
+                    UserPhoto.Source = new BitmapImage(new Uri(file));
+                }
+                catch
+                {
+                    MessageBox.Show("Enrer a photo and not a doucument ", "Error");
+                }
+
 
             }
         }
