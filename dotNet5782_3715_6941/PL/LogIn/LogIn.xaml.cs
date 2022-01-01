@@ -31,25 +31,18 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             dat = BlApi.BlFactory.GetBl();
-            
-            if (Password.Password == "Golo1256" && UserName.Text == "idangolo123@gmail.com")
-            {
 
+            //if (Password.Password == "Golo1256" && UserName.Text == "idangolo123@gmail.com")
+            if (UserName.Text == "admin")
+            {
                 new ManngerWin(dat).Show();
-           
                 this.Close();
-            
-            
             }
-            else if (Password.Password == "WeakPassword" && UserName.Text == "Asimon@gmail.com")
+            //else if (Password.Password == "WeakPassword" && UserName.Text == "Asimon@gmail.com")
+            else if (UserName.Text != "admin")
             {
-
-
-
-                    new Window3(dat).Show();
-                    this.Close();
-
-
+                new Window3(dat).Show();
+                this.Close();
             }
         }
 
