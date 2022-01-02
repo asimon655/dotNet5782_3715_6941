@@ -154,5 +154,39 @@ namespace BlApi
         double[] GetParcelsStatusesStats();
         double[] GetParcelsWeightsStats();
         #endregion
+
+        #region metadata
+        /// <summary>
+        /// download random pic from thispersondoesnotexist.com
+        /// </summary>
+        /// <returns></returns>
+        string GetRandomPersonPic();
+        /// <summary>
+        /// return Drone pic by Model name
+        /// if there is no saved pic it will download the first img from google photos search
+        /// </summary>
+        /// <param name="Model">model name of the drone</param>
+        /// <returns>path of the pic</returns>
+        string GetDronePic(string Model);
+        /// <summary>
+        /// return Customer pic by csutomer Id
+        /// if there is no throw noPic
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>path of the pic</returns>
+        string GetCustomerPic(int customerId);
+        /// <summary>
+        /// add pic to customer
+        /// </summary>
+        /// <param name="customerId">id of the customer</param>
+        /// <param name="filepath">path to the image</param>
+        void AddCustomerPic(int customerId, string filepath);
+        /// <summary>
+        /// return a capcha question and hashed answers
+        /// the first object is the question and then comes the answers
+        /// </summary>
+        /// <returns>List Of string</returns>
+        List<string> GetCapchaQuestion();
+        #endregion
     }
 }

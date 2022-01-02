@@ -168,7 +168,6 @@ namespace BO
         }
     }
 
-
     public class SenderGetterAreSame : Exception
     {
         public int id { get; set; }
@@ -181,5 +180,9 @@ namespace BO
             return Message + id;
         }
     }
-    
+    public class NoOrBadInternet : Exception
+    {
+        public NoOrBadInternet(string message) : base(message) { }
+    }
+
 }

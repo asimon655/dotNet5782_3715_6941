@@ -59,7 +59,7 @@ namespace PL
         {
             this.dat = dat;
             InitializeComponent();
-            List<String> resCaptcha = Window2.GetCapchaQuestion();
+            List<string> resCaptcha = dat.GetCapchaQuestion();
             myPopup.DataContext = resCaptcha.First();
             Answers = resCaptcha.Skip(1);
             Add.Visibility = Visibility.Visible;

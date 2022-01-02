@@ -53,5 +53,9 @@ namespace DalApi
         /// </summary>
         /// <returns>double[]</returns>
         double[] GetPowerConsumption();
+        DronePic GetDronePic(string Model);
+        CustomerPic GetCustomerPic(int customerId);
+        void AddDronePic(DronePic pic);
+        void AddCustomerPic(CustomerPic pic);
     }
 }

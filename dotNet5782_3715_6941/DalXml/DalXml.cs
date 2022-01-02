@@ -35,6 +35,8 @@ namespace Dal
                 {typeof(DroneCharge) , "DronesCharges.xml"},
                 {typeof(Parcel) , "Parcels.xml"},
                 {typeof(Station) , "Stations.xml"},
+                {typeof(DronePic) , "DronePics.xml"},
+                {typeof(CustomerPic) , "CustomerPics.xml"},
             };
 
         List<T> Read<T>()
