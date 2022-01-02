@@ -22,7 +22,7 @@ namespace PL
 {
 
 
-
+    
 
     /// <summary>
     /// Interaction logic for Window2.xaml
@@ -31,8 +31,11 @@ namespace PL
     {
 
         #region DroneShow
-        public Window2(BO.Drone drn)
+        BO.Drone drn;
+        public Window2( BlApi.Ibl log, BO.Drone drn)
         {
+            this.log = log; 
+            this.drn = drn; 
             bool ClientsExsist = !(drn.ParcelTransfer is null);
             InitializeComponent();
 
@@ -40,8 +43,12 @@ namespace PL
             Id.Children.Add(createLabel(drn.Id.ToString()));
             ///////////////second row /////////////////
 
-            Grid columnsMain = CreateGridColumn(5, new int[5] { 1, 2, 2, 2, 2 });
-
+            Grid columnsMain = CreateGridColumn(6, new int[6] { 1, 2, 2, 2, 2,1 });
+            Button opbtn = new Button();
+            opbtn.Content = createLabel("Operations");
+            opbtn.Click += PopupShiwiw;
+            Grid.SetColumn(opbtn, 5);
+            columnsMain.Children.Add(opbtn);
 
             //battery animation : 
             Grid battStatRows = CreateGridRow(3, new int[3] { 1, 3, 1 });
@@ -355,8 +362,205 @@ namespace PL
 
 
 
+       private  void PopupShiwiw(object sender, RoutedEventArgs e)
+        {
+            myPopup.Visibility = Visibility.Visible;
+            def.Visibility = Visibility.Hidden;
+            if (!(drn.ParcelTransfer is null))
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            else
+                ParcelOpsRFS(null);
 
+        }
+        private ParcelO ParcelC(BO.Parcel parcel)
+        {
+
+            int caseNum = -1;
+            if (!(parcel.ParcelCreation is null))
+            {
+                caseNum++;
+                if (!(parcel.ParcelBinded is null))
+                {
+                    caseNum++;
+                    if (!(parcel.ParcelPickedUp is null))
+                    {
+                        caseNum++;
+                        if (!(parcel.ParcelDelivered is null))
+                        {
+                            caseNum++;
+                        }
+                    }
+                }
+            }
+            if (caseNum < 1)
+                throw new Exception("the parcel is not even decleared ");
+            return (ParcelO)caseNum;
+
+        }
+
+
+        private void ParcelOpsRFS(BO.Parcel ? pcl)
+        {
+
+            /// operation0 - Bind 
+            /// operation 3 deliver
+            /// operation2 pickup
+            /// operation 1 charge 
+            /// operation4 realse 
+            /// 
+
+            Opeation0.IsEnabled = false;
+            Opeation1.IsEnabled = false;
+            Opeation2.IsEnabled = false;
+            Opeation3.IsEnabled = false;
+            Opeation4.IsEnabled = false;
+            if (pcl is null) /// parcel only created and never binded 
+            {
+                Opeation0.Background = System.Windows.Media.Brushes.Green;
+                Opeation0.IsEnabled = true;
+
+            }
+            else
+            {
+                ParcelO Stat = ParcelC(pcl);
+
+        
+                if (Stat == ParcelO.Deliver)
+                {
+                    //No further more operations
+                }
+                if (Stat == ParcelO.Bind)
+                {
+                    Opeation2.Background = System.Windows.Media.Brushes.LightBlue;
+                    Opeation2.IsEnabled = true;
+               
+                }
+                if (Stat == ParcelO.PickUp)
+                {
+                    Opeation3.Background = System.Windows.Media.Brushes.MediumVioletRed ;
+                    Opeation3.IsEnabled = true;
+                }
+            }
+            if (drn.DroneStat == BO.DroneStatuses.Free)
+            {
+                Opeation1.IsEnabled = true;
+                Opeation1.Background = System.Windows.Media.Brushes.LightPink;
+            }
+            if (drn.DroneStat == BO.DroneStatuses.Matance)
+            {
+                Opeation4.IsEnabled = true;
+                Opeation4.Background = System.Windows.Media.Brushes.Red;
+            }
+        }
+        private void Bind(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                log.BindParcelToDrone(drn.Id);
+                drn = log.GetDrone(drn.Id);
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error");
+            }
+            finally {
+                myPopup0.IsOpen = false;
+
+
+            }
+
+        }
+        private void PickUp(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                log.DronePickUp(drn.Id);
+                drn = log.GetDrone(drn.Id);
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error");
+            }
+            finally
+            {
+                myPopup2.IsOpen = false;
+
+
+            }
+        }
+        private void Deliver(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                log.DroneDelivere(drn.Id);
+                drn = log.GetDrone(drn.Id);
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error");
+            }
+            finally
+            {
+                myPopup3.IsOpen = false;
+
+
+            }
+
+        }
+        private void Charge(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                log.DroneCharge(drn.Id);
+                drn = log.GetDrone(drn.Id);
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            }
+            catch (Exception err )
+            {
+                MessageBox.Show(err.Message, "Error");
+            }
+            finally
+            {
+                myPopup1.IsOpen = false;
+
+
+            }
+
+        }
+        private void Realse(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                log.DroneReleaseCharge(drn.Id, 10);
+                drn = log.GetDrone(drn.Id);
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error");
+            }
+            finally
+            {
+                myPopup4.IsOpen = false;
+
+
+            }
+
+        }
 
     }
-    #endregion
-}
+
+
+
+
+
+
+
+
+
+        #endregion
+
+    }

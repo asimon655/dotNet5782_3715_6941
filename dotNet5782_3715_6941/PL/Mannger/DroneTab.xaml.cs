@@ -93,7 +93,7 @@ namespace PL
 
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new Window2(dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id)).Show();
+            new Window2(dat,dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id)).Show();
 
         }
 

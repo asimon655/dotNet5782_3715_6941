@@ -3,7 +3,6 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
                       Title="CustomWindow"
-                     
                       Width="1500"
                       Height="1000" 
                        Icon="..\Images\icon0.ico"  
