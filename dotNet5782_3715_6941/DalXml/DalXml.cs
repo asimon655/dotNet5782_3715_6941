@@ -61,16 +61,7 @@ namespace Dal
 
                 return data;
             }
-            catch (DirectoryNotFoundException)
-            {
-                Directory.CreateDirectory("Data");
-                return new List<T>();
-            }
-            catch (FileNotFoundException)
-            {
-                return new List<T>();
-            }
-            catch(XmlException)
+            catch
             {
                 return new List<T>();
             }
@@ -94,7 +85,7 @@ namespace Dal
             {
                 ser.Serialize(writer, data);    
             }
-            catch(Exception err) { throw err; }
+            catch(Exception) { throw; }
             finally
             {
                 writer.Close();
