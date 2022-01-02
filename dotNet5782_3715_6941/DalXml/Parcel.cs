@@ -11,32 +11,55 @@ namespace Dal
         
         public void AddParcel(Parcel parcel)
         {
-            throw new NotImplementedException();
+            List<Parcel> parcels = Read<Parcel>();
+
+            parcel.Id = XmlConfig.GetPromoteParcelIndex();
+
+            parcels.Add(parcel);
+
+            Write(parcels);
         }
 
         public Parcel GetParcel(int id)
         {
-            throw new NotImplementedException();
+            List<Parcel> parcels = Read<Parcel>();
+
+            Parcel parcel = parcels.Find(s => s.Id == id);
+
+            /// if the Customer wasnt found throw error
+            if (parcel.Id != id)
+            {
+                throw new IdDosntExists("the Id could not be found", id);
+            }
+            return parcel;
         }
 
         public IEnumerable<Parcel> GetParcels()
         {
-            throw new NotImplementedException();
+            return Read<Parcel>();
         }
 
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> expr)
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateParcles(Parcel parcel)
-        {
-            throw new NotImplementedException();
+            return Read<Parcel>().FindAll(expr);
         }
 
         public int CountParcels(Func<Parcel, bool> expr)
         {
-            throw new NotImplementedException();
+            return Read<Parcel>().Count(expr);
         }
+
+        public void UpdateParcles(Parcel parcel)
+        {
+            List<Parcel> parcels = Read<Parcel>();
+
+            if (Update(parcels, parcel) == -1)
+            {
+                throw new IdDosntExists("the Id Drone is dosnt exists", parcel.Id);
+            }
+
+            Write(parcels);
+        }
+
     }
 }

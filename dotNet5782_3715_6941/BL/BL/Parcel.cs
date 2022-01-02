@@ -29,8 +29,8 @@ namespace BL
             isInEnum(parcel.Weight);
 
             DO.Parcel ParcelTmp = new DO.Parcel() {
-                Requested= DateTime.Now,
-                Schedulded= null,
+                Schedulded= DateTime.Now,
+                Requested= null,
                 PickedUp= null,
                 Delivered= null,
                 DroneId=null,                 

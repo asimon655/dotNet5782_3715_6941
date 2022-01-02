@@ -25,22 +25,38 @@ namespace Dal
 
         public Customer GetCustomer(int id)
         {
-            throw new NotImplementedException();
+            List<Customer> customers = Read<Customer>();
+
+            Customer customer = customers.Find(s => s.Id == id);
+
+            /// if the Customer wasnt found throw error
+            if (customer.Id != id)
+            {
+                throw new IdDosntExists("the Id could not be found", id);
+            }
+            return customer;
         }
 
         public IEnumerable<Customer> GetCustomers()
         {
-            throw new NotImplementedException();
+            return Read<Customer>();
         }
 
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> expr)
         {
-            throw new NotImplementedException();
+            return Read<Customer>().FindAll(expr);
         }
 
-        public void UpdateCustomer(Customer costumer)
+        public void UpdateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            List<Customer> customers = Read<Customer>();
+
+            if (Update(customers, customer) == -1)
+            {
+                throw new IdDosntExists("the Id Drone is dosnt exists", customer.Id);
+            }
+
+            Write(customers);
         }
     }
 }

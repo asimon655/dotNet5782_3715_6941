@@ -22,27 +22,43 @@ namespace Dal
 
         public DroneCharge GetDroneCharge(int droneId)
         {
-            throw new NotImplementedException();
+            List<DroneCharge> dronesCharges = Read<DroneCharge>();
+
+            DroneCharge droneCharge = dronesCharges.Find(s => s.DroneId == droneId);
+
+            /// if the Drone wasnt found throw error
+            if (droneCharge.DroneId != droneId)
+            {
+                throw new IdDosntExists("the Id could not be found", droneId);
+            }
+            return droneCharge;
         }
 
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
-            throw new NotImplementedException();
+            return Read<DroneCharge>();
         }
 
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> expr)
         {
-            throw new NotImplementedException();
+            return Read<DroneCharge>().FindAll(expr);
         }
 
         public int CountDronesCharges(Func<DroneCharge, bool> expr)
         {
-            throw new NotImplementedException();
+            return Read<DroneCharge>().Count(expr);
         }
 
         public void DeleteDroneCharge(int droneId)
         {
-            throw new NotImplementedException();
+            List<DroneCharge> data = Read<DroneCharge>();
+
+            int removed = data.RemoveAll(x => x.DroneId == droneId);
+
+            if (removed == 0)
+                throw new IdDosntExists("the drone is not in charge", droneId);
+
+            Write(data);
         }
     }
 }
