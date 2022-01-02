@@ -23,12 +23,13 @@ namespace PL
     {
         BlApi.Ibl dat;
         static internal string TMP = System.IO.Path.GetTempPath();
-        public ParcelShow(BlApi.Ibl dat,BO.Parcel parcely )
+        public ParcelShow(BlApi.Ibl dat, BO.Parcel parcely)
         {
-            this.dat = dat; 
+     
+            this.dat = dat;
             InitializeComponent();
             this.DataContext = parcely;
-            bool valid =true; 
+            bool valid = true;
             if (!File.Exists(TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png"))
                 valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png", ImageFormat.Png);
             if (valid)
@@ -49,7 +50,8 @@ namespace PL
                     Drone.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
                 }
             }
-  
+
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -60,12 +62,19 @@ namespace PL
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             new CostumerShow(dat, dat.GetCostumer((DataContext as BO.Parcel).SenderParcelToCostumer.id)).Show();
-          
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            new Window2(dat.GetDrone((DataContext as BO.Parcel).ParcelDrone.Id)).Show();
+            if ((DataContext as BO.Parcel).ParcelDrone is null)
+                MessageBox.Show("There is no drone that binded", "Alert");
+            else
+                new Window2(dat, dat.GetDrone((DataContext as BO.Parcel).ParcelDrone.Id)).Show();
         }
+
+
+
+
     }
 }

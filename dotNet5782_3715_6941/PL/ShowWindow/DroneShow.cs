@@ -22,7 +22,7 @@ namespace PL
 {
 
 
-
+    
 
     /// <summary>
     /// Interaction logic for Window2.xaml
@@ -31,8 +31,11 @@ namespace PL
     {
 
         #region DroneShow
-        public Window2(BO.Drone drn)
+        BO.Drone drn; 
+        public Window2( BlApi.Ibl log, BO.Drone drn)
         {
+            this.log = log; 
+            this.drn = drn; 
             bool ClientsExsist = !(drn.ParcelTransfer is null);
             InitializeComponent();
 
@@ -40,8 +43,12 @@ namespace PL
             Id.Children.Add(createLabel(drn.Id.ToString()));
             ///////////////second row /////////////////
 
-            Grid columnsMain = CreateGridColumn(5, new int[5] { 1, 2, 2, 2, 2 });
-
+            Grid columnsMain = CreateGridColumn(6, new int[6] { 1, 2, 2, 2, 2,1 });
+            Button opbtn = new Button();
+            opbtn.Content = createLabel("Operations");
+            opbtn.Click += PopupShiwiw;
+            Grid.SetColumn(opbtn, 5);
+            columnsMain.Children.Add(opbtn);
 
             //battery animation : 
             Grid battStatRows = CreateGridRow(3, new int[3] { 1, 3, 1 });
@@ -355,8 +362,74 @@ namespace PL
 
 
 
+       private  void PopupShiwiw(object sender, RoutedEventArgs e)
+        {
+            myPopup.Visibility = Visibility.Visible;
+            def.Visibility = Visibility.Hidden;
+            if (!(drn.ParcelTransfer is null))
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            else
+                ParcelOpsRFS(null);
 
+        }
+        private ParcelO ParcelC(BO.Parcel parcel)
+        {
+
+            int caseNum = -1;
+            if (!(parcel.ParcelCreation is null))
+            {
+                caseNum++;
+                if (!(parcel.ParcelBinded is null))
+                {
+                    caseNum++;
+                    if (!(parcel.ParcelPickedUp is null))
+                    {
+                        caseNum++;
+                        if (!(parcel.ParcelDelivered is null))
+                        {
+                            caseNum++;
+                        }
+                    }
+                }
+            }
+            if (caseNum < 1)
+                throw new Exception("the parcel is not even decleared ");
+            return (ParcelO)caseNum;
+
+        }
+
+
+        private void ParcelOpsRFS(BO.Parcel ? pcl)
+        {
+
+            if (pcl is null)
+            {
+                Opeation0.Background = System.Windows.Media.Brushes.Green;
+                Opeation1.IsEnabled = false;
+                Opeation2.IsEnabled = false;
+
+            }
+            else
+            {
+                ParcelO Stat = ParcelC(pcl);
+
+                if (Stat == ParcelO.PickUp)
+
+                {
+                    Opeation1.Background = System.Windows.Media.Brushes.DeepPink;
+                    Opeation0.IsEnabled = false;
+                    Opeation2.IsEnabled = false;
+                }
+                if (Stat == ParcelO.Deliver)
+                {
+                    Opeation2.Background = System.Windows.Media.Brushes.LightPink;
+                    Opeation1.IsEnabled = false;
+                    Opeation0.IsEnabled = false;
+                }
+            }
+        }
 
     }
     #endregion
+
 }

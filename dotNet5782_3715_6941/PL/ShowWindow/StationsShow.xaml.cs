@@ -32,7 +32,7 @@ namespace PL
 
         private void ListOfPackgesFrom_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new Window2(dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneCharge).DroneId)).Show();
+            new Window2(dat,dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneCharge).DroneId)).Show();
         }
     }
 }

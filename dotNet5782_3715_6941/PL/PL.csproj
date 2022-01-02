@@ -20,10 +20,12 @@
     <None Remove="Images\gif2.gif" />
     <None Remove="Images\icon0.ico" />
     <None Remove="Images\logo.ico" />
+    <None Remove="Images\OWAY.png" />
     <None Remove="Images\ParcelToMenu.jpg" />
     <None Remove="Images\plus.jpg" />
     <None Remove="Images\reset.jpg" />
     <None Remove="Images\StaionToList.jpg" />
+    <None Remove="Images\TWAY.png" />
     <None Remove="Images\user.png" />
     <None Remove="Images\v.png" />
     <None Remove="Images\WMTB.png" />
@@ -64,6 +66,9 @@
     <Content Include="Images\logo.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\OWAY.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\ParcelToMenu.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -74,6 +79,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\StaionToList.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\TWAY.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\user.png">
