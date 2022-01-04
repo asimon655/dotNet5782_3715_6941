@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.39" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DalApi\DalApi.csproj" />
     <ProjectReference Include="..\DalObject\DalObject.csproj" />
     <ProjectReference Include="..\DalXml\DalXml.csproj" />
