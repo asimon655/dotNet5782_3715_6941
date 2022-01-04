@@ -95,12 +95,31 @@ namespace Dal
         static int Update<T>(List<T> listy, T updater)
         {
             var id = typeof(T).GetProperty("Id");
+            var isDeleted = typeof(T).GetProperty("IsDeleted");
 
-            int index = listy.FindIndex(x => (int)id.GetValue(x, null) == (int)id.GetValue(updater, null));
+            int updaterId = (int)id.GetValue(updater, null);
+
+            int index = listy.FindIndex(x => !(bool)isDeleted.GetValue(x, null) && (int)id.GetValue(x, null) == updaterId);
 
             if (index != -1)
                 listy[index] = updater;
             
+            return index;
+        }
+        static int Delete<T>(List<T> listy, int deleteId)
+        {
+            var id = typeof(T).GetProperty("Id");
+            var isDeleted = typeof(T).GetProperty("IsDeleted");
+
+            int index = listy.FindIndex(x => !(bool)isDeleted.GetValue(x, null) && (int)id.GetValue(x, null) == deleteId);
+
+            if (index != -1)
+            {
+                T updater = listy[index];
+                isDeleted.SetValue(updater, true);
+                listy[index] = updater;
+            }
+
             return index;
         }
     }

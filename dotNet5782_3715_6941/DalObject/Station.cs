@@ -10,6 +10,8 @@ namespace Dal
     {
         public void AddStation(Station station)
         {
+            station.IsDeleted = false;
+
             if (DataSource.Stations.Any(s => s.Id == station.Id))
             {
                 throw new IdAlreadyExists("the station Id is already taken", station.Id);
@@ -19,7 +21,7 @@ namespace Dal
         }
         public Station GetStation(int id)
         {
-            Station station = DataSource.Stations.Find(s => s.Id == id);
+            Station station = DataSource.Stations.Find(s => !s.IsDeleted && s.Id == id);
             /// if the Station wasnt found throw error
             if (station.Id != id)
             {
@@ -29,21 +31,27 @@ namespace Dal
         }
         public IEnumerable<Station> GetStations()
         {
-            return DataSource.Stations;
+            return DataSource.Stations.FindAll(s => !s.IsDeleted);
+        }
+        public IEnumerable<Station> GetStations(Predicate<Station> expr)
+        {
+            return DataSource.Stations.FindAll(s => !s.IsDeleted && expr(s));
         }
         public void UpdateStations(Station station)
         {
             /// if the Station wasnt found throw error
-            if (!DataSource.Stations.Any(s => s.Id == station.Id))
+            if (Update(DataSource.Stations, station) == -1)
             {
                 throw new IdDosntExists("the id could not be found", station.Id);
             }
-
-            Update(DataSource.Stations, station);
         }
-        public IEnumerable<Station> GetStations(Predicate<Station> expr)
+        public void DeleteStation(int id)
         {
-            return DataSource.Stations.FindAll(expr);
+            /// if the Station wasnt found throw error
+            if (Delete(DataSource.Stations, id) == -1)
+            {
+                throw new IdDosntExists("the id could not be found", id);
+            }
         }
     }
 }

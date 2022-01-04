@@ -11,6 +11,8 @@ namespace Dal
         
         public void AddParcel(Parcel parcel)
         {
+            parcel.IsDeleted = false;
+
             List<Parcel> parcels = Read<Parcel>();
 
             parcel.Id = XmlConfig.GetPromoteParcelIndex();
@@ -24,7 +26,7 @@ namespace Dal
         {
             List<Parcel> parcels = Read<Parcel>();
 
-            Parcel parcel = parcels.Find(s => s.Id == id);
+            Parcel parcel = parcels.Find(s => !s.IsDeleted && s.Id == id);
 
             /// if the Customer wasnt found throw error
             if (parcel.Id != id)
@@ -36,17 +38,17 @@ namespace Dal
 
         public IEnumerable<Parcel> GetParcels()
         {
-            return Read<Parcel>();
+            return Read<Parcel>().FindAll(s => !s.IsDeleted);
         }
 
         public IEnumerable<Parcel> GetParcels(Predicate<Parcel> expr)
         {
-            return Read<Parcel>().FindAll(expr);
+            return Read<Parcel>().FindAll(s => !s.IsDeleted && expr(s));
         }
 
         public int CountParcels(Func<Parcel, bool> expr)
         {
-            return Read<Parcel>().Count(expr);
+            return Read<Parcel>().Count(s => !s.IsDeleted && expr(s));
         }
 
         public void UpdateParcles(Parcel parcel)
@@ -60,6 +62,16 @@ namespace Dal
 
             Write(parcels);
         }
+        public void DeleteParcel(int id)
+        {
+            List<Parcel> parcels = Read<Parcel>();
 
+            if (Delete(parcels, id) == -1)
+            {
+                throw new IdDosntExists("the Id Drone is dosnt exists", id);
+            }
+
+            Write(parcels);
+        }
     }
 }

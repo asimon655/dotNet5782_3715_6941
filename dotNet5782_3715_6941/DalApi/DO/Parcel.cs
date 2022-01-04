@@ -14,6 +14,7 @@ namespace DO
         public DateTime? Schedulded { set; get; }
         public DateTime? PickedUp { set; get; }
         public DateTime? Delivered { set; get; }
+        public bool IsDeleted { set; get; }
 
     }
 }

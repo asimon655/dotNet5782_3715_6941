@@ -7,6 +7,7 @@
         public string Phone { set; get; }
         public double Longitude { set; get; }
         public double Lattitude { set; get; }
+        public bool IsDeleted { set; get; }
     }
     
 }

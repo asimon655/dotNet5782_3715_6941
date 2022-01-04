@@ -13,6 +13,8 @@ namespace Dal
     {
         public void AddCustomer(Customer customer)
         {
+            customer.IsDeleted = false;
+
             List<Customer> customers = Read<Customer>();
             
             if (customers.Any(x => x.Id == customer.Id))
@@ -27,7 +29,7 @@ namespace Dal
         {
             List<Customer> customers = Read<Customer>();
 
-            Customer customer = customers.Find(s => s.Id == id);
+            Customer customer = customers.Find(s => !s.IsDeleted && s.Id == id);
 
             /// if the Customer wasnt found throw error
             if (customer.Id != id)
@@ -39,12 +41,12 @@ namespace Dal
 
         public IEnumerable<Customer> GetCustomers()
         {
-            return Read<Customer>();
+            return Read<Customer>().FindAll(s => !s.IsDeleted);
         }
 
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> expr)
         {
-            return Read<Customer>().FindAll(expr);
+            return Read<Customer>().FindAll(s => !s.IsDeleted && expr(s));
         }
 
         public void UpdateCustomer(Customer customer)
@@ -54,6 +56,17 @@ namespace Dal
             if (Update(customers, customer) == -1)
             {
                 throw new IdDosntExists("the Id Drone is dosnt exists", customer.Id);
+            }
+
+            Write(customers);
+        }
+        public void DeleteCustomer(int id)
+        {
+            List<Customer> customers = Read<Customer>();
+
+            if (Delete(customers, id) == -1)
+            {
+                throw new IdDosntExists("the Id Drone is dosnt exists", id);
             }
 
             Write(customers);
