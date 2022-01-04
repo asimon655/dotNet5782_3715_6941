@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using DO;
 
 
@@ -72,7 +70,7 @@ namespace Dal
 
         public Drone GetDrone(int id)
         {
-            XElement data = XElement.Load(Path.Combine("Data", fileNames[typeof(Drone)]));
+            XElement data = ReadDroneXml();
             Drone drone = (from x in data.Elements()
                            where int.Parse(x.Element("Id").Value) == id
                            select XmlToDrone(x))
@@ -86,7 +84,7 @@ namespace Dal
 
         public IEnumerable<Drone> GetDrones()
         {
-            XElement data = XElement.Load(Path.Combine("Data", fileNames[typeof(Drone)]));
+            XElement data = ReadDroneXml();
 
             IEnumerable<Drone> drones = from drone in data.Elements()
                                         select XmlToDrone(drone);
@@ -96,7 +94,7 @@ namespace Dal
 
         public IEnumerable<Drone> GetDrones(Predicate<Drone> expr)
         {
-            XElement data = XElement.Load(Path.Combine("Data", fileNames[typeof(Drone)]));
+            XElement data = ReadDroneXml();
 
             IEnumerable<Drone> dronys = from drone in data.Elements()
                                         where expr(XmlToDrone(drone))
@@ -107,7 +105,7 @@ namespace Dal
 
         public void UpdateDrones(Drone drone)
         {
-            XElement data = XElement.Load(Path.Combine("Data", fileNames[typeof(Drone)]));
+            XElement data = ReadDroneXml();
 
             XElement _drone = (from x in data.Elements()
                                where int.Parse(x.Element("Id").Value) == drone.Id
@@ -118,7 +116,7 @@ namespace Dal
 
             _drone.ReplaceWith(DroneToXml(drone));
 
-            data.Save(Path.Combine("Data", fileNames[typeof(Drone)]));
+            WriteDroneXml(data);
         }
     }
 }
