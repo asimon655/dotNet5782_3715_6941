@@ -4,9 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
-        xmlns:local="clr-namespace:PL"
+      xmlns:local="clr-namespace:PL"
+
         mc:Ignorable="d"
         Title="ParcelShow" Height="450" Width="800">
+    <Window.Resources>
+        <local:BatteryCRT x:Key="BatteryCRT"></local:BatteryCRT>
+        <local:HalfScale x:Key="HalfScale"></local:HalfScale>
+    </Window.Resources>
     <wpfspark:PivotPanel x:Name="RootPanel"
                      HeaderHeight="50"
                      HorizontalAlignment="Stretch">
@@ -188,7 +193,7 @@
                                     </Border>
                                     <Border  BorderBrush="Black" BorderThickness="3,3,3,3" Grid.Row="1">
                                         <Grid>
-                                            <ProgressBar Background="WhiteSmoke" Value="{Binding ParcelDrone.Battery}" Foreground="LawnGreen"></ProgressBar>
+                                            <ProgressBar Background="WhiteSmoke" Value="{Binding ParcelDrone.Battery}" Foreground="{Binding  ParcelDrone.Battery ,Converter={StaticResource BatteryCRT} }"></ProgressBar>
                                             <Viewbox  VerticalAlignment="Center" HorizontalAlignment="Center">
                                                 <Label Content="{Binding ParcelDrone.Battery}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                             </Viewbox>

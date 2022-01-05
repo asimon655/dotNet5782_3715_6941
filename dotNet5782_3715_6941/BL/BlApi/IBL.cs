@@ -154,5 +154,63 @@ namespace BlApi
         double[] GetParcelsStatusesStats();
         double[] GetParcelsWeightsStats();
         #endregion
+        #region NEEDTOIMPLEMENTNOWSIMON
+        //double[]  GetStationBusyPortsStats();
+        // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
+        /// the graph uses double) 
+        /// 
+        //double[]  GetStationFreePortsStats();
+        // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
+        /// the graph uses double) 
+        /// 
+        //double[]  GetCostumerReached();
+        // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
+        /// the graph uses double) 
+        /// 
+        //double[]  GetCostumerUnReached();
+        // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
+        /// the graph uses double) 
+        /// 
+        //double[]  GetCostumerParcelGot();
+        // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
+        /// the graph uses double) 
+        /// 
+        //double[]  GetCostumerInTheWay();
+        // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
+        /// the graph uses double) 
+        /// 
+        /// IEnumrable<BO.Costumer> SmartSearchCostumer(string ) ; 
+        /// id or Name    
+        /// IEnumrable<BO.Parcel> SmartSearchParcel(string ) ; 
+        /// id or   Name
+        /// IEnumrable<BO.Station> SmartSearchStation(string ) ;
+        /// id or name - both numbers try id if the id doesnt exsist(Exception IdDoesntExsist) try name if it not both raise Exception
+        /// IEnumrable<BO.Drone> SmartSearchDrone(string ) ; 
+        /// id or Model 
+        /// 
+        ///string MostPoplurDroneModel () ; 
+        /// returns the most popular model of the drone s
+        ///BO.Drone DroneWithTheMostBattery(); 
+        ///returns one of the drones with the biggest battery precentage - if there a few return one of the idk which one(first/last / whatever) 
+        ///int AvarngeDistBetweenDrones(); 
+        ///return the avarnge Destnation between 2 drones 
+        ///
+        ///BO.Costumer CostunerWithTheMostParcelsInTheWay () ; 
+        /// return one of the cosumers with the biggest num of parcels in the way
+        ///BO.Costumer CostunerWithTheMostParcelsUnReached () ; 
+        /// return one of the cosumers with the biggest num of parcels unreached
+        ///BO.Costumer CostunerWithTheMostParcelsGot () ; 
+        /// return one of the cosumers with the biggest num of parcels got 
+        /// 
+        ///BO.Station MostFreeStation () ; 
+        /// returns the most Free station
+        ///BO.Station MostBusytation () ; 
+        /// returns the most Busy station
+        /// 
+        /// IEnumerable<BO.DroneList> GetParcelsFiltered(DateTime ?  CreationFrom,  DateTime ? CreationTo , DateTime ? BindFrom,  DateTime ? BindTo , DateTime ?  PickUpFrom,  DateTime ? PickUpTo , DateTime ?  DeliverFrom,  DateTime ? DeliverTo , IEnumerable<BO.WeightCategories> weights , IEnumerable<BO.Prioreties> Priorties);
+        ///   IEnumerable<BO.DroneList> GetStationFiltered(IEnumerable<int> FreePorts, IEnumerable<int> BusyPorts);
+        ///   IEnumerable<BO.DroneList> GetCostumersFiltered(IEnumerable<int> reached, IEnumerable<int> Unreched ,IEnumerable<int> ParcelGot, IEnumerable<int> InTheWay );
+
+        #endregion
     }
 }

@@ -10,6 +10,16 @@
                        ResizeMode="NoResize"
                        
                   >
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetProperty="Width" From="0" To="800" Duration="0:0:4" FillBehavior="HoldEnd" AutoReverse="False" />
+        
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
 
   <Grid >
         <TextBlock  Margin="331,249,223,140">

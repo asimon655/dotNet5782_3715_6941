@@ -4,20 +4,98 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL"
+
       mc:Ignorable="d" 
       Height="auto" Width="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
       Title="DroneTab">
+    <Page.Resources>
 
+        <local:HalfScale x:Key="HalfScale"></local:HalfScale>
+        <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Battery, Converter={StaticResource HalfScale} }" />
+            <Style.Triggers>
+
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="#FF007BFF"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+             
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#FF212529"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+
+                <Trigger Property="ItemsControl.AlternationIndex" Value="2">
+                    <Setter Property="Background" Value="#FF28A745"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+
+                <Trigger Property="ItemsControl.AlternationIndex" Value="3">
+                    <Setter Property="Background" Value="#FF212529"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+
+                <Trigger Property="ItemsControl.AlternationIndex" Value="4">
+                    <Setter Property="Background" Value="#FF17A2B8"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+
+                <Trigger Property="ItemsControl.AlternationIndex" Value="5">
+                    <Setter Property="Background" Value="#FF212529"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="6">
+                    <Setter Property="Background" Value="#FFFFC107"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="7">
+                    <Setter Property="Background" Value="#FF212529"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="8">
+                        <Setter Property="Background" Value="#FFDC3545"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="9">
+                    <Setter Property="Background" Value="#FF212529"></Setter>
+                    <Setter Property="Foreground" Value="White"></Setter>
+                    <Setter Property="FontWeight" Value="Light" />
+                </Trigger>
+
+            </Style.Triggers>
+            
+        </Style>
+
+    </Page.Resources>
     <Grid>
-        <Border Background="WhiteSmoke"
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="8*" />
+        </Grid.ColumnDefinitions>
+        <Border Background="WhiteSmoke" Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch" Name="Item3" BorderThickness="4" BorderBrush="Black" CornerRadius="5">
+                        VerticalAlignment="Stretch" Name="Item3" BorderThickness="0,0,0,0" BorderBrush="Black" CornerRadius="5">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="6*" />
+                    <RowDefinition Height="0.1*" />
                     <RowDefinition Height="7*" />
+                    <RowDefinition Height="7*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="8*" />
@@ -66,17 +144,17 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="10*" />
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="0.1*" />
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="0.1*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="8*" />
-                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
-                    <Button Content="Add Drone" Grid.Row="1" Grid.Column="0" Click="Button_Click_1"/>
-                    <Grid Grid.Row="1" Grid.Column="0">
+                    <Button Content="Add Drone" Grid.Row="1" Grid.Column="1" Click="Button_Click_1"/>
+                    <Grid Grid.Row="1" Grid.Column="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="10*" />
@@ -85,21 +163,120 @@
 
                     </Grid>
 
-                    <Border Grid.Row="1" Grid.Column="1" CornerRadius="5" BorderBrush="Black" BorderThickness="6">
-                        <ListView
-                                        
-                                               MouseDoubleClick="ListOf_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="5" BorderBrush="Black" Name="ListOf"  >
 
+                    <ListView  HorizontalAlignment="Center"  Grid.Row="1" Grid.Column="1" Margin="0" Background="#FF212529" Foreground="Black" IsSynchronizedWithCurrentItem="True" AlternationCount="10" ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}"
+                                        
+                               MouseDoubleClick="ListOf_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="0"  Name="ListOf"  >
+    
+
+                            <ListView.View  >
+
+                                <GridView     AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                                   
+                                    <GridViewColumn  DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto"   />
+                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" x:Name="Location" Header="Location" Width="auto"  />
+                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery, StringFormat=\{0:f2\}}" x:Name="Battery" Header="Battery" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                    <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
+
+                                    <GridView.ColumnHeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Border BorderThickness="0,0,0,1" BorderBrush="#FF212529" Background="#FF212529">
+                                                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" />
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="OverridesDefaultStyle" Value="True" />
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="BorderBrush" Value="#FF212529" />
+                                            <Setter Property="Background" Value="#FF212529" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Battery, Converter={StaticResource HalfScale} }" />
+
+                                    </Style>
+                                    </GridView.ColumnHeaderContainerStyle>
+
+                                </GridView>
+
+                            </ListView.View>
+                            
+                        </ListView>
+                   
+
+                </Grid>
+            </Grid>
+        </Border>
+        <Grid Background="RoyalBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="9*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="9*" />
+            </Grid.RowDefinitions>
+            <Grid  Grid.Row="1"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                <Border BorderThickness="1" Background="White" BorderBrush="Black" CornerRadius="38" Grid.Column="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="8*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Image Source="../Images/SearchIcon.png" Grid.Row="1"></Image>
+                        <Viewbox  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1">
+                            <TextBox BorderBrush="White" BorderThickness="0" ></TextBox>
+                        </Viewbox>   
+                     
+                    </Grid>
+                    
+                    
+                    
+            </Border>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1"   BorderBrush="Black" BorderThickness="2"> 
+                <Grid>
+                        <ListView x:Name="ResultsOfSearch">
+                  
 
                             <ListView.View>
 
                                 <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" x:Name="Location" Header="Location" Width="auto"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery, StringFormat=\{0:f2\}}" x:Name="Battery" Header="Battery" Width="auto" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
-                                    <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" Header="Location" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery, StringFormat=\{0:f2\}}"  Header="Battery" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="MaxWeight" Width="auto"/>
+                                    <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}"  Header="DroneStatus" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}"  Header="Binded Parcel Id" Width="auto"/>
                                     <GridView.ColumnHeaderContainerStyle>
                                         <Style TargetType="{x:Type GridViewColumnHeader}">
                                             <!-- Set any properties you want to set -->
@@ -112,11 +289,142 @@
                                 </GridView>
 
                             </ListView.View>
-                        </ListView>
+                        </ListView></Grid>
+            </Border>
+            </Grid>
+            <Grid Grid.Row="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.1*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <Viewbox   MaxHeight="{Binding  ActualHeight ,ElementName=Scale}" 
+                                   >
+                            <Label>Most Popular Model:</Label>
+                        </Viewbox>
                     </Border>
+                <Border Grid.Row="1" Grid.Column="3" CornerRadius="25" Background="LightPink"  >
+                    <Viewbox>
+                        <Label>Mavic 3 </Label>
+                    </Viewbox>
+                </Border>
+                <Border Grid.Row="3" Grid.Column="1">
+                    <Viewbox   MaxHeight="{Binding  ActualHeight ,ElementName=Scale}" 
+                                    >
+                        <Label>Drone With The Most Battery:</Label>
+                    </Viewbox>
+                </Border>
+                <Border Grid.Row="3" Grid.Column="3" CornerRadius="25" Background="LawnGreen"  >
+                    <Viewbox>
+                        <Label>Mavic 3</Label>
+                    </Viewbox>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="1">
+                    <Viewbox x:Name="Scale" >
+                        <Label>Avarnge Dist Between Drones:</Label>
+                    </Viewbox>
+                </Border>
+                <Border Grid.Row="5" Grid.Column="3" CornerRadius="25" Background="OrangeRed"  >
+                    <Viewbox>
+                        <Label>Mavic 3</Label>
+                    </Viewbox>
+                </Border>
 
+            </Grid>
+            <Grid Grid.Row="7">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="0.1*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="0.5*" />
+                    </Grid.RowDefinitions>
+
+                    <ComboBox Grid.Column="1" Grid.Row="1"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorWeigthStat"   SelectionChanged="StatusSelector_SelectionChanged">
+                            <ComboBox.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="#84DCCF"/>
+                                    <GradientStop Color="#84DCCF" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ComboBox.Background>
+                            <ComboBox.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="20"/>
+                                </Style>
+                            </ComboBox.Resources>
+                        </ComboBox>
+   
+                    <ComboBox Grid.Column="3" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat"   >
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="Blue"/>
+                                    <GradientStop Color="Blue" Offset="1"/>
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+
+
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Name="chkCountry" Width="220"   IsChecked="{Binding Checked}" Content="{Binding statusof}" Checked="chkCountry_Checked" Unchecked="chkCountry_Checked" >
+                                </CheckBox>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+         
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="0.5*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+                    <Button  Click="Button_Click" Grid.Row="1" Grid.Column="0"  Background="HotPink" >Reset
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="25,0,0,25"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Click="Button_Click_2" Grid.Row="1" Grid.Column="1" Background="DeepPink">Add
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="0,25,25,0"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </Grid>
             </Grid>
-        </Border>
+
+        </Grid>
+
     </Grid>
+
 </Page>

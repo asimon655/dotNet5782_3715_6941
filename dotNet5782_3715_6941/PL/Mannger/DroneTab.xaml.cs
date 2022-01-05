@@ -54,7 +54,25 @@ namespace PL
             Binding myBinding = new Binding();
             myBinding.Source = dat.GetDronesFiltered(Stat, Weight);
             BindingOperations.SetBinding(ListOf, ListView.ItemsSourceProperty, myBinding);
+
+            predStat = new List<CheckBoxStatus>();
+            foreach (BO.DroneStatuses enm in StatDefault)
+                predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
+            StatusSelectorDrnStat.ItemsSource = predStat;
+            StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("DroneStat");
+            view.GroupDescriptions.Add(groupDescription);
             #endregion
+            ResetPlots();
+
+
+
+        }
+        #region Buttons Functions
+
+
+        void ResetPlots() {
 
             #region Plots Initialize 
             BO.DronesModelsStats dronesStats = dat.GetDronesModelsStats();
@@ -64,21 +82,26 @@ namespace PL
             #endregion
 
         }
-        #region Buttons Functions
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        void Reset()
         {
+
             Weight = WeightDefault;
             Stat = StatDefault;
-            //StatusSelectorWeigthStat.SelectedIndex = -1;
-            //StatusSelectorDrnStat.SelectedIndex = -1;
+            StatusSelectorWeigthStat.SelectedIndex = -1;
+            StatusSelectorDrnStat.SelectedIndex = -1;
             foreach (CheckBoxStatus item in predStat)
             {
                 item.Checked = true;
             }
             ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
+            ResetPlots();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Reset();
+        }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -89,15 +112,34 @@ namespace PL
             ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
         }
 
-
-
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new Window2(dat,dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id)).Show();
+            if (!((sender as ListView).SelectedItem is null))
+                new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id)).Show();
+            //new Window2(a).Show();
 
         }
 
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Window add = new Window2(dat, this);
+            add.Closed += (sender, e) =>
+            {
+                Reset();
+            }; 
+            add.Show();
+        }
 
+        private void chkCountry_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!(StatusSelectorDrnStat.ItemsSource is null))
+            {
+                Stat = predStat.Where(x => x.Checked).Select(x => x.statusof);
+            }
+            ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
+
+
+        }
         static bool IsSorted<T>(IEnumerable<T> enumerable) where T : IComparable<T>
         {
             T prev = default(T);
@@ -112,7 +154,6 @@ namespace PL
             return true;
         }
 
-
         private void Battery_Click(object sender, RoutedEventArgs e)
         {
             Dictionary<String, String> dict = new Dictionary<string, string>();
@@ -123,11 +164,16 @@ namespace PL
             dict.Add("MaxWeight", "Weight");
             dict.Add("DroneStatus", "DroneStat");
             dict.Add("Binded Parcel Id", "ParcelId");
-            object IdLst = (object)
-            MessageBox.Show((e.OriginalSource as GridViewColumnHeader).Column.Header.ToString());
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
-            ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
+
+
+
+            if (!((e.OriginalSource as GridViewColumnHeader) is null))
+            {
+                ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().OrderBy(x => typeof(BO.DroneList).GetProperty(dict[(e.OriginalSource as GridViewColumnHeader).Column.Header.ToString()]).GetValue(x, null));
+                ListOf.ItemsSource = ListOf.ItemsSource.Cast<BO.DroneList>().Reverse();
+            }
         }
+
         #endregion
 
 

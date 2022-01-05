@@ -27,8 +27,18 @@ namespace PL
             InitializeComponent();
             this.dat = dat;
             this.DataContext = stat;
+            Add.Visibility = Visibility.Hidden;
+            Show.Visibility = Visibility.Visible;
 
         }
+        public StationsShow(BlApi.Ibl dat)
+        {
+            InitializeComponent();
+            this.dat = dat;
+            Show.Visibility = Visibility.Hidden;
+            Add.Visibility = Visibility.Visible;
+        }
+
 
         private void ListOfPackgesFrom_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
