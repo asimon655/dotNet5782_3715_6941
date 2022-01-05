@@ -210,7 +210,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Viewbox HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill"  MaxHeight="200" >
-                                        <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                        <TextBox Name="LatTB"  ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                                     </Viewbox>
                                 </Grid>
                             </Grid>
@@ -235,7 +235,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Viewbox  MaxHeight="200"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                        <TextBox ForceCursor="False"  FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                        <TextBox x:Name="LongTB" ForceCursor="False"  FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                                     </Viewbox>
                                 </Grid>
                             </Grid>
@@ -328,7 +328,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Viewbox   MaxHeight="200"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                <TextBox Name="IdTB" ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                             </Viewbox>
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="1">
@@ -344,7 +344,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Viewbox   MaxHeight="200" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                <TextBox ForceCursor="False" FontStretch="Normal" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                <TextBox Name="NameTB"  ForceCursor="False" FontStretch="Normal" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                             </Viewbox>
                         </Grid>
                         <Grid Grid.Row="2" Grid.Column="1">
@@ -360,7 +360,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Viewbox   MaxHeight="200" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Stretch="Fill">
-                                <TextBox ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
+                                <TextBox Name="PhoneTB"  ForceCursor="False" FontStretch="Condensed" FontStyle="Italic" Foreground="Black" FontWeight="SemiBold" BorderBrush="White" ></TextBox>
                             </Viewbox>
                         </Grid>
 

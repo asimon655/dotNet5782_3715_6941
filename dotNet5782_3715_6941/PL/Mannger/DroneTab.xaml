@@ -311,33 +311,33 @@
                 <Border Grid.Row="1" Grid.Column="1">
                     <Viewbox   MaxHeight="{Binding  ActualHeight ,ElementName=Scale}" 
                                    >
-                            <Label>Most Popular Model:</Label>
+                        <Label FontWeight="UltraLight" FontStretch="ExtraCondensed" >Most Popular Model:</Label>
                         </Viewbox>
                     </Border>
                 <Border Grid.Row="1" Grid.Column="3" CornerRadius="25" Background="LightPink"  >
                     <Viewbox>
-                        <Label>Mavic 3 </Label>
+                        <Label FontWeight="UltraLight" FontStretch="ExtraCondensed" FontFamily="../Fonts/StartFont.ttf #Pacifico">Mavic 3 </Label>
                     </Viewbox>
                 </Border>
                 <Border Grid.Row="3" Grid.Column="1">
                     <Viewbox   MaxHeight="{Binding  ActualHeight ,ElementName=Scale}" 
                                     >
-                        <Label>Drone With The Most Battery:</Label>
+                        <Label FontWeight="UltraLight" FontStretch="ExtraCondensed"  >Drone With The Most Battery:</Label>
                     </Viewbox>
                 </Border>
                 <Border Grid.Row="3" Grid.Column="3" CornerRadius="25" Background="LawnGreen"  >
                     <Viewbox>
-                        <Label>Mavic 3</Label>
+                        <Label FontWeight="UltraLight" FontStretch="ExtraCondensed" FontFamily="../Fonts/StartFont.ttf #Pacifico">Mavic 3</Label>
                     </Viewbox>
                 </Border>
                 <Border Grid.Row="5" Grid.Column="1">
                     <Viewbox x:Name="Scale" >
-                        <Label>Avarnge Dist Between Drones:</Label>
+                        <Label FontWeight="UltraLight" FontStretch="ExtraCondensed" >Avarnge Dist Between Drones:</Label>
                     </Viewbox>
                 </Border>
                 <Border Grid.Row="5" Grid.Column="3" CornerRadius="25" Background="OrangeRed"  >
                     <Viewbox>
-                        <Label>Mavic 3</Label>
+                        <Label FontWeight="UltraLight" FontStretch="ExtraCondensed" FontFamily="../Fonts/StartFont.ttf #Pacifico">Mavic 3</Label>
                     </Viewbox>
                 </Border>
 

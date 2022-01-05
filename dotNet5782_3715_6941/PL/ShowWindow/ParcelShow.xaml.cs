@@ -23,11 +23,31 @@ namespace PL
     {
         BlApi.Ibl dat;
         static internal string TMP = System.IO.Path.GetTempPath();
-        public ParcelShow(BlApi.Ibl dat, BO.Parcel parcely)
+        public ParcelShow(BlApi.Ibl dat)
+            {
+            this.dat = dat;
+            InitializeComponent();
+            Add.Visibility = Visibility.Visible;
+            Show.Visibility = Visibility.Hidden;
+            Array SenderIds = (from sender  in dat.GetCustomers() select sender.Id).ToArray();
+            Array TargetIds = (from sender in dat.GetCustomers() select sender.Id).ToArray();
+            Array WeightVals = Enum.GetValues(typeof(BO.WeightCategories));
+            Array PrioVals = Enum.GetValues(typeof(BO.Priorities));
+            SIdCB.ItemsSource = SenderIds;
+            TIdCB.ItemsSource = TargetIds;
+            WeightCB.ItemsSource = WeightVals;
+            PrioCB.ItemsSource = PrioVals; 
+
+
+
+        }
+            public ParcelShow(BlApi.Ibl dat, BO.Parcel parcely)
         {
      
             this.dat = dat;
             InitializeComponent();
+            Add.Visibility = Visibility.Hidden;
+            Show.Visibility = Visibility.Visible;
             this.DataContext = parcely;
             bool valid = true;
             if (!File.Exists(TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png"))
@@ -73,8 +93,33 @@ namespace PL
                 new Window2(dat, dat.GetDrone((DataContext as BO.Parcel).ParcelDrone.Id)).Show();
         }
 
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BO.Parcel add = new BO.Parcel()
+                {
+                    Priority = (BO.Priorities)PrioCB.SelectedItem,
+                    Weight = (BO.WeightCategories)WeightCB.SelectedItem,
+                    SenderParcelToCostumer = new BO.CustomerInParcel()
+                    {
+                        id = (int)SIdCB.SelectedItem
+                    },
+                    GetterParcelToCostumer = new BO.CustomerInParcel()
+                    {
+                        id = (int)TIdCB.SelectedItem
+                    },
+                };
+
+                dat.AddParcel(add);
 
 
-
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error"); 
+            
+            }
+        }
     }
 }

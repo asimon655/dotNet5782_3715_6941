@@ -24,6 +24,7 @@
     <None Remove="Images\OWAY.png" />
     <None Remove="Images\ParcelToMenu.jpg" />
     <None Remove="Images\plus.jpg" />
+    <None Remove="Images\Plus.png" />
     <None Remove="Images\reset.jpg" />
     <None Remove="Images\SearchIcon.png" />
     <None Remove="Images\StaionToList.jpg" />
@@ -79,6 +80,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\plus.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Plus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\reset.jpg">

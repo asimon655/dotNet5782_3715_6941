@@ -30,8 +30,8 @@ namespace PL
             this.dat = dat;
 
             #region ListView Grouping 
-            ListOfPackges.ItemsSource = dat.GetParcels();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfPackges.ItemsSource);
+            ListOf.ItemsSource = dat.GetParcels();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
             view.GroupDescriptions.Add(groupDescription);
             #endregion
@@ -114,6 +114,19 @@ namespace PL
         private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelList).Id)).Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window add = new ParcelShow(dat); 
+            add.Closed += (sender, e) =>
+            {
+                ListOf.ItemsSource = dat.GetParcels();
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
+                view.GroupDescriptions.Add(groupDescription);
+            };
+            add.Show();
         }
     }
 }

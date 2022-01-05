@@ -29,11 +29,11 @@ namespace PL
             this.dat = dat;
             InitializeComponent();
             #region List Initialize 
-            ListOfStations.ItemsSource = dat.GetStations();
+            ListOf.ItemsSource = dat.GetStations();
             #endregion
 
             #region ListView Grouping 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfStations.ItemsSource);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("BusyPorts");
             view.GroupDescriptions.Add(groupDescription);
             #endregion
@@ -42,6 +42,19 @@ namespace PL
         private void ListOfStations_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new StationsShow(dat, dat.GetStation(((sender as ListView).SelectedItem as BO.StationList).Id)).Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window add = new StationsShow(dat);
+            add.Closed += (sender, e) =>
+            {
+                ListOf.ItemsSource = dat.GetStations();
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("BusyPorts");
+                view.GroupDescriptions.Add(groupDescription);
+            };
+            add.Show();
         }
     }
 }

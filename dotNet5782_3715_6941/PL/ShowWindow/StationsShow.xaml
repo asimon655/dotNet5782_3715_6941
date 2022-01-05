@@ -126,7 +126,27 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Image Source="../Images/StaionToList.jpg" Stretch="Fill" ></Image>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border BorderBrush="Black" BorderThickness="3,3,3,3"  Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
+                    
+                        <Image Source="../Images/StaionToList.jpg" Stretch="Fill" ></Image>
+                  
+          
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="3,3,3,3" Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
+                    <Button Click="Button_Click"  BorderBrush="#FF6594EC"   Background="#FF6594EC" >
+                        <Viewbox>
+                            <Image Stretch="Fill" Source="../Images/plus.png"></Image>
+                        </Viewbox>
+                    </Button>
+                </Border>
+      
+            </Grid>
+        
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -141,8 +161,8 @@
                 </Border>
 
                 <Border  Grid.Row="1" BorderBrush="Black" BorderThickness="3,0,3,3">
-                    <Viewbox  MaxHeight="{Binding  ActualHeight ,ElementName=ScaleTB}">
-                        <TextBox></TextBox>
+                    <Viewbox  MaxHeight="{Binding  ActualHeight ,ElementName=ScaleTB}" >
+                        <TextBox Name="NameTB" ></TextBox>
                     </Viewbox>
                 </Border>
 
@@ -153,7 +173,7 @@
                 </Border>
                 <Border  Grid.Row="3" BorderBrush="Black" BorderThickness="3,0,3,3">
                     <Viewbox  x:Name="ScaleTB">
-                        <TextBox></TextBox>
+                        <TextBox  Name="NumOfFreeTB"></TextBox>
                     </Viewbox>
                 </Border>
 
@@ -178,7 +198,7 @@
                 </Border>
                 <Border  Grid.Column="1" BorderBrush="Black" BorderThickness="0,3,3,3">
                     <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=ScaleTB}"  >
-                        <TextBox></TextBox>
+                        <TextBox  Name="IDTB"></TextBox>
                     </Viewbox>
                 </Border>
                 <Border Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="3,3,0,3">
@@ -205,10 +225,10 @@
                             <Label>Long:</Label>
                         </Viewbox>
                         <Viewbox Grid.Column="1" Grid.Row="0">
-                            <TextBox></TextBox>
+                            <TextBox  Name="LATTB"></TextBox>
                         </Viewbox>
                         <Viewbox Grid.Column="1" Grid.Row="1">
-                            <TextBox></TextBox>
+                            <TextBox  Name="LONGTB"></TextBox>
                         </Viewbox>
                     </Grid>
                 </Border>

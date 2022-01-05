@@ -212,6 +212,7 @@ namespace BlApi
         /// <returns>List Of string</returns>
         List<string> GetCapchaQuestion();
         #endregion
+
         #region NEEDTOIMPLEMENTNOWSIMON
         //double[]  GetStationBusyPortsStats();
         // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 

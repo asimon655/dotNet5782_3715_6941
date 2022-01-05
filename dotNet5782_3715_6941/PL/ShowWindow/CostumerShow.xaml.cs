@@ -28,6 +28,7 @@ namespace PL
         BlApi.Ibl dat;
         IEnumerable<string> Answers;
         static internal string TMP = System.IO.Path.GetTempPath();
+        string file; 
         #endregion
         public CostumerShow(BlApi.Ibl dat, BO.Customer cst)
         {
@@ -78,7 +79,25 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("HI", "HI");
+            try
+            {
+                BO.Customer add = new BO.Customer()
+                {
+                    Name = NameTB.Text,
+                    Id = Int32.Parse(IdTB.Text),
+                    Phone_Num = PhoneTB.Text,
+                    Loct = new BO.Location(Double.Parse(LongTB.Text), Double.Parse(LatTB.Text))
+                };
+                if (!File.Exists(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"))
+                    File.Copy(file, TMP + @"image" + Int32.Parse(IdTB.Text) + ".png");
+                dat.AddCustomer(add);
+                this.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error"); 
+            }
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -138,11 +157,13 @@ namespace PL
                 // Note that you can have more than one file.
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 var file = files[0];
+
                 WaterMark.Visibility = Visibility.Hidden;
                 UserPhoto.Visibility = Visibility.Visible;
                 try
                 {
                     UserPhoto.Source = new BitmapImage(new Uri(file));
+                    this.file = file;
                 }
                 catch
                 {

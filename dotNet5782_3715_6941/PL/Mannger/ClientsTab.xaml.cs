@@ -31,11 +31,11 @@ namespace PL
             InitializeComponent();
 
             #region List Initialize 
-            ListOfClients.ItemsSource = dat.GetCustomers();
+            ListOf.ItemsSource = dat.GetCustomers();
             #endregion
 
             #region ListView Grouping 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOfClients.ItemsSource);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelGot");
             view.GroupDescriptions.Add(groupDescription);
             #endregion
@@ -45,6 +45,19 @@ namespace PL
         private void ListOfClients_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new CostumerShow(dat, dat.GetCostumer(((sender as ListView).SelectedItem as BO.CustomerList).Id)).Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window add = new CostumerShow(dat);
+            add.Closed += (sender, e) =>
+            {
+                ListOf.ItemsSource = dat.GetCustomers();
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelGot");
+                view.GroupDescriptions.Add(groupDescription);
+            };
+            add.Show();
         }
     }
 }

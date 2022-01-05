@@ -44,5 +44,26 @@ namespace PL
         {
             new Window2(dat,dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneCharge).DroneId)).Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BO.Station add = new BO.Station()
+                {
+                    NumOfFreeOnes = Int32.Parse(NumOfFreeTB.Text),
+                    Id = Int32.Parse(IDTB.Text),
+                    Name = Int32.Parse(NameTB.Text),
+                    LoctConstant = new BO.Location(Double.Parse(LONGTB.Text), Double.Parse(LATTB.Text))
+                };
+                dat.AddStation(add);
+                this.Close(); 
+            }
+            catch (Exception err)
+            {
+
+                MessageBox.Show(err.Message, "Error"); 
+            }
+        }
     }
 }
