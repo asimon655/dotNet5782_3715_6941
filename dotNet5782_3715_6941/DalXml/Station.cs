@@ -10,6 +10,8 @@ namespace Dal
     {
         public void AddStation(Station station)
         {
+            station.IsDeleted = false;
+
             List<Station> data = Read<Station>();
 
             if (data.Any(x => x.Id == station.Id))
@@ -24,7 +26,7 @@ namespace Dal
         {
             List<Station> stations = Read<Station>();
 
-            Station station = stations.Find(s => s.Id == id);
+            Station station = stations.Find(s => !s.IsDeleted && s.Id == id);
 
             /// if the Station wasnt found throw error
             if (station.Id != id)
@@ -36,12 +38,12 @@ namespace Dal
 
         public IEnumerable<Station> GetStations()
         {
-            return Read<Station>();
+            return Read<Station>().FindAll(s => !s.IsDeleted);
         }
 
         public IEnumerable<Station> GetStations(Predicate<Station> expr)
         {
-            return Read<Station>().FindAll(expr);
+            return Read<Station>().FindAll(s => !s.IsDeleted && expr(s));
         }
 
         public void UpdateStations(Station station)
@@ -53,6 +55,17 @@ namespace Dal
                 throw new IdDosntExists("the Id Drone is dosnt exists", station.Id);
             }
             
+            Write(stations);
+        }
+        public void DeleteStation(int id)
+        {
+            List<Station> stations = Read<Station>();
+
+            if (Delete(stations, id) == -1)
+            {
+                throw new IdDosntExists("the Id Drone is dosnt exists", id);
+            }
+
             Write(stations);
         }
     }

@@ -58,15 +58,23 @@ namespace BL
      
                     
             }
-            catch (DO.IdDosntExists err) {
-
-                throw new IdDosntExists(err); 
-            
-            
+            catch (DO.IdDosntExists err) 
+            {
+                throw new IdDosntExists(err);
             } 
         }
 
-
+        public void DeleteCustomer(int id)
+        {
+            try
+            {
+                data.DeleteCustomer(id);
+            }
+            catch (DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
+        }
 
     }
 }

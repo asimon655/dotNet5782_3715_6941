@@ -15,11 +15,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{1A05
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalObject", "DalObject\DalObject.csproj", "{92DF7B6C-038B-4034-B779-CD9E5BDEE17F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{E4E55DF5-9773-4DAC-8EEA-F57CC93DB5DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{E4E55DF5-9773-4DAC-8EEA-F57CC93DB5DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{2AC6158E-E51F-49EA-A8E7-809C8334995C}"
 	ProjectSection(SolutionItems) = preProject
 		xml\dal-config.xml = xml\dal-config.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{DC0BA222-B910-4263-A181-70507DA8D3EB}"
+	ProjectSection(SolutionItems) = preProject
+		Data\config.xml = Data\config.xml
+		Data\Customers.xml = Data\Customers.xml
+		Data\Drones.xml = Data\Drones.xml
+		Data\DronesCharges.xml = Data\DronesCharges.xml
+		Data\Parcels.xml = Data\Parcels.xml
+		Data\Stations.xml = Data\Stations.xml
 	EndProjectSection
 EndProject
 Global

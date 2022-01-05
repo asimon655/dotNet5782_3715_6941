@@ -53,8 +53,8 @@ namespace ConsoleUI_BL
                                     Drone drone = new Drone();
                                     drone.Id = SysFunc.SafeEnterUInt("Id: ");
                                     Console.WriteLine("Maxweight=>please enter a number from the menue : ");
-                                    SysFunc.printEnum<WeightCategories>();
-                                    WeightCategories MaxWeigth = (WeightCategories)SysFunc.SafeEnterUInt("Maxweight: (Choose from the numbers above:  "); ;
+                                    SysFunc.printEnum<BO.WeightCategories>();
+                                    drone.Weight = (BO.WeightCategories)SysFunc.SafeEnterUInt("Maxweight: (Choose from the numbers above:  "); ;
                                     Console.Write("Model: ");
                                     drone.Model = Console.ReadLine();
                                     int stationId = SysFunc.SafeEnterUInt("enter the Station Id to put the drone in : ");
@@ -252,7 +252,7 @@ namespace ConsoleUI_BL
                                     int id = SysFunc.SafeEnterUInt("enter drone id: ");
                                     Logistics.DronePickUp(id);
 
-                                    Console.WriteLine("Package has Taken by Drone succefuly  ");
+                                    Console.WriteLine("Package has beem Taken by Drone succefuly  ");
                                 }
                                 catch (Exception err)
                                 {
@@ -265,7 +265,7 @@ namespace ConsoleUI_BL
                                     int id = SysFunc.SafeEnterUInt("enter drone id : ");
                                     Logistics.DroneDelivere(id);
 
-                                    Console.WriteLine("Package has Taken by Drone succefuly  ");
+                                    Console.WriteLine("Package has been delivered by Drone succefuly  ");
                                 }
                                 catch (Exception err)
                                 {

@@ -12,6 +12,7 @@ namespace DalApi
         IEnumerable<Customer> GetCustomers();
         IEnumerable<Customer> GetCustomers(Predicate<Customer> expr);
         void UpdateCustomer(Customer costumer);
+        void DeleteCustomer(int id);
         #endregion
 
         #region CRUD of drone
@@ -20,6 +21,7 @@ namespace DalApi
         IEnumerable<Drone> GetDrones();
         IEnumerable<Drone> GetDrones(Predicate<Drone> expr);
         void UpdateDrones(Drone drone);
+        void DeleteDrone(int id);
         #endregion
 
         #region CRUD of station
@@ -28,6 +30,7 @@ namespace DalApi
         IEnumerable<Station> GetStations();
         IEnumerable<Station> GetStations(Predicate<Station> expr);
         void UpdateStations(Station station);
+        void DeleteStation(int id);
         #endregion
 
         #region CRUD of parcel
@@ -37,6 +40,7 @@ namespace DalApi
         IEnumerable<Parcel> GetParcels(Predicate<Parcel> expr);
         void UpdateParcles(Parcel parcel);
         int CountParcels(Func<Parcel, bool> expr);
+        void DeleteParcel(int id);
         #endregion
 
         #region CRUD of dronecharge
@@ -53,5 +57,9 @@ namespace DalApi
         /// </summary>
         /// <returns>double[]</returns>
         double[] GetPowerConsumption();
+        DronePic GetDronePic(string Model);
+        CustomerPic GetCustomerPic(int customerId);
+        void AddDronePic(DronePic pic);
+        void AddCustomerPic(CustomerPic pic);
     }
 }

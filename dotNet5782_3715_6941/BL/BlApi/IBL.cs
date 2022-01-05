@@ -106,6 +106,30 @@ namespace BlApi
         void DroneReleaseCharge(int droneId, double chargingPeriod);
         #endregion
 
+        #region Delete
+        /// <summary>
+        /// delete customer (using his id wont be allowed)
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteCustomer(int id);
+        /// <summary>
+        /// delete drone only if his satus is free (using his id wont be allowed)
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteDrone(int id);
+        /// <summary>
+        /// delete parcel only if the parcel status is decleared
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteParcel(int id);
+        /// <summary>
+        /// delete station (using his id wont be allowed)
+        /// (the drones that charging in that station will not be affected)
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteStation(int id);
+        #endregion
+
         #region Get List
         /// <summary>
         /// returns the list of stations
@@ -153,6 +177,40 @@ namespace BlApi
         double[] GetParcelsPrioretiesStats();
         double[] GetParcelsStatusesStats();
         double[] GetParcelsWeightsStats();
+        #endregion
+
+        #region metadata
+        /// <summary>
+        /// download random pic from thispersondoesnotexist.com
+        /// </summary>
+        /// <returns></returns>
+        string GetRandomPersonPic();
+        /// <summary>
+        /// return Drone pic by Model name
+        /// if there is no saved pic it will download the first img from google photos search
+        /// </summary>
+        /// <param name="Model">model name of the drone</param>
+        /// <returns>path of the pic</returns>
+        string GetDronePic(string Model);
+        /// <summary>
+        /// return Customer pic by csutomer Id
+        /// if there is no throw noPic
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>path of the pic</returns>
+        string GetCustomerPic(int customerId);
+        /// <summary>
+        /// add pic to customer
+        /// </summary>
+        /// <param name="customerId">id of the customer</param>
+        /// <param name="filepath">path to the image</param>
+        void AddCustomerPic(int customerId, string filepath);
+        /// <summary>
+        /// return a capcha question and hashed answers
+        /// the first object is the question and then comes the answers
+        /// </summary>
+        /// <returns>List Of string</returns>
+        List<string> GetCapchaQuestion();
         #endregion
         #region NEEDTOIMPLEMENTNOWSIMON
         //double[]  GetStationBusyPortsStats();

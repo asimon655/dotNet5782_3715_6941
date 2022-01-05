@@ -15,6 +15,8 @@ namespace Dal
         internal static List<Station> Stations = new List<Station>();
         internal static List<Parcel> Parcels = new List<Parcel>();
         internal static List<DroneCharge> DronesCharges = new List<DroneCharge>();
+        internal static List<DronePic> DronePics = new List<DronePic>();
+        internal static List<CustomerPic> CustomerPics = new List<CustomerPic>();
         //until here array var declartion 
         static internal class Config
         {

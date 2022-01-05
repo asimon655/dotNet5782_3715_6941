@@ -131,10 +131,22 @@ namespace BL
                 {
                     // set drone location to a random customer that recived a parcel
                     IEnumerable<DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Delivered);
-                    int random_i = RandomGen.Next(parcelsDelivered.Count());
-                    DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
-                    DO.Customer costumer = data.GetCustomer(parcel.TargetId);
-                    newDrone.Loct = new Location(costumer.Longitude, costumer.Lattitude);
+                    if (parcelsDelivered.Count() > 0)
+                    {
+                        int random_i = RandomGen.Next(parcelsDelivered.Count());
+                        DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
+                        DO.Customer costumer = data.GetCustomer(parcel.TargetId);
+                        newDrone.Loct = new Location(costumer.Longitude, costumer.Lattitude);
+                    }
+                    // if there are no deliverd parcels 
+                    else
+                    {
+                        // set drone location to a random starion with free charging slots
+                        IEnumerable<DO.Station> stationsFreePorts = data.GetStations(x => x.ChargeSlots > 0);
+                        int random_i = RandomGen.Next(stationsFreePorts.Count());
+                        DO.Station stationy = stationsFreePorts.ElementAt(random_i);
+                        newDrone.Loct = new Location(stationy.Longitude, stationy.Lattitude);
+                    }
 
                     // get the location of the closest station to that costumer
                     int stationId = getClosesStation(newDrone.Loct);

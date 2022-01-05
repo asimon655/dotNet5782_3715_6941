@@ -37,7 +37,8 @@ namespace BL
                 SenderId=parcel.SenderParcelToCostumer.id,
                 TargetId=parcel.GetterParcelToCostumer.id ,
                 Priority=(DO.Priorities)parcel.Priority,
-                Weight=(DO.WeightCategories)parcel.Weight};
+                Weight=(DO.WeightCategories)parcel.Weight
+            };
             data.AddParcel(ParcelTmp);
         }
         public Parcel GetParcel(int id)
@@ -222,7 +223,21 @@ namespace BL
             }
         }
 
+        public void DeleteParcel(int id)
+        {
+            try
+            {
+                DO.Parcel parcel = data.GetParcel(id);
+                if (parcel.DroneId is null)
+                    throw new CantDelete("can't delete the parcel because it has been bonded to a drone already", id);
 
+                data.DeleteParcel(id);
+            }
+            catch (DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
+        }
 
     }
 }

@@ -24,26 +24,26 @@ namespace BL
                 throw new EnumNotInRightStatus<DroneStatuses>("drone is not in matance , it is: ", drony.DroneStat); 
             else 
             {
-                ///time perios is in hours 
-                DO.Station station = GetStationFromCharging(droneId);
-                drony.Battery = Math.Min((drony.Battery + ChargingSpeed * chargingPeriod), 100); 
-                drony.DroneStat = DroneStatuses.Free; 
-                Station baseStation = StationC(station);
-                station.ChargeSlots += 1;
                 try
                 {
+                    ///time perios is in hours 
+                    DO.Station station = GetStationFromCharging(droneId);
+                    drony.Battery = Math.Min((drony.Battery + ChargingSpeed * chargingPeriod), 100); 
+                    drony.DroneStat = DroneStatuses.Free; 
+                    Station baseStation = StationC(station);
+                    station.ChargeSlots += 1;
                     data.UpdateStations(station); 
+                }
+                // if the Station cant be found no worries maybe the station was deleted in the mean while
+                catch (DO.IdDosntExists) { }
+                try
+                {
                     data.DeleteDroneCharge(drony.Id);
                 }
                 catch (DO.IdDosntExists err)
                 {
-                    throw new IdDosntExists(err); 
-                    
+                    throw new IdDosntExists(err);
                 }
-         
-                   
-          
-
             }
         }
 
@@ -116,17 +116,15 @@ namespace BL
             DO.Drone DroneTmp = new DO.Drone() { 
                 Id = drone.Id, 
                 MaxWeigth = ((DO.WeightCategories)(int)drone.Weight), 
-                Modle = drone.Model };
+                Modle = drone.Model
+            };
             try
             {
                 DO.Station PulledStaion = data.GetStation(stationId);
                 drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
             }
             catch (DO.IdDosntExists err) {
-
-
                 throw new IdDosntExists(err);
-            
             } 
             try
             {
@@ -165,11 +163,21 @@ namespace BL
             return drones.Where(x => statuses.Contains(x.DroneStat) && weights.Contains(x.Weight));
 
         }
-        public Predicate<DO.Station> conv(Predicate<StationList> x)
+
+        public void DeleteDrone(int id)
         {
-            return new Predicate<DO.Station>(y => x(new StationList() { Id = y.Id, Name = y.Name, FreePorts = y.ChargeSlots }));  
-        
-        
-        } 
+            try
+            {
+                DroneList drone = GetDroneToList(id);
+                if (drone.DroneStat != DroneStatuses.Free)
+                    throw new CantDelete("cant delete the drone becouse he is not free", id);
+
+                data.DeleteDrone(id);
+            }
+            catch (DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
+        }
     }
 }
