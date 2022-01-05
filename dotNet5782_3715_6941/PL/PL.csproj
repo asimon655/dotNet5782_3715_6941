@@ -104,7 +104,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.38" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.39" />
     <PackageReference Include="Mapsui.Wpf" Version="3.0.2" />
     <PackageReference Include="MaterialDesignExtensions" Version="4.0.0-a02" />
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
