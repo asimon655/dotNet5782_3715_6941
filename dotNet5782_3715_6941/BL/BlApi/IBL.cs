@@ -106,6 +106,30 @@ namespace BlApi
         void DroneReleaseCharge(int droneId, double chargingPeriod);
         #endregion
 
+        #region Delete
+        /// <summary>
+        /// delete customer (using his id wont be allowed)
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteCustomer(int id);
+        /// <summary>
+        /// delete drone only if his satus is free (using his id wont be allowed)
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteDrone(int id);
+        /// <summary>
+        /// delete parcel only if the parcel status is decleared
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteParcel(int id);
+        /// <summary>
+        /// delete station (using his id wont be allowed)
+        /// (the drones that charging in that station will not be affected)
+        /// </summary>
+        /// <param name="id"></param>
+        void DeleteStation(int id);
+        #endregion
+
         #region Get List
         /// <summary>
         /// returns the list of stations

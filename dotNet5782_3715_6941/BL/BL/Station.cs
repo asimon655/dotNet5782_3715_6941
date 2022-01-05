@@ -64,9 +64,15 @@ namespace BL
         {
             if (station.LoctConstant.Lattitude > 90 || station.LoctConstant.Lattitude < -90 || station.LoctConstant.Longitude > 180 || station.LoctConstant.Longitude < -180)
                 throw new LocationOutOfRange("the Location Values are out of boundries  :  ", station.LoctConstant.Longitude, station.LoctConstant.Lattitude);
-            
-            DO.Station StationTmp = new DO.Station() {Id = station.Id,ChargeSlots=station.NumOfFreeOnes,Lattitude=station.LoctConstant.Lattitude,Longitude=station.LoctConstant.Longitude
-            ,Name=station.Name};
+
+            DO.Station StationTmp = new DO.Station()
+            {
+                Id = station.Id,
+                ChargeSlots = station.NumOfFreeOnes,
+                Lattitude = station.LoctConstant.Lattitude,
+                Longitude = station.LoctConstant.Longitude,
+                Name = station.Name
+            };
             try
             {
                 data.AddStation(StationTmp);
@@ -76,11 +82,16 @@ namespace BL
                 throw new IdAlreadyExists(err);
             } 
         }
-
-
-       
-       
-
-
+        public void DeleteStation(int id)
+        {
+            try
+            {
+                data.DeleteStation(id);
+            }
+            catch (DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
+        }
     }
 }

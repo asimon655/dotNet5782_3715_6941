@@ -123,8 +123,8 @@ namespace BO
         public int id { get; set; }
 
         public IdDosntExists() : base() {}
-        public IdDosntExists(String message) : base(message) {}
-        public IdDosntExists(String message, int _id) : base(message)
+        public IdDosntExists(string message) : base(message) {}
+        public IdDosntExists(string message, int _id) : base(message)
         {
             id = _id;
         }
@@ -143,7 +143,7 @@ namespace BO
     {
         public double  Lonigtuide { get; set; }
         public double Latitude { get; set; }
-        public LocationOutOfRange(String message, double Lonigtuide , double Latitude) : base(message)
+        public LocationOutOfRange(string message, double Lonigtuide , double Latitude) : base(message)
         {
             this.Latitude = Latitude;
             this.Lonigtuide = Lonigtuide; 
@@ -171,7 +171,7 @@ namespace BO
     public class SenderGetterAreSame : Exception
     {
         public int id { get; set; }
-        public SenderGetterAreSame(String message, int _id) : base(message)
+        public SenderGetterAreSame(string message, int _id) : base(message)
         {
             id = _id;
         }
@@ -184,5 +184,14 @@ namespace BO
     {
         public NoOrBadInternet(string message) : base(message) { }
     }
-
+    public class CantDelete : Exception
+    {
+        public int id { get; set; }
+        public CantDelete(string message) : base(message) { }
+        public CantDelete(string message, int _id) : base(message) { id = _id; }
+        public override string ToString()
+        {
+            return Message + id;
+        }
+    }
 }
