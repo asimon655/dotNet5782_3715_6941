@@ -171,7 +171,8 @@ namespace BL
                 DroneList drone = GetDroneToList(id);
                 if (drone.DroneStat != DroneStatuses.Free)
                     throw new CantDelete("cant delete the drone becouse he is not free", id);
-
+                
+                drones.Remove(drone);
                 data.DeleteDrone(id);
             }
             catch (DO.IdDosntExists err)
