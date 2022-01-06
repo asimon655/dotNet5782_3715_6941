@@ -19,7 +19,9 @@ namespace ConsoleUI_BL
         [Description("Show status and details ")]
         Details,
         [Description("Show lists of objects")]
-        ListShow
+        ListShow,
+        [Description("Delete")]
+        Delete
     }
     // the options of the option Add (Add from the main menu)
     public enum Add {
@@ -87,6 +89,13 @@ namespace ConsoleUI_BL
         PackagesWithoutDrones,
         [Description("Show lists of of Base Staions with free charge ports ")]
         BaseStaionsFreePorts,
+    }
+    public enum Delete
+    {
+        [Description("Exit")]
+        exit,
+        [Description("Delete Parcel")]
+        Parcel
     }
     public enum Priorities
     {
