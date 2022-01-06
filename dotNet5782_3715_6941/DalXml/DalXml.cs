@@ -115,9 +115,9 @@ namespace Dal
 
             if (index != -1)
             {
-                T updater = listy[index];
+                object updater = listy[index];
                 isDeleted.SetValue(updater, true);
-                listy[index] = updater;
+                listy[index] = (T)updater;
             }
 
             return index;
