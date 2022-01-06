@@ -37,6 +37,10 @@ namespace Dal
         {
             return DataSource.Stations.FindAll(s => !s.IsDeleted && expr(s));
         }
+        public int CountStations(Func<Station, bool> expr)
+        {
+            return DataSource.Stations.Count(s => !s.IsDeleted && expr(s));
+        }
         public void UpdateStations(Station station)
         {
             /// if the Station wasnt found throw error

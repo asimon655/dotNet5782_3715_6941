@@ -116,6 +116,14 @@ namespace Dal
             return dronys;
         }
 
+        public int CountDrones(Func<Drone, bool> expr)
+        {
+            XElement data = ReadDroneXml();
+            return (from drone in data.Elements()
+                    where !IsDeletedOf(drone) && expr(XmlToDrone(drone))
+                    select true).Count();
+        }
+
         public void UpdateDrones(Drone drone)
         {
             XElement data = ReadDroneXml();

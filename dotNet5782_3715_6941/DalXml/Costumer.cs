@@ -48,6 +48,10 @@ namespace Dal
         {
             return Read<Customer>().FindAll(s => !s.IsDeleted && expr(s));
         }
+        public int CountCustomers(Func<Customer, bool> expr)
+        {
+            return Read<Customer>().Count(s => !s.IsDeleted && expr(s));
+        }
 
         public void UpdateCustomer(Customer customer)
         {

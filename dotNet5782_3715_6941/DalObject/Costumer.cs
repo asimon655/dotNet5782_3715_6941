@@ -45,6 +45,10 @@ namespace Dal
         {
             return DataSource.Costumers.FindAll(s => !s.IsDeleted && expr(s));
         }
+        public int CountCustomers(Func<Customer, bool> expr)
+        {
+            return DataSource.Costumers.Count(s => !s.IsDeleted && expr(s));
+        }
         public void DeleteCustomer(int id)
         {
             // if we cant find any costumer with the id we throw an error
