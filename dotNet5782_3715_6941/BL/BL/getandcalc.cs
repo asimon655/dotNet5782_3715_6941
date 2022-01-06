@@ -89,7 +89,7 @@ namespace BL
             try
             {
                 DO.Customer CSMtmp = data.GetCustomer(parcel.TargetId);
-                return CostumerC(CSMtmp).Loct;
+                return Convert(CSMtmp).Loct;
             }
             catch (DO.IdDosntExists err)
             {
@@ -139,7 +139,7 @@ namespace BL
         {
             if (!Enum.IsDefined(typeof(T), value))
             {
-                throw new EnumOutOfRange("value not defined in the enum " + typeof(T), Convert.ToInt32(value));
+                throw new EnumOutOfRange("value not defined in the enum " + typeof(T), System.Convert.ToInt32(value));
             }
         }
 

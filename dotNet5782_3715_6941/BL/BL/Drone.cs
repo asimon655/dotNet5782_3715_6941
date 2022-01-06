@@ -30,7 +30,7 @@ namespace BL
                     DO.Station station = GetStationFromCharging(droneId);
                     drony.Battery = Math.Min((drony.Battery + ChargingSpeed * chargingPeriod), 100); 
                     drony.DroneStat = DroneStatuses.Free; 
-                    Station baseStation = StationC(station);
+                    Station baseStation = Convert(station);
                     station.ChargeSlots += 1;
                     data.UpdateStations(station); 
                 }
@@ -107,7 +107,7 @@ namespace BL
 
         public Drone GetDrone(int id)
         {
-            return DronesC(GetDroneToList(id));
+            return Convert(GetDroneToList(id));
         }
         public void AddDrone(Drone drone, int stationId)
         {

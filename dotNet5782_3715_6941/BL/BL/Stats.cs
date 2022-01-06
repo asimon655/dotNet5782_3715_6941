@@ -18,7 +18,7 @@ namespace BL
             IEnumerable<int> range = Enumerable.Range(0, Models.Count());
             double []res_dd = new double[range.Count()];
             for (int i = 0; i < range.Count(); i++)
-                res_dd[i] = Convert.ToDouble(range.Skip(i).First());
+                res_dd[i] = System.Convert.ToDouble(range.Skip(i).First());
             res.pos = res_dd;
             IEnumerable<double> vals = from model in Models select (double)drones.Count(x => x.Model == model);
             res.vals = vals.ToArray();
@@ -40,7 +40,7 @@ namespace BL
             BO.WeightCategories[] weights = (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories));
             IEnumerable<double> filtered = from weight in weights
                                            where drones.Count(x => x.Weight == weight) > 0
-                                           select Convert.ToDouble(drones.Count(x => x.Weight == weight));
+                                           select System.Convert.ToDouble(drones.Count(x => x.Weight == weight));
             return filtered.ToArray();
         }
 
@@ -70,5 +70,11 @@ namespace BL
                                            select (double)data.CountParcels(x => x.Weight == (DO.WeightCategories)weight);
             return filtered.ToArray();
         }
+        // public double[] GetStationBusyPortsStats();
+        // public double[] GetStationFreePortsStats();
+        // public double[] GetCostumerReached();
+        // public double[] GetCostumerUnReached();
+        // public double[] GetCostumerParcelGot();
+        // public double[] GetCostumerInTheWay();
     }
 }

@@ -96,7 +96,8 @@ namespace ConsoleUI_BL
                                 {
                                     Station station = new Station();
                                     station.Id = SysFunc.SafeEnterUInt("Id: ");
-                                    station.Name = SysFunc.SafeEnterUInt("Name: ");
+                                    Console.WriteLine("Name: ");
+                                    station.Name = Console.ReadLine();
                                     station.LoctConstant = new Location (SysFunc.SafeEnterDouble("Latitude: "), SysFunc.SafeEnterDouble("Longitude: "));
                                     station.NumOfFreeOnes = SysFunc.SafeEnterUInt("ChargeSlots: ");
                                     try
@@ -205,7 +206,8 @@ namespace ConsoleUI_BL
                                 try
                                 {
                                     int id = SysFunc.SafeEnterUInt("enter Station Id : ");
-                                    int name = SysFunc.SafeEnterUInt("enter Station Name : ");
+                                    Console.WriteLine("enter Station Name : ");
+                                    string name = Console.ReadLine();
                                     int chargeSlots = SysFunc.SafeEnterUInt("enter Station Charge Slots : ");
                                     Logistics.UpdateStation(id, name, chargeSlots);
 

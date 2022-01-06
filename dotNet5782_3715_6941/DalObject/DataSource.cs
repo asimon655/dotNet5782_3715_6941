@@ -42,7 +42,7 @@ namespace Dal
                     {
                         Id = RandomGen.Next(100000000, 999999999),
                         ChargeSlots = RandomGen.Next(0, 50),
-                        Name = i,
+                        Name = "grand station " + i,
                         Lattitude = RandomGen.NextDouble() * 3 + 29,
                         Longitude = RandomGen.NextDouble() * 1 + 34.4
                     }) ;

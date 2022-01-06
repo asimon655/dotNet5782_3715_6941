@@ -4,7 +4,7 @@ namespace BO
     public class StationList 
     {
         public int Id { set; get; }
-        public int Name { set; get; }
+        public string Name { set; get; }
         public int BusyPorts { set; get; } 
         public int FreePorts { set; get; }
 
