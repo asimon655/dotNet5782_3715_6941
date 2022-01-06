@@ -51,9 +51,9 @@ namespace Dal
             int index = listy.FindIndex(x => !(bool)isDeleted.GetValue(x, null) && (int)id.GetValue(x, null) == deleteId);
 
             if (index != -1) {
-                T updater = listy[index];
+                object updater = listy[index];
                 isDeleted.SetValue(updater, true);
-                listy[index] = updater;
+                listy[index] = (T)updater;
             }
 
             return index;

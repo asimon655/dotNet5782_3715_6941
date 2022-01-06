@@ -339,6 +339,30 @@ namespace ConsoleUI_BL
                                 break;
                         }
                         break;
+                    case (int)Menu.Delete:
+                        /// get the list from Logistics method anmd use sysfunc function to print it 
+                        SysFunc.printEnum<Delete>();
+                        Console.WriteLine("please enter a number from the menue ");
+                        Console.WriteLine((int.TryParse(Console.ReadLine(), out enter) ? "" : "please enter only numbers"));
+                        Console.WriteLine(EnumHelper.GetDescription<Delete>((Delete)enter));
+                        switch (enter)
+                        {
+                            case (int)Delete.Parcel:
+                                Console.WriteLine("enter Parcel Id please : ");
+                                try
+                                {
+                                    Logistics.DeleteParcel(SysFunc.SafeEnterUInt());
+                                    Console.WriteLine("the deletion operation went succsfully");
+                                }
+                                catch (Exception err)
+                                {
+                                    Console.WriteLine("Error : "+err);
+                                }
+                                break;
+                            case (int)Delete.exit:
+                                break;
+                        }
+                        break;
                     case (int)Menu.exit:
                         break;
 
