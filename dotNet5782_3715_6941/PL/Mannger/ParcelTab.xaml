@@ -9,7 +9,7 @@
       Title="ParcelTab">
 
     <Page.Resources>
-
+        <local:DELAV x:Key="DELAV" ></local:DELAV>
         <local:HalfScale x:Key="HalfScale"></local:HalfScale>
         <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="BorderThickness" Value="0"/>
@@ -172,6 +172,23 @@
                         <ListView.View>
 
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+
+                                            <Button Tag="{Binding Id}"  Width="50" Height="50"  Visibility="{Binding ParcelStatus , Converter={StaticResource DELAV}  }"
+                        VerticalAlignment="Center"
+                        Click="Button_Click_1"  Background="Transparent" BorderThickness="0" 
+                                                  >
+
+                                                <Viewbox Stretch="Fill">
+                                                    <Image Stretch="Fill" Source="../Images/DELETE.png"></Image>
+                                                </Viewbox>
+                                            </Button>
+
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id1" Header="Id" Width="auto"/>
                                 <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=SenderName}" x:Name="SenderName" Header="Sender Name" Width="auto" />
@@ -181,6 +198,8 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="Weight2" Header="Weight" Width="auto" />
                                 <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Priorety}" x:Name="Priorety" Header="Priorety" Width="auto"/>
+                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelStatus }" Header="Status" Width="auto"/>
                                 <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridView.ColumnHeaderContainerStyle>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">

@@ -228,7 +228,7 @@ namespace BL
             try
             {
                 DO.Parcel parcel = data.GetParcel(id);
-                if (parcel.DroneId is null)
+                if (!(parcel.DroneId is null))
                     throw new CantDelete("can't delete the parcel because it has been bonded to a drone already", id);
 
                 data.DeleteParcel(id);

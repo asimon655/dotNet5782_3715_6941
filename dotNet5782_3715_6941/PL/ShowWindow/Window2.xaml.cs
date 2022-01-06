@@ -39,12 +39,12 @@ namespace PL
             {
                 BO.Drone drony = new BO.Drone();
 
-                drony.Model = ((pacads[0] as Viewbox).Child as TextBox).Text;
-                drony.Id = Convert.ToInt32((((pacads[1] as Viewbox).Child as TextBox).Text));
-                drony.Weight = (BO.WeightCategories)(pacads[2] as ComboBox).SelectedItem;
+                drony.Model = NameTB .Text;
+                drony.Id = Convert.ToInt32(IdTB.Text);
+                drony.Weight = (BO.WeightCategories)(WeightCB).SelectedItem;
 
 
-                log.AddDrone(drony, (int)(pacads[3] as ComboBox).SelectedItem);
+                log.AddDrone(drony, (int)(StatCB).SelectedItem);
                 try
                 {
                     if (pageof is MainWindow)
@@ -71,18 +71,24 @@ namespace PL
         {
             this.Close();
         }
-        private void GifLoader_Unloaded(object sender, RoutedEventArgs e)
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-
-            MediaElement media = (MediaElement)sender;
-            media.LoadedBehavior = MediaState.Manual;
-            media.Position = TimeSpan.FromMilliseconds(1);
-            media.Play();
-
-
-
+            if (!(drn.ParcelTransfer is null))
+                new ParcelShow(log, log.GetParcel(drn.ParcelTransfer.Id)).Show(); 
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (!(drn.ParcelTransfer is null))
+            new CostumerShow(log, log.GetCostumer(drn.ParcelTransfer.Target.id)).Show();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (!(drn.ParcelTransfer is null))
+                new CostumerShow(log, log.GetCostumer(drn.ParcelTransfer.Sender.id)).Show();
+        }
     }
 }
