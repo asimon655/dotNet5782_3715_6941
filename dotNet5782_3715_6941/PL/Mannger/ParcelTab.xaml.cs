@@ -128,5 +128,24 @@ namespace PL
             };
             add.Show();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+      
+                int id = (int)(sender as Button).Tag;
+                dat.DeleteParcel(id);
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error");
+            }
+            ListOf.ItemsSource = dat.GetParcels();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
+            view.GroupDescriptions.Add(groupDescription);
+        }
     }
 }
