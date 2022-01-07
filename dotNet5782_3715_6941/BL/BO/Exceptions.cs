@@ -20,27 +20,10 @@ namespace BO
                 usingchargingstaions.ToString();
         }
     }
-    public class ThereArentAnyParcels : Exception
+    public class CouldntFindPatcelThatsFits : Exception
     {
-        public ThereArentAnyParcels() : base() { }
-        public ThereArentAnyParcels(String message) : base(message) { }
-    }
-    public class CouldntFindRightParcelWeight : Exception
-    {
-        public WeightCategories weight { get; set; }
-        public WeightCategories requiredWeigth { get; set; }
-        public CouldntFindRightParcelWeight() : base() { }
-        public CouldntFindRightParcelWeight(String message) : base(message) { }
-        public CouldntFindRightParcelWeight(String message, WeightCategories _weight, WeightCategories _requiredWeigth) : base(message)
-        {
-            weight = _weight;
-            requiredWeigth = _requiredWeigth;
-        }
-        public override string ToString()
-        {
-            return Message + " \nbattery: " + weight.ToString() + "\nrequired: " +
-                requiredWeigth.ToString();
-        }
+        public CouldntFindPatcelThatsFits() : base() { }
+        public CouldntFindPatcelThatsFits(String message) : base(message) { }
     }
 
 
