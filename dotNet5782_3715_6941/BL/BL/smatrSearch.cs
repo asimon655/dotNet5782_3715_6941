@@ -37,7 +37,7 @@ namespace BL
         }
         public IEnumerable<BO.DroneList> SmartSearchDrone(string query)
         {
-            int id;
+            int id; 
             if (int.TryParse(query, out id))
             {
                 return drones.FindAll(x => x.Id == id);
