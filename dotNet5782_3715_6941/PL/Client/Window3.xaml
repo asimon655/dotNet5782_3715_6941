@@ -27,30 +27,21 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+      
                 </Grid.RowDefinitions>
-                <Border  Grid.Row="0" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
-                    <Button Background="CornflowerBlue">
-                        <Image Source="..\Images\DroneMenu.jpg" Stretch="Fill"/>
-                    </Button>
-                </Border>
+          
                 <Border Grid.Row="1"  BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
                     <Button  Background="CornflowerBlue">
                         <Image Source="..\Images\ParcelToMenu.jpg" Stretch="Fill"/>
                     </Button>
 
                 </Border>
-                <Border Grid.Row="2" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
+                <Border Grid.Row="0" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
                     <Button Background="CornflowerBlue">
                         <Image Source="..\Images\ClientToMenu.jpg" Stretch="Fill"/>
                     </Button>
                 </Border>
-                <Border Grid.Row="3" BorderBrush="LightBlue" BorderThickness="3" CornerRadius="0">
-                    <Button  Background="CornflowerBlue">
-                        <Image Source="..\Images\StaionToList.jpg" Stretch="Fill"/>
-                    </Button>
-                </Border>
+             
             </Grid>
             <Frame Grid.Column="1" x:Name="Main"  HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
 VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" Navigated="Main_Navigated" />

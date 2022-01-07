@@ -166,5 +166,11 @@ namespace PL
   
         }
 
+
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ResultsOfSearch.ItemsSource = dat.SmartSearchParcel(SmartTB.Text);
+        }
     }
 }

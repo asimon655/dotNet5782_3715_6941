@@ -275,9 +275,21 @@
                             <RowDefinition Height="4*" />
                             <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
-                        <Image Source="../Images/SearchIcon.png" Grid.Row="1"></Image>
+                        <Button  BorderBrush="Transparent" Grid.Row="1" Background="Transparent" Click="Button_Click_2">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="38"/>
+                                </Style>
+                            </Button.Resources>
+
+                            <Viewbox>
+                                <Image Source="../Images/SearchIcon.png"></Image>
+                            </Viewbox>
+                        </Button>
+
                         <Viewbox  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1">
-                            <TextBox BorderBrush="White" BorderThickness="0" ></TextBox>
+                            <TextBox  BorderBrush="White" BorderThickness="0" KeyDown="Button_Click_2"  Name="SmartTB">
+                            </TextBox>
                         </Viewbox>
 
                     </Grid>
@@ -294,18 +306,20 @@
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="1"   BorderBrush="Black" BorderThickness="2">
                     <Grid>
-                        <ListView x:Name="ResultsOfSearch">
+                        <ListView  MouseDoubleClick="ListOfStations_MouseDoubleClick" x:Name="ResultsOfSearch">
 
 
                             <ListView.View>
 
                                 <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="auto" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" Header="Location" Width="auto"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Battery, StringFormat=\{0:f2\}}"  Header="Battery" Width="auto" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" Header="MaxWeight" Width="auto"/>
-                                    <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}"  Header="DroneStatus" Width="auto"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}"  Header="Binded Parcel Id" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="Id" Width="auto" />
+                                    
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}"  Header="Name" Width="auto" />
+                                    
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=BusyPorts}"  Header="Busy Ports" Width="auto"/>
+                                 
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=FreePorts}"  Header="Free Ports" Width="auto" />
+                                   
                                     <GridView.ColumnHeaderContainerStyle>
                                         <Style TargetType="{x:Type GridViewColumnHeader}">
                                             <!-- Set any properties you want to set -->

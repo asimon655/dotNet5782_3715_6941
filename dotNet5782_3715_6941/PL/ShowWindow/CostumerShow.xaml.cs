@@ -30,7 +30,7 @@ namespace PL
         static internal string TMP = System.IO.Path.GetTempPath();
         string file=""; 
         #endregion
-        public CostumerShow(BlApi.Ibl dat, BO.Customer cst)
+        public CostumerShow                                                                                                                                                                                                                                        (BlApi.Ibl dat, BO.Customer cst)
         {
             this.dat = dat;
             InitializeComponent();
@@ -58,8 +58,9 @@ namespace PL
 
         public CostumerShow(BlApi.Ibl dat)
         {
-            this.dat = dat;
             InitializeComponent();
+
+            this.dat = dat; 
             List<string> resCaptcha = dat.GetCapchaQuestion();
             myPopup.DataContext = resCaptcha.First();
             Answers = resCaptcha.Skip(1);

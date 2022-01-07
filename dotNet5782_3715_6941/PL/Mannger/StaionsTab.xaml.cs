@@ -77,5 +77,10 @@ namespace PL
                 MessageBox.Show(err.Message, "Error");
             }
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ResultsOfSearch.ItemsSource = dat.SmartSearchStation(SmartTB.Text);
+        }
     }
 }

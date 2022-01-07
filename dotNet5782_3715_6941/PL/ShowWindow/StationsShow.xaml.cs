@@ -53,7 +53,7 @@ namespace PL
                 {
                     NumOfFreeOnes = Int32.Parse(NumOfFreeTB.Text),
                     Id = Int32.Parse(IDTB.Text),
-                    Name = Int32.Parse(NameTB.Text),
+                    Name =NameTB.Text,
                     LoctConstant = new BO.Location(Double.Parse(LONGTB.Text), Double.Parse(LATTB.Text))
                 };
                 dat.AddStation(add);

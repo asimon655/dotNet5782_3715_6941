@@ -27,7 +27,7 @@ namespace PL
         {
             
             InitializeComponent();
-            dat = BlApi.BlFactory.GetBl();
+            this.dat = BlApi.BlFactory.GetBl();
       
         }
          
@@ -51,6 +51,7 @@ namespace PL
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
+            
             new CostumerShow(dat).Show();
         }
     }

@@ -722,7 +722,241 @@
                     </wpfspark:PivotItem.PivotHeader>
                     <wpfspark:PivotItem.PivotContent>
                         <wpfspark:PivotContentControl>
+                            <Grid Name="myPopup"  >
 
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!--#region DOTS -->
+                                    <Grid Grid.Column="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="13*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="13*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="13*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="13*" />
+                                        </Grid.RowDefinitions>
+                                        <Image Source="../Images/OWAY.png" Stretch="Fill"  Grid.Row="1"></Image>
+                                        <Image Source="../Images/TWAY.png" Stretch="Fill"  Grid.Row="3"></Image>
+                                        <Image Source="../Images/THWAY.png" Stretch="Fill"  Grid.Row="5"></Image>
+                                        <Image Source="../Images/FWAY.png" Stretch="Fill"  Grid.Row="7"></Image>
+                                    </Grid>
+                                    <!--#endregion-->
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="13*" />
+                                        </Grid.RowDefinitions>
+                                        <ToggleButton Grid.Row="1" BorderBrush="Black" Name="Opeation0" >
+                                            <ToggleButton.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="320"/>
+                                                </Style>
+                                            </ToggleButton.Resources>
+                                            <Grid>
+                                                <Popup Name="myPopup0" IsOpen="{Binding IsChecked, ElementName=Opeation0}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+            PopupAnimation="Slide" >
+                                                    <Grid Background="#FF508EF5" Height="400" Width="500" >
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="2*" />
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="2*" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Button Grid.Row="1" Grid.Column="1" Click="Bind">Confirm</Button>
+
+                                                    </Grid>
+
+                                                </Popup>
+                                                <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=TextScale}" MaxWidth="{Binding  ActualWidth ,ElementName=TextScale}" >
+                                                    <Label Name="BWIDGET" FontWeight="Light">Bind</Label>
+                                                </Viewbox>
+
+                                            </Grid>
+                                        </ToggleButton>
+                                        <ToggleButton   Grid.Row="3" BorderBrush="Black" Name="Opeation2" >
+                                            <ToggleButton.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="320"/>
+                                                </Style>
+                                            </ToggleButton.Resources>
+                                            <Grid>
+                                                <Popup Name="myPopup2" IsOpen="{Binding IsChecked, ElementName=Opeation2}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+            PopupAnimation="Slide" >
+
+                                                    <Grid Background="#FF508EF5" Height="400" Width="500" >
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="2*" />
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="2*" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Button Grid.Row="1" Grid.Column="1" Click="PickUp">Confirm</Button>
+
+                                                    </Grid>
+
+                                                </Popup>
+                                                <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=TextScale}" MaxWidth="{Binding  ActualWidth ,ElementName=TextScale}" >
+                                                    <Label Name="DWIDGET" FontWeight="Light">Pick up</Label>
+                                                </Viewbox>
+
+                                            </Grid>
+
+                                        </ToggleButton>
+                                        <ToggleButton  BorderBrush="Black" Name="Opeation3" Grid.Row="5">
+                                            <ToggleButton.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="320"/>
+                                                </Style>
+                                            </ToggleButton.Resources>
+                                            <Grid>
+                                                <Popup Name="myPopup3" IsOpen="{Binding IsChecked, ElementName=Opeation3}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+            PopupAnimation="Slide" >
+                                                    <Grid Background="#FF508EF5" Height="400" Width="500" >
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="2*" />
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="2*" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Button Grid.Row="1" Grid.Column="1" Click="Deliver">Confirm</Button>
+
+                                                    </Grid>
+
+                                                </Popup>
+                                                <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=TextScale}" MaxWidth="{Binding  ActualWidth ,ElementName=TextScale}" >
+                                                    <Label Name="DCWIDGET" FontWeight="Light">Deliver</Label>
+                                                </Viewbox>
+
+                                            </Grid>
+                                        </ToggleButton>
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="70*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="60*" />
+                                            <RowDefinition Height="26*" />
+                                            <RowDefinition Height="35*" />
+                                        </Grid.RowDefinitions>
+                                        <ToggleButton   Grid.Row="1" BorderBrush="Black" Name="Opeation1" >
+                                            <ToggleButton.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="320"/>
+                                                </Style>
+                                            </ToggleButton.Resources>
+                                            <Grid>
+                                                <Popup Name="myPopup1" IsOpen="{Binding IsChecked, ElementName=Opeation1}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+            PopupAnimation="Slide" >
+
+                                                    <Grid Background="#FF508EF5" Height="400" Width="500" >
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="2*" />
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="2*" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Button Grid.Row="1" Grid.Column="1" Click="Charge">Confirm</Button>
+
+                                                    </Grid>
+
+                                                </Popup>
+                                                <Viewbox Name="TextScale">
+                                                    <Label Name="PUWIDGET" FontWeight="Light" >Charge</Label>
+                                                </Viewbox>
+
+                                            </Grid>
+
+
+                                        </ToggleButton>
+                                        <ToggleButton   Grid.Row="3" BorderBrush="Black" Name="Opeation4" >
+                                            <ToggleButton.Resources>
+                                                <Style TargetType="{x:Type Border}">
+                                                    <Setter Property="CornerRadius" Value="320"/>
+                                                </Style>
+                                            </ToggleButton.Resources>
+                                            <Grid>
+                                                <Popup Name="myPopup4" IsOpen="{Binding IsChecked, ElementName=Opeation4}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+            PopupAnimation="Slide" >
+                                                    <Grid Background="#FF508EF5" Height="400" Width="500" >
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="2*" />
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="*" />
+                                                            <RowDefinition Height="2*" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Button Grid.Row="3" Grid.Column="1" Click="Realse">Confirm</Button>
+                                                        <Grid  Grid.Row="1" Grid.Column="1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="2*" />
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="2*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBox Grid.Column="2" x:Name="TBREALSE" ></TextBox>
+
+                                                            <Label Grid.Column="0" FontSize="15" FontWeight="Light">Time Period: </Label>
+                                                           
+                                                        </Grid>
+                                                       
+
+                                                    </Grid>
+
+                                                </Popup>
+                                                <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=TextScale}" MaxWidth="{Binding  ActualWidth ,ElementName=TextScale}" >
+                                                    <Label Name="DRWIDGET" FontWeight="Light" >Realse</Label>
+                                                </Viewbox>
+
+                                            </Grid>
+
+
+                                        </ToggleButton>
+                                    </Grid>
+
+
+                                </Grid>
+
+                            </Grid>
                         </wpfspark:PivotContentControl>
                     </wpfspark:PivotItem.PivotContent>
                 </wpfspark:PivotItem>
