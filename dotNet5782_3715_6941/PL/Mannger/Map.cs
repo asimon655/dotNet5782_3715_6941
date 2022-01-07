@@ -51,15 +51,27 @@ namespace PL
 
                 return new Mapsui.Geometries.Point(x, y);
             }
-        private  int GetBitmapIdForEmbeddedResource(string imagePath)
+        private   int ?  GetBitmapIdForEmbeddedResource(string imagePath)
         {
-            using (FileStream fs = new FileStream(imagePath, FileMode.Open))
+            try
             {
-                var memoryStream = new MemoryStream();
-                fs.CopyTo(memoryStream);
-                var bitmapId = BitmapRegistry.Instance.Register(memoryStream);
-                return bitmapId;
+                using (FileStream fs = new FileStream(imagePath, FileMode.Open))
+                {
+                    var memoryStream = new MemoryStream();
+                    fs.CopyTo(memoryStream);
+                    var bitmapId = BitmapRegistry.Instance.Register(memoryStream);
+                    return bitmapId;
+                }
             }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error");
+                
+            
+            }
+            return null; 
+            
+
 
         }
         private IEnumerable<BO.Location>[] MovePoints(IEnumerable<BO.Location> pointsToDraw , int [] StartIndexes ) {
@@ -118,11 +130,14 @@ namespace PL
         //
         private SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double scale)
         {
-            var bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
-            return new SymbolStyle { BitmapId = bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = scale, SymbolOffset = new Offset(0.0, 0.0, true) };
+            int ?  bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
+            if (!(bitmapId is null)) 
+            return new SymbolStyle { BitmapId = (int )bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = scale, SymbolOffset = new Offset(0.0, 0.0, true) };
+            return null; 
         }
         void DrawPointsOnMap(IEnumerable<BO.Location> points , IEnumerable<int> ids ,double scale  , string ?  path ,bool FILL=false, IEnumerable<string> ? Names = null )
         {
+          
             Random rng = new Random();
             var ly = new Mapsui.Layers.WritableLayer();
             Mapsui.Geometries.Point pt;

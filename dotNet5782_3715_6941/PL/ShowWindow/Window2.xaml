@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
         Title="Window2" Height="450" Width="800"  Icon="..\Images\icon0.ico"  >
     <Window.Resources>
         <local:BatteryCRT x:Key="BatteryCRT"></local:BatteryCRT>
@@ -14,673 +15,724 @@
     <Grid>
         <Image Source="..\Images/Blue-print.jpg" Stretch="Fill" Opacity="0.84"/>
         <Grid Name="Show" Visibility="Visible">
+            <wpfspark:PivotPanel x:Name="RootPanel"
+                     HeaderHeight="50"
+                     HorizontalAlignment="Stretch">
+                <wpfspark:PivotItem>
+                    <wpfspark:PivotItem.PivotHeader>
+                        <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                 FontSize="28"
+                 ActiveForeground="OrangeRed"
+                 InactiveForeground="Black">
+                            <TextBlock Margin="7">
+                            Show
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="1*"/>
+                            </TextBlock>
+                        </wpfspark:PivotHeaderControl>
+                    </wpfspark:PivotItem.PivotHeader>
+                    <wpfspark:PivotItem.PivotContent>
+                        <wpfspark:PivotContentControl>
+                            <!--#region FirstTab Show -->
+                            <Grid >
 
-
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="1">
-                <Button Click="Button_Click_Show">
-                    <Viewbox>
-                        <Label  >
-                            Back To Menu
-                        </Label>
-                    </Viewbox>
-                </Button>
-            </Grid>
-
-            <Grid Grid.Row="0">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-
-
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="2">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-
-                    </Grid.ColumnDefinitions >
-
-                    <Grid Grid.Column="0">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions >
-                        <Grid Grid.Column="3">
-
-                            <Grid Grid.Column="0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="1*"/>
 
 
                                 </Grid.RowDefinitions>
-                                <Grid Grid.Row="0">
-                                    <Viewbox>
-                                        <Label >
-                                            Location
-                                        </Label>
-                                    </Viewbox>
-                                </Grid>
                                 <Grid Grid.Row="1">
-                                    <Viewbox>
-                                        <Label Content="{Binding ParcelTransfer.Pickup.Lattitude }" >
-                                        </Label>
-                                    </Viewbox>
-                                </Grid>
-                                <Grid Grid.Row="2">
-                                    <Viewbox>
-                                        <Label Content="{Binding ParcelTransfer.Pickup.Longitude }">
-
-                                        </Label>
-                                    </Viewbox>
+                                    <Button Click="Button_Click_Show">
+                                        <Viewbox>
+                                            <Label  >
+                                                Back To Menu
+                                            </Label>
+                                        </Viewbox>
+                                    </Button>
                                 </Grid>
 
-
-                            </Grid>
-
-
-
-                        </Grid>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="3*"/>
-                                <RowDefinition Height="*"/>
-
-
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Image x:Name="Photo2" Source="../Images/user.png" Stretch="Fill"></Image>
-                            </Grid>
-                            <Grid Grid.Row="1">
-
-                                <Button Click="Button_Click_2">
-                                    <Viewbox>
-                                        <Label>Sender</Label>
-                                    </Viewbox>
-                                </Button>
-
-                            </Grid>
-
-
-
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions >
-                            <Grid Grid.Row="0">
-
-                                <Viewbox>
-                                    <Label>
-                                        ID
-                                    </Label>
-                                </Viewbox>
-
-
-
-                            </Grid>
-                            <Grid Grid.Row="1">
-
-                                <Viewbox>
-                                    <Label Content="{Binding ParcelTransfer.Target.id }">
-
-                                    </Label>
-                                </Viewbox>
-
-
-
-                            </Grid>
-
-
-
-                        </Grid>
-                        <Grid Grid.Column="2">
-
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions >
-                            <Grid Grid.Row="0">
-
-                                <Viewbox>
-                                    <Label>
-                                        Name
-                                    </Label>
-                                </Viewbox>
-
-
-
-                            </Grid>
-                            <Grid Grid.Row="1">
-
-                                <Viewbox>
-                                    <Label Content="{Binding ParcelTransfer.Target.name }" >
-
-                                    </Label>
-                                </Viewbox>
-
-
-
-                            </Grid>
-
-
-                        </Grid>
-
-                    </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions >
-                        <Grid Grid.Column="3">
-
-                            <Grid Grid.Column="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-
-
-                                </Grid.RowDefinitions>
                                 <Grid Grid.Row="0">
-                                    <Viewbox>
-                                        <Label >
-                                            Location
-                                        </Label>
-                                    </Viewbox>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <Viewbox>
-                                        <Label  Content="{Binding ParcelTransfer.Dst.Lattitude}" >
-                                        </Label>
-                                    </Viewbox>
-                                </Grid>
-                                <Grid Grid.Row="2">
-                                    <Viewbox>
-                                        <Label Content="{Binding ParcelTransfer.Dst.Longitude }" >
 
-                                        </Label>
-                                    </Viewbox>
-                                </Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
 
 
-                            </Grid>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="2">
 
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
 
+                                        </Grid.ColumnDefinitions >
 
-                        </Grid>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="3*"/>
-                                <RowDefinition Height="*"/>
+                                        <Grid Grid.Column="0">
 
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions >
+                                            <Grid Grid.Column="3">
 
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Image  x:Name="Photo1" Source="../Images/user.png" Stretch="Fill"></Image>
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <Button Click="Button_Click_1">
-                                    <Viewbox>
-                                        <Label>
-                                            Target
-                                        </Label>
-                                    </Viewbox>
-                                </Button>
-                            </Grid>
+                                                <Grid Grid.Column="0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
 
 
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="0">
+                                                        <Viewbox>
+                                                            <Label >
+                                                                Location
+                                                            </Label>
+                                                        </Viewbox>
+                                                    </Grid>
+                                                    <Grid Grid.Row="1">
+                                                        <Viewbox>
+                                                            <Label Content="{Binding ParcelTransfer.Pickup.Lattitude }" >
+                                                            </Label>
+                                                        </Viewbox>
+                                                    </Grid>
+                                                    <Grid Grid.Row="2">
+                                                        <Viewbox>
+                                                            <Label Content="{Binding ParcelTransfer.Pickup.Longitude }">
 
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions >
-                            <Grid Grid.Row="0">
+                                                            </Label>
+                                                        </Viewbox>
+                                                    </Grid>
 
-                                <Viewbox>
-                                    <Label>
-                                        ID
-                                    </Label>
-                                </Viewbox>
 
+                                                </Grid>
 
 
-                            </Grid>
-                            <Grid Grid.Row="1">
 
-                                <Viewbox>
-                                    <Label Content="{Binding ParcelTransfer.Target.id }">
+                                            </Grid>
+                                            <Grid Grid.Column="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="3*"/>
+                                                    <RowDefinition Height="*"/>
 
-                                    </Label>
-                                </Viewbox>
 
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0">
+                                                    <Image x:Name="Photo2" Source="../Images/user.png" Stretch="Fill"></Image>
+                                                </Grid>
+                                                <Grid Grid.Row="1">
 
+                                                    <Button Click="Button_Click_2">
+                                                        <Viewbox>
+                                                            <Label>Sender</Label>
+                                                        </Viewbox>
+                                                    </Button>
 
-                            </Grid>
+                                                </Grid>
 
 
 
-                        </Grid>
-                        <Grid Grid.Column="2">
+                                            </Grid>
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions >
+                                                <Grid Grid.Row="0">
 
+                                                    <Viewbox>
+                                                        <Label>
+                                                            ID
+                                                        </Label>
+                                                    </Viewbox>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions >
-                            <Grid Grid.Row="0">
 
-                                <Viewbox>
-                                    <Label>
-                                        Name
-                                    </Label>
-                                </Viewbox>
 
+                                                </Grid>
+                                                <Grid Grid.Row="1">
 
+                                                    <Viewbox>
+                                                        <Label Content="{Binding ParcelTransfer.Target.id }">
 
-                            </Grid>
-                            <Grid Grid.Row="1">
+                                                        </Label>
+                                                    </Viewbox>
 
-                                <Viewbox>
-                                    <Label Content="{Binding ParcelTransfer.Target.name }">
 
-                                    </Label>
-                                </Viewbox>
 
+                                                </Grid>
 
 
-                            </Grid>
 
+                                            </Grid>
+                                            <Grid Grid.Column="2">
 
-                        </Grid>
 
-                    </Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions >
+                                                <Grid Grid.Row="0">
 
+                                                    <Viewbox>
+                                                        <Label>
+                                                            Name
+                                                        </Label>
+                                                    </Viewbox>
 
 
 
+                                                </Grid>
+                                                <Grid Grid.Row="1">
 
-                    <Border BorderThickness="7" BorderBrush="Black">
+                                                    <Viewbox>
+                                                        <Label Content="{Binding ParcelTransfer.Target.name }" >
 
-                    </Border>
-                    <Grid Grid.Column="1">
-                        <Border   BorderThickness="7" BorderBrush="Black">
+                                                        </Label>
+                                                    </Viewbox>
 
-                        </Border>
-                    </Grid>
 
-                </Grid>
 
+                                                </Grid>
 
 
+                                            </Grid>
 
+                                        </Grid>
 
 
 
 
 
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions >
-                    <Grid Grid.Column="0">
-                        <Border BorderThickness="7" BorderBrush="Black">
-                            <Image x:Name="Photo0" Source="../Images/drone_photo.jpg" Stretch="Fill" />
-                        </Border>
 
-                    </Grid>
-                    <Grid Grid.Column="1">
 
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions >
-                        <Grid Grid.Column="0">
 
-                            <Border BorderThickness="7,7,0,7" BorderBrush="Black">
-                            </Border>
 
-                            <Viewbox>
-                                <Label >
-                                    Model:
-                                </Label>
-                            </Viewbox>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Viewbox>
-                                <Label Content="{Binding Model }" >
 
-                                </Label>
-                            </Viewbox>
-                        </Grid>
-                        <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black">
 
-                        </Border>
 
-                    </Grid>
-                    <Grid  Grid.Column="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="4*"/>
-                        </Grid.ColumnDefinitions >
-                        <Grid Grid.Column="0" >
-                            <Viewbox>
-                                <Label >
-                                    ID:
-                                </Label>
-                            </Viewbox>
-                            <Border Grid.Column="2" BorderThickness="7,7,0,7" BorderBrush="Black"/>
-                        </Grid>
-                        <Grid Grid.Column="1" >
-                            <Viewbox>
-                                <Label Content="{Binding Id}"  HorizontalAlignment="Left">
-                                </Label>
-                            </Viewbox>
-                            <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black"/>
-                        </Grid>
-                    </Grid>
-
-                </Grid>
-                <Grid Grid.Row="1">
-
-                    <Grid.ColumnDefinitions>
-
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-
-
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Viewbox>
-                                <Label >
-                                    Location
-                                </Label>
-
-
-                            </Viewbox>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Viewbox>
-                                <Label Content="{Binding Current.Lattitude}" >
-                                </Label>
-                            </Viewbox>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Viewbox>
-                                <Label Content="{Binding Current.Longitude}" >
-
-                                </Label>
-                            </Viewbox>
-                        </Grid>
-
-
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-
-
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions >
-                            <Grid Grid.Column="0">
-                                <Viewbox>
-                                    <Label>
-                                        Max-Weight
-                                    </Label>
-                                </Viewbox>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <Viewbox>
-                                    <Label Content="{Binding Weight }">
-
-                                    </Label>
-                                </Viewbox>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions >
-                            <Grid Grid.Column="0">
-                                <Viewbox>
-                                    <Label>
-                                        Status:
-                                    </Label>
-                                </Viewbox>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <Viewbox>
-                                    <Label Content="{Binding DroneStat }">
-
-                                    </Label>
-                                </Viewbox>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions >
-                            <Grid Grid.Column="0">
-                                <Viewbox>
-                                    <Label>
-                                        Priorety:
-                                    </Label>
-                                </Viewbox>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <Viewbox>
-                                    <Label Content="{Binding ParcelTransfer.Priorety }">
-
-                                    </Label>
-                                </Viewbox>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Row="0">
-                            <Border BorderThickness="7" BorderBrush="Black">
-
-                            </Border>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Border BorderThickness="7" BorderBrush="Black">
-
-                            </Border>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <Border BorderThickness="7" BorderBrush="Black">
-
-                            </Border>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions >
-                        <Grid Grid.Column="0">
-                            <Viewbox>
-                                <Label RenderTransformOrigin="0.5,0.5">
-                                    <Label.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform Angle="-90.418"/>
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </Label.RenderTransform>
-                                    Battery
-                                </Label>
-                            </Viewbox>
-                        </Grid>
-
-
-
-                        <Grid  Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="5*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="5*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions >
-                            <Grid Grid.Column="1" Grid.Row="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="15*"/>
-                                </Grid.RowDefinitions>
-                                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="3">
-                                    <ProgressBar Foreground="{Binding  BatteryStat ,Converter={StaticResource BatteryCRT}}"  Value="{ Binding BatteryStat}" Orientation="Vertical" />
-                                </Border>
-                                <Grid Grid.Row="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.5*"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="0.5*"/>
-                                    </Grid.ColumnDefinitions >
-                                    <Grid Background="Black" Grid.Column="1"></Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
-
-
-
-
-
-                    </Grid>
-
-
-
-
-                    <Grid Grid.Column="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions >
-                        <Grid Grid.Column="0">
-                            <Button Click="Button_Click">
-                                <Viewbox>
-                                    <TextBlock>
+
+
+
+
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions >
+                                            <Grid Grid.Column="3">
+
+                                                <Grid Grid.Column="0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+
+
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="0">
+                                                        <Viewbox>
+                                                            <Label >
+                                                                Location
+                                                            </Label>
+                                                        </Viewbox>
+                                                    </Grid>
+                                                    <Grid Grid.Row="1">
+                                                        <Viewbox>
+                                                            <Label  Content="{Binding ParcelTransfer.Dst.Lattitude}" >
+                                                            </Label>
+                                                        </Viewbox>
+                                                    </Grid>
+                                                    <Grid Grid.Row="2">
+                                                        <Viewbox>
+                                                            <Label Content="{Binding ParcelTransfer.Dst.Longitude }" >
+
+                                                            </Label>
+                                                        </Viewbox>
+                                                    </Grid>
+
+
+                                                </Grid>
+
+
+
+                                            </Grid>
+                                            <Grid Grid.Column="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="3*"/>
+                                                    <RowDefinition Height="*"/>
+
+
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0">
+                                                    <Image  x:Name="Photo1" Source="../Images/user.png" Stretch="Fill"></Image>
+                                                </Grid>
+                                                <Grid Grid.Row="1">
+                                                    <Button Click="Button_Click_1">
+                                                        <Viewbox>
+                                                            <Label>
+                                                                Target
+                                                            </Label>
+                                                        </Viewbox>
+                                                    </Button>
+                                                </Grid>
+
+
+
+                                            </Grid>
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions >
+                                                <Grid Grid.Row="0">
+
+                                                    <Viewbox>
+                                                        <Label>
+                                                            ID
+                                                        </Label>
+                                                    </Viewbox>
+
+
+
+                                                </Grid>
+                                                <Grid Grid.Row="1">
+
+                                                    <Viewbox>
+                                                        <Label Content="{Binding ParcelTransfer.Target.id }">
+
+                                                        </Label>
+                                                    </Viewbox>
+
+
+
+                                                </Grid>
+
+
+
+                                            </Grid>
+                                            <Grid Grid.Column="2">
+
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions >
+                                                <Grid Grid.Row="0">
+
+                                                    <Viewbox>
+                                                        <Label>
+                                                            Name
+                                                        </Label>
+                                                    </Viewbox>
+
+
+
+                                                </Grid>
+                                                <Grid Grid.Row="1">
+
+                                                    <Viewbox>
+                                                        <Label Content="{Binding ParcelTransfer.Target.name }">
+
+                                                        </Label>
+                                                    </Viewbox>
+
+
+
+                                                </Grid>
+
+
+                                            </Grid>
+
+                                        </Grid>
+
+
+
+
+
+                                        <Border BorderThickness="7" BorderBrush="Black">
+
+                                        </Border>
+                                        <Grid Grid.Column="1">
+                                            <Border   BorderThickness="7" BorderBrush="Black">
+
+                                            </Border>
+                                        </Grid>
+
+                                    </Grid>
+
+
+
+
+
+
+
+
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions >
+                                        <Grid Grid.Column="0">
+                                            <Border BorderThickness="7" BorderBrush="Black">
+                                                <Image x:Name="Photo0" Source="../Images/drone_photo.jpg" Stretch="Fill" />
+                                            </Border>
+
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions >
+                                            <Grid Grid.Column="0">
+
+                                                <Border BorderThickness="7,7,0,7" BorderBrush="Black">
+                                                </Border>
+
+                                                <Viewbox>
+                                                    <Label >
+                                                        Model:
+                                                    </Label>
+                                                </Viewbox>
+                                            </Grid>
+                                            <Grid Grid.Column="1">
+                                                <Viewbox>
+                                                    <Label Content="{Binding Model }" >
+
+                                                    </Label>
+                                                </Viewbox>
+                                            </Grid>
+                                            <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black">
+
+                                            </Border>
+
+                                        </Grid>
+                                        <Grid  Grid.Column="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="4*"/>
+                                            </Grid.ColumnDefinitions >
+                                            <Grid Grid.Column="0" >
+                                                <Viewbox>
+                                                    <Label >
+                                                        ID:
+                                                    </Label>
+                                                </Viewbox>
+                                                <Border Grid.Column="2" BorderThickness="7,7,0,7" BorderBrush="Black"/>
+                                            </Grid>
+                                            <Grid Grid.Column="1" >
+                                                <Viewbox>
+                                                    <Label Content="{Binding Id}"  HorizontalAlignment="Left">
+                                                    </Label>
+                                                </Viewbox>
+                                                <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black"/>
+                                            </Grid>
+                                        </Grid>
+
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+
+                                        <Grid.ColumnDefinitions>
+
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+
+
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Viewbox>
+                                                    <Label >
+                                                        Location
+                                                    </Label>
+
+
+                                                </Viewbox>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <Viewbox>
+                                                    <Label Content="{Binding Current.Lattitude}" >
+                                                    </Label>
+                                                </Viewbox>
+                                            </Grid>
+                                            <Grid Grid.Row="2">
+                                                <Viewbox>
+                                                    <Label Content="{Binding Current.Longitude}" >
+
+                                                    </Label>
+                                                </Viewbox>
+                                            </Grid>
+
+
+                                        </Grid>
+                                        <Grid Grid.Column="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+
+
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+
+
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions >
+                                                <Grid Grid.Column="0">
+                                                    <Viewbox>
+                                                        <Label>
+                                                            Max-Weight
+                                                        </Label>
+                                                    </Viewbox>
+                                                </Grid>
+                                                <Grid Grid.Column="1">
+                                                    <Viewbox>
+                                                        <Label Content="{Binding Weight }">
+
+                                                        </Label>
+                                                    </Viewbox>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions >
+                                                <Grid Grid.Column="0">
+                                                    <Viewbox>
+                                                        <Label>
+                                                            Status:
+                                                        </Label>
+                                                    </Viewbox>
+                                                </Grid>
+                                                <Grid Grid.Column="1">
+                                                    <Viewbox>
+                                                        <Label Content="{Binding DroneStat }">
+
+                                                        </Label>
+                                                    </Viewbox>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Grid.Row="2">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions >
+                                                <Grid Grid.Column="0">
+                                                    <Viewbox>
+                                                        <Label>
+                                                            Priorety:
+                                                        </Label>
+                                                    </Viewbox>
+                                                </Grid>
+                                                <Grid Grid.Column="1">
+                                                    <Viewbox>
+                                                        <Label Content="{Binding ParcelTransfer.Priorety }">
+
+                                                        </Label>
+                                                    </Viewbox>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid Grid.Row="0">
+                                                <Border BorderThickness="7" BorderBrush="Black">
+
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Row="1">
+                                                <Border BorderThickness="7" BorderBrush="Black">
+
+                                                </Border>
+                                            </Grid>
+                                            <Grid Grid.Row="2">
+                                                <Border BorderThickness="7" BorderBrush="Black">
+
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions >
+                                            <Grid Grid.Column="0">
+                                                <Viewbox>
+                                                    <Label RenderTransformOrigin="0.5,0.5">
+                                                        <Label.RenderTransform>
+                                                            <TransformGroup>
+                                                                <ScaleTransform/>
+                                                                <SkewTransform/>
+                                                                <RotateTransform Angle="-90.418"/>
+                                                                <TranslateTransform/>
+                                                            </TransformGroup>
+                                                        </Label.RenderTransform>
+                                                        Battery
+                                                    </Label>
+                                                </Viewbox>
+                                            </Grid>
+
+
+
+                                            <Grid  Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="5*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="5*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions >
+                                                <Grid Grid.Column="1" Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="15*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Border Grid.Row="1" BorderBrush="Black" BorderThickness="3">
+                                                        <ProgressBar Foreground="{Binding  BatteryStat ,Converter={StaticResource BatteryCRT}}"  Value="{ Binding BatteryStat}" Orientation="Vertical" />
+                                                    </Border>
+                                                    <Grid Grid.Row="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="0.5*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="0.5*"/>
+                                                        </Grid.ColumnDefinitions >
+                                                        <Grid Background="Black" Grid.Column="1"></Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+
+
+
+
+
+
+                                        </Grid>
+
+
+
+
+                                        <Grid Grid.Column="3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions >
+                                            <Grid Grid.Column="0">
+                                                <Button Click="Button_Click">
+                                                    <Viewbox>
+                                                        <TextBlock>
                                 <Run> Binded </Run>
                                 <LineBreak> </LineBreak>
                                 <Run>parcels: </Run>
-                                    </TextBlock>
-                                </Viewbox>
-                            </Button>
-                        </Grid>
-                        <Grid Grid.Column="1">
+                                                        </TextBlock>
+                                                    </Viewbox>
+                                                </Button>
+                                            </Grid>
+                                            <Grid Grid.Column="1">
 
-                            <Viewbox>
-                                <Label Content="{Binding ParcelTransfer.Id}">
+                                                <Viewbox>
+                                                    <Label Content="{Binding ParcelTransfer.Id}">
 
-                                </Label>
-                            </Viewbox>
+                                                    </Label>
+                                                </Viewbox>
 
-                        </Grid>
+                                            </Grid>
 
-                    </Grid>
-
-
+                                        </Grid>
 
 
-                    <Grid Grid.Column="0">
-                        <Border BorderThickness="3.5" BorderBrush="Black">
-
-                        </Border>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <Border BorderThickness="3.5" BorderBrush="Black">
-
-                        </Border>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <Border BorderThickness="3.5" BorderBrush="Black">
-
-                        </Border>
-                    </Grid>
-                    <Grid Grid.Column="3">
-                        <Border BorderThickness="3.5" BorderBrush="Black">
-
-                        </Border>
-                    </Grid>
 
 
+                                        <Grid Grid.Column="0">
+                                            <Border BorderThickness="3.5" BorderBrush="Black">
+
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <Border BorderThickness="3.5" BorderBrush="Black">
+
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Column="2">
+                                            <Border BorderThickness="3.5" BorderBrush="Black">
+
+                                            </Border>
+                                        </Grid>
+                                        <Grid Grid.Column="3">
+                                            <Border BorderThickness="3.5" BorderBrush="Black">
+
+                                            </Border>
+                                        </Grid>
 
 
 
 
 
 
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Border BorderThickness="7" BorderBrush="Black">
-
-                    </Border>
-                </Grid>
-
-            </Grid>
 
 
-            <Border BorderBrush="Black" BorderThickness="4"  Grid.Row="2"/>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Border BorderThickness="7" BorderBrush="Black">
+
+                                        </Border>
+                                    </Grid>
+
+                                </Grid>
+
+
+                                <Border BorderBrush="Black" BorderThickness="4"  Grid.Row="2"/>
+                            </Grid>
+                            <!--#endregion-->
+
+                        </wpfspark:PivotContentControl>
+                    </wpfspark:PivotItem.PivotContent>
+                </wpfspark:PivotItem>
+
+                <wpfspark:PivotItem>
+                    <wpfspark:PivotItem.PivotHeader>
+                        <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                     FontSize="28"
+                     ActiveForeground="BlueViolet"
+                     InactiveForeground="Black" >
+                            <TextBlock Margin="7">
+                          Operations
+
+
+                            </TextBlock>
+                        </wpfspark:PivotHeaderControl>
+                    </wpfspark:PivotItem.PivotHeader>
+                    <wpfspark:PivotItem.PivotContent>
+                        <wpfspark:PivotContentControl>
+
+                        </wpfspark:PivotContentControl>
+                    </wpfspark:PivotItem.PivotContent>
+                </wpfspark:PivotItem>
+
+
+            </wpfspark:PivotPanel>
+        
+
         </Grid>
+       
         <Grid x:Name="Add" Visibility="Hidden">
 
             <Grid.RowDefinitions>

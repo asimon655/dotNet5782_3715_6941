@@ -24,12 +24,9 @@ namespace PL
         #region Fields 
         BlApi.Ibl dat;
         #endregion
-        public ClientsTab(BlApi.Ibl dat)
+        public Action reset;
+        public void Reset()
         {
-
-            this.dat = dat;
-            InitializeComponent();
-
             #region List Initialize 
             ListOf.ItemsSource = dat.GetCustomers();
             #endregion
@@ -39,6 +36,15 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelGot");
             view.GroupDescriptions.Add(groupDescription);
             #endregion
+
+        }
+        public ClientsTab(BlApi.Ibl dat)
+        {
+
+            this.dat = dat;
+            InitializeComponent();
+            Reset();
+    
   
         }
 
@@ -52,12 +58,27 @@ namespace PL
             Window add = new CostumerShow(dat);
             add.Closed += (sender, e) =>
             {
-                ListOf.ItemsSource = dat.GetCustomers();
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
-                PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelGot");
-                view.GroupDescriptions.Add(groupDescription);
+                Reset();
+                reset();
             };
             add.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                int id = (int)(sender as Button).Tag;
+                dat.DeleteCustomer(id);
+                Reset();
+                reset();
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error");
+            }
         }
     }
 }

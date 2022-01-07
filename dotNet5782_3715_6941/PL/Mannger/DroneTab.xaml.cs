@@ -35,6 +35,7 @@ namespace PL
         BlApi.Ibl dat;
         List<CheckBoxStatus> predStat;
         #endregion
+        public Action reset;
 
         public DroneTab(BlApi.Ibl dat )
         {
@@ -76,14 +77,18 @@ namespace PL
 
             #region Plots Initialize 
             BO.DronesModelsStats dronesStats = dat.GetDronesModelsStats();
-            createModelsBar(WpfPlot2, dronesStats.pos, dronesStats.names, dronesStats.vals);
-            CreateDountPie<BO.WeightCategories>(WpfPlot1, dat.GetDronesWeightsStats());
-            CreateDountPie<BO.DroneStatuses>(WpfPlot3, dat.GetDronesStatusesStats());
+            if (dronesStats.names.Length != 0 && dronesStats.vals.Length != 0 && dronesStats.pos.Length != 0)
+            {
+
+                createModelsBar(WpfPlot2, dronesStats.pos, dronesStats.names, dronesStats.vals);
+                CreateDountPie<BO.WeightCategories>(WpfPlot1, dat.GetDronesWeightsStats());
+                CreateDountPie<BO.DroneStatuses>(WpfPlot3, dat.GetDronesStatusesStats());
+            }
             #endregion
 
         }
 
-        void Reset()
+        public void Reset()
         {
 
             Weight = WeightDefault;
@@ -126,6 +131,7 @@ namespace PL
             add.Closed += (sender, e) =>
             {
                 Reset();
+                reset();
             }; 
             add.Show();
         }
@@ -246,6 +252,23 @@ namespace PL
         {
             new Window2(dat,this).Show();
 
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                int id = (int)(sender as Button).Tag;
+                dat.DeleteDrone(id);
+                Reset();
+                reset();
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error");
+            }
         }
     }
 }

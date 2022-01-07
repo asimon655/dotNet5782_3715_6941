@@ -22,15 +22,18 @@ namespace PL
     /// </summary>
     public partial class LogIn : SparkWindow
     {
-        
+        BlApi.Ibl dat;
         public LogIn()
         {
+            
             InitializeComponent();
+            dat = BlApi.BlFactory.GetBl();
+      
         }
-        BlApi.Ibl dat; 
+         
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            dat = BlApi.BlFactory.GetBl();
+   
 
             //if (Password.Password == "Golo1256" && UserName.Text == "idangolo123@gmail.com")
             if (UserName.Text == "admin")

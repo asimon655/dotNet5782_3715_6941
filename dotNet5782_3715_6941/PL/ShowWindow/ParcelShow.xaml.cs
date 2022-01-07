@@ -112,6 +112,7 @@ namespace PL
                 };
 
                 dat.AddParcel(add);
+                this.Close();
 
 
             }

@@ -24,11 +24,23 @@ namespace PL
         #region Fields 
         BlApi.Ibl dat;
         #endregion
-        public ParcelTab(BlApi.Ibl dat )
+        public Action reset;
+        public void Reset()
         {
-            InitializeComponent();
-            this.dat = dat;
-
+            #region Plots Initialize 
+            double[] parcelstat = dat.GetParcelsStatusesStats();
+            double[] WeightStat = dat.GetParcelsWeightsStats();
+            double[] PrioStat = dat.GetParcelsPrioretiesStats();
+            ClearGraph(WpfPlotPack1);
+            ClearGraph(WpfPlotPack2);
+            ClearGraph(WpfPlotPack3);
+            if (parcelstat.Length != 0)
+                CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, parcelstat);
+            if (WeightStat.Length != 0)
+                CreateDountPie<BO.WeightCategories>(WpfPlotPack2, WeightStat);
+            if (PrioStat.Length != 0)
+                CreateDountPie<BO.Priorities>(WpfPlotPack3, PrioStat);
+            #endregion
             #region ListView Grouping 
             ListOf.ItemsSource = dat.GetParcels();
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
@@ -36,11 +48,15 @@ namespace PL
             view.GroupDescriptions.Add(groupDescription);
             #endregion
 
-            #region Plots Initialize 
-            CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, dat.GetParcelsStatusesStats());
-            CreateDountPie<BO.WeightCategories>(WpfPlotPack2, dat.GetParcelsWeightsStats());
-            CreateDountPie<BO.Priorities>(WpfPlotPack3, dat.GetParcelsPrioretiesStats());
-            #endregion
+        }
+        public ParcelTab(BlApi.Ibl dat )
+        {
+            InitializeComponent();
+            this.dat = dat;
+            Reset();
+       
+
+
 
         }
 
@@ -52,9 +68,14 @@ namespace PL
             Bar.Plot.AddBar(vals, pos, ColorTranslator.FromHtml("#6600cc"));
             Bar.Plot.XTicks(pos, names);
             Bar.Plot.SetAxisLimits(yMin: 0);
-            Bar.Refresh();
+            Bar.Plot.Clear();
 
 
+        }
+        internal void  ClearGraph(ScottPlot.WpfPlot graph)
+        {
+            graph.Plot.Clear();
+            graph.Render();
         }
         internal void CreateSingleGauge<T>(ScottPlot.WpfPlot Gauge, double[] values)
         {
@@ -121,10 +142,8 @@ namespace PL
             Window add = new ParcelShow(dat); 
             add.Closed += (sender, e) =>
             {
-                ListOf.ItemsSource = dat.GetParcels();
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
-                PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
-                view.GroupDescriptions.Add(groupDescription);
+                Reset();
+                reset();
             };
             add.Show();
         }
@@ -136,16 +155,16 @@ namespace PL
       
                 int id = (int)(sender as Button).Tag;
                 dat.DeleteParcel(id);
+                Reset();
+                reset();
 
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message, "Error");
             }
-            ListOf.ItemsSource = dat.GetParcels();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
-            view.GroupDescriptions.Add(groupDescription);
+  
         }
+
     }
 }

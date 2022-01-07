@@ -28,7 +28,7 @@ namespace PL
         BlApi.Ibl dat;
         IEnumerable<string> Answers;
         static internal string TMP = System.IO.Path.GetTempPath();
-        string file; 
+        string file=""; 
         #endregion
         public CostumerShow(BlApi.Ibl dat, BO.Customer cst)
         {
@@ -88,8 +88,19 @@ namespace PL
                     Phone_Num = PhoneTB.Text,
                     Loct = new BO.Location(Double.Parse(LongTB.Text), Double.Parse(LatTB.Text))
                 };
-                if (!File.Exists(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"))
-                    File.Copy(file, TMP + @"image" + Int32.Parse(IdTB.Text) + ".png");
+                if (file.Equals(""))
+                {
+                    bool valid = true ; 
+                    if (!File.Exists(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"))
+                        valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + Int32.Parse(IdTB.Text) + ".png", ImageFormat.Png);
+                    if (valid)
+                        CostumerPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"));
+                }
+                else
+                {
+                    if (!File.Exists(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"))
+                        File.Copy(file, TMP + @"image" + Int32.Parse(IdTB.Text) + ".png");
+                }
                 dat.AddCustomer(add);
                 this.Close();
             }

@@ -9,7 +9,7 @@
       Title="StaionsTab">
 
     <Page.Resources>
-
+        <local:DELStat x:Key="DELStat"></local:DELStat>
         <local:HalfScale x:Key="HalfScale"></local:HalfScale>
         <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="BorderThickness" Value="0"/>
@@ -162,6 +162,23 @@
                         <ListView.View>
 
                             <GridView  AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+
+                                            <Button Tag="{Binding Id}"  Width="50" Height="50"  Visibility="{Binding   Converter={StaticResource DELStat}  }"
+                        VerticalAlignment="Center"
+                      Click="Button_Click_1"  Background="Transparent" BorderThickness="0" 
+                                                  >
+
+                                                <Viewbox Stretch="Fill">
+                                                    <Image Stretch="Fill" Source="../Images/DELETE.png"></Image>
+                                                </Viewbox>
+                                            </Button>
+
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id1" Header="Id" Width="auto" />
                                 <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" x:Name="Name" Header="Name" Width="auto" />

@@ -21,11 +21,15 @@ namespace PL
     /// </summary>
     public partial class MapTab : Page
     {
-        BlApi.Ibl dat;
-        public MapTab(BlApi.Ibl dat)
-        {
-            InitializeComponent();
-            this.dat = dat;
+        public void Reset() {
+
+            #region Remove all Layers 
+            foreach (var layer in MyMapControl.Map.Layers.Skip(1))
+            {
+                MyMapControl.Map.Layers.Remove(layer);
+            
+            }
+            #endregion
             #region Map Initialize 
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
@@ -34,10 +38,17 @@ namespace PL
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
             IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
             IEnumerable<BO.Location>[] ALLPOINTSMOVED = SetPoints();
-            DrawPointsOnMap(ALLPOINTSMOVED[0], ids, 0.4, null, false, Models);
+            DrawPointsOnMap(ALLPOINTSMOVED[0], ids, 0.45, null, false, Models);
             DrawPointsOnMap(ALLPOINTSMOVED[1], idStation, 0.25, "\\PL\\Images\\BASESTATION.png");
             DrawPointsOnMap(ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
             #endregion
+        }
+        BlApi.Ibl dat;
+        public MapTab(BlApi.Ibl dat)
+        {
+            InitializeComponent();
+            this.dat = dat;
+            Reset();
         }
     }
 }
