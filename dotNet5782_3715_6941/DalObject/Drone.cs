@@ -40,6 +40,10 @@ namespace Dal
         {
             return DataSource.Drones.FindAll(s => !s.IsDeleted && expr(s));
         }
+        public int CountDrones(Func<Drone, bool> expr)
+        {
+            return DataSource.Drones.Count(s => !s.IsDeleted && expr(s));
+        }
         public void UpdateDrones(Drone drone)
         {
             // if we cant find that the id we throw error

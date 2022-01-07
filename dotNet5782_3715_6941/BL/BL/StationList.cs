@@ -13,8 +13,7 @@ namespace BL
             // loop all stations with free charging slots
             foreach (var station in data.GetStations(x => x.ChargeSlots > 0))
             {
-                int numOfNotFr = data.CountDronesCharges(x => x.StaionId == station.Id);
-                tmp.Add(new StationList() { Id = station.Id, Name = station.Name, FreePorts = station.ChargeSlots, BusyPorts = numOfNotFr });
+                tmp.Add(ConvertList(station));
             }
             return tmp;
 
@@ -25,12 +24,10 @@ namespace BL
             List<StationList> tmp= new List<StationList>();
             foreach (var station in data.GetStations())
             {
-                int numOfNotFr = data.CountDronesCharges(x=>x.StaionId ==  station.Id);
-                tmp.Add(new StationList() { Id = station.Id, Name = station.Name, FreePorts = station.ChargeSlots, BusyPorts = numOfNotFr  });
+                tmp.Add(ConvertList(station));
             }
             return tmp; 
         }
-       
 
     }
 }

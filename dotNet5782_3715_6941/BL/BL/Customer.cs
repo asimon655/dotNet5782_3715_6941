@@ -33,7 +33,7 @@ namespace BL
         {
             try
             {
-                return CostumerC(data.GetCustomer(id));
+                return Convert(data.GetCustomer(id));
             }
             catch (DO.IdDosntExists err)
             {

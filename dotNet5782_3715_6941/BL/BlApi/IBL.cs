@@ -68,7 +68,7 @@ namespace BlApi
         /// <param name="stationId">the id of the station</param>
         /// <param name="stationName">optional</param>
         /// <param name="stationChargeSlots">optional</param>
-        void UpdateStation(int stationId, int? stationName = null, int? stationChargeSlots = null);
+        void UpdateStation(int stationId, string? stationName = null, int? stationChargeSlots = null);
         /// <summary>
         /// update the name or phone number of a specific customer
         /// </summary>
@@ -179,6 +179,13 @@ namespace BlApi
         double[] GetParcelsWeightsStats();
         #endregion
 
+        #region smartSearch
+        IEnumerable<BO.CustomerList> SmartSearchCostumer(string query);
+        IEnumerable<BO.ParcelList> SmartSearchParcel(string query);
+        IEnumerable<BO.StationList> SmartSearchStation(string query);
+        IEnumerable<BO.DroneList> SmartSearchDrone(string query);
+        #endregion
+
         #region metadata
         /// <summary>
         /// download random pic from thispersondoesnotexist.com
@@ -224,7 +231,7 @@ namespace BlApi
         /// 
         //double[]  GetCostumerReached();
         // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
-        /// the graph uses double) 
+        /// the graph uses double) GetStationBusyPortsStats
         /// 
         //double[]  GetCostumerUnReached();
         // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
@@ -237,15 +244,6 @@ namespace BlApi
         //double[]  GetCostumerInTheWay();
         // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
         /// the graph uses double) 
-        /// 
-        /// IEnumrable<BO.Costumer> SmartSearchCostumer(string ) ; 
-        /// id or Name    
-        /// IEnumrable<BO.Parcel> SmartSearchParcel(string ) ; 
-        /// id or   Name
-        /// IEnumrable<BO.Station> SmartSearchStation(string ) ;
-        /// id or name - both numbers try id if the id doesnt exsist(Exception IdDoesntExsist) try name if it not both raise Exception
-        /// IEnumrable<BO.Drone> SmartSearchDrone(string ) ; 
-        /// id or Model 
         /// 
         ///string MostPoplurDroneModel () ; 
         /// returns the most popular model of the drone s

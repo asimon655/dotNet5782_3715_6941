@@ -46,6 +46,11 @@ namespace Dal
             return Read<Station>().FindAll(s => !s.IsDeleted && expr(s));
         }
 
+        public int CountStations(Func<Station, bool> expr)
+        {
+            return Read<Station>().Count(s => !s.IsDeleted && expr(s));
+        }
+        
         public void UpdateStations(Station station)
         {
             List<Station> stations = Read<Station>();

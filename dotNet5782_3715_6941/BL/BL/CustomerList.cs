@@ -12,7 +12,7 @@ namespace BL
             List<CustomerList> tmpy = new List<CustomerList>();
             foreach(DO.Customer x in data.GetCustomers())
             {
-                tmpy.Add(CltToLstC(x));
+                tmpy.Add(ConvertList(x));
             }
             return tmpy;
         }

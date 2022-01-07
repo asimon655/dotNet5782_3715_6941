@@ -30,7 +30,7 @@ namespace BL
                     DO.Station station = GetStationFromCharging(droneId);
                     drony.Battery = Math.Min((drony.Battery + ChargingSpeed * chargingPeriod), 100); 
                     drony.DroneStat = DroneStatuses.Free; 
-                    Station baseStation = StationC(station);
+                    Station baseStation = Convert(station);
                     station.ChargeSlots += 1;
                     data.UpdateStations(station); 
                 }
@@ -107,7 +107,7 @@ namespace BL
 
         public Drone GetDrone(int id)
         {
-            return DronesC(GetDroneToList(id));
+            return Convert(GetDroneToList(id));
         }
         public void AddDrone(Drone drone, int stationId)
         {
@@ -171,7 +171,8 @@ namespace BL
                 DroneList drone = GetDroneToList(id);
                 if (drone.DroneStat != DroneStatuses.Free)
                     throw new CantDelete("cant delete the drone becouse he is not free", id);
-
+                
+                drones.Remove(drone);
                 data.DeleteDrone(id);
             }
             catch (DO.IdDosntExists err)

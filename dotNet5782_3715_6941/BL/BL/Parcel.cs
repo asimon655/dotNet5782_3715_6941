@@ -45,7 +45,7 @@ namespace BL
         {
             try
             {
-                return ParcelC(data.GetParcel(id));
+                return Convert(data.GetParcel(id));
             }
             catch (DO.IdDosntExists err)
             {
@@ -171,20 +171,7 @@ namespace BL
             {
                 List<ParcelList> tmpy = new List<ParcelList>();
                 foreach (var x in data.GetParcels())
-                    tmpy.Add(new ParcelList()
-                    {
-                        Id = x.Id
-                        ,
-                        ParcelStatus = ParcelStatusC(x)
-                        ,
-                        Priorety = (Priorities)x.Priority
-                        ,
-                        SenderName = data.GetCustomer(x.SenderId).Name
-                        ,
-                        TargetName = data.GetCustomer(x.TargetId).Name
-                        ,
-                        Weight = (WeightCategories)x.Weight
-                    });
+                    tmpy.Add(ConvertList(x));
                 return tmpy;
             }
             catch (DO.IdDosntExists err)
@@ -192,6 +179,8 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+
+
         public IEnumerable<ParcelList> GetUnbindedParcels()
         {
             try

@@ -12,6 +12,7 @@ namespace DalApi
         IEnumerable<Customer> GetCustomers();
         IEnumerable<Customer> GetCustomers(Predicate<Customer> expr);
         void UpdateCustomer(Customer costumer);
+        int CountCustomers(Func<Customer, bool> expr);
         void DeleteCustomer(int id);
         #endregion
 
@@ -21,6 +22,7 @@ namespace DalApi
         IEnumerable<Drone> GetDrones();
         IEnumerable<Drone> GetDrones(Predicate<Drone> expr);
         void UpdateDrones(Drone drone);
+        int CountDrones(Func<Drone, bool> expr);
         void DeleteDrone(int id);
         #endregion
 
@@ -30,6 +32,7 @@ namespace DalApi
         IEnumerable<Station> GetStations();
         IEnumerable<Station> GetStations(Predicate<Station> expr);
         void UpdateStations(Station station);
+        int CountStations(Func<Station, bool> expr);
         void DeleteStation(int id);
         #endregion
 

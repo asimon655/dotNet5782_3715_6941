@@ -6,14 +6,14 @@ namespace BL
     public sealed partial class Bl : BlApi.Ibl
     {
        
-        public void UpdateStation(int stationId, int? stationName = null, int? stationChargeSlots = null)
+        public void UpdateStation(int stationId, string? stationName = null, int? stationChargeSlots = null)
         {
             try
             {
                 DO.Station Stationy = data.GetStation(stationId);
                 if (!(stationName is null))
                 {
-                    Stationy.Name = (int)stationName;
+                    Stationy.Name = stationName;
                 }
                 if (!(stationChargeSlots is null))
                 {
@@ -35,7 +35,7 @@ namespace BL
 
             try
             {
-                Station TmpStation = StationC(data.GetStation(stationId));
+                Station TmpStation = Convert(data.GetStation(stationId));
                 List<DroneCharge> dronesInCharges = new List<DroneCharge>();
                 foreach (var droneCharge in data.GetDronesCharges(x => x.StaionId == stationId))
                 {

@@ -5,7 +5,7 @@ namespace BO
     public class Station 
     {
         public int Id { set; get; }
-        public int Name { set; get; }
+        public string Name { set; get; }
         public Location LoctConstant { get; set;  }
         public int NumOfFreeOnes { set; get; }
         public List<DroneCharge> DroneInChargeList { set ; get; }
