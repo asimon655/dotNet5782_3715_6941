@@ -61,7 +61,7 @@ namespace BL
             {
                 throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
             }
-            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Declared && canreach(drony, x, getParcelLoctSender));
+            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Declared && x.Weight <= (DO.WeightCategories)drony.Weight && canreach(drony, x, getParcelLoctSender));
             DO.Parcel resParcel;
             try
             {
@@ -69,32 +69,23 @@ namespace BL
             }
             catch (InvalidOperationException)
             {
-                throw new ThereArentAnyParcels("There arent any parcels to bind to drone");
+                throw new CouldntFindPatcelThatsFits("There arent any free parcels (that fits the drone weight and location) to bind to the drone");
             }
             foreach (var pack in parcels)
             {
                 if (pack.Priority > resParcel.Priority)
                     resParcel = pack;
-                else
+                else if(pack.Priority == resParcel.Priority)
                 {
-                    if (pack.Priority == resParcel.Priority)
+                    if (pack.Weight > resParcel.Weight)
+                        resParcel = pack;
+                    else if(pack.Weight == resParcel.Weight)
                     {
-                        if ((int)pack.Weight <= (int)drony.Weight && pack.Weight > resParcel.Weight)
+                        if (calculateDistance(drony.Loct, getParcelLoctSender(pack)) < calculateDistance(drony.Loct, getParcelLoctSender(resParcel)))
                             resParcel = pack;
-                        else
-                        {
-                            if ((int)pack.Weight <= (int)drony.Weight && pack.Weight == resParcel.Weight)
-                            {
-                                if (calculateDistance(drony.Loct, getParcelLoctSender(pack)) < calculateDistance(drony.Loct, getParcelLoctSender(resParcel)))
-                                    resParcel = pack;
-                            }
-                        } 
-
                     }
                 } 
             }
-            if ((WeightCategories)resParcel.Weight > drony.Weight)
-                throw new CouldntFindRightParcelWeight("douldnt find parcel in the weight of the drone or under ", drony.Weight, (WeightCategories)resParcel.Weight);
             drony.ParcelId = resParcel.Id;
             resParcel.Requested = DateTime.Now;
             resParcel.DroneId = drony.Id;
