@@ -14,7 +14,7 @@ namespace BL
             {
                 return data.GetCustomers(x => x.Id == id).Select(s => ConvertList(s));
             }
-            return data.GetCustomers(x => x.Name.ToLower().Contains(query.ToLower())).Select(s => ConvertList(s));
+            return data.GetCustomers(x => x.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(s => ConvertList(s));
         }
         public IEnumerable<BO.ParcelList> SmartSearchParcel(string query)
         {
@@ -24,7 +24,9 @@ namespace BL
                 return data.GetParcels(x => x.Id == id).Select(s => ConvertList(s));
             }
          
-            return data.GetParcels(x => data.GetCustomer(x.SenderId).Name.ToLower().Contains(query.ToLower()) || data.GetCustomer(x.TargetId).Name.ToLower().Contains(query.ToLower())).Select(s => ConvertList(s));
+            return data.GetParcels(x => data.GetCustomer(x.SenderId).Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) || 
+                                        data.GetCustomer(x.TargetId).Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
+                                        .Select(s => ConvertList(s));
         }
         public IEnumerable<BO.StationList> SmartSearchStation(string query)
         {
@@ -33,7 +35,7 @@ namespace BL
             {
                 return data.GetStations(x => x.Id == id).Select(s => ConvertList(s));
             }
-            return data.GetStations(x => x.Name.ToLower().Contains(query.ToLower())).Select(s => ConvertList(s));
+            return data.GetStations(x => x.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(s => ConvertList(s));
         }
         public IEnumerable<BO.DroneList> SmartSearchDrone(string query)
         {
@@ -42,7 +44,7 @@ namespace BL
             {
                 return drones.FindAll(x => x.Id == id);
             }
-            return drones.FindAll(x => x.Model.ToLower().Contains(query.ToLower()));
+            return drones.FindAll(x => x.Model.Contains(query, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }
