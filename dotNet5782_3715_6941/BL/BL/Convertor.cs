@@ -48,9 +48,11 @@ namespace BL
                 NumOfFreeOnes = station.ChargeSlots,
                 LoctConstant = new Location(station.Longitude, station.Lattitude),
                 Name = station.Name , 
-                DroneInChargeList = (from drones in data.GetDronesCharges(x => x.StaionId == station.Id) select (new DroneCharge() { 
-                    DroneId = drones.DroneId ,
-                    Battery = GetDroneToList(drones.DroneId).Battery }  ) ).ToList ()  
+                DroneInChargeList = (from drones in data.GetDronesCharges(x => x.StaionId == station.Id) select
+                                     (new DroneCharge() {
+                                         DroneId = drones.DroneId,
+                                         Battery = GetDroneToList(drones.DroneId).Battery
+                                     }) ).ToList ()  
                 };
         private Customer Convert(DO.Customer costumer) => new Customer() { 
             Id = costumer.Id, 
@@ -67,7 +69,7 @@ namespace BL
                 DO.Customer sender = data.GetCustomer(parcel.SenderId);
                 DO.Customer getter = data.GetCustomer(parcel.TargetId);
                 DroneInParcel? droneInParcel = null;
-                if (ParcelStatusC(parcel) != ParcelStatus.Declared)
+                if (parcel.DroneId is not null)
                 {
                     DroneList drone = GetDroneToList((int)parcel.DroneId);
                     droneInParcel = new DroneInParcel() { Id = drone.Id, Battery = drone.Battery, Loct = drone.Loct };

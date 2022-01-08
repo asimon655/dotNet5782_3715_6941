@@ -6,7 +6,11 @@ namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
-        // get Binded Undelivered Parcel if not found return -1
+        /// <summary>
+        /// get Binded Undelivered Parcel of a specific drone if not found return -1
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
         int getBindedUndeliveredParcel(int droneId)
         {
             IEnumerable<DO.Parcel> parcels = data.GetParcels(x => x.DroneId == droneId && ParcelStatusC(x) != ParcelStatus.Delivered);
@@ -17,9 +21,12 @@ namespace BL
             }
             return parcel.Id;
         }
-        // calculate distance between two locations
-
-
+        /// <summary>
+        /// calculate distance between two locations
+        /// </summary>
+        /// <param name="location1"></param>
+        /// <param name="location2"></param>
+        /// <returns></returns>
         double calculateDistance(Location location1, Location location2)
         {
             double rlat1 = Math.PI * location1.Lattitude / 180;
@@ -32,7 +39,11 @@ namespace BL
             dist = dist * 60 * 1.1515;
             return Math.Round(dist * 1.609344, 2);
         }
-        // return the closes station to a given location
+        /// <summary>
+        /// return the id of closes station to a given location
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
         int getClosesStation(Location location)
         {
             int stationId = 0;
@@ -48,8 +59,13 @@ namespace BL
             }
             return stationId;
         }
-
-
+        /// <summary>
+        /// get the power usage of a specific trip
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="weight">the weight of the loaded parcel</param>
+        /// <returns></returns>
         double getPowerUsage(Location from, Location to, WeightCategories? weight = null)
         {
             switch (weight)
@@ -64,10 +80,11 @@ namespace BL
                     return calculateDistance(from, to) * PowerConsumptionFree;
             }
         }
-        // return a list of stations with free charging slots
-        // (this is a help function so its useful to return list than ienumerable)
-
-
+        /// <summary>
+        /// return the location of the sender of a given parcel
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns></returns>
         private Location getParcelLoctSender(DO.Parcel parcel)
         {
             try
@@ -78,64 +95,59 @@ namespace BL
             catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err);
-
             }
-
-
         }
-
+        /// <summary>
+        /// return the location of the sender of a given parcel
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns></returns>
         private Location getParcelLoctTarget(DO.Parcel parcel)
         {
             try
             {
                 DO.Customer CSMtmp = data.GetCustomer(parcel.TargetId);
-                return Convert(CSMtmp).Loct;
+                return new Location(CSMtmp.Longitude, CSMtmp.Lattitude);
             }
             catch (DO.IdDosntExists err)
             {
                 throw new IdDosntExists(err);
-
             }
-
-
-
         }
-
-
-
+        /// <summary>
+        /// return true if the drone can reach the location of the sender/target of a given parcel
+        /// </summary>
+        /// <param name="drony"></param>
+        /// <param name="parcel"></param>
+        /// <param name="function">function to extract the location of the sender/target</param>
+        /// <returns></returns>
         private bool canreach(DroneList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
-            => getPowerUsage(drony.Loct, function(parcel), (WeightCategories)parcel.Weight) <= drony.Battery;
-
-
-        private DO.Station GetStationFromCharging(int droneId)
         {
-
-            try
-            {
-                return data.GetStation(data.GetDroneCharge(droneId).StaionId);
-
-            }
-            catch (DO.IdDosntExists err)
-            {
-                throw new IdDosntExists(err);
-            }
-
-
-
+            return getPowerUsage(drony.Loct, function(parcel), (WeightCategories)parcel.Weight) <= drony.Battery;
         }
-
+        /// <summary>
+        /// get drone from our list
+        /// if not found throw IdDosntExists error
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
         private DroneList GetDroneToList(int Id)
         {
-            DroneList drone = drones.Find(s => s.Id == Id);
+            DroneList drone = drones.FirstOrDefault(s => s.Id == Id);
             /// if the Drone wasnt found throw error
-            if (drone is null)
+            if (drone.Id != Id)
             {
                 throw new IdDosntExists("the Id could not be found", Id);
             }
             return drone;
         }
-
-        void isInEnum<T>(T value) where T : IConvertible
+        /// <summary>
+        /// generic function that check if a given value is in the range of his enum
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <exception cref="EnumOutOfRange"></exception>
+        void IsInEnum<T>(T value) where T : IConvertible
         {
             if (!Enum.IsDefined(typeof(T), value))
             {

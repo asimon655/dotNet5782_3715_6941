@@ -163,9 +163,5 @@ namespace BL
                 drones.Add(newDrone);
             }
         }
-
-
-      
-
     }
 }

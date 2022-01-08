@@ -1,65 +1,22 @@
-﻿using BO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BO;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
-       
-        public void UpdateStation(int stationId, string? stationName = null, int? stationChargeSlots = null)
-        {
-            try
-            {
-                DO.Station Stationy = data.GetStation(stationId);
-                if (!(stationName is null))
-                {
-                    Stationy.Name = stationName;
-                }
-                if (!(stationChargeSlots is null))
-                {
-                    int chargeSlots = (int)(stationChargeSlots - data.CountDronesCharges(x => x.StaionId == stationId));
-                    if (chargeSlots < 0)
-                    {
-                        throw new InValidSumOfChargeSlots("you currently using more staions the you want to update :: ");
-                    }
-                    Stationy.ChargeSlots = chargeSlots;
-                }
-                data.UpdateStations(Stationy);
-            }
-            catch (DO.IdDosntExists err) {
-                throw new IdDosntExists(err);
-            } 
-        }
         public Station GetStation(int stationId)
         {
-
             try
             {
-                Station TmpStation = Convert(data.GetStation(stationId));
-                List<DroneCharge> dronesInCharges = new List<DroneCharge>();
-                foreach (var droneCharge in data.GetDronesCharges(x => x.StaionId == stationId))
-                {
-                    DroneList drone = GetDroneToList(droneCharge.DroneId);
-                    // check if the drone exsists
-                    DroneCharge droneInCharge = new DroneCharge
-                    {
-                        DroneId = drone.Id,
-                        Battery = drone.Battery
-                    };
-
-                    dronesInCharges.Add(droneInCharge);
-                }
-
-                return TmpStation;
+                return Convert(data.GetStation(stationId));
             }
             catch (DO.IdDosntExists err)
             {
-                throw new IdDosntExists(err); 
+                throw new IdDosntExists(err);
             }
-
-           
         }
-
         public void AddStation(Station station)
         {
             if (station.LoctConstant.Lattitude > 90 || station.LoctConstant.Lattitude < -90 || station.LoctConstant.Longitude > 180 || station.LoctConstant.Longitude < -180)
@@ -82,6 +39,31 @@ namespace BL
                 throw new IdAlreadyExists(err);
             } 
         }
+        public void UpdateStation(int stationId, string? stationName = null, int? stationChargeSlots = null)
+        {
+            try
+            {
+                DO.Station Stationy = data.GetStation(stationId);
+                if (stationName is not null)
+                {
+                    Stationy.Name = stationName;
+                }
+                if (stationChargeSlots is not null)
+                {
+                    int chargeSlots = (int)(stationChargeSlots - data.CountDronesCharges(x => x.StaionId == stationId));
+                    if (chargeSlots < 0)
+                    {
+                        throw new InValidSumOfChargeSlots("you currently using more staions the you want to update :: ");
+                    }
+                    Stationy.ChargeSlots = chargeSlots;
+                }
+                data.UpdateStations(Stationy);
+            }
+            catch (DO.IdDosntExists err)
+            {
+                throw new IdDosntExists(err);
+            }
+        }
         public void DeleteStation(int id)
         {
             try
@@ -92,6 +74,21 @@ namespace BL
             {
                 throw new IdDosntExists(err);
             }
+        }
+        public IEnumerable<StationList> GetStations()
+        {
+            return data.GetStations().Select(ConvertList);
+        }
+        public IEnumerable<StationList> GetStationsWithFreePorts()
+        {
+            return data.GetStations(x => x.ChargeSlots > 0).Select(ConvertList);
+        }
+        public IEnumerable<StationList> GetStationsFiltered(IEnumerable<int>? FreePorts, IEnumerable<int>? BusyPorts)
+        {
+            return data.GetStations(x => (FreePorts is null || FreePorts.Contains(x.ChargeSlots)) &&
+                                        (BusyPorts is null || BusyPorts.Contains(data.CountDronesCharges(s => s.StaionId == x.Id))))
+                .Select(ConvertList);
+
         }
     }
 }

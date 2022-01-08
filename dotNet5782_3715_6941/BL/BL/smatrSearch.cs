@@ -12,30 +12,30 @@ namespace BL
             int id;
             if (int.TryParse(query, out id))
             {
-                return data.GetCustomers(x => x.Id == id).Select(s => ConvertList(s));
+                return data.GetCustomers(x => x.Id == id).Select(ConvertList);
             }
-            return data.GetCustomers(x => x.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(s => ConvertList(s));
+            return data.GetCustomers(x => x.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(ConvertList);
         }
         public IEnumerable<BO.ParcelList> SmartSearchParcel(string query)
         {
             int id;
             if (int.TryParse(query, out id))
             {
-                return data.GetParcels(x => x.Id == id).Select(s => ConvertList(s));
+                return data.GetParcels(x => x.Id == id).Select(ConvertList);
             }
          
             return data.GetParcels(x => data.GetCustomer(x.SenderId).Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) || 
                                         data.GetCustomer(x.TargetId).Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
-                                        .Select(s => ConvertList(s));
+                                        .Select(ConvertList);
         }
         public IEnumerable<BO.StationList> SmartSearchStation(string query)
         {
             int id;
             if (int.TryParse(query, out id))
             {
-                return data.GetStations(x => x.Id == id).Select(s => ConvertList(s));
+                return data.GetStations(x => x.Id == id).Select(ConvertList);
             }
-            return data.GetStations(x => x.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(s => ConvertList(s));
+            return data.GetStations(x => x.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(ConvertList);
         }
         public IEnumerable<BO.DroneList> SmartSearchDrone(string query)
         {
