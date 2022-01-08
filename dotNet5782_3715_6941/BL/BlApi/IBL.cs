@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BlApi
 {
@@ -166,10 +167,46 @@ namespace BlApi
         /// </summary>
         /// <param name="statuses"></param>
         /// <param name="weights"></param>
-        /// <returns>IEnumerable of </returns>
+        /// <returns>IEnumerable of DroneList</returns>
         IEnumerable<BO.DroneList> GetDronesFiltered(IEnumerable<BO.DroneStatuses> statuses, IEnumerable<BO.WeightCategories> weights);
+        /// <summary>
+        /// return station who their FreePorts and BusyPorts is in the parameters
+        /// </summary>
+        /// <param name="FreePorts"></param>
+        /// <param name="BusyPorts"></param>
+        /// <returns>IEnumerable of StationList</returns>
+        IEnumerable<BO.StationList> GetStationsFiltered(IEnumerable<int>? FreePorts, IEnumerable<int>? BusyPorts);
+        /// <summary>
+        /// return parcels that answer all the critira
+        /// weights, priorties and time frames
+        /// </summary>
+        /// <param name="weights"></param>
+        /// <param name="priorties"></param>
+        /// <param name="CreationFrom">optional</param>
+        /// <param name="CreationTo">optional</param>
+        /// <param name="BindFrom">optional</param>
+        /// <param name="BindTo">optional</param>
+        /// <param name="PickUpFrom">optional</param>
+        /// <param name="PickUpTo">optional</param>
+        /// <param name="DeliverFrom">optional</param>
+        /// <param name="DeliverTo">optional</param>
+        /// <returns></returns>
+        IEnumerable<BO.ParcelList> GetParcelsFiltered(IEnumerable<BO.WeightCategories> weights, IEnumerable<BO.Priorities> priorties,
+                                                        DateTime? CreationFrom, DateTime? CreationTo,
+                                                        DateTime? BindFrom, DateTime? BindTo,
+                                                        DateTime? PickUpFrom, DateTime? PickUpTo,
+                                                        DateTime? DeliverFrom, DateTime? DeliverTo);
+        /// <summary>
+        /// reuturn customers that have these parcel count
+        /// </summary>
+        /// <param name="reached"></param>
+        /// <param name="Unreched"></param>
+        /// <param name="ParcelGot"></param>
+        /// <param name="InTheWay"></param>
+        /// <returns></returns>
+        IEnumerable<BO.CustomerList> GetCostumersFiltered(IEnumerable<int>? reached, IEnumerable<int>? Unreched ,IEnumerable<int>? ParcelGot, IEnumerable<int>? InTheWay);
         #endregion
-    
+
         #region Get Stats
         BO.DronesModelsStats GetDronesModelsStats();
         double[] GetDronesWeightsStats();
@@ -264,9 +301,6 @@ namespace BlApi
         ///BO.Station MostBusytation () ; 
         /// returns the most Busy station
         /// 
-        /// IEnumerable<BO.DroneList> GetParcelsFiltered(DateTime ?  CreationFrom,  DateTime ? CreationTo , DateTime ? BindFrom,  DateTime ? BindTo , DateTime ?  PickUpFrom,  DateTime ? PickUpTo , DateTime ?  DeliverFrom,  DateTime ? DeliverTo , IEnumerable<BO.WeightCategories> weights , IEnumerable<BO.Prioreties> Priorties);
-        ///   IEnumerable<BO.DroneList> GetStationFiltered(IEnumerable<int> FreePorts, IEnumerable<int> BusyPorts);
-        ///   IEnumerable<BO.DroneList> GetCostumersFiltered(IEnumerable<int> reached, IEnumerable<int> Unreched ,IEnumerable<int> ParcelGot, IEnumerable<int> InTheWay );
 
         #endregion
     }

@@ -1,6 +1,6 @@
 ﻿using BO;
 using System.Collections.Generic;
-
+using System.Linq;
 
 
 namespace BL
@@ -29,5 +29,12 @@ namespace BL
             return tmp; 
         }
 
+        public IEnumerable<BO.StationList> GetStationsFiltered(IEnumerable<int>? FreePorts, IEnumerable<int>? BusyPorts)
+        {
+            return data.GetStations(x => (FreePorts is null || FreePorts.Contains(x.ChargeSlots)) &&
+                                        (BusyPorts is null || BusyPorts.Contains(data.CountDronesCharges(s => s.StaionId == x.Id))))
+                .Select(ConvertList);
+
+        }
     }
 }

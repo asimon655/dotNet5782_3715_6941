@@ -219,5 +219,22 @@ namespace BL
             }
         }
 
+        public IEnumerable<BO.ParcelList> GetParcelsFiltered(IEnumerable<BO.WeightCategories> weights, IEnumerable<BO.Priorities> priorties,
+                                                        DateTime? CreationFrom, DateTime? CreationTo,
+                                                        DateTime? BindFrom, DateTime? BindTo,
+                                                        DateTime? PickUpFrom, DateTime? PickUpTo,
+                                                        DateTime? DeliverFrom, DateTime? DeliverTo)
+        {
+            return data.GetParcels(x => weights.Contains((BO.WeightCategories)x.Weight) && priorties.Contains((BO.Priorities)x.Priority) &&
+                                    (CreationFrom is null || (x.Requested is not null && x.Requested >= CreationFrom)) &&
+                                    (CreationTo is null || (x.Requested is not null && x.Requested <= CreationTo)) &&
+                                    (BindFrom is null || (x.Schedulded is not null && x.Schedulded >= BindFrom)) &&
+                                    (BindTo is null || (x.Schedulded is not null && x.Schedulded <= BindTo)) &&
+                                    (PickUpFrom is null || (x.PickedUp is not null && x.PickedUp >= PickUpFrom)) &&
+                                    (PickUpTo is null || (x.PickedUp is not null && x.PickedUp <= PickUpTo)) &&
+                                    (DeliverFrom is null || (x.Delivered is not null && x.Delivered >= DeliverFrom)) &&
+                                    (DeliverTo is null || (x.Delivered is not null && x.Delivered <= DeliverTo)))
+                    .Select(ConvertList);
+        }
     }
 }
