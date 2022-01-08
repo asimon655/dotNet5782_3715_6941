@@ -12,7 +12,7 @@ namespace BL
             int id;
             if (int.TryParse(query, out id))
             {
-                return data.GetCustomers(x => x.Id == id).Select(s => ConvertList(s));
+                return data.GetCustomers(x => x.Id.ToString().StartsWith(id.ToString())).Select(s => ConvertList(s));
             }
             return data.GetCustomers(x => x.Name.ToLower().Contains(query.ToLower())).Select(s => ConvertList(s));
         }
@@ -21,7 +21,7 @@ namespace BL
             int id;
             if (int.TryParse(query, out id))
             {
-                return data.GetParcels(x => x.Id == id).Select(s => ConvertList(s));
+                return data.GetParcels(x => x.Id.ToString().StartsWith(id.ToString())).Select(s => ConvertList(s));
             }
          
             return data.GetParcels(x => data.GetCustomer(x.SenderId).Name.ToLower().Contains(query.ToLower()) || data.GetCustomer(x.TargetId).Name.ToLower().Contains(query.ToLower())).Select(s => ConvertList(s));
@@ -31,7 +31,7 @@ namespace BL
             int id;
             if (int.TryParse(query, out id))
             {
-                return data.GetStations(x => x.Id == id).Select(s => ConvertList(s));
+                return data.GetStations(x => x.Id.ToString().StartsWith(id.ToString())).Select(s => ConvertList(s));
             }
             return data.GetStations(x => x.Name.ToLower().Contains(query.ToLower())).Select(s => ConvertList(s));
         }
@@ -40,7 +40,7 @@ namespace BL
             int id; 
             if (int.TryParse(query, out id))
             {
-                return drones.FindAll(x => x.Id == id);
+                return drones.FindAll(x => x.Id.ToString().StartsWith(id.ToString()));
             }
             return drones.FindAll(x => x.Model.ToLower().Contains(query.ToLower()));
         }
