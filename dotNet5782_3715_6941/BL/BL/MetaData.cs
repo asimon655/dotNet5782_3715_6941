@@ -7,13 +7,14 @@ using System.Net;
 using System.Xml;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading.Tasks;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
         static internal string TMP = Path.GetTempPath();
-        static internal DO.DronePic SaveDroneFirstImage(string Model)
+        static internal async Task<DO.DronePic> SaveDroneFirstImage(string Model)
         {
             // Declaring 'x' as a new WebClient() method
             WebClient x = new WebClient();
@@ -21,7 +22,7 @@ namespace BL
             try
             {
                 // Setting the URL, then downloading the data from the URL.
-                string source = x.DownloadString(@"https://www.google.com/search?q=" + Model.Replace(" ", "+") + @"+drone&tbm=isch&ved=2ahUKEwj2__aHx8P0AhVNwoUKHWOxAyMQ2-cCegQIABAA&oq=mavic+3+cine&gs_lcp=CgNpbWcQAzIHCCMQ7wMQJzIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGFCPDliPDmDuD2gAcAB4AIABhQGIAfoBkgEDMC4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cOqnYfaHCc2ElwTj4o6YAg&bih=596&biw=1229");
+                string source = await x.DownloadStringTaskAsync(@"https://www.google.com/search?q=" + Model.Replace(" ", "+") + @"+drone&tbm=isch&ved=2ahUKEwj2__aHx8P0AhVNwoUKHWOxAyMQ2-cCegQIABAA&oq=mavic+3+cine&gs_lcp=CgNpbWcQAzIHCCMQ7wMQJzIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGFCPDliPDmDuD2gAcAB4AIABhQGIAfoBkgEDMC4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cOqnYfaHCc2ElwTj4o6YAg&bih=596&biw=1229");
                 // Declaring 'document' as new HtmlAgilityPack() method
                 HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
 
@@ -31,7 +32,7 @@ namespace BL
                 string link = nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value;
 
                 string filename = TMP + @"image" + Model.Replace(" ", "_") + ".png";
-                SaveImage(link, filename, ImageFormat.Png);
+                await SaveImage(link, filename, ImageFormat.Png);
 
                 return new DO.DronePic { Model = Model, Path = filename };
             }
@@ -40,14 +41,14 @@ namespace BL
                 throw new NoOrBadInternet("please connect to unfiltered intenet");
             }
         }
-        static internal void SaveImage(string imageUrl, string filename, ImageFormat format)
+        static internal async Task SaveImage(string imageUrl, string filename, ImageFormat format)
         {
             WebClient client = new WebClient();
             try
             {
-                Stream stream = client.OpenRead(imageUrl);
+                Stream stream = await client.OpenReadTaskAsync(new Uri(imageUrl));
 
-                Bitmap bitmap; bitmap = new Bitmap(stream);
+                Bitmap bitmap = new Bitmap(stream);
 
                 if (bitmap != null)
                 {
@@ -64,13 +65,13 @@ namespace BL
             }
         }
 
-        public string GetRandomPersonPic()
+        public async Task<string> GetRandomPersonPic()
         {
             string filepath = TMP + Guid.NewGuid() + ".png";
-            SaveImage("https://thispersondoesnotexist.com/image", filepath, ImageFormat.Png);
+            await SaveImage("https://thispersondoesnotexist.com/image", filepath, ImageFormat.Png);
             return filepath;
         }
-        public string GetDronePic(string Model)
+        public async Task<string> GetDronePic(string Model)
         {
             DO.DronePic pic;
             try
@@ -79,7 +80,7 @@ namespace BL
             }
             catch (DO.IdDosntExists)
             {
-                pic = SaveDroneFirstImage(Model);
+                pic = await SaveDroneFirstImage(Model);
 
                 data.AddDronePic(pic);
             }
@@ -109,12 +110,12 @@ namespace BL
                 throw new IdAlreadyExists(err);
             }
         }
-        public List<string> GetCapchaQuestion()
+        public async Task<List<string>> GetCapchaQuestion()
         {
             WebClient client = new WebClient();
             try
             {
-                Stream stream = client.OpenRead("http://api.textcaptcha.com/idangolo123@gmail.com.xml");
+                Stream stream = await client.OpenReadTaskAsync("http://api.textcaptcha.com/idangolo123@gmail.com.xml");
                 StreamReader reader = new StreamReader(stream);
                 string plaintext = reader.ReadToEnd();
                 XmlDocument doc = new XmlDocument();
