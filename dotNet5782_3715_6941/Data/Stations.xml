@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Id>1</Id>
-    <Name>1</Name>
-    <Lattitude>12</Lattitude>
-    <Longitude>12</Longitude>
+    <Id>12</Id>
+    <Name>123</Name>
+    <Lattitude>1</Lattitude>
+    <Longitude>1</Longitude>
     <ChargeSlots>2</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>1233</Id>
-    <Name>12</Name>
-    <Lattitude>1</Lattitude>
-    <Longitude>1</Longitude>
-    <ChargeSlots>12</ChargeSlots>
-    <IsDeleted>true</IsDeleted>
-  </Station>
-  <Station>
-    <Id>123</Id>
-    <Name>EGED1</Name>
-    <Lattitude>1</Lattitude>
-    <Longitude>1</Longitude>
-    <ChargeSlots>12</ChargeSlots>
-    <IsDeleted>false</IsDeleted>
-  </Station>
-  <Station>
-    <Id>412</Id>
-    <Name>hello world</Name>
-    <Lattitude>12</Lattitude>
-    <Longitude>12</Longitude>
-    <ChargeSlots>12</ChargeSlots>
     <IsDeleted>false</IsDeleted>
   </Station>
 </ArrayOfStation>
