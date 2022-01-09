@@ -1,39 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDrone>
   <Drone>
-    <Id>14</Id>
-    <Modle>bibop</Modle>
-    <MaxWeigth>Easy</MaxWeigth>
-    <IsDeleted>false</IsDeleted>
-  </Drone>
-  <Drone>
-    <Id>123</Id>
-    <Modle>inspire</Modle>
+    <Id>31</Id>
+    <Modle>21</Modle>
     <MaxWeigth>Medium</MaxWeigth>
     <IsDeleted>false</IsDeleted>
   </Drone>
   <Drone>
-    <Id>142</Id>
-    <Modle>Rabbit</Modle>
-    <MaxWeigth>Easy</MaxWeigth>
-    <IsDeleted>false</IsDeleted>
-  </Drone>
-  <Drone>
-    <Id>45</Id>
-    <Modle>bibop</Modle>
-    <MaxWeigth>Easy</MaxWeigth>
-    <IsDeleted>false</IsDeleted>
-  </Drone>
-  <Drone>
-    <Id>12</Id>
-    <Modle>mavic2</Modle>
-    <MaxWeigth>Easy</MaxWeigth>
-    <IsDeleted>false</IsDeleted>
-  </Drone>
-  <Drone>
-    <Id>12344</Id>
-    <Modle>mavic 32</Modle>
-    <MaxWeigth>Easy</MaxWeigth>
+    <Id>12312</Id>
+    <Modle>123</Modle>
+    <MaxWeigth>Medium</MaxWeigth>
     <IsDeleted>false</IsDeleted>
   </Drone>
 </ArrayOfDrone>

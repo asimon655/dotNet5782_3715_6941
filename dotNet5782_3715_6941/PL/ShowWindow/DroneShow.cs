@@ -64,7 +64,9 @@ namespace PL
         #endregion
         #region DroneShow
         BO.Drone drn;
-        public Window2(BlApi.Ibl log, BO.Drone drn)
+        Action reset; 
+        public Window2(BlApi.Ibl log, BO.Drone drn , Action  ? action = null 
+        )
         {
             bool valid = true;
             InitializeComponent();
@@ -74,7 +76,7 @@ namespace PL
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
             this.DataContext = drn;
-        
+            reset = action; 
 
             if (!(drn.ParcelTransfer is null))
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
@@ -185,8 +187,10 @@ namespace PL
                     Opeation3.Background = System.Windows.Media.Brushes.MediumVioletRed;
                     Opeation3.IsEnabled = true;
                 }
+           
             }
-    
+            reset();
+
         }
         private void Bind(object sender, RoutedEventArgs e)
         {

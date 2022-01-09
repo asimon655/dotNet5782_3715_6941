@@ -120,7 +120,7 @@ namespace PL
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (!((sender as ListView).SelectedItem is null))
-                new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id)).Show();
+                new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), reset).Show();
             //new Window2(a).Show();
 
         }
@@ -250,7 +250,7 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new Window2(dat,this).Show();
+            new Window2(dat,this ).Show();
 
         }
 

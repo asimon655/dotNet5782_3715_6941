@@ -34,7 +34,7 @@ namespace PL
             Add.Visibility = Visibility.Visible;
             Show.Visibility = Visibility.Hidden;
             Array WeightVals = Enum.GetValues(typeof(BO.WeightCategories));
-            Array StatIds = (from Stat in log.GetStations() select Stat.Id).ToArray();
+            Array StatIds = (from Stat in log.GetStationsWithFreePorts() select Stat.Id).ToArray();
             WeightCB.ItemsSource = WeightVals;
             StatCB.ItemsSource = StatIds;
 

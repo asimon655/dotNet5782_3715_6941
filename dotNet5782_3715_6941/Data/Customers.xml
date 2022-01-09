@@ -1,27 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Customer>
-    <Id>214926941</Id>
-    <Name>idan</Name>
-    <Phone>0556650137</Phone>
-    <Longitude>13</Longitude>
-    <Lattitude>12</Lattitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
-    <Id>2149</Id>
-    <Name>simon</Name>
-    <Phone>123</Phone>
-    <Longitude>1</Longitude>
-    <Lattitude>1</Lattitude>
-    <IsDeleted>false</IsDeleted>
-  </Customer>
-  <Customer>
-    <Id>214926942</Id>
-    <Name>idan</Name>
-    <Phone>0556650137</Phone>
-    <Longitude>1</Longitude>
-    <Lattitude>13</Lattitude>
-    <IsDeleted>true</IsDeleted>
-  </Customer>
+
 </ArrayOfCustomer>
