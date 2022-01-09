@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using DO;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
     internal sealed partial class DalObject : DalApi.IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
             customer.IsDeleted = false;
@@ -19,6 +20,7 @@ namespace Dal
 
             DataSource.Costumers.Add(customer);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int id)
         {
             Customer costumer = DataSource.Costumers.Find(s => !s.IsDeleted && s.Id == id);
@@ -29,6 +31,7 @@ namespace Dal
             }
             return costumer;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer costumer)
         {
             // if we cant find any costumer with the id we throw an error
@@ -37,18 +40,22 @@ namespace Dal
                 throw new IdDosntExists("the Id couldnt be found ", costumer.Id);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers()
         {
             return DataSource.Costumers.FindAll(s => !s.IsDeleted);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> expr)
         {
             return DataSource.Costumers.FindAll(s => !s.IsDeleted && expr(s));
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CountCustomers(Func<Customer, bool> expr)
         {
             return DataSource.Costumers.Count(s => !s.IsDeleted && expr(s));
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteCustomer(int id)
         {
             // if we cant find any costumer with the id we throw an error

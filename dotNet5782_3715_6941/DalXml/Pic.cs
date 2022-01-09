@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
 using DO;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
     internal sealed partial class DalXml : DalApi.IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DronePic GetDronePic(string Model)
         {
             List<DronePic> data = Read<DronePic>();
@@ -21,6 +18,7 @@ namespace Dal
 
             return res;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public CustomerPic GetCustomerPic(int customerId)
         {
             List<CustomerPic> data = Read<CustomerPic>();
@@ -31,6 +29,7 @@ namespace Dal
 
             return res;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDronePic(DronePic pic)
         {
             List<DronePic> data = Read<DronePic>();
@@ -42,6 +41,7 @@ namespace Dal
 
             Write(data);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomerPic(CustomerPic pic)
         {
             List<CustomerPic> data = Read<CustomerPic>();

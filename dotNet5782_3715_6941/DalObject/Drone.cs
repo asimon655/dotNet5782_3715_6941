@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using DO;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
     internal sealed partial class DalObject : DalApi.IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone)
         {
             drone.IsDeleted = false;
@@ -20,7 +21,7 @@ namespace Dal
 
             DataSource.Drones.Add(drone);
         }
-            
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int id)
         {
             Drone drone = DataSource.Drones.Find(s => !s.IsDeleted && s.Id == id);
@@ -31,19 +32,22 @@ namespace Dal
             }
             return drone;
         }
-            
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones()
         {
             return DataSource.Drones.FindAll(s => !s.IsDeleted);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> expr)
         {
             return DataSource.Drones.FindAll(s => !s.IsDeleted && expr(s));
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CountDrones(Func<Drone, bool> expr)
         {
             return DataSource.Drones.Count(s => !s.IsDeleted && expr(s));
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrones(Drone drone)
         {
             // if we cant find that the id we throw error
@@ -52,6 +56,7 @@ namespace Dal
                 throw new IdDosntExists("the Id Drone is dosnt exists", drone.Id);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDrone(int id)
         {
             // if we cant find that the id we throw error

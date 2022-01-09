@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using DO;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
@@ -62,7 +62,7 @@ namespace Dal
         {
             return bool.Parse(x.Element("IsDeleted").Value);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone)
         {
             drone.IsDeleted = false;
@@ -79,7 +79,7 @@ namespace Dal
 
             WriteDroneXml(data);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int id)
         {
             XElement data = ReadDroneXml();
@@ -93,7 +93,7 @@ namespace Dal
 
             return drone;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones()
         {
             XElement data = ReadDroneXml();
@@ -104,7 +104,7 @@ namespace Dal
             
             return drones;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> GetDrones(Predicate<Drone> expr)
         {
             XElement data = ReadDroneXml();
@@ -115,7 +115,7 @@ namespace Dal
             
             return dronys;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CountDrones(Func<Drone, bool> expr)
         {
             XElement data = ReadDroneXml();
@@ -123,7 +123,7 @@ namespace Dal
                     where !IsDeletedOf(drone) && expr(XmlToDrone(drone))
                     select true).Count();
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrones(Drone drone)
         {
             XElement data = ReadDroneXml();
@@ -139,6 +139,7 @@ namespace Dal
 
             WriteDroneXml(data);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDrone(int id)
         {
             XElement data = ReadDroneXml();

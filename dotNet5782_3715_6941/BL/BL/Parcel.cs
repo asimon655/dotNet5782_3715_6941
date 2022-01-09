@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int id)
         {
             try
@@ -18,6 +20,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddParcel(Parcel parcel)
         {
             // throw error if the Weight and Priority are out of the enum range
@@ -58,6 +61,7 @@ namespace BL
                 throw new IdAlreadyExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteParcel(int id)
         {
             try
@@ -73,14 +77,17 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelList> GetParcels()
         {
             return data.GetParcels().Select(ConvertList);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelList> GetUnbindedParcels()
         {
             return data.GetParcels(x => x.DroneId is null && ParcelStatusC(x) == ParcelStatus.Declared).Select(ConvertList);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelList> GetParcelsFiltered(IEnumerable<BO.WeightCategories> weights, IEnumerable<BO.Priorities> priorties,
                                                         DateTime? CreationFrom, DateTime? CreationTo,
                                                         DateTime? BindFrom, DateTime? BindTo,

@@ -8,6 +8,7 @@ using System.Xml;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
@@ -99,6 +100,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomerPic(int customerId, string filepath)
         {
             try

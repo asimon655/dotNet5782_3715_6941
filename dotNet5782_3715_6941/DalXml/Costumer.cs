@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
 using DO;
+using System.Runtime.CompilerServices;
 
 
 namespace Dal
 {
     internal sealed partial class DalXml : DalApi.IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer customer)
         {
             customer.IsDeleted = false;
@@ -24,7 +23,7 @@ namespace Dal
 
             Write(customers);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCustomer(int id)
         {
             List<Customer> customers = Read<Customer>();
@@ -38,21 +37,22 @@ namespace Dal
             }
             return customer;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers()
         {
             return Read<Customer>().FindAll(s => !s.IsDeleted);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> GetCustomers(Predicate<Customer> expr)
         {
             return Read<Customer>().FindAll(s => !s.IsDeleted && expr(s));
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CountCustomers(Func<Customer, bool> expr)
         {
             return Read<Customer>().Count(s => !s.IsDeleted && expr(s));
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCustomer(Customer customer)
         {
             List<Customer> customers = Read<Customer>();
@@ -64,6 +64,7 @@ namespace Dal
 
             Write(customers);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteCustomer(int id)
         {
             List<Customer> customers = Read<Customer>();
