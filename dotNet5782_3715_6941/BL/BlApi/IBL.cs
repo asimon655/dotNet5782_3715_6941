@@ -258,7 +258,7 @@ namespace BlApi
         List<string> GetCapchaQuestion();
         #endregion
 
-        #region
+        #region simulator
         void StartSimulator(int droneId, Action refresh, Func<bool> stop);
         #endregion
 
@@ -308,11 +308,5 @@ namespace BlApi
         /// 
 
         #endregion
-
-        DroneList GetDroneToList(int Id);
-        Drone Convert(DroneList drone);
-        ParcelStatus ParcelStatusC(Parcel parcel);
-        double GetChargingSpeed();
-
     }
 }

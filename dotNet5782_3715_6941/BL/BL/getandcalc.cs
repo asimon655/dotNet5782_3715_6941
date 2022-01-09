@@ -27,7 +27,7 @@ namespace BL
         /// <param name="location1"></param>
         /// <param name="location2"></param>
         /// <returns></returns>
-        double calculateDistance(Location location1, Location location2)
+        static double calculateDistance(Location location1, Location location2)
         {
             double rlat1 = Math.PI * location1.Lattitude / 180;
             double rlat2 = Math.PI * location2.Lattitude / 180;
@@ -66,7 +66,7 @@ namespace BL
         /// <param name="to"></param>
         /// <param name="weight">the weight of the loaded parcel</param>
         /// <returns></returns>
-        double getPowerUsage(Location from, Location to, WeightCategories? weight = null)
+        static double getPowerUsage(Location from, Location to, WeightCategories? weight = null)
         {
             switch (weight)
             {
@@ -121,7 +121,7 @@ namespace BL
         /// <param name="parcel"></param>
         /// <param name="function">function to extract the location of the sender/target</param>
         /// <returns></returns>
-        private bool canreach(DroneList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
+        static bool canreach(DroneList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
         {
             return getPowerUsage(drony.Loct, function(parcel), (WeightCategories)parcel.Weight) <= drony.Battery;
         }
@@ -131,7 +131,7 @@ namespace BL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public DroneList GetDroneToList(int Id)
+        DroneList GetDroneToList(int Id)
         {
             DroneList drone = drones.FirstOrDefault(s => s.Id == Id);
             /// if the Drone wasnt found throw error

@@ -31,11 +31,11 @@ namespace BL
 
         internal Random RandomGen = new Random();
 
-        double PowerConsumptionFree;
-        double PowerConsumptionLight;
-        double PowerConsumptionMedium;
-        double PowerConsumptionHeavy;
-        double ChargingSpeed;
+        internal static double PowerConsumptionFree;
+        internal static double PowerConsumptionLight;
+        internal static double PowerConsumptionMedium;
+        internal static double PowerConsumptionHeavy;
+        internal static double ChargingSpeed;
 
         public Bl()
         {
