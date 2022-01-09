@@ -22,9 +22,11 @@ namespace BL
                 MaxWeigth = (DO.WeightCategories)drone.Weight,
                 Modle = drone.Model
             };
+            DO.Station PulledStaion;
             try
             {
-                DO.Station PulledStaion = data.GetStation(stationId);
+                PulledStaion = data.GetStation(stationId);
+                PulledStaion.ChargeSlots -= 1;
                 drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
             }
             catch (DO.IdDosntExists err)
@@ -35,6 +37,7 @@ namespace BL
             {
                 data.AddDrone(DroneTmp);
                 data.AddDroneCharge(new DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
+                data.UpdateStations(PulledStaion);
             }
             catch (DO.IdAlreadyExists err)
             {
