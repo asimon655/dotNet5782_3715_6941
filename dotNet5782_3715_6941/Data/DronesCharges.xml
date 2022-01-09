@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DroneCharge>
-    <DroneId>12312</DroneId>
-    <StaionId>12</StaionId>
-  </DroneCharge>
-  <DroneCharge>
-    <DroneId>31</DroneId>
-    <StaionId>12</StaionId>
+    <DroneId>123</DroneId>
+    <StaionId>312</StaionId>
   </DroneCharge>
 </ArrayOfDroneCharge>

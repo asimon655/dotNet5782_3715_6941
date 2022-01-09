@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -31,6 +32,17 @@ namespace PL
     {
 
         #region MetaDataReset
+        void Reset()
+        {
+            this.drn = log.GetDrone(drn.Id);
+            this.DataContext = drn;
+            if (!(drn.ParcelTransfer is null))
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            else
+                ParcelOpsRFS(null);
+
+
+        }
         void MetaDataCstReset(BO.Drone drn = null )
         {
             if (drn is null) {
@@ -43,7 +55,6 @@ namespace PL
                 if (!(drn.ParcelTransfer is null))
                 {
                     bool valid = true;
-
                     if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"))
                         valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id + ".png", ImageFormat.Png);
                     if (valid)
@@ -64,12 +75,16 @@ namespace PL
         #endregion
         #region DroneShow
         BO.Drone drn;
-        Action reset; 
+        Action reset;
+        BackgroundWorker backgroundWorker1;
         public Window2(BlApi.Ibl log, BO.Drone drn , Action  ? action = null 
         )
         {
-            bool valid = true;
             InitializeComponent();
+            this.backgroundWorker1 = new BackgroundWorker();
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            backgroundWorker1.RunWorkerAsync(1);
+            bool valid = true;
             this.drn = drn;
             MetaDataCstReset(drn);
             this.log = log;
@@ -189,7 +204,8 @@ namespace PL
                 }
            
             }
-            reset();
+            if(!(reset is null))
+                reset();
 
         }
         private void Bind(object sender, RoutedEventArgs e)
@@ -300,7 +316,23 @@ namespace PL
 
 
         #endregion
+        #region Simulator 
+        bool SimulatorStat()
+        { return (bool)Simulator.IsChecked;  }
+        private void Simulator_Checked(object sender, RoutedEventArgs e)
+        {
+            
 
+        }
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                log.StartSimulator(drn.Id, ()=> { Reset(); }, SimulatorStat);
+            });
+          
+        }
+        #endregion
 
 
     }

@@ -163,5 +163,6 @@ namespace BL
                 drones.Add(newDrone);
             }
         }
+        public double GetChargingSpeed() => ChargingSpeed;
     }
 }

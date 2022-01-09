@@ -6,11 +6,11 @@ namespace BL
     public sealed partial class Bl : BlApi.Ibl
     {
         #region Convert
-        private Drone Convert(DroneList drone)
+        public Drone Convert(DroneList drone)
         {
             Drone newDrone = new Drone(){
                 Id = drone.Id,
-                Weight = (WeightCategories)drone.Weight,
+                Weight = drone.Weight,
                 Model = drone.Model,
                 BatteryStat = drone.Battery,
                 Current = drone.Loct,
@@ -29,7 +29,8 @@ namespace BL
                         Id = parcely.Id , 
                         Pickup = SenderLCT   , 
                         Dst =   GetterLCT,
-                        Distance =calculateDistance(SenderLCT , GetterLCT ) , 
+                        Distance = ParcelStatusC(parcely) == ParcelStatus.Binded ? calculateDistance(drone.Loct , SenderLCT) :
+                                   ParcelStatusC(parcely) == ParcelStatus.PickedUp ? calculateDistance(drone.Loct, GetterLCT) : 0,
                         Weight = (WeightCategories)parcely.Weight , 
                         Priorety = (Priorities)parcely.Priority , 
                         Sender = new CustomerInParcel() { id = parcely.SenderId, name = Sender.Name } , 
@@ -120,7 +121,7 @@ namespace BL
                 BusyPorts = data.CountDronesCharges(x => x.StaionId == station.Id)
             };
         #endregion
-        
+
         #region other Converts
         private ParcelStatus ParcelStatusC(DO.Parcel parcel)
         {
@@ -134,7 +135,7 @@ namespace BL
                     caseNum++;
                     if (!(parcel.PickedUp is null))
                     {
-                        caseNum++; 
+                        caseNum++;
                         if (!(parcel.Delivered is null))
                         {
                             caseNum++;
@@ -143,7 +144,31 @@ namespace BL
                 }
             }
             if (caseNum == -1)
-                throw new EnumOutOfRange("the parcel is not even decleared ",-1); 
+                throw new EnumOutOfRange("the parcel is not even decleared ", -1);
+            return (ParcelStatus)caseNum;
+        }
+        public ParcelStatus ParcelStatusC(Parcel parcel)
+        {
+
+            int caseNum = -1;
+            if (!(parcel.ParcelCreation is null))
+            {
+                caseNum++;
+                if (!(parcel.ParcelBinded is null))
+                {
+                    caseNum++;
+                    if (!(parcel.ParcelPickedUp is null))
+                    {
+                        caseNum++;
+                        if (!(parcel.ParcelDelivered is null))
+                        {
+                            caseNum++;
+                        }
+                    }
+                }
+            }
+            if (caseNum == -1)
+                throw new EnumOutOfRange("the parcel is not even decleared ", -1);
             return (ParcelStatus)caseNum;
         }
         private ParcelInCustomer CustomerToParcelC(DO.Parcel parcel, CustomerInParcel parentCustomer)

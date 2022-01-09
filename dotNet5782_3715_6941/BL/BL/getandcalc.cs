@@ -131,7 +131,7 @@ namespace BL
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        private DroneList GetDroneToList(int Id)
+        public DroneList GetDroneToList(int Id)
         {
             DroneList drone = drones.FirstOrDefault(s => s.Id == Id);
             /// if the Drone wasnt found throw error

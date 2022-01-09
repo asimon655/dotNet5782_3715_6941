@@ -65,7 +65,7 @@ namespace PL
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message, "Error");
+                //MessageBox.Show(err.Message, "Error");
                 
             
             }

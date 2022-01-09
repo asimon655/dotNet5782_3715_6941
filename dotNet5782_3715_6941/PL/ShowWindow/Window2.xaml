@@ -723,8 +723,18 @@
                     <wpfspark:PivotItem.PivotContent>
                         <wpfspark:PivotContentControl>
                             <Grid Name="myPopup"  >
-
                                 <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="8*" />
+
+                                    </Grid.RowDefinitions>
+                                    <Grid>
+                                        <CheckBox Checked="Simulator_Checked" x:Name="Simulator">
+                                    
+                                        </CheckBox>
+                                    </Grid>
+                                    <Grid  Grid.Row="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*" />
                                         <ColumnDefinition Width="*" />
@@ -955,7 +965,7 @@
 
 
                                 </Grid>
-
+                                </Grid>
                             </Grid>
                         </wpfspark:PivotContentControl>
                     </wpfspark:PivotItem.PivotContent>

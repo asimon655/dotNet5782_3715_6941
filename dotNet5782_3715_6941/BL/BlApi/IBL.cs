@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 
 namespace BlApi
@@ -257,6 +258,10 @@ namespace BlApi
         List<string> GetCapchaQuestion();
         #endregion
 
+        #region
+        void StartSimulator(int droneId, Action refresh, Func<bool> stop);
+        #endregion
+
         #region NEEDTOIMPLEMENTNOWSIMON
         //double[]  GetStationBusyPortsStats();
         // need to implement struct like    BO.DronesModelsStats with array of the vals of busy ports and another array of how many ports there are ( plz returt double and not int cause the drawing of 
@@ -303,5 +308,11 @@ namespace BlApi
         /// 
 
         #endregion
+
+        DroneList GetDroneToList(int Id);
+        Drone Convert(DroneList drone);
+        ParcelStatus ParcelStatusC(Parcel parcel);
+        double GetChargingSpeed();
+
     }
 }

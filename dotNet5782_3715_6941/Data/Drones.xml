@@ -1,15 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfDrone>
   <Drone>
-    <Id>31</Id>
-    <Modle>21</Modle>
-    <MaxWeigth>Medium</MaxWeigth>
-    <IsDeleted>false</IsDeleted>
-  </Drone>
-  <Drone>
-    <Id>12312</Id>
-    <Modle>123</Modle>
-    <MaxWeigth>Medium</MaxWeigth>
+    <Id>123</Id>
+    <Modle>mavic 7</Modle>
+    <MaxWeigth>Heavy</MaxWeigth>
     <IsDeleted>false</IsDeleted>
   </Drone>
 </ArrayOfDrone>

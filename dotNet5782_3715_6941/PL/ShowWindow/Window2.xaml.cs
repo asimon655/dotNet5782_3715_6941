@@ -89,6 +89,9 @@ namespace PL
         {
             if (!(drn.ParcelTransfer is null))
                 new CostumerShow(log, log.GetCostumer(drn.ParcelTransfer.Sender.id)).Show();
+           
         }
+
+
     }
 }
