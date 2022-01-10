@@ -61,9 +61,9 @@ namespace PL
             InitializeComponent();
 
             this.dat = dat; 
-            List<string> resCaptcha = dat.GetCapchaQuestion();
-            myPopup.DataContext = resCaptcha.First();
-            Answers = resCaptcha.Skip(1);
+            //List<string> resCaptcha = dat.GetCapchaQuestion();
+            //myPopup.DataContext = resCaptcha.First();
+            //Answers = resCaptcha.Skip(1);
             Add.Visibility = Visibility.Visible;
             Show.Visibility = Visibility.Hidden;
             RtbInputFile.Drop += RtbInputFile_Drop;

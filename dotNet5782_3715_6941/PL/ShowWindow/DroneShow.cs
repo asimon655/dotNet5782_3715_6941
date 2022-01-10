@@ -54,16 +54,23 @@ namespace PL
             {
                 if (!(drn.ParcelTransfer is null))
                 {
-                    bool valid = true;
                     if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"))
-                        valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id + ".png", ImageFormat.Png);
-                    if (valid)
+                        SaveImageAsync("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id + ".png", ImageFormat.Png).ContinueWith( x => { if (x.Result) {
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Photo1.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"));
+                                });  } } );
+                    else 
                         Photo1.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"));
-                    valid = true;
                     if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png"))
-                        valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png", ImageFormat.Png, TMP + @"image" + drn.ParcelTransfer.Target.id + ".png");
-                    if (valid)
+                        SaveImageAsync("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png", ImageFormat.Png, TMP + @"image" + drn.ParcelTransfer.Target.id + ".png").ContinueWith(x => { if (x.Result) {
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Photo2.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png"));
+                                }); } });
+                    else 
                         Photo2.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png"));
+
 
                 }
             }
@@ -73,6 +80,54 @@ namespace PL
         }
 
         #endregion
+        #region Populate
+
+
+
+
+         async Task<bool> SaveImageAsync(string imageUrl, string filename, ImageFormat format, String? FileOther = null)
+        {
+          
+            Thread.Sleep(10);
+
+            WebClient client = new WebClient();
+
+            client = new WebClient();
+            try
+            {
+                Stream stream = await client.OpenReadTaskAsync(imageUrl);
+                Bitmap bitmap; bitmap = new Bitmap(stream);
+
+                if (bitmap != null)
+                {
+                    bitmap.Save(filename, format);
+                }
+
+                stream.Flush();
+                stream.Close();
+                client.Dispose();
+                if (!(FileOther is null))
+                {
+                    if (AreEqule(filename, FileOther))
+                    {
+                        File.Delete(filename);
+                         await SaveImageAsync(imageUrl, filename, format, FileOther);
+                    }
+
+                }
+            }
+            catch
+            {
+
+             
+                return false;
+            }
+            return true;
+        }
+
+
+        #endregion
+
         #region DroneShow
         BO.Drone drn;
         Action reset;
@@ -84,7 +139,7 @@ namespace PL
             backgroundWorker1 = new BackgroundWorker();
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.ProgressChanged += (s, e) => Reset();
+            backgroundWorker1.ProgressChanged += (s, e) => { Reset(); reset(); };
             bool valid = true;
             this.drn = drn;
             MetaDataCstReset(drn);
@@ -104,6 +159,7 @@ namespace PL
             {
                 Photo0.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
             }
+            MetaDataCstReset();
 
         }
 
@@ -333,10 +389,6 @@ namespace PL
         {
             Action refresh = () => backgroundWorker1.ReportProgress(1);
             log.StartSimulator(drn.Id, refresh, () => stop);
-        }
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            //Reset();
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

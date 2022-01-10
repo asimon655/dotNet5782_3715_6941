@@ -31,11 +31,6 @@ namespace PL
             ListOf.ItemsSource = dat.GetCustomers();
             #endregion
 
-            #region ListView Grouping 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelGot");
-            view.GroupDescriptions.Add(groupDescription);
-            #endregion
 
         }
         public ClientsTab(BlApi.Ibl dat)

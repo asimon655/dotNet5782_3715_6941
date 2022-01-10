@@ -44,17 +44,17 @@ namespace PL
             InitializeComponent();
             #region Framses-Initialize 
             DroneTab Drn = new DroneTab(dat);
-            MapTab Map = new MapTab(dat) ;
+            //MapTab Map = new MapTab(dat) ;
             ClientsTab Client = new ClientsTab(dat);
             StaionsTab Stat = new StaionsTab(dat);
-            ParcelTab pcl = new ParcelTab(dat); 
-            Drn.reset = ()=>{ Map.Reset(); Stat.Reset(); pcl.Reset(); };
-            Client.reset = () => { Map.Reset(); };
+            ParcelTab pcl = new ParcelTab(dat);
+            Drn.reset = ()=>{ pcl.Reset(); /*Map.Reset(); Stat.Reset(); ;*/ };
+            Client.reset = () => { };//Map.Reset(); };
             pcl.reset = () => { };
-            Stat.reset = () => { Map.Reset(); };
+            Stat.reset = () => { /*Map.Reset();*/ };
             DroneFrame.NavigationService.Navigate(Drn);
             ParcelFrame.NavigationService.Navigate(pcl);
-            MapFrame.NavigationService.Navigate(Map);
+            //MapFrame.NavigationService.Navigate(Map);
             CostumerFrame.NavigationService.Navigate(Client);
             StationFrame.NavigationService.Navigate(Stat);
             #endregion

@@ -29,19 +29,20 @@ namespace PL
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class ManngerWin : Window
+    public static class ScottPlotHELP
     {
-        internal void createModelsBar(ScottPlot.WpfPlot Bar, double[] pos, string[] names, double[] vals)
+        #region ScottPlotsFunctions
+        internal static void createModelsBar(ScottPlot.WpfPlot Bar, double[] pos, string[] names, double[] vals)
         {
             Bar.Plot.Clear();
             Bar.Plot.AddBar(vals, pos, ColorTranslator.FromHtml("#6600cc"));
             Bar.Plot.XTicks(pos, names);
             Bar.Plot.SetAxisLimits(yMin: 0);
-            Bar.Refresh();
+
 
 
         }
-        internal void CreateSingleGauge<T>(ScottPlot.WpfPlot Gauge, double[] values)
+        internal static void CreateSingleGauge<T>(ScottPlot.WpfPlot Gauge, double[] values)
         {
 
             Gauge.Plot.Clear();
@@ -52,10 +53,10 @@ namespace PL
 
             Gauge.Plot.AxisAuto(0);
 
-            Gauge.Render();
+
 
         }
-        internal void CreateDountPie<T>(ScottPlot.WpfPlot Pie, double[] values)
+        internal static void CreateDountPie<T>(ScottPlot.WpfPlot Pie, double[] values)
         {
             Pie.Plot.Clear();
             string[] labels = Enum.GetNames(typeof(T));
@@ -88,10 +89,18 @@ namespace PL
 
             pie.SliceFillColors = sliceColors;
             pie.SliceLabelColors = labelColors;
-            Pie.Render();
+      
 
 
         }
+        internal static void ClearGraph(ScottPlot.WpfPlot graph)
+        {
+            graph.Plot.Clear();
+           
+        }
+        
+        #endregion
+
 
     }
 }

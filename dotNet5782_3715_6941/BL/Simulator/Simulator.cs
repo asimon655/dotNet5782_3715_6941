@@ -11,7 +11,7 @@ namespace Simulator
 {
     class Simulator
     {
-        const int delay = 10000;
+        const int delay = 1000;
         
         // speed in km/s
         const double speed = 5;
@@ -68,6 +68,7 @@ namespace Simulator
                             // multiply chargingPeriod in 3600 to make it sec from hours
                             Thread.Sleep(delay);
                             logic.DroneReleaseCharge(droneId, chargingPeriod);
+                            refresh();
                         }
                         catch (IdDosntExists) { }
                         break;
