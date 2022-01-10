@@ -83,7 +83,11 @@ namespace PL
             InitializeComponent();
             this.backgroundWorker1 = new BackgroundWorker();
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            backgroundWorker1.RunWorkerAsync(1);
+            backgroundWorker1.ProgressChanged += Worker_ProgressChanged;
+            backgroundWorker1.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            backgroundWorker1.WorkerReportsProgress = true;
+        
+
             bool valid = true;
             this.drn = drn;
             MetaDataCstReset(drn);
@@ -321,17 +325,28 @@ namespace PL
         { return (bool)Simulator.IsChecked;  }
         private void Simulator_Checked(object sender, RoutedEventArgs e)
         {
-            
 
+            backgroundWorker1.RunWorkerAsync("hello");
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                log.StartSimulator(drn.Id, ()=> { Reset(); }, SimulatorStat);
+                log.StartSimulator(drn.Id, ()=>{
+                    backgroundWorker1.ReportProgress(23);}, SimulatorStat);
             });
           
         }
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //Reset();
+        }
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            object result = e.Result;
+        }
+
+
         #endregion
 
 

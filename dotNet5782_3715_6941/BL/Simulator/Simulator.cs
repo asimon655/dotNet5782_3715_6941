@@ -54,7 +54,7 @@ namespace Simulator
                             else if (logic.ParcelStatusC(parcel) == ParcelStatus.PickedUp)
                             {
                                 logic.DroneDelivere(droneId);
-                                refresh();
+                            refresh();
 
                                 Thread.Sleep((int)(drn.ParcelTransfer.Distance * speed * timeScale));
                             }
