@@ -2,11 +2,13 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerList> SmartSearchCostumer(string query)
         {
             int id;
@@ -16,6 +18,7 @@ namespace BL
             }
             return data.GetCustomers(x => x.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(ConvertList);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.ParcelList> SmartSearchParcel(string query)
         {
             int id;
@@ -27,6 +30,7 @@ namespace BL
                                         data.GetCustomer(x.TargetId).Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
                                         .Select(ConvertList);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.StationList> SmartSearchStation(string query)
         {
             int id;
@@ -36,6 +40,7 @@ namespace BL
             }
             return data.GetStations(x => x.Name.Contains(query, StringComparison.CurrentCultureIgnoreCase)).Select(ConvertList);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.DroneList> SmartSearchDrone(string query)
         {
             int id; 

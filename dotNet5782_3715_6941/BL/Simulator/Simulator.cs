@@ -11,18 +11,20 @@ namespace Simulator
 {
     class Simulator
     {
-        const int timeScale = 500;
+        const int delay = 10000;
         
         // speed in km/s
-        const double speed = 0.01;
+        const double speed = 5;
 
         public Simulator(BlApi.Ibl logic, int droneId, Action refresh, Func<bool> stop)
         {
             // GetDroneToList throw IdDosnt Exsist if needed
-            DroneList drone = logic.GetDroneToList(droneId);
+            //DroneList drone = logic.GetDroneToList(droneId);
 
             while (stop())
             {
+                Drone drone = logic.GetDrone(droneId);
+
                 switch (drone.DroneStat)
                 {
                     case DroneStatuses.Free:
@@ -41,22 +43,19 @@ namespace Simulator
                     case DroneStatuses.Delivery:
                         try
                         {
-                            Parcel parcel = logic.GetParcel((int)drone.ParcelId);
-                            Drone drn = logic.Convert(drone);
+                            Parcel parcel = logic.GetParcel((int)drone.ParcelTransfer.Id);
 
-                            if (logic.ParcelStatusC(parcel) == ParcelStatus.Binded)
+                            if (ParcelStatusC(parcel) == ParcelStatus.Binded)
                             {
+                                Thread.Sleep(delay);
                                 logic.DronePickUp(droneId);
                                 refresh();
-
-                                Thread.Sleep((int)(drn.ParcelTransfer.Distance * speed * timeScale));
                             }
-                            else if (logic.ParcelStatusC(parcel) == ParcelStatus.PickedUp)
+                            else if (ParcelStatusC(parcel) == ParcelStatus.PickedUp)
                             {
+                                Thread.Sleep(delay);
                                 logic.DroneDelivere(droneId);
-                            refresh();
-
-                                Thread.Sleep((int)(drn.ParcelTransfer.Distance * speed * timeScale));
+                                refresh();
                             }
                         }
                         catch (IdDosntExists) { }
@@ -64,10 +63,10 @@ namespace Simulator
                     case DroneStatuses.Matance:
                         try
                         {
-                            double percenageGap = 100 - drone.Battery;
-                            double chargingPeriod = percenageGap * logic.GetChargingSpeed();
+                            double percenageGap = 100 - drone.BatteryStat;
+                            double chargingPeriod = percenageGap * ChargingSpeed;
                             // multiply chargingPeriod in 3600 to make it sec from hours
-                            Thread.Sleep((int)(timeScale * 3600 * chargingPeriod));
+                            Thread.Sleep(delay);
                             logic.DroneReleaseCharge(droneId, chargingPeriod);
                         }
                         catch (IdDosntExists) { }

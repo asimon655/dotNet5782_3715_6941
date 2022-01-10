@@ -2,16 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int id)
         {
             return Convert(GetDroneToList(id));
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone, int stationId)
         {
             // throw error if the DroneStat and Weight are out of the enum range
@@ -58,6 +60,7 @@ namespace BL
             // if the data.AddDrone didnt fail its safe to add the drone
             drones.Add(TmpDrnLst);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DroneCharge(int droneId)
         {
             DroneList drony = GetDroneToList(droneId);
@@ -91,6 +94,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }    
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DroneReleaseCharge(int droneId, double chargingPeriod)
         {
             if (chargingPeriod < 0)
@@ -122,6 +126,7 @@ namespace BL
             // if the Station cant be found no worries maybe the station was deleted in the mean while
             catch (DO.IdDosntExists) { }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(int droneId, string droneName)
         {
             DO.Drone Drony = new DO.Drone() {
@@ -140,6 +145,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void BindParcelToDrone(int droneId)
         {
             DroneList drony = GetDroneToList(droneId);
@@ -185,6 +191,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DronePickUp(int droneId)
         {
             DroneList drony = GetDroneToList(droneId);
@@ -212,6 +219,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DroneDelivere(int droneId)
         {
             DroneList drony = GetDroneToList(droneId);
@@ -243,6 +251,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDrone(int id)
         {
             try
@@ -259,10 +268,12 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneList> GetDrones()
         {
             return drones;
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneList> GetDronesFiltered(IEnumerable<DroneStatuses> statuses, IEnumerable<WeightCategories> weights)
         {
             return drones.Where(x => statuses.Contains(x.DroneStat) && weights.Contains(x.Weight));

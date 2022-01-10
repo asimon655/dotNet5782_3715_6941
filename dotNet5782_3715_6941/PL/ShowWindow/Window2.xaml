@@ -730,7 +730,7 @@
 
                                     </Grid.RowDefinitions>
                                     <Grid>
-                                        <CheckBox Checked="Simulator_Checked" x:Name="Simulator">
+                                        <CheckBox Checked="Simulator_Checked" Unchecked="Simulator_Unchecked" x:Name="Simulator">
                                     
                                         </CheckBox>
                                     </Grid>

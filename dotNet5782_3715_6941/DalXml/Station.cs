@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using DO;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
     internal sealed partial class DalXml : DalApi.IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station station)
         {
             station.IsDeleted = false;
@@ -21,7 +22,7 @@ namespace Dal
 
             Write(data);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int id)
         {
             List<Station> stations = Read<Station>();
@@ -35,22 +36,22 @@ namespace Dal
             }
             return station;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations()
         {
             return Read<Station>().FindAll(s => !s.IsDeleted);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStations(Predicate<Station> expr)
         {
             return Read<Station>().FindAll(s => !s.IsDeleted && expr(s));
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CountStations(Func<Station, bool> expr)
         {
             return Read<Station>().Count(s => !s.IsDeleted && expr(s));
         }
-        
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStations(Station station)
         {
             List<Station> stations = Read<Station>();
@@ -62,6 +63,7 @@ namespace Dal
             
             Write(stations);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteStation(int id)
         {
             List<Station> stations = Read<Station>();

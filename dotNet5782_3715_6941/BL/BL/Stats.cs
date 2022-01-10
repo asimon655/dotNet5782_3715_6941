@@ -2,11 +2,13 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DronesModelsStats GetDronesModelsStats()
         {
             DronesModelsStats res = new DronesModelsStats();
@@ -25,7 +27,7 @@ namespace BL
 
             return res;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetDronesStatusesStats()
         {
             BO.DroneStatuses[] statuses = (BO.DroneStatuses[])Enum.GetValues(typeof(BO.DroneStatuses));
@@ -34,7 +36,7 @@ namespace BL
                                            select (double)drones.Count(x => x.DroneStat == status);
             return filtered.ToArray();
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetDronesWeightsStats()
         {
             BO.WeightCategories[] weights = (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories));
@@ -43,7 +45,7 @@ namespace BL
                                            select System.Convert.ToDouble(drones.Count(x => x.Weight == weight));
             return filtered.ToArray();
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetParcelsPrioretiesStats()
         {
             BO.Priorities[] priorities = (BO.Priorities[])Enum.GetValues(typeof(BO.Priorities));
@@ -52,7 +54,7 @@ namespace BL
                                            select (double)data.CountParcels(x => x.Priority == (DO.Priorities)priority);
             return filtered.ToArray();
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetParcelsStatusesStats()
         {
             BO.ParcelStatus[] statuses = (BO.ParcelStatus[])Enum.GetValues(typeof(BO.ParcelStatus));
@@ -61,7 +63,7 @@ namespace BL
                                            select (double)data.CountParcels(x => ParcelStatusC(x) == status);
             return filtered.ToArray();
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] GetParcelsWeightsStats()
         {
             BO.WeightCategories[] weights = (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories));

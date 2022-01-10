@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using DO;
-
+using System.Runtime.CompilerServices;
 
 namespace Dal
 {
     internal sealed partial class DalXml : DalApi.IDal
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDroneCharge(DroneCharge droneCharge)
         {
             List<DroneCharge> data = Read<DroneCharge>();
@@ -19,7 +20,7 @@ namespace Dal
 
             Write(data);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge GetDroneCharge(int droneId)
         {
             List<DroneCharge> dronesCharges = Read<DroneCharge>();
@@ -33,22 +34,22 @@ namespace Dal
             }
             return droneCharge;
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDronesCharges()
         {
             return Read<DroneCharge>();
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> expr)
         {
             return Read<DroneCharge>().FindAll(expr);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int CountDronesCharges(Func<DroneCharge, bool> expr)
         {
             return Read<DroneCharge>().Count(expr);
         }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDroneCharge(int droneId)
         {
             List<DroneCharge> data = Read<DroneCharge>();

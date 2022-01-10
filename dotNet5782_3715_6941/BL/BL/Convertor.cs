@@ -147,7 +147,7 @@ namespace BL
                 throw new EnumOutOfRange("the parcel is not even decleared ", -1);
             return (ParcelStatus)caseNum;
         }
-        public ParcelStatus ParcelStatusC(Parcel parcel)
+        static public ParcelStatus ParcelStatusC(Parcel parcel)
         {
 
             int caseNum = -1;

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL
 {
@@ -10,7 +6,7 @@ namespace BL
     {
         public void StartSimulator(int droneId, Action refresh, Func<bool> stop)
         {
-            new Simulator.Simulator(this, droneId, refresh, stop);
+            new Simulator.Simulator(Instance, droneId, refresh, stop);
         }
     }
 }

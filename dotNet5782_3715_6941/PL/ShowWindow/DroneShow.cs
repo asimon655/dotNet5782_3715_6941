@@ -77,17 +77,14 @@ namespace PL
         BO.Drone drn;
         Action reset;
         BackgroundWorker backgroundWorker1;
-        public Window2(BlApi.Ibl log, BO.Drone drn , Action  ? action = null 
-        )
+        bool stop = false;
+        public Window2(BlApi.Ibl log, BO.Drone drn , Action  ? action = null)
         {
             InitializeComponent();
-            this.backgroundWorker1 = new BackgroundWorker();
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            backgroundWorker1.ProgressChanged += Worker_ProgressChanged;
-            backgroundWorker1.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            backgroundWorker1 = new BackgroundWorker();
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.WorkerReportsProgress = true;
-        
-
+            backgroundWorker1.ProgressChanged += (s, e) => Reset();
             bool valid = true;
             this.drn = drn;
             MetaDataCstReset(drn);
@@ -321,21 +318,21 @@ namespace PL
 
         #endregion
         #region Simulator 
-        bool SimulatorStat()
-        { return (bool)Simulator.IsChecked;  }
         private void Simulator_Checked(object sender, RoutedEventArgs e)
         {
+            stop = true;
+            if (!backgroundWorker1.IsBusy)
+                backgroundWorker1.RunWorkerAsync();
+        }
 
-            backgroundWorker1.RunWorkerAsync("hello");
+        private void Simulator_Unchecked(object sender, RoutedEventArgs e)
+        {
+            stop = false;
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            Dispatcher.Invoke(() =>
-            {
-                log.StartSimulator(drn.Id, ()=>{
-                    backgroundWorker1.ReportProgress(23);}, SimulatorStat);
-            });
-          
+            Action refresh = () => backgroundWorker1.ReportProgress(1);
+            log.StartSimulator(drn.Id, refresh, () => stop);
         }
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {

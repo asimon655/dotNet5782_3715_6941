@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer GetCostumer(int id)
         {
             try
@@ -17,6 +19,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddCustomer(Customer costumer)
         {
             if (costumer.Loct.Lattitude > 90 || costumer.Loct.Lattitude < -90 || costumer.Loct.Longitude > 180 || costumer.Loct.Longitude < -180)
@@ -38,6 +41,7 @@ namespace BL
                 throw new IdAlreadyExists( err);
             } 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCostumer(int costumerId, string costumerName = null, string costumerPhone = null)
         {
             try
@@ -54,6 +58,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteCustomer(int id)
         {
             try
@@ -65,10 +70,12 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerList> GetCustomers()
         {
             return data.GetCustomers().Select(ConvertList);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<CustomerList> GetCostumersFiltered(IEnumerable<int>? reached, IEnumerable<int>? Unreched, IEnumerable<int>? ParcelGot, IEnumerable<int>? InTheWay)
         {
             return data.GetCustomers(x => (reached is null || reached.Contains(data.CountParcels(x => x.SenderId == x.Id && ParcelStatusC(x) == ParcelStatus.Delivered))) &&

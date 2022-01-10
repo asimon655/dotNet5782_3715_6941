@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BO;
+using System.Runtime.CompilerServices;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int stationId)
         {
             try
@@ -17,6 +19,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station station)
         {
             if (station.LoctConstant.Lattitude > 90 || station.LoctConstant.Lattitude < -90 || station.LoctConstant.Longitude > 180 || station.LoctConstant.Longitude < -180)
@@ -39,6 +42,7 @@ namespace BL
                 throw new IdAlreadyExists(err);
             } 
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(int stationId, string? stationName = null, int? stationChargeSlots = null)
         {
             try
@@ -64,6 +68,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteStation(int id)
         {
             try
@@ -75,14 +80,17 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<StationList> GetStations()
         {
             return data.GetStations().Select(ConvertList);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<StationList> GetStationsWithFreePorts()
         {
             return data.GetStations(x => x.ChargeSlots > 0).Select(ConvertList);
         }
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<StationList> GetStationsFiltered(IEnumerable<int>? FreePorts, IEnumerable<int>? BusyPorts)
         {
             return data.GetStations(x => (FreePorts is null || FreePorts.Contains(x.ChargeSlots)) &&

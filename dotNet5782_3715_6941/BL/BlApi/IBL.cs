@@ -1,6 +1,7 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlApi
 {
@@ -229,14 +230,14 @@ namespace BlApi
         /// download random pic from thispersondoesnotexist.com
         /// </summary>
         /// <returns></returns>
-        string GetRandomPersonPic();
+        Task<string> GetRandomPersonPic();
         /// <summary>
         /// return Drone pic by Model name
         /// if there is no saved pic it will download the first img from google photos search
         /// </summary>
         /// <param name="Model">model name of the drone</param>
         /// <returns>path of the pic</returns>
-        string GetDronePic(string Model);
+        Task<string> GetDronePic(string Model);
         /// <summary>
         /// return Customer pic by csutomer Id
         /// if there is no throw noPic
@@ -255,10 +256,10 @@ namespace BlApi
         /// the first object is the question and then comes the answers
         /// </summary>
         /// <returns>List Of string</returns>
-        List<string> GetCapchaQuestion();
+        Task<List<string>> GetCapchaQuestion();
         #endregion
 
-        #region
+        #region simulator
         void StartSimulator(int droneId, Action refresh, Func<bool> stop);
         #endregion
 
@@ -308,11 +309,5 @@ namespace BlApi
         /// 
 
         #endregion
-
-        DroneList GetDroneToList(int Id);
-        Drone Convert(DroneList drone);
-        ParcelStatus ParcelStatusC(Parcel parcel);
-        double GetChargingSpeed();
-
     }
 }
