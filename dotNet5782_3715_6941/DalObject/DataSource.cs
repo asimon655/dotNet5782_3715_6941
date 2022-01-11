@@ -33,7 +33,7 @@ namespace Dal
                 /// constant for loop limit - right programing rules 
                 const int StationInit = 20;
                 const int DroneInit = 50;
-                const int ParcelInit = 10;
+                const int ParcelInit = 1000;
                 const int CostumerInit = 100;
 
                 string[] names = { "James", "James", "John", "Michael", "William", "David", "David",
@@ -137,11 +137,12 @@ namespace Dal
 
             static internal double randomLattitude()
             {
-                return 34.740364d + RandomGen.NextDouble() * (34.909191 - 34.740364);
+               
+                return 31.991251d + RandomGen.NextDouble() * (32.099796 - 31.991251d);
             }
             static internal double randomLongitude()
             {
-                return 31.991251d + RandomGen.NextDouble() * (32.099796 - 31.991251d);
+                return 34.740364d + RandomGen.NextDouble() * (34.909191 - 34.740364);
             }
         }
     }

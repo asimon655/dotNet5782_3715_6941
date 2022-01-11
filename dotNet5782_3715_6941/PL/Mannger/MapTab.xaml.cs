@@ -31,8 +31,7 @@ namespace PL
             }
             #endregion
             #region Map Initialize 
-            MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
-            MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
+
             IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
             IEnumerable<int> idStation = from stat in dat.GetStations() select stat.Id;
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
@@ -43,10 +42,21 @@ namespace PL
             MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
             #endregion
         }
+        public void ResetLoct()
+        {
+            IEnumerable<BO.DroneList> NewLocts = dat.GetDrones();
+            MapHELP.ResetLoct(MyMapControl, NewLocts);
+            MyMapControl.Refresh();
+
+
+        }
         BlApi.Ibl dat;
         public MapTab(BlApi.Ibl dat)
         {
+     
             InitializeComponent();
+            MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
+            MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
             this.dat = dat;
             Reset();
         }

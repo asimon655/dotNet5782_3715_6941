@@ -48,7 +48,7 @@ namespace PL
             ClientsTab Client = new ClientsTab(dat);
             StaionsTab Stat = new StaionsTab(dat);
             ParcelTab pcl = new ParcelTab(dat);
-            Drn.reset = ()=>{ pcl.Reset(); Map.Reset(); /*Stat.Reset(); ;*/ };
+            Drn.reset = ()=>{ pcl.Reset(); Map.ResetLoct(); /*Stat.Reset(); ;*/ };
             Client.reset = () => { };//Map.Reset(); };
             pcl.reset = () => { };
             Stat.reset = () => { /*Map.Reset();*/ };

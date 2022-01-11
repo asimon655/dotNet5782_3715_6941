@@ -98,7 +98,7 @@ namespace PL
             graph.Plot.Clear();
            
         }
-        
+
         #endregion
 
 

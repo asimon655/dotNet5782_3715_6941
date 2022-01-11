@@ -33,26 +33,29 @@ namespace PL
 
     public static class MapHELP
     {
-        public static Dictionary<String, int>  Cache = new Dictionary<String, int>(); 
+
+
+
+
         #region Internal Functions
         #region Constans 
         private const double Radius = 6378137;
-            private const double E = 0.0000000848191908426;
-            private const double D2R = Math.PI / 180;
-            private const double PiDiv4 = Math.PI / 4;
+        private const double E = 0.0000000848191908426;
+        private const double D2R = Math.PI / 180;
+        private const double PiDiv4 = Math.PI / 4;
         #endregion
-        private static  Mapsui.Geometries.Point FromLonLat(double lon, double lat)
-            {
-                var lonRadians = D2R * lon;
-                var latRadians = D2R * lat;
+        private static Mapsui.Geometries.Point FromLonLat(double lon, double lat)
+        {
+            var lonRadians = D2R * lon;
+            var latRadians = D2R * lat;
 
-                var x = Radius * lonRadians;
-                //y=a×ln[tan(π/4+φ/2)×((1-e×sinφ)/(1+e×sinφ))^(e/2)]
-                var y = Radius * Math.Log(Math.Tan(PiDiv4 + latRadians * 0.5) / Math.Pow(Math.Tan(PiDiv4 + Math.Asin(E * Math.Sin(latRadians)) / 2), E));
+            var x = Radius * lonRadians;
+            //y=a×ln[tan(π/4+φ/2)×((1-e×sinφ)/(1+e×sinφ))^(e/2)]
+            var y = Radius * Math.Log(Math.Tan(PiDiv4 + latRadians * 0.5) / Math.Pow(Math.Tan(PiDiv4 + Math.Asin(E * Math.Sin(latRadians)) / 2), E));
 
-                return new Mapsui.Geometries.Point(x, y);
-            }
-        private static  int ?  GetBitmapIdForEmbeddedResource(string imagePath)
+            return new Mapsui.Geometries.Point(x, y);
+        }
+        private static int? GetBitmapIdForEmbeddedResource(string imagePath)
         {
             int val;
             if (!Cache.TryGetValue(imagePath, out val))
@@ -75,14 +78,14 @@ namespace PL
                     return null;
 
                 }
-          
+
             }
 
             return val;
 
 
         }
-        private static IEnumerable<BO.Location>[] MovePoints(BlApi.Ibl dat ,  IEnumerable<BO.Location> pointsToDraw , int [] StartIndexes ) {
+        private static IEnumerable<BO.Location>[] MovePoints(BlApi.Ibl dat, IEnumerable<BO.Location> pointsToDraw, int[] StartIndexes) {
             List<BO.Location> pointsonce = new List<BO.Location>();
             {
                 int i = 0;
@@ -100,11 +103,11 @@ namespace PL
                 }
             }
             IEnumerable<BO.Location>[] ReturnVal = new IEnumerable<BO.Location>[StartIndexes.Length];
-            for (int i = 0; i < StartIndexes.Length ; i++)
+            for (int i = 0; i < StartIndexes.Length; i++)
             {
                 if (i == (StartIndexes.Length - 1))
                     ReturnVal[i] = pointsonce.GetRange(StartIndexes[i], pointsToDraw.Count() - StartIndexes[i]);
-                else ReturnVal[i] = pointsonce.GetRange(StartIndexes[i], StartIndexes[i + 1] - StartIndexes[i] );
+                else ReturnVal[i] = pointsonce.GetRange(StartIndexes[i], StartIndexes[i + 1] - StartIndexes[i]);
             }
             return ReturnVal;
 
@@ -118,10 +121,11 @@ namespace PL
             return null;
         }
         #endregion
-        
-        #region Fields
-        #region Cache
 
+        #region Fields
+        private static List<Mapsui.Geometries.Point> pointsList = new List<Mapsui.Geometries.Point>();
+        #region Cache
+        private static Dictionary<String, int> Cache = new Dictionary<String, int>();
         #endregion
         #endregion
 
@@ -143,7 +147,7 @@ namespace PL
             int[] StartsIndexes = new int[3] { 0, DronePoints.Count(), DronePoints.Count() + StationsPoints.Count() };
             return MovePoints(dat, ALLPOINTS, StartsIndexes);
         }
-        internal static void DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
+        internal static async void DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
         {
 
             Random rng = new Random();
@@ -183,9 +187,14 @@ namespace PL
                 }
                 if (path is null)
                 {
-                    if (!File.Exists(Window2.TMP + @"image" + Names.Skip(i).First().Replace(" ", "_") + ".png"))
-                        Window2.SaveFirstImage(Names.Skip(i).First());
-                    feature.Styles.Add(CreateSymbolStyle(Window2.TMP + @"image" + Names.Skip(i).First().Replace(" ", "_") + ".png", scale));
+                    pointsList.Add(pt);
+                    if (!File.Exists(PhotoAsync.makePath(Names.Skip(i).First())))
+                        await PhotoAsync.SaveFirstImageAsync(Names.Skip(i).First());
+                    
+                     feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Names.Skip(i).First()), scale));
+                 
+                      
+                    
                 }
                 else
                 {
@@ -199,7 +208,22 @@ namespace PL
 
             MyMapControl.Map.Layers.Add(ly);
             MyMapControl.Refresh();
-        } 
+        }
+        internal static void ResetLoct(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.DroneList> NewLoct)
+        {
+            for (int i = 0; i < NewLoct.Count(); i++)
+            {
+                Mapsui.Geometries.Point tmp = FromLonLat(NewLoct.Skip(i).First().Loct.Longitude, NewLoct.Skip(i).First().Loct.Lattitude);
+                pointsList.Skip(i).First().X = tmp.X;
+                pointsList.Skip(i).First().Y = tmp.Y;
+            }
+        
+        
+        
+        }
+
+
+
         #endregion
 
     }

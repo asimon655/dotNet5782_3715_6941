@@ -20,16 +20,16 @@ namespace PL
         #region Constans 
         internal const string FaceAIURL = "https://thispersondoesnotexist.com/image";
         internal const string GooglePhotosHeader = @"https://www.google.com/search?q=";
-        internal const string GoooglePhotosTail = @"&tbm=isch&ved=2ahUKEwj2__aHx8P0AhVNwoUKHWOxAyMQ2-cCegQIABAA&oq=mavic+3+cine&gs_lcp=CgNpbWcQAzIHCCMQ7wMQJzIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGDIECAAQGFCPDliPDmDuD2gAcAB4AIABhQGIAfoBkgEDMC4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cOqnYfaHCc2ElwTj4o6YAg&bih=596&biw=1229";
-        internal const string ProtectKeyWord = "@+drone";
+        internal const string GoooglePhotosTail = @"&tbm=isch&hl=iw&tbs=ic:trans&sa=X&ved=0CAMQpwVqFwoTCKjYjPC9qvUCFQAAAAAdAAAAABAI&biw=1522&bih=769";
         static internal string TMP = System.IO.Path.GetTempPath();
         internal const  string fileEnd = ".png";
         static internal readonly ImageFormat fileEndEnum =  ImageFormat.Png;
         const string RecognationName = @"image";
+        static private string Plus = "%20";
         static internal readonly string fullPathHeadder = TMP + RecognationName;
         static internal readonly string fullPathTail = fileEnd;
         internal static string makePath<T>(T obj) => fullPathHeadder + obj.ToString().Replace(" ", "_") + fullPathTail;
-        internal static string makePathDrnSearch<T>(T obj) => GooglePhotosHeader + obj.ToString().Replace(" ", "+") + GoooglePhotosTail;
+        internal static string makePathDrnSearch<T>(T obj) => GooglePhotosHeader + obj.ToString().Replace(" ",Plus) + GoooglePhotosTail;
 
         #endregion
         #region Costumers 
@@ -40,17 +40,10 @@ namespace PL
             try
             {
 
-                Stream stream = await client.OpenReadTaskAsync(imageUrl);
 
-                Bitmap bitmap; bitmap = new Bitmap(stream);
+                await client.DownloadFileTaskAsync(imageUrl, filename);
+                client.Dispose();
 
-                if (bitmap != null)
-                {
-                    await Task.Run(() => bitmap.Save(filename, format));
-                }
-
-                stream.Flush();
-                stream.Close();
                 client.Dispose();
                 if (!(FileOther is null))
                 {
