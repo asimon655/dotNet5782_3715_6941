@@ -31,8 +31,9 @@ namespace PL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
 
-    public static class MapHELP 
+    public static class MapHELP
     {
+        public static Dictionary<String, int>  Cache = new Dictionary<String, int>(); 
         #region Internal Functions
         #region Constans 
         private const double Radius = 6378137;
@@ -53,24 +54,31 @@ namespace PL
             }
         private static  int ?  GetBitmapIdForEmbeddedResource(string imagePath)
         {
-            try
+            int val;
+            if (!Cache.TryGetValue(imagePath, out val))
             {
-                using (FileStream fs = new FileStream(imagePath, FileMode.Open))
+                try
                 {
-                    var memoryStream = new MemoryStream();
-                    fs.CopyTo(memoryStream);
-                    var bitmapId = BitmapRegistry.Instance.Register(memoryStream);
-                    return bitmapId;
+                    using (FileStream fs = new FileStream(imagePath, FileMode.Open))
+                    {
+                        var memoryStream = new MemoryStream();
+                        fs.CopyTo(memoryStream);
+                        var bitmapId = BitmapRegistry.Instance.Register(memoryStream);
+                        Cache.Add(imagePath, bitmapId);
+                        return bitmapId;
+                    }
+
                 }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error");
+                    return null;
+
+                }
+          
             }
-            catch (Exception err)
-            {
-                //MessageBox.Show(err.Message, "Error");
-                
-            
-            }
-            return null; 
-            
+
+            return val;
 
 
         }

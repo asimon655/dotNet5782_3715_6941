@@ -170,7 +170,7 @@ namespace BL
         {
             DroneList drone = drones.FirstOrDefault(s => s.Id == Id);
             /// if the Drone wasnt found throw error
-            if (drone.Id != Id)
+            if (!(drone is null ) && drone.Id != Id)
             {
                 throw new IdDosntExists("the Id could not be found", Id);
             }

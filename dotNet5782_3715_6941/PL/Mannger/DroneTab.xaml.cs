@@ -262,6 +262,7 @@ namespace PL
 
                 int id = (int)(sender as Button).Tag;
                 dat.DeleteDrone(id);
+                ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
                 Reset();
                 reset();
 
