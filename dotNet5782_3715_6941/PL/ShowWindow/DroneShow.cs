@@ -43,36 +43,44 @@ namespace PL
 
 
         }
-        void MetaDataCstReset(BO.Drone drn = null )
+        internal void MetaDataCstReset(  System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
         {
-            if (drn is null) {
-                Photo1.Source = new BitmapImage(new Uri("https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"));
-                Photo2.Source = new BitmapImage(new Uri("https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"));
-
-            }
+            if (!File.Exists(PhotoAsync.makePath(TargetId)))
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x => {
+                    if (x.Result)
+                       Dispatcher.Invoke(() =>
+                        {
+                            Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                        });
+                });
             else
-            {
-                if (!(drn.ParcelTransfer is null))
-                {
-                    bool valid = true;
-                    if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"))
-                        valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id + ".png", ImageFormat.Png);
-                    if (valid)
-                        Photo1.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"));
-                    valid = true;
-                    if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png"))
-                        valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png", ImageFormat.Png, TMP + @"image" + drn.ParcelTransfer.Target.id + ".png");
-                    if (valid)
-                        Photo2.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png"));
+                Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+            if (!File.Exists(PhotoAsync.makePath(SenderId)))
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x => {
+                    if (x.Result)
 
-                }
-            }
-   
+                        Dispatcher.Invoke(() =>
+                        {
+                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                        });
+                });
+            else
+                Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
 
 
         }
 
         #endregion
+        #region Populate
+
+
+
+
+
+
+
+        #endregion
+
         #region DroneShow
         BO.Drone drn;
         Action reset;
@@ -84,10 +92,10 @@ namespace PL
             backgroundWorker1 = new BackgroundWorker();
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.ProgressChanged += (s, e) => Reset();
+            backgroundWorker1.ProgressChanged += (s, e) => { Reset(); reset(); };
             bool valid = true;
             this.drn = drn;
-            MetaDataCstReset(drn);
+  
             this.log = log;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
@@ -104,6 +112,8 @@ namespace PL
             {
                 Photo0.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
             }
+            if(!(drn.ParcelTransfer is null ))
+                MetaDataCstReset(Photo1, Photo2, drn.ParcelTransfer.Sender.id, drn.ParcelTransfer.Target.id);
 
         }
 
@@ -216,7 +226,6 @@ namespace PL
                 log.BindParcelToDrone(drn.Id);
                 drn = log.GetDrone(drn.Id);
                this.DataContext = drn;
-                MetaDataCstReset(drn);
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
             }
             catch (Exception err)
@@ -258,7 +267,7 @@ namespace PL
                 log.DroneDelivere(drn.Id);
                drn = log.GetDrone(drn.Id);
                this.DataContext = drn;
-                MetaDataCstReset();
+
                 ParcelOpsRFS(null);
             }
             catch (Exception err)
@@ -334,6 +343,12 @@ namespace PL
             Action refresh = () => backgroundWorker1.ReportProgress(1);
             log.StartSimulator(drn.Id, refresh, () => stop);
         }
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            object result = e.Result;
+        }
+
+
         #endregion
 
 

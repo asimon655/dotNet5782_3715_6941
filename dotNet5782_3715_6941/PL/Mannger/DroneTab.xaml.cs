@@ -65,6 +65,14 @@ namespace PL
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("DroneStat");
             view.GroupDescriptions.Add(groupDescription);
             #endregion
+            Weight = WeightDefault;
+            Stat = StatDefault;
+            StatusSelectorWeigthStat.SelectedIndex = -1;
+            StatusSelectorDrnStat.SelectedIndex = -1;
+            foreach (CheckBoxStatus item in predStat)
+            {
+                item.Checked = true;
+            }
             ResetPlots();
 
 
@@ -73,10 +81,10 @@ namespace PL
         #region Buttons Functions
 
 
-        void ResetPlots() {
+        async void ResetPlots() {
 
             #region Plots Initialize 
-            BO.DronesModelsStats dronesStats = dat.GetDronesModelsStats();
+            BO.DronesModelsStats dronesStats = await Task.Run( () => dat.GetDronesModelsStats());
             if (dronesStats.names.Length != 0 && dronesStats.vals.Length != 0 && dronesStats.pos.Length != 0)
             {
 
@@ -88,18 +96,9 @@ namespace PL
 
         }
 
-        public void Reset()
+        public async void Reset()
         {
-
-            Weight = WeightDefault;
-            Stat = StatDefault;
-            StatusSelectorWeigthStat.SelectedIndex = -1;
-            StatusSelectorDrnStat.SelectedIndex = -1;
-            foreach (CheckBoxStatus item in predStat)
-            {
-                item.Checked = true;
-            }
-            ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
+            //ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
             ResetPlots();
         }
 
@@ -274,6 +273,11 @@ namespace PL
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             ResultsOfSearch.ItemsSource = dat.SmartSearchDrone(SmartTB.Text);
+        }
+
+        private void ListOf_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

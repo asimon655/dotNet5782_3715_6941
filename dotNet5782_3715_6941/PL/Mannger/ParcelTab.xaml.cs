@@ -23,114 +23,31 @@ namespace PL
     {
         #region Fields 
         BlApi.Ibl dat;
+        bool works = false; 
         #endregion
         public Action reset;
         public void Reset()
         {
-            #region Plots Initialize 
-            double[] parcelstat = dat.GetParcelsStatusesStats();
-            double[] WeightStat = dat.GetParcelsWeightsStats();
-            double[] PrioStat = dat.GetParcelsPrioretiesStats();
-            ClearGraph(WpfPlotPack1);
-            ClearGraph(WpfPlotPack2);
-            ClearGraph(WpfPlotPack3);
-            if (parcelstat.Length != 0)
-                CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, parcelstat);
-            if (WeightStat.Length != 0)
-                CreateDountPie<BO.WeightCategories>(WpfPlotPack2, WeightStat);
-            if (PrioStat.Length != 0)
-                CreateDountPie<BO.Priorities>(WpfPlotPack3, PrioStat);
-            #endregion
-            #region ListView Grouping 
-            ListOf.ItemsSource = dat.GetParcels();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("ParcelStatus");
-            view.GroupDescriptions.Add(groupDescription);
-            #endregion
+            PopulateResetList();
+          // PopulateResetScottPlot();
+
+
 
         }
-        public ParcelTab(BlApi.Ibl dat )
+
+        public ParcelTab(BlApi.Ibl dat)
         {
             InitializeComponent();
             this.dat = dat;
             Reset();
-       
 
 
-
-        }
-
-
-        #region ScottPlot
-        internal void createModelsBar(ScottPlot.WpfPlot Bar, double[] pos, string[] names, double[] vals)
-        {
-            Bar.Plot.Clear();
-            Bar.Plot.AddBar(vals, pos, ColorTranslator.FromHtml("#6600cc"));
-            Bar.Plot.XTicks(pos, names);
-            Bar.Plot.SetAxisLimits(yMin: 0);
-            Bar.Plot.Clear();
-
-
-        }
-        internal void  ClearGraph(ScottPlot.WpfPlot graph)
-        {
-            graph.Plot.Clear();
-            graph.Render();
-        }
-        internal void CreateSingleGauge<T>(ScottPlot.WpfPlot Gauge, double[] values)
-        {
-
-            Gauge.Plot.Clear();
-            Gauge.Plot.Palette = ScottPlot.Drawing.Palette.Nord;
-
-            var gauges = Gauge.Plot.AddRadialGauge(values);
-            gauges.Clockwise = false;
-
-            Gauge.Plot.AxisAuto(0);
-
-            Gauge.Render();
-
-        }
-        internal void CreateDountPie<T>(ScottPlot.WpfPlot Pie, double[] values)
-        {
-            Pie.Plot.Clear();
-            string[] labels = Enum.GetNames(typeof(T));
-
-
-            // Language colors from https://github.com/ozh/github-colors
-            System.Drawing.Color[] sliceColors =
-            {
-                ColorTranslator.FromHtml("#DBCDC6"),
-                ColorTranslator.FromHtml("#DD99BB"),
-                ColorTranslator.FromHtml("#7B506F"),
-                ColorTranslator.FromHtml("#1F1A38"),
-                ColorTranslator.FromHtml("#C7EFCF"),
-};
-
-            // Show labels using different transparencies
-            System.Drawing.Color[] labelColors =
-                new System.Drawing.Color[] {
-     System.Drawing.Color.FromArgb(255,  System.Drawing.Color.White),
-     System.Drawing.Color.FromArgb(100,  System.Drawing.Color.White),
-     System.Drawing.Color.FromArgb(250,  System.Drawing.Color.White),
-     System.Drawing.Color.FromArgb(150,  System.Drawing.Color.White),
-     System.Drawing.Color.FromArgb(200,  System.Drawing.Color.White),
-            };
-
-            var pie = Pie.Plot.AddPie(values);
-            pie.SliceLabels = labels;
-            pie.ShowLabels = true;
-            pie.ShowPercentages = true;
-
-            pie.SliceFillColors = sliceColors;
-            pie.SliceLabelColors = labelColors;
-            Pie.Render();
 
 
         }
 
 
-        #endregion
+
 
         private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -139,7 +56,7 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Window add = new ParcelShow(dat); 
+            Window add = new ParcelShow(dat);
             add.Closed += (sender, e) =>
             {
                 Reset();
@@ -152,25 +69,90 @@ namespace PL
         {
             try
             {
-      
+
                 int id = (int)(sender as Button).Tag;
                 dat.DeleteParcel(id);
                 Reset();
-                reset();
+                //reset();
 
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message, "Error");
             }
-  
+
         }
 
 
-
+            
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             ResultsOfSearch.ItemsSource = dat.SmartSearchParcel(SmartTB.Text);
         }
+
+        private void ListOf_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        #region Populates
+        async void PopulateResetList()
+        {
+            ListOf.ItemsSource = await Task.Run(() => dat.GetParcels());
+        }
+        async  void PopulateResetScottPlot()
+        {
+            if (works)
+                return;
+
+            #region Plots Initialize 
+            Task<double[]> task1_1 = Task.Run(() => dat.GetParcelsStatusesStats());
+            Task<double[]> task2_1 = Task.Run(() => dat.GetParcelsWeightsStats());
+            Task<double[]> task3_1 = Task.Run(() => dat.GetParcelsPrioretiesStats());
+            Task task1_2 = Task.Run(() => ScottPlotHELP.ClearGraph(WpfPlotPack1));
+            Task task2_2 = Task.Run(() => ScottPlotHELP.ClearGraph(WpfPlotPack2));
+            Task task3_2 = Task.Run(() => ScottPlotHELP.ClearGraph(WpfPlotPack3));
+            double[] parcelstat = await task1_1;
+            double[] WeightStat =await task2_1 ;
+            double[] PrioStat = await task3_1; //Get all the data
+            await task1_2;
+            await task2_2;
+            await task3_2;
+            if (works)
+                return;
+            Task ?  task1_3 = null ;
+            Task ?  task2_3 =null ;
+            Task ?  task3_3 =null ;
+            if (parcelstat.Length != 0)
+                task1_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, parcelstat));
+            if (WeightStat.Length != 0)
+                task2_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.WeightCategories>(WpfPlotPack2, WeightStat));
+            if (PrioStat.Length != 0)
+                task3_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.Priorities>(WpfPlotPack3, PrioStat));
+            if (!(task1_3 is null))
+                await task1_3;
+            if (!(task2_3 is null))
+                await task2_3;
+            if (!(task3_3 is null))
+                await task3_3;
+             if (works)
+                return;
+            
+            if (!works)
+            {
+                works = true; 
+                Dispatcher.Invoke(() =>
+                {
+                    WpfPlotPack1.Refresh();
+                    WpfPlotPack2.Refresh();
+                    WpfPlotPack3.Refresh();
+                });
+                works = false;
+            }
+
+
+            #endregion
+
+        }
+        #endregion
     }
 }

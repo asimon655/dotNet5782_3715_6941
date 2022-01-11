@@ -37,10 +37,10 @@ namespace PL
             IEnumerable<int> idStation = from stat in dat.GetStations() select stat.Id;
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
             IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
-            IEnumerable<BO.Location>[] ALLPOINTSMOVED = SetPoints();
-            DrawPointsOnMap(ALLPOINTSMOVED[0], ids, 0.45, null, false, Models);
-            DrawPointsOnMap(ALLPOINTSMOVED[1], idStation, 0.25, "\\PL\\Images\\BASESTATION.png");
-            DrawPointsOnMap(ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
+            IEnumerable<BO.Location>[] ALLPOINTSMOVED = MapHELP.SetPoints(dat);
+           MapHELP.DrawPointsOnMap(MyMapControl,ALLPOINTSMOVED[0], ids, 0.45, null, false, Models);
+            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[1], idStation, 0.25, "\\PL\\Images\\BASESTATION.png");
+            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
             #endregion
         }
         BlApi.Ibl dat;

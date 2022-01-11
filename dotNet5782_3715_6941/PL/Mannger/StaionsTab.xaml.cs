@@ -31,11 +31,7 @@ namespace PL
             ListOf.ItemsSource = dat.GetStations();
             #endregion
 
-            #region ListView Grouping 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("BusyPorts");
-            view.GroupDescriptions.Add(groupDescription);
-            #endregion
+      
 
         }
         public StaionsTab(BlApi.Ibl dat)

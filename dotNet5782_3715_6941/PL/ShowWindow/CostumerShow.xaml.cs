@@ -28,8 +28,26 @@ namespace PL
         BlApi.Ibl dat;
         IEnumerable<string> Answers;
         static internal string TMP = System.IO.Path.GetTempPath();
-        string file=""; 
+        string file="";
         #endregion
+        internal void MetaDataCstReset(System.Windows.Controls.Image Photo2 ,int SenderId)
+        {
+            
+            if (!File.Exists(PhotoAsync.makePath(SenderId)))
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum).ContinueWith(x => {
+                    if (x.Result)
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                        });
+                });
+            else
+                Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+
+
+        }
+
         public CostumerShow                                                                                                                                                                                                                                        (BlApi.Ibl dat, BO.Customer cst)
         {
             this.dat = dat;
@@ -47,11 +65,7 @@ namespace PL
             groupDescription = new PropertyGroupDescription("Priority");
             view.GroupDescriptions.Add(groupDescription);
             #endregion
-            bool valid = true;
-            if (!File.Exists(TMP + @"image" + cst.Id + ".png"))
-                valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + cst.Id + ".png", ImageFormat.Png);
-            if (valid)
-                CostumerPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + cst.Id + ".png"));
+            MetaDataCstReset(CostumerPhoto, cst.Id);
         }
 
 
@@ -61,9 +75,9 @@ namespace PL
             InitializeComponent();
 
             this.dat = dat; 
-            List<string> resCaptcha = dat.GetCapchaQuestion();
-            myPopup.DataContext = resCaptcha.First();
-            Answers = resCaptcha.Skip(1);
+            //List<string> resCaptcha = dat.GetCapchaQuestion();
+            //myPopup.DataContext = resCaptcha.First();
+            //Answers = resCaptcha.Skip(1);
             Add.Visibility = Visibility.Visible;
             Show.Visibility = Visibility.Hidden;
             RtbInputFile.Drop += RtbInputFile_Drop;

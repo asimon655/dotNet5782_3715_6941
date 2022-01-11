@@ -12,6 +12,12 @@
 >## DataTemplate x
 >## trigger x
 >## Fix back system 
+>## async map
+>## cache bitmap of map
+>## cache bitmap of trashcan
+>## simulator reset only drone list
+>## use the method simon wrote for pics
+>
 
 
 

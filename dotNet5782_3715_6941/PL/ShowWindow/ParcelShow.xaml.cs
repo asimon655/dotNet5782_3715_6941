@@ -21,6 +21,33 @@ namespace PL
     /// </summary>
     public partial class ParcelShow : Window
     {
+        internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
+        {
+            if (!File.Exists(PhotoAsync.makePath(TargetId)))
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x => {
+                    if (x.Result)
+                        Dispatcher.Invoke(() =>
+                        {
+                            Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                        });
+                });
+            else
+                Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+            if (!File.Exists(PhotoAsync.makePath(SenderId)))
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x => {
+                    if (x.Result)
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                        });
+                });
+            else
+                Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+
+
+        }
+  
         BlApi.Ibl dat;
         static internal string TMP = System.IO.Path.GetTempPath();
         public ParcelShow(BlApi.Ibl dat)
@@ -50,15 +77,6 @@ namespace PL
             Show.Visibility = Visibility.Visible;
             this.DataContext = parcely;
             bool valid = true;
-            if (!File.Exists(TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png"))
-                valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png", ImageFormat.Png);
-            if (valid)
-                Sender.Source = new BitmapImage(new Uri(TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png"));
-            valid = true;
-            if (!File.Exists(TMP + @"image" + parcely.GetterParcelToCostumer.id + ".png"))
-                valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + parcely.GetterParcelToCostumer.id + ".png", ImageFormat.Png, TMP + @"image" + parcely.SenderParcelToCostumer.id + ".png");
-            if (valid)
-                Target.Source = new BitmapImage(new Uri(TMP + @"image" + parcely.GetterParcelToCostumer.id + ".png"));
             valid = true;
             if (!(parcely.ParcelDrone is null))
             {
@@ -70,6 +88,7 @@ namespace PL
                     Drone.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
                 }
             }
+            MetaDataCstReset(  Sender, Target, parcely.GetterParcelToCostumer.id, parcely.SenderParcelToCostumer.id);
 
 
         }

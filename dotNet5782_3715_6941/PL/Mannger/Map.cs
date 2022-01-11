@@ -31,16 +31,16 @@ namespace PL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
 
-    public partial class MapTab : Page
+    public static class MapHELP 
     {
-        #region TO Bl 
+        #region Internal Functions
         #region Constans 
         private const double Radius = 6378137;
             private const double E = 0.0000000848191908426;
             private const double D2R = Math.PI / 180;
             private const double PiDiv4 = Math.PI / 4;
         #endregion
-        Mapsui.Geometries.Point FromLonLat(double lon, double lat)
+        private static  Mapsui.Geometries.Point FromLonLat(double lon, double lat)
             {
                 var lonRadians = D2R * lon;
                 var latRadians = D2R * lat;
@@ -51,7 +51,7 @@ namespace PL
 
                 return new Mapsui.Geometries.Point(x, y);
             }
-        private   int ?  GetBitmapIdForEmbeddedResource(string imagePath)
+        private static  int ?  GetBitmapIdForEmbeddedResource(string imagePath)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace PL
 
 
         }
-        private IEnumerable<BO.Location>[] MovePoints(IEnumerable<BO.Location> pointsToDraw , int [] StartIndexes ) {
+        private static IEnumerable<BO.Location>[] MovePoints(BlApi.Ibl dat ,  IEnumerable<BO.Location> pointsToDraw , int [] StartIndexes ) {
             List<BO.Location> pointsonce = new List<BO.Location>();
             {
                 int i = 0;
@@ -102,7 +102,23 @@ namespace PL
 
 
         }
-        private IEnumerable<BO.Location>[] SetPoints()
+        private static SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double scale)
+        {
+            int? bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
+            if (!(bitmapId is null))
+                return new SymbolStyle { BitmapId = (int)bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = scale, SymbolOffset = new Offset(0.0, 0.0, true) };
+            return null;
+        }
+        #endregion
+        
+        #region Fields
+        #region Cache
+
+        #endregion
+        #endregion
+
+        #region MapTabFuncs
+        internal static IEnumerable<BO.Location>[] SetPoints(BlApi.Ibl dat)
         {
             IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
             IEnumerable<int> idStation = from stat in dat.GetStations() select stat.Id;
@@ -117,27 +133,11 @@ namespace PL
             foreach (var x in UserPoints)
                 ALLPOINTS.Add(x);
             int[] StartsIndexes = new int[3] { 0, DronePoints.Count(), DronePoints.Count() + StationsPoints.Count() };
-            return  MovePoints(ALLPOINTS, StartsIndexes);
-
-
-
-
-
-
-
+            return MovePoints(dat, ALLPOINTS, StartsIndexes);
         }
-        #endregion
-        //
-        private SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double scale)
+        internal static void DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
         {
-            int ?  bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
-            if (!(bitmapId is null)) 
-            return new SymbolStyle { BitmapId = (int )bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = scale, SymbolOffset = new Offset(0.0, 0.0, true) };
-            return null; 
-        }
-        void DrawPointsOnMap(IEnumerable<BO.Location> points , IEnumerable<int> ids ,double scale  , string ?  path ,bool FILL=false, IEnumerable<string> ? Names = null )
-        {
-          
+
             Random rng = new Random();
             var ly = new Mapsui.Layers.WritableLayer();
             Mapsui.Geometries.Point pt;
@@ -146,7 +146,7 @@ namespace PL
             Mapsui.Styles.VectorStyle x2;
             Mapsui.Styles.Color BGColor;
             ly.Style = null;
-            for (int i=0; i<points.Count(); i++)
+            for (int i = 0; i < points.Count(); i++)
             {
                 pt = FromLonLat(points.Skip(i).First().Longitude, points.Skip(i).First().Lattitude);
                 feature = new Mapsui.Providers.Feature { Geometry = pt };
@@ -155,15 +155,16 @@ namespace PL
                             rng.Next(120, 256),
                             rng.Next(120, 256),
                             0);
-             x = new Mapsui.Styles.LabelStyle() {
-                Text = ids.Skip(i).First().ToString(),
-                Font = new Mapsui.Styles.Font { FontFamily = "Courier New", Bold = true, Italic = true, },
-                ForeColor = BGColor,
-                Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 1),
-                HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
-                MaxWidth = 10,
-                WordWrap = LabelStyle.LineBreakMode.TailTruncation
-            };
+                x = new Mapsui.Styles.LabelStyle()
+                {
+                    Text = ids.Skip(i).First().ToString(),
+                    Font = new Mapsui.Styles.Font { FontFamily = "Courier New", Bold = true, Italic = true, },
+                    ForeColor = BGColor,
+                    Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 1),
+                    HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
+                    MaxWidth = 10,
+                    WordWrap = LabelStyle.LineBreakMode.TailTruncation
+                };
                 if (FILL)
                 {
                     x2 = new Mapsui.Styles.VectorStyle
@@ -171,18 +172,18 @@ namespace PL
                         Fill = new Mapsui.Styles.Brush(BGColor),
                     };
                     feature.Styles.Add(x2);
-                } 
+                }
                 if (path is null)
                 {
                     if (!File.Exists(Window2.TMP + @"image" + Names.Skip(i).First().Replace(" ", "_") + ".png"))
                         Window2.SaveFirstImage(Names.Skip(i).First());
-                    feature.Styles.Add(CreateSymbolStyle(Window2.TMP + @"image" +Names.Skip(i).First().Replace(" ", "_") + ".png", scale));
+                    feature.Styles.Add(CreateSymbolStyle(Window2.TMP + @"image" + Names.Skip(i).First().Replace(" ", "_") + ".png", scale));
                 }
                 else
                 {
-                    feature.Styles.Add(CreateSymbolStyle(Directory.GetCurrentDirectory()+path , scale));
+                    feature.Styles.Add(CreateSymbolStyle(Directory.GetCurrentDirectory() + path, scale));
 
-                } 
+                }
                 feature.Styles.Add(x);
                 ly.Add((IFeature)feature);
             }
@@ -190,10 +191,8 @@ namespace PL
 
             MyMapControl.Map.Layers.Add(ly);
             MyMapControl.Refresh();
-        }
-       
-
-
+        } 
+        #endregion
 
     }
 }
