@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "InitalizeXml": {
+      "commandName": "Project",
+      "workingDirectory": "$(SolutionDir)"
+    }
+  }
+}

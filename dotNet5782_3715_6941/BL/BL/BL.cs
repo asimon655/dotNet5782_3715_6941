@@ -113,7 +113,7 @@ namespace BL
                 else // the drone is not binded
                 {
                     // set DroneStat to a random value between Free, Matance
-                    newDrone.DroneStat = (DroneStatuses)RandomGen.Next((int)DroneStatuses.Free, (int)DroneStatuses.Matance);
+                    newDrone.DroneStat = (DroneStatuses)RandomGen.Next((int)DroneStatuses.Free, (int)DroneStatuses.Matance + 1);
                 }
                 if (newDrone.DroneStat == DroneStatuses.Matance)
                 {

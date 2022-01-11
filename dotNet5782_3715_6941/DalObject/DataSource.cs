@@ -36,30 +36,51 @@ namespace Dal
                 const int ParcelInit = 10;
                 const int CostumerInit = 100;
 
+                string[] names = { "James", "James", "John", "Michael", "William", "David", "David",
+                                    "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan"};
+
+                List<int> dronesDelivery = new List<int>();
 
                 for (int i = 0; i < StationInit; i++)
                     Stations.Add(new Station()
                     {
-                        Id = RandomGen.Next(100000000, 999999999),
+                        Id = RandomGen.Next(1000000, 9999999),
                         ChargeSlots = RandomGen.Next(0, 50),
                         Name = "grand station " + i,
-                        Lattitude = RandomGen.NextDouble() * 3 + 29,
-                        Longitude = RandomGen.NextDouble() * 1 + 34.4
-                    }) ;
+                        Lattitude = randomLattitude(),
+                        Longitude = randomLongitude()
+                    });
                 for (int i = 0; i < CostumerInit; i++)
                     Costumers.Add( new Customer() {
-                        Id = RandomGen.Next(100000000, 999999999),
-                        Name = "Lev Cliet No." + i.ToString(),
-                        Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 999).ToString() + "-" + RandomGen.Next(1000, 9999).ToString(),
-                        Lattitude = RandomGen.NextDouble() * 3 + 29,
-                        Longitude = RandomGen.NextDouble() * 1 + 34.4
+                        Id = RandomGen.Next(1000000, 9999999),
+                        Name = names[RandomGen.Next(names.Length)],
+                        Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 1000).ToString() + "-" + RandomGen.Next(1000, 10000).ToString(),
+                        Lattitude = randomLattitude(),
+                        Longitude = randomLongitude()
                     });
                 for (int i = 0; i < DroneInit; i++)
-                    Drones.Add( new Drone() {
-                        Id = RandomGen.Next(100000000, 999999999),
-                        Modle = "Mavic " + RandomGen.Next(1,11),
-                        MaxWeigth = (WeightCategories)RandomGen.Next(0, 2)
-                    });
+                {
+                    Drone drone = new Drone()
+                    {
+                        Id = RandomGen.Next(1000000, 9999999),
+                        Modle = "Mavic " + RandomGen.Next(1, 6),
+                        MaxWeigth = (WeightCategories)RandomGen.Next(0, 2+1)
+                    };
+                    switch (i % 3)
+                    {
+                        case 0:
+                            //delivery
+                            dronesDelivery.Add(drone.Id);
+                            break;
+                        case 1:
+                            // matnance
+                            break;
+                        case 2:
+                            // free
+                            break;
+                    }
+                    Drones.Add(drone);
+                }
                 for (int i = 0; i < ParcelInit; i++)
                 {
                     int random = RandomGen.Next(Costumers.Count); 
@@ -68,8 +89,8 @@ namespace Dal
                     /// created random time between today today to 1955 1th in janury 12:00:00 AM 
                     Parcel parcel = new Parcel() {
                         Id = ++IdCreation,
-                        Priority = (Priorities)RandomGen.Next(0, 2),
-                        Weight = (WeightCategories)RandomGen.Next(0, 2),
+                        Priority = (Priorities)RandomGen.Next(0, 2+1),
+                        Weight = (WeightCategories)RandomGen.Next(0, 2+1),
                         Schedulded = scheduledtmp,
                         Requested = null,
                         PickedUp = null,
@@ -78,51 +99,50 @@ namespace Dal
                         SenderId = Costumers[random].Id,
                         TargetId = Costumers[(random+2)%Costumers.Count].Id
                     };
-                    switch (i%4)
+
+                    if ((i%4 == 1 || i%4 == 2) && dronesDelivery.Count > 0) // the on deliver parcels
                     {
-                        case (0):
+                        DateTime requested = scheduledtmp.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
+                                                                                                     /// addeed time to the randomed time i created before 
+                        parcel.Requested = requested;
+                        parcel.DroneId = dronesDelivery[RandomGen.Next(dronesDelivery.Count)];
+                        dronesDelivery.Remove((int)parcel.DroneId); // the drone is on delivery
+
+                        if (i%4 != 2) // i%4 == 1
                         {
-                            DateTime requested =scheduledtmp.AddSeconds(RandomGen.Next(0, 86400*365));/// 86400 is one day in secs 
-                                                                                                    /// addeed time to the randomed time i created before 
-                            parcel.Requested = requested;
-                            parcel.DroneId = Drones[RandomGen.Next(Drones.Count)].Id;
                             DateTime pickedup = requested.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
-                                                                                                    /// addeed time to the randomed added  time i created before 
-                            parcel.PickedUp = pickedup;
-                            DateTime delivered = pickedup.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
-                                                                                                    /// addeed time to the randomed added  added time i created before 
-                            parcel.Delivered = delivered;
-                        }
-                        break;
-                        case (1):
-                        {
-                            DateTime requested =scheduledtmp.AddSeconds(RandomGen.Next(0, 86400*365));/// 86400 is one day in secs 
-                                                                                                    /// addeed time to the randomed time i created before 
-                            parcel.Requested = requested;
-                            parcel.DroneId = Drones[RandomGen.Next(Drones.Count)].Id;
-                            DateTime pickedup = requested.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
-                                                                                                    /// addeed time to the randomed added  time i created before 
+                                                                                                     /// addeed time to the randomed added  time i created before 
                             parcel.PickedUp = pickedup;
                         }
-                        break;
-                        case (2):
-                        {
-                            DateTime requested =scheduledtmp.AddSeconds(RandomGen.Next(0, 86400*365));/// 86400 is one day in secs 
-                                                                                                    /// addeed time to the randomed time i created before 
-                            parcel.Requested = requested;
-                            parcel.DroneId = Drones[RandomGen.Next(Drones.Count)].Id;
-                        }
-                        break;
-                        case (3):
-                        // not even binded
-                        break;
+                    }
+                    else if (i%4 == 0) // delivered parcels
+                    {
+                        DateTime requested = scheduledtmp.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
+                                                                                                     /// addeed time to the randomed time i created before 
+                        parcel.Requested = requested;
+                        parcel.DroneId = Drones[RandomGen.Next(Drones.Count)].Id;
+
+                        DateTime pickedup = requested.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
+                                                                                                 /// addeed time to the randomed added  time i created before 
+                        parcel.PickedUp = pickedup;
+
+                        DateTime delivered = pickedup.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
+                                                                                                 /// addeed time to the randomed added  added time i created before 
+                        parcel.Delivered = delivered;
                     }
                         
                     Parcels.Add (parcel);
                 } 
             }
 
-
+            static internal double randomLattitude()
+            {
+                return 34.740364d + RandomGen.NextDouble() * (34.909191 - 34.740364);
+            }
+            static internal double randomLongitude()
+            {
+                return 31.991251d + RandomGen.NextDouble() * (32.099796 - 31.991251d);
+            }
         }
     }
 

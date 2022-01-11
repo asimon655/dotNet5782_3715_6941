@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfDrone>
-  <Drone>
-    <Id>123</Id>
-    <Modle>mavic 7</Modle>
-    <MaxWeigth>Heavy</MaxWeigth>
-    <IsDeleted>false</IsDeleted>
-  </Drone>
-</ArrayOfDrone>
