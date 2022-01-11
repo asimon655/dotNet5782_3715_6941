@@ -118,11 +118,11 @@ namespace BL
             try
             {
                 Stream stream = await client.OpenReadTaskAsync("http://api.textcaptcha.com/idangolo123@gmail.com.xml");
-                StreamReader reader = new StreamReader(stream);
+                StreamReader reader = await Task.Run(() => new StreamReader(stream));
                 string plaintext = reader.ReadToEnd();
                 XmlDocument doc = new XmlDocument();
                 List<string> QuestionAndAnswers = new List<string>();
-                doc.LoadXml(plaintext);
+                await Task.Run(() => doc.LoadXml(plaintext));
                 foreach (XmlNode Element in doc.DocumentElement.ChildNodes)
                     QuestionAndAnswers.Add(Element.InnerText);
                 return QuestionAndAnswers;

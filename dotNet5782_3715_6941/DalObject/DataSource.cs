@@ -33,7 +33,7 @@ namespace Dal
                 /// constant for loop limit - right programing rules 
                 const int StationInit = 20;
                 const int DroneInit = 50;
-                const int ParcelInit = 100;
+                const int ParcelInit = 10;
                 const int CostumerInit = 100;
 
 

@@ -73,7 +73,7 @@
          
                         <Image Grid.Column="3" Stretch="Fill" Source="../Images/v.png" Visibility="Hidden" Name="Vi"/>
 
-                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Captcha}" Placement="Center"    
             PopupAnimation="Slide" >
                  
                             <Grid Background="#FF508EF5" Height="400" Width="500" >
@@ -110,7 +110,7 @@
 
                                 </Border>
                       
-                                    <Button Click="Button_Click_3"  Grid.Row="6"  Grid.Column="1">
+                                    <Button IsEnabled="False" Name="CaptchCheck" Click="Button_Click_3"  Grid.Row="6"  Grid.Column="1">
   
                                         <Viewbox>
                                         <Label Content="Check" FontWeight="Bold"/>

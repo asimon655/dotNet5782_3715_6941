@@ -30,20 +30,21 @@ namespace PL
                         {
                             Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                         });
+                    if (!File.Exists(PhotoAsync.makePath(SenderId)))
+                        PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x => {
+                            if (x.Result)
+
+                                Dispatcher.Invoke(() =>
+                                {
+                                    Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                });
+                        });
+                    else
+                        Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                 });
             else
                 Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
-            if (!File.Exists(PhotoAsync.makePath(SenderId)))
-                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x => {
-                    if (x.Result)
-
-                        Dispatcher.Invoke(() =>
-                        {
-                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
-                        });
-                });
-            else
-                Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+  
 
 
         }

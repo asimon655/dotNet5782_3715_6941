@@ -778,7 +778,7 @@
                                                 </Style>
                                             </ToggleButton.Resources>
                                             <Grid>
-                                                <Popup Name="myPopup0" IsOpen="{Binding IsChecked, ElementName=Opeation0}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                                <Popup Name="myPopup0" IsOpen="{Binding IsChecked, ElementName=Opeation0}" Placement="Center"    
             PopupAnimation="Slide" >
                                                     <Grid Background="#FF508EF5" Height="400" Width="500" >
 
@@ -793,11 +793,16 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Bind">Confirm</Button>
+                                                            <Button   Click="Button_Click_7" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
-                                                    </Grid>
+                                                                <Viewbox>
+                                                                    <Label Content="X" FontWeight="Bold"/>
+                                                                </Viewbox>
+                                                            </Button>
+                                                        </Grid>
 
                                                 </Popup>
-                                                <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=TextScale}" MaxWidth="{Binding  ActualWidth ,ElementName=TextScale}" >
+                                                <Viewbox  >
                                                     <Label Name="BWIDGET" FontWeight="Light">Bind</Label>
                                                 </Viewbox>
 
@@ -810,10 +815,11 @@
                                                 </Style>
                                             </ToggleButton.Resources>
                                             <Grid>
-                                                <Popup Name="myPopup2" IsOpen="{Binding IsChecked, ElementName=Opeation2}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                                <Popup Name="myPopup2" IsOpen="{Binding IsChecked, ElementName=Opeation2}" Placement="Center"   
             PopupAnimation="Slide" >
 
-                                                    <Grid Background="#FF508EF5" Height="400" Width="500" >
+                                      
+                                                        <Grid Background="#FF508EF5" Height="400" Width="500" >
 
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="2*" />
@@ -826,15 +832,22 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="PickUp">Confirm</Button>
+                                                            <Button   Click="Button_Click_3" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
-                                                    </Grid>
+                                                                <Viewbox>
+                                                                    <Label Content="X" FontWeight="Bold"/>
+                                                                </Viewbox>
+                                                            </Button>
+
+                                                        </Grid>
 
                                                 </Popup>
-                                                <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=TextScale}" MaxWidth="{Binding  ActualWidth ,ElementName=TextScale}" >
+                                                <Viewbox   >
                                                     <Label Name="DWIDGET" FontWeight="Light">Pick up</Label>
                                                 </Viewbox>
+                                             
 
-                                            </Grid>
+                                                </Grid>
 
                                         </ToggleButton>
                                         <ToggleButton  BorderBrush="Black" Name="Opeation3" Grid.Row="5">
@@ -844,7 +857,7 @@
                                                 </Style>
                                             </ToggleButton.Resources>
                                             <Grid>
-                                                <Popup Name="myPopup3" IsOpen="{Binding IsChecked, ElementName=Opeation3}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                                <Popup Name="myPopup3" IsOpen="{Binding IsChecked, ElementName=Opeation3}" Placement="Center"    
             PopupAnimation="Slide" >
                                                     <Grid Background="#FF508EF5" Height="400" Width="500" >
 
@@ -859,11 +872,17 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Deliver">Confirm</Button>
+                                                            <Button   Click="Button_Click_4" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
-                                                    </Grid>
+                                                                <Viewbox>
+                                                                    <Label Content="X" FontWeight="Bold"/>
+                                                                </Viewbox>
+                                                            </Button>
+
+                                                        </Grid>
 
                                                 </Popup>
-                                                <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=TextScale}" MaxWidth="{Binding  ActualWidth ,ElementName=TextScale}" >
+                                                <Viewbox   >
                                                     <Label Name="DCWIDGET" FontWeight="Light">Deliver</Label>
                                                 </Viewbox>
 
@@ -885,7 +904,7 @@
                                                 </Style>
                                             </ToggleButton.Resources>
                                             <Grid>
-                                                <Popup Name="myPopup1" IsOpen="{Binding IsChecked, ElementName=Opeation1}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                                <Popup Name="myPopup1" IsOpen="{Binding IsChecked, ElementName=Opeation1}" Placement="Center"    
             PopupAnimation="Slide" >
 
                                                     <Grid Background="#FF508EF5" Height="400" Width="500" >
@@ -901,8 +920,13 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Charge">Confirm</Button>
+                                                            <Button   Click="Button_Click_5" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
-                                                    </Grid>
+                                                                <Viewbox>
+                                                                    <Label Content="X" FontWeight="Bold"/>
+                                                                </Viewbox>
+                                                            </Button>
+                                                        </Grid>
 
                                                 </Popup>
                                                 <Viewbox Name="TextScale">
@@ -920,7 +944,7 @@
                                                 </Style>
                                             </ToggleButton.Resources>
                                             <Grid>
-                                                <Popup Name="myPopup4" IsOpen="{Binding IsChecked, ElementName=Opeation4}" Placement="Center"   PlacementTarget="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                                <Popup Name="myPopup4" IsOpen="{Binding IsChecked, ElementName=Opeation4}" Placement="Center"    
             PopupAnimation="Slide" >
                                                     <Grid Background="#FF508EF5" Height="400" Width="500" >
 
@@ -937,7 +961,13 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="3" Grid.Column="1" Click="Realse">Confirm</Button>
-                                                        <Grid  Grid.Row="1" Grid.Column="1">
+                                                            <Button   Click="Button_Click_6" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+
+                                                                <Viewbox>
+                                                                    <Label Content="X" FontWeight="Bold"/>
+                                                                </Viewbox>
+                                                            </Button>
+                                                            <Grid  Grid.Row="1" Grid.Column="1">
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="2*" />
                                                                 <ColumnDefinition Width="*" />
@@ -953,9 +983,10 @@
                                                     </Grid>
 
                                                 </Popup>
-                                                <Viewbox MaxHeight="{Binding  ActualHeight ,ElementName=TextScale}" MaxWidth="{Binding  ActualWidth ,ElementName=TextScale}" >
+                                                <Viewbox  >
                                                     <Label Name="DRWIDGET" FontWeight="Light" >Realse</Label>
                                                 </Viewbox>
+                                                
 
                                             </Grid>
 

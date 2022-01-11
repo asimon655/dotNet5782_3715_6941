@@ -77,7 +77,9 @@ namespace PL
             FileInfo first = new FileInfo(filepath1);
             FileInfo second = new FileInfo(filepath2);
             if (second.Length == 0 || first.Length == 0)
-                return false;
+                return true;
+            if ((first.CreationTime-second.CreationTime   ).Milliseconds < 400)
+                return true;
             if (first.Length != second.Length)
                 return false;
             using (FileStream fs1 = first.OpenRead())

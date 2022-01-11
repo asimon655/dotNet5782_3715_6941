@@ -166,9 +166,9 @@
                     </Grid>
 
 
-                    <ListView  HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="1" Margin="0" Background="#FF212529" Foreground="Black" IsSynchronizedWithCurrentItem="True" AlternationCount="10" ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}"
+                    <ListView  HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="1" Margin="0" Background="#FF212529" Foreground="Black"  AlternationCount="10" ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}"
                                         
-                            MouseDoubleClick="ListOfPackges_MouseDoubleClick" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="0"  Name="ListOf"  >
+                            MouseDoubleClick="ListOfPackges_MouseDoubleClick" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="0"  Name="ListOf" SelectionChanged="ListOf_SelectionChanged_1"  >
 
 
                         <ListView.View>

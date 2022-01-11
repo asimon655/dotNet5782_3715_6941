@@ -17,7 +17,6 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Battery, Converter={StaticResource HalfScale} }" />
             <Style.Triggers>
 
                 <Trigger Property="ItemsControl.AlternationIndex" Value="0">
@@ -192,18 +191,18 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="Id" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" "  />
                                 <GridViewColumn  DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto"   />
-                                    <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                    <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" "   />
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" x:Name="Location" Header="Location" Width="auto"  />
-                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" "   />
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Battery, StringFormat=\{0:f2\}}" x:Name="Battery" Header="Battery" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" "  />
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" "   />
                                     <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" "   />
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelId}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
 
                                     <GridView.ColumnHeaderContainerStyle>
                                         <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -222,8 +221,7 @@
                                             <Setter Property="Background" Value="#FF212529" />
                                             <Setter Property="Foreground" Value="White" />
                                             <Setter Property="FontWeight" Value="Bold" />
-                                        <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Battery, Converter={StaticResource HalfScale} }" />
-
+                                        
                                     </Style>
                                     </GridView.ColumnHeaderContainerStyle>
 
@@ -342,7 +340,7 @@
                     <ColumnDefinition Width="0.1*" />
                 </Grid.ColumnDefinitions>
                 <Border Grid.Row="1" Grid.Column="1">
-                    <Viewbox   MaxHeight="{Binding  ActualHeight ,ElementName=Scale}" 
+                    <Viewbox  
                                    >
                         <Label FontWeight="UltraLight" FontStretch="ExtraCondensed" >Most Popular Model:</Label>
                         </Viewbox>
@@ -353,7 +351,7 @@
                     </Viewbox>
                 </Border>
                 <Border Grid.Row="3" Grid.Column="1">
-                    <Viewbox   MaxHeight="{Binding  ActualHeight ,ElementName=Scale}" 
+                    <Viewbox   
                                     >
                         <Label FontWeight="UltraLight" FontStretch="ExtraCondensed"  >Drone With The Most Battery:</Label>
                     </Viewbox>

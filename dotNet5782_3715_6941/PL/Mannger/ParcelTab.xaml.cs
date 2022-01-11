@@ -154,5 +154,10 @@ namespace PL
 
         }
         #endregion
+
+        private void ListOf_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

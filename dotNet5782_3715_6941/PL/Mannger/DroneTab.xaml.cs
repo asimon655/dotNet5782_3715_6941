@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -87,10 +88,9 @@ namespace PL
             BO.DronesModelsStats dronesStats = await Task.Run( () => dat.GetDronesModelsStats());
             if (dronesStats.names.Length != 0 && dronesStats.vals.Length != 0 && dronesStats.pos.Length != 0)
             {
-
                 createModelsBar(WpfPlot2, dronesStats.pos, dronesStats.names, dronesStats.vals);
-                CreateDountPie<BO.WeightCategories>(WpfPlot1, dat.GetDronesWeightsStats());
-                CreateDountPie<BO.DroneStatuses>(WpfPlot3, dat.GetDronesStatusesStats());
+                CreateDountPie<BO.WeightCategories>(WpfPlot1, await Task.Run(() => dat.GetDronesWeightsStats()));
+                CreateDountPie<BO.DroneStatuses>(WpfPlot3, await Task.Run(() => dat.GetDronesStatusesStats()));
             }
             #endregion
 
@@ -99,7 +99,9 @@ namespace PL
         public async void Reset()
         {
             //ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
-            ResetPlots();
+            ListOf.Items.Refresh();
+            //ResetPlots();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

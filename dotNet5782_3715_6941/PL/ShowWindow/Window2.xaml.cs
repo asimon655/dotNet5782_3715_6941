@@ -92,5 +92,29 @@ namespace PL
            
         }
 
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            myPopup2.IsOpen = false;
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            myPopup3.IsOpen = false;
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            myPopup1.IsOpen = false;
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            myPopup4.IsOpen = false;
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            myPopup0.IsOpen = false;
+        }
     }
 }

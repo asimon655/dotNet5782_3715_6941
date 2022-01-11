@@ -12,7 +12,7 @@ namespace Simulator
 {
     class Simulator
     {
-        const int delay = 1000;
+        const int delay = 500;
         
         // speed in km/s
         const double speed = 10;
