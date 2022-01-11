@@ -86,32 +86,38 @@ namespace PL
         Action reset;
         BackgroundWorker backgroundWorker1;
         bool stop = false;
-        public Window2(BlApi.Ibl log, BO.Drone drn , Action  ? action = null)
+        public Window2(BlApi.Ibl log, BO.Drone drn, Action? action = null)
         {
             InitializeComponent();
             backgroundWorker1 = new BackgroundWorker();
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.ProgressChanged += (s, e) => { Reset(); reset(); };
-            bool valid = true;
             this.drn = drn;
-  
             this.log = log;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
             this.DataContext = drn;
-            reset = action; 
+            reset = action;
 
             if (!(drn.ParcelTransfer is null))
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
             else
                 ParcelOpsRFS(null);
             if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
-                valid = Window2.SaveFirstImage(drn.Model);
-            if (valid)
-            {
+                PhotoAsync.SaveFirstImageAsync(drn.Model).ContinueWith(x => {
+                    if (x.Result)
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
+                        });
+                });
+            else {
                 Photo0.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
             }
+                
+            
             if(!(drn.ParcelTransfer is null ))
                 MetaDataCstReset(Photo1, Photo2, drn.ParcelTransfer.Sender.id, drn.ParcelTransfer.Target.id);
 

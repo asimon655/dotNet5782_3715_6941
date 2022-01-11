@@ -10,12 +10,13 @@
 
     <Page.Resources>
         <local:DELAV x:Key="DELAV" ></local:DELAV>
+        <local:NULLEMP x:Key="NULLEMP"></local:NULLEMP>
         <local:HalfScale x:Key="HalfScale"></local:HalfScale>
         <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Battery, Converter={StaticResource HalfScale} }" />
+            <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Weight2, Converter={StaticResource HalfScale} }" />
             <Style.Triggers>
 
                 <Trigger Property="ItemsControl.AlternationIndex" Value="0">
@@ -191,17 +192,17 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id1" Header="Id" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=SenderName}" x:Name="SenderName" Header="Sender Name" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP} }"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=TargetName}" x:Name="TargetName" Header="Target Name" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="Weight2" Header="Weight" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Priorety}" x:Name="Priorety" Header="Priorety" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelStatus }" Header="Status" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Priorety}"  />
                                 <GridView.ColumnHeaderContainerStyle>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">
                                         <Setter Property="Template">

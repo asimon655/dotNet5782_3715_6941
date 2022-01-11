@@ -76,14 +76,22 @@ namespace PL
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
             this.DataContext = parcely;
-            bool valid = true;
-            valid = true;
-            if (!(parcely.ParcelDrone is null))
+            if (!(parcely.ParcelDrone is null ))
             {
                 BO.Drone drn = dat.GetDrone(parcely.ParcelDrone.Id);
+            
+
                 if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
-                    valid = Window2.SaveFirstImage(drn.Model);
-                if (valid)
+                    PhotoAsync.SaveFirstImageAsync(drn.Model).ContinueWith(x =>
+                    {
+                        if (x.Result)
+
+                            Dispatcher.Invoke(() =>
+                            {
+                                Drone.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
+                            });
+                    });
+                else
                 {
                     Drone.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
                 }

@@ -10,12 +10,13 @@
 
     <Page.Resources>
         <local:DELStat x:Key="DELStat"></local:DELStat>
+        <local:NULLEMP x:Key="NULLEMP"></local:NULLEMP>
         <local:HalfScale x:Key="HalfScale"></local:HalfScale>
         <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Battery, Converter={StaticResource HalfScale} }" />
+            <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Name, Converter={StaticResource HalfScale} }" />
             <Style.Triggers>
 
                 <Trigger Property="ItemsControl.AlternationIndex" Value="0">
@@ -180,13 +181,13 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id1" Header="Id" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" x:Name="Name" Header="Name" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=BusyPorts}" x:Name="BusyPorts" Header="Busy Ports" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=FreePorts}" x:Name="FreePorts" Header="Free Ports" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridView.ColumnHeaderContainerStyle>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">
                                         <Setter Property="Template">
@@ -329,7 +330,7 @@
                     <ColumnDefinition Width="0.1*" />
                 </Grid.ColumnDefinitions>
                 <Border Grid.Row="1" Grid.Column="1">
-                    <Viewbox   MaxHeight="{Binding  ActualHeight ,ElementName=Scale}" 
+                    <Viewbox   Name="Scale"
                                    >
                         <Label FontWeight="UltraLight" FontStretch="ExtraCondensed" >Most Popular Model:</Label>
                     </Viewbox>

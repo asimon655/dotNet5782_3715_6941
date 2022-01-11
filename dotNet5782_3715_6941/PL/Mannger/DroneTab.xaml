@@ -11,7 +11,8 @@
     <Page.Resources>
 
         <local:DELDRN x:Key="DELDRN"></local:DELDRN>
-        <local:HalfScale x:Key="HalfScale"></local:HalfScale>
+        <local:HalfScale x:Key="NULLEMP"></local:HalfScale>
+        <local:NULLEMP x:Key="HalfScale"></local:NULLEMP>
         <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="0"/>
@@ -191,17 +192,17 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="Id" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
                                 <GridViewColumn  DisplayMemberBinding="{Binding Path=Model}" x:Name="Model" Header="Model" Width="auto"   />
-                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                    <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Loct}" x:Name="Location" Header="Location" Width="auto"  />
-                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Battery, StringFormat=\{0:f2\}}" x:Name="Battery" Header="Battery" Width="auto" />
-                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=Weight}" x:Name="MaxWeight" Header="MaxWeight" Width="auto"/>
-                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
                                     <GridViewColumn  DisplayMemberBinding="{Binding Path=DroneStat}" x:Name="DroneStatus" Header="DroneStatus" Width="auto"/>
-                                    <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Battery}"  />
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelIdTransfer}" x:Name="ParcelId" Header="Binded Parcel Id" Width="auto"/>
 
                                     <GridView.ColumnHeaderContainerStyle>

@@ -34,7 +34,7 @@ namespace Dal
                 const int StationInit = 20;
                 const int DroneInit = 50;
                 const int ParcelInit = 100;
-                const int CostumerInit = 10000;
+                const int CostumerInit = 100;
 
 
                 for (int i = 0; i < StationInit; i++)
