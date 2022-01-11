@@ -150,19 +150,19 @@ namespace BL
         {
             DroneList drony = GetDroneToList(droneId);
             if (drony.DroneStat != DroneStatuses.Free)
-            {
                 throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
-            }
-            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Declared && x.Weight <= (DO.WeightCategories)drony.Weight && canreach(drony, x, getParcelLoctSender));
-            DO.Parcel resParcel;
-            try
-            {
-                resParcel = parcels.First();
-            }
-            catch (InvalidOperationException)
-            {
+
+            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Declared &&
+                                                                x.Weight <= (DO.WeightCategories)drony.Weight);
+            if (parcels.Count() == 0)
                 throw new CouldntFindPatcelThatsFits("There arent any free parcels (that fits the drone weight and location) to bind to the drone");
-            }
+
+            parcels = parcels.Where(x => CanReach(drony, x));
+            if (parcels.Count() == 0)
+                throw new notEnoughBattery("please send the drone to charge");
+
+            DO.Parcel resParcel = parcels.First();
+
             foreach (var pack in parcels)
             {
                 if (pack.Priority > resParcel.Priority)
@@ -204,7 +204,7 @@ namespace BL
             {
                 throw new EnumNotInRightStatus<ParcelStatus>("Parcel should be Binded when it is : ", ParcelStatusC(pack));
             }
-            if (!canreach(drony, pack, getParcelLoctSender))
+            if (!CanReach(drony, pack, getParcelLoctSender))
                 throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
             ///battery status changed !!! 
             drony.Battery -= getPowerUsage(getParcelLoctSender(pack), drony.Loct, (WeightCategories)pack.Weight);
@@ -233,9 +233,9 @@ namespace BL
                 throw new EnumNotInRightStatus<ParcelStatus>("parcel is not in the status pickedup it is in : ", ParcelStatusC(pack));
             }
             Location Target = getParcelLoctTarget(pack);
-            if (!canreach(drony, pack, getParcelLoctTarget))
+            if (!CanReach(drony, pack, getParcelLoctTarget))
             {
-                throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
+                throw new CantReachToDest("cant reach to the target to deliver the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
             }
             drony.Battery -= getPowerUsage(Target, drony.Loct, (WeightCategories)pack.Weight);
             drony.Loct = new Location(Target.Longitude, Target.Lattitude);

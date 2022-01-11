@@ -10,6 +10,11 @@ namespace BO
             this.Longitude = longitude;
             this.Lattitude = lattitude;
         }
+        public Location(Itinero.LocalGeo.Coordinate coordinate)
+        {
+            this.Longitude = coordinate.Longitude;
+            this.Lattitude = coordinate.Latitude;
+        }
         public double Longitude { set; get; }
         public double Lattitude { set; get; }
 
@@ -26,7 +31,7 @@ namespace BO
             return (Longitude + Lattitude).CompareTo(loct.Lattitude + loct.Longitude);
         }
 
-        public String DecimalToSexagesimal() /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
+        public string DecimalToSexagesimal() /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
         {
             String result = "";
             // Longitude

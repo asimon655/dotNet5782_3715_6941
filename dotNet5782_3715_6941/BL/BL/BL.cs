@@ -25,7 +25,7 @@ namespace BL
 
 
 
-        DalApi.IDal data;
+        internal DalApi.IDal data;
 
         List<DroneList> drones = new List<DroneList>();
 
@@ -91,7 +91,7 @@ namespace BL
                         minimumBattery += getPowerUsage(senderLoct, targetLoct, (WeightCategories?)parcel.Weight);
                         minimumBattery += getPowerUsage(targetLoct, targetStationLoct);
                         // set the drone battery randomly between the minimumBattery and 100%
-                        newDrone.Battery = 100D - RandomGen.NextDouble() * minimumBattery;
+                        newDrone.Battery = RandomGen.Next((int)minimumBattery, 99) + RandomGen.NextDouble();
                     }
                     // the parcel has been binded and picked up but hasnt been deliverd yet
                     else
@@ -107,7 +107,7 @@ namespace BL
                         minimumBattery += getPowerUsage(newDrone.Loct, targetLoct, (WeightCategories?)parcel.Weight);
                         minimumBattery += getPowerUsage(targetLoct, targetStationLoct);
                         // set the drone battery randomly between the minimumBattery and 100%
-                        newDrone.Battery = 100D - RandomGen.NextDouble() * minimumBattery;
+                        newDrone.Battery = RandomGen.Next((int)minimumBattery, 99) + RandomGen.NextDouble();
                     }
                 }
                 else // the drone is not binded
