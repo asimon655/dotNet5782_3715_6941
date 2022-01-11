@@ -61,8 +61,10 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-
-	  return (double) value / 2; 
+	  double x; 
+	  if (Double.TryParse(value.ToString(),out x))
+	      return x/ 2;
+	  return 0; 
         }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

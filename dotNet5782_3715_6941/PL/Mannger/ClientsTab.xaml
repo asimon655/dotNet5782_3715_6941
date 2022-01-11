@@ -9,12 +9,13 @@
       Title="ClientsTab">
     <Page.Resources>
         <local:DELClient x:Key="DELClient"></local:DELClient>
+        <local:NULLEMP x:Key="NULLEMP"></local:NULLEMP>
         <local:HalfScale x:Key="HalfScale"></local:HalfScale>
         <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Height" Value="{Binding ActualWidth, ElementName=Battery, Converter={StaticResource HalfScale} }" />
+            <Setter Property="Height" Value="{Binding ActualWidth, ElementName=InTheWay, Converter={StaticResource HalfScale} }" />
             <Style.Triggers>
 
                 <Trigger Property="ItemsControl.AlternationIndex" Value="0">
@@ -203,19 +204,19 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" x:Name="Id1" Header="Id" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" x:Name="Name" Header="Name" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Phone}" x:Name="Phone" Header="Phone" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelDeliveredAndGot}" x:Name="ParcelDeliveredAndGot" Header="reached" Width="auto" />
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelDeliveredAndNotGot}" x:Name="ParcelDeliveredAndNotGot" Header="Unreached" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=ParcelGot}" x:Name="ParcelGot" Header="ParcelGot" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=InTheWay}" x:Name="InTheWay" Header="InTheWay" Width="auto"/>
-                                <GridViewColumn DisplayMemberBinding="{ Binding Text}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
+                                <GridViewColumn DisplayMemberBinding="{ Binding  Converter={StaticResource NULLEMP}}"  Header=" " Width="{Binding ActualWidth, ElementName=Name}"  />
                                 <GridView.ColumnHeaderContainerStyle>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">
                                         <Setter Property="Template">
