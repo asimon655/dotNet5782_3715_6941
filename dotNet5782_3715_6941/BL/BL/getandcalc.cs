@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Itinero.LocalGeo;
+
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
@@ -27,17 +29,12 @@ namespace BL
         /// <param name="location1"></param>
         /// <param name="location2"></param>
         /// <returns></returns>
-        static double calculateDistance(Location location1, Location location2)
+        internal static double calculateDistance(Location location1, Location location2)
         {
-            double rlat1 = Math.PI * location1.Lattitude / 180;
-            double rlat2 = Math.PI * location2.Lattitude / 180;
-            double theta = location1.Longitude - location2.Longitude;
-            double rtheta = Math.PI * theta / 180;
-            double dist = Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) * Math.Cos(rlat2) * Math.Cos(rtheta);
-            dist = Math.Acos(dist);
-            dist = dist * 180 / Math.PI;
-            dist = dist * 60 * 1.1515;
-            return Math.Round(dist * 1.609344, 2);
+            Coordinate coordinate1 = new Coordinate(location1.Lattitude, location1.Longitude);
+            Coordinate coordinate2 = new Coordinate(location2.Lattitude, location2.Longitude);
+
+            return Coordinate.DistanceEstimateInMeter(coordinate1, coordinate2) / 1000;
         }
         /// <summary>
         /// return the id of closes station to a given location
@@ -66,7 +63,7 @@ namespace BL
         /// <param name="to"></param>
         /// <param name="weight">the weight of the loaded parcel</param>
         /// <returns></returns>
-        static double getPowerUsage(Location from, Location to, WeightCategories? weight = null)
+        internal static double getPowerUsage(Location from, Location to, WeightCategories? weight = null)
         {
             switch (weight)
             {
@@ -78,6 +75,26 @@ namespace BL
                     return calculateDistance(from, to) * PowerConsumptionHeavy;
                 default: // the drone is free
                     return calculateDistance(from, to) * PowerConsumptionFree;
+            }
+        }
+        /// <summary>
+        /// get the power usage of a specific trip
+        /// </summary>
+        /// <param name="travel"></param>
+        /// <param name="weight">the weight of the loaded parcel</param>
+        /// <returns></returns>
+        internal static double getPowerUsage(double travel, WeightCategories? weight = null)
+        {
+            switch (weight)
+            {
+                case WeightCategories.Easy:
+                    return travel * PowerConsumptionLight;
+                case WeightCategories.Medium:
+                    return travel * PowerConsumptionMedium;
+                case WeightCategories.Heavy:
+                    return travel * PowerConsumptionHeavy;
+                default: // the drone is free
+                    return travel * PowerConsumptionFree;
             }
         }
         /// <summary>
@@ -121,9 +138,27 @@ namespace BL
         /// <param name="parcel"></param>
         /// <param name="function">function to extract the location of the sender/target</param>
         /// <returns></returns>
-        static bool canreach(DroneList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
+        static bool CanReach(DroneList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
         {
             return getPowerUsage(drony.Loct, function(parcel), (WeightCategories)parcel.Weight) <= drony.Battery;
+        }
+        /// <summary>
+        /// return true if the drone can pickup deliver and get to the nearest station
+        /// </summary>
+        /// <param name="drony"></param>
+        /// <param name="parcel"></param>
+        /// <returns></returns>
+        bool CanReach(DroneList drony, DO.Parcel parcel)
+        {
+            Location senderLoct = getParcelLoctSender(parcel);
+            Location targetLoct = getParcelLoctTarget(parcel);
+            DO.Station station = data.GetStation(getClosesStation(targetLoct));
+            Location stationLoct = new Location(station.Longitude, station.Lattitude);
+
+            double travel = getPowerUsage(drony.Loct, senderLoct, (WeightCategories)parcel.Weight) +
+                            getPowerUsage(senderLoct, targetLoct, (WeightCategories)parcel.Weight) +
+                            getPowerUsage(targetLoct, stationLoct);
+            return travel <= drony.Battery;
         }
         /// <summary>
         /// get drone from our list

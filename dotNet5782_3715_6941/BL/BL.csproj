@@ -18,6 +18,7 @@
     <ProjectReference Include="..\DalApi\DalApi.csproj" />
     <ProjectReference Include="..\DalObject\DalObject.csproj" />
     <ProjectReference Include="..\DalXml\DalXml.csproj" />
+    <ProjectReference Include="..\LocalGeo\LocalGeo.csproj" />
   </ItemGroup>
 
 </Project>

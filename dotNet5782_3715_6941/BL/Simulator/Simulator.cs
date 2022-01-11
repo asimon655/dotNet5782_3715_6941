@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 using BO;
 using System.Threading;
 using static BL.Bl;
+using Itinero.LocalGeo;
 
 namespace Simulator
 {
     class Simulator
     {
-        const int delay = 10000;
+        const int delay = 1000;
         
         // speed in km/s
-        const double speed = 5;
+        const double speed = 10;
 
-        public Simulator(BlApi.Ibl logic, int droneId, Action refresh, Func<bool> stop)
+        BlApi.Ibl logic;
+        Action refresh;
+
+        public Simulator(BlApi.Ibl _logic, int droneId, Action _refresh, Func<bool> stop)
         {
-            // GetDroneToList throw IdDosnt Exsist if needed
-            //DroneList drone = logic.GetDroneToList(droneId);
+            logic = _logic;
+            refresh = _refresh;
 
             while (stop())
             {
@@ -33,27 +37,31 @@ namespace Simulator
                             logic.BindParcelToDrone(droneId);
                             refresh();
                         }
-                        catch (CouldntFindPatcelThatsFits)
+                        catch (notEnoughBattery)
                         {
                             logic.DroneCharge(droneId);
                             refresh();
+                        }
+                        catch (CouldntFindPatcelThatsFits)
+                        {
+                            Thread.Sleep(delay);
                         }
                         catch (IdDosntExists) { }
                         break;
                     case DroneStatuses.Delivery:
                         try
                         {
-                            Parcel parcel = logic.GetParcel((int)drone.ParcelTransfer.Id);
+                            Parcel parcel = logic.GetParcel(drone.ParcelTransfer.Id);
 
                             if (ParcelStatusC(parcel) == ParcelStatus.Binded)
                             {
-                                Thread.Sleep(delay);
+                                moveDroneTo(drone, drone.ParcelTransfer.Pickup);
                                 logic.DronePickUp(droneId);
                                 refresh();
                             }
                             else if (ParcelStatusC(parcel) == ParcelStatus.PickedUp)
                             {
-                                Thread.Sleep(delay);
+                                moveDroneTo(drone, drone.ParcelTransfer.Dst);
                                 logic.DroneDelivere(droneId);
                                 refresh();
                             }
@@ -68,10 +76,39 @@ namespace Simulator
                             // multiply chargingPeriod in 3600 to make it sec from hours
                             Thread.Sleep(delay);
                             logic.DroneReleaseCharge(droneId, chargingPeriod);
+                            refresh();
                         }
                         catch (IdDosntExists) { }
                         break;
                 }
+            }
+        }
+
+        void moveDroneTo(Drone drone, Location location, WeightCategories? weightCategories = null)
+        {
+            Coordinate source = new Coordinate(drone.Current.Lattitude, drone.Current.Longitude);
+            Coordinate destination = new Coordinate(location.Lattitude, location.Longitude);
+
+            Line line = new Line(source, destination);
+
+            double totalDistance = Coordinate.DistanceEstimateInMeter(source, destination) / 1000;
+
+            double powerUsageForSpeed = getPowerUsage(speed, weightCategories);
+
+            double traveledDistance = 0;
+            while (traveledDistance < (totalDistance - speed))
+            {
+                traveledDistance += speed;
+
+                drone.Current = new Location(line.LocationAfterDistance((float)traveledDistance * 1000));
+                drone.BatteryStat -= powerUsageForSpeed;
+
+                logic.SimulatorUpdateLocation(drone.Id, drone.Current);
+                logic.SimulatorUpdateBattary(drone.Id, drone.BatteryStat);
+                
+                refresh();
+                
+                Thread.Sleep(delay);
             }
         }
     }

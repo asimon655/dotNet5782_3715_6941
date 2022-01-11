@@ -260,7 +260,25 @@ namespace BlApi
         #endregion
 
         #region simulator
+        /// <summary>
+        /// start a simulator for a specific drone
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <param name="refresh">for refreshing the GUI</param>
+        /// <param name="stop">stop condition</param>
         void StartSimulator(int droneId, Action refresh, Func<bool> stop);
+        /// <summary>
+        /// update drone battary midstatus
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <param name="battary"></param>
+        public void SimulatorUpdateBattary(int droneId, double battary);
+        /// <summary>
+        /// update drone location midstatus
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <param name="location"></param>
+        public void SimulatorUpdateLocation(int droneId, BO.Location location);
         #endregion
 
         #region NEEDTOIMPLEMENTNOWSIMON

@@ -25,7 +25,11 @@ namespace BO
         public CouldntFindPatcelThatsFits() : base() { }
         public CouldntFindPatcelThatsFits(String message) : base(message) { }
     }
-
+    public class notEnoughBattery : Exception
+    {
+        public notEnoughBattery() : base() { }
+        public notEnoughBattery(String message) : base(message) { }
+    }
 
     public class CantReachToDest : Exception
     {
