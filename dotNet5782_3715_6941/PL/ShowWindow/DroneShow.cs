@@ -43,38 +43,29 @@ namespace PL
 
 
         }
-        void MetaDataCstReset(BO.Drone drn = null )
+        internal void MetaDataCstReset(  System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
         {
-            if (drn is null) {
-                Photo1.Source = new BitmapImage(new Uri("https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"));
-                Photo2.Source = new BitmapImage(new Uri("https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"));
-
-            }
+            if (!File.Exists(PhotoAsync.makePath(TargetId)))
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x => {
+                    if (x.Result)
+                       Dispatcher.Invoke(() =>
+                        {
+                            Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                        });
+                });
             else
-            {
-                if (!(drn.ParcelTransfer is null))
-                {
-                    if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"))
-                        SaveImageAsync("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Target.id + ".png", ImageFormat.Png).ContinueWith( x => { if (x.Result) {
-                                Dispatcher.Invoke(() =>
-                                {
-                                    Photo1.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"));
-                                });  } } );
-                    else 
-                        Photo1.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Target.id + ".png"));
-                    if (!File.Exists(TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png"))
-                        SaveImageAsync("https://thispersondoesnotexist.com/image", TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png", ImageFormat.Png, TMP + @"image" + drn.ParcelTransfer.Target.id + ".png").ContinueWith(x => { if (x.Result) {
-                                Dispatcher.Invoke(() =>
-                                {
-                                    Photo2.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png"));
-                                }); } });
-                    else 
-                        Photo2.Source = new BitmapImage(new Uri(TMP + @"image" + drn.ParcelTransfer.Sender.id + ".png"));
+                Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+            if (!File.Exists(PhotoAsync.makePath(SenderId)))
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x => {
+                    if (x.Result)
 
-
-                }
-            }
-   
+                        Dispatcher.Invoke(() =>
+                        {
+                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                        });
+                });
+            else
+                Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
 
 
         }
@@ -85,45 +76,7 @@ namespace PL
 
 
 
-         async Task<bool> SaveImageAsync(string imageUrl, string filename, ImageFormat format, String? FileOther = null)
-        {
-          
-            Thread.Sleep(10);
 
-            WebClient client = new WebClient();
-
-            client = new WebClient();
-            try
-            {
-                Stream stream = await client.OpenReadTaskAsync(imageUrl);
-                Bitmap bitmap; bitmap = new Bitmap(stream);
-
-                if (bitmap != null)
-                {
-                    bitmap.Save(filename, format);
-                }
-
-                stream.Flush();
-                stream.Close();
-                client.Dispose();
-                if (!(FileOther is null))
-                {
-                    if (AreEqule(filename, FileOther))
-                    {
-                        File.Delete(filename);
-                         await SaveImageAsync(imageUrl, filename, format, FileOther);
-                    }
-
-                }
-            }
-            catch
-            {
-
-             
-                return false;
-            }
-            return true;
-        }
 
 
         #endregion
@@ -142,7 +95,7 @@ namespace PL
             backgroundWorker1.ProgressChanged += (s, e) => { Reset(); reset(); };
             bool valid = true;
             this.drn = drn;
-            MetaDataCstReset(drn);
+  
             this.log = log;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
@@ -159,7 +112,8 @@ namespace PL
             {
                 Photo0.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
             }
-            MetaDataCstReset();
+            if(!(drn.ParcelTransfer is null ))
+                MetaDataCstReset(Photo1, Photo2, drn.ParcelTransfer.Sender.id, drn.ParcelTransfer.Target.id);
 
         }
 
@@ -272,7 +226,6 @@ namespace PL
                 log.BindParcelToDrone(drn.Id);
                 drn = log.GetDrone(drn.Id);
                this.DataContext = drn;
-                MetaDataCstReset(drn);
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
             }
             catch (Exception err)
@@ -314,7 +267,7 @@ namespace PL
                 log.DroneDelivere(drn.Id);
                drn = log.GetDrone(drn.Id);
                this.DataContext = drn;
-                MetaDataCstReset();
+
                 ParcelOpsRFS(null);
             }
             catch (Exception err)

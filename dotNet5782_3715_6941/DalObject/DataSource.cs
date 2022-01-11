@@ -34,7 +34,7 @@ namespace Dal
                 const int StationInit = 20;
                 const int DroneInit = 50;
                 const int ParcelInit = 100;
-                const int CostumerInit = 100;
+                const int CostumerInit = 10000;
 
 
                 for (int i = 0; i < StationInit; i++)
@@ -62,6 +62,8 @@ namespace Dal
                     });
                 for (int i = 0; i < ParcelInit; i++)
                 {
+                    int random = RandomGen.Next(Costumers.Count); 
+
                     DateTime scheduledtmp = new DateTime(1995, 1, 1).AddSeconds(RandomGen.Next(0, 86400)).AddDays(RandomGen.Next((DateTime.Today - new DateTime(1995, 1, 1)).Days));
                     /// created random time between today today to 1955 1th in janury 12:00:00 AM 
                     Parcel parcel = new Parcel() {
@@ -73,8 +75,8 @@ namespace Dal
                         PickedUp = null,
                         Delivered = null,
                         DroneId = null,
-                        SenderId = Costumers[RandomGen.Next(Costumers.Count)].Id,
-                        TargetId = Costumers[RandomGen.Next(Costumers.Count)].Id
+                        SenderId = Costumers[random].Id,
+                        TargetId = Costumers[(random+2)%Costumers.Count].Id
                     };
                     switch (i%4)
                     {
