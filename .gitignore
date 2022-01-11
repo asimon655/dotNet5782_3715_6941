@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 .vscode/launch.json
 .vscode/tasks.json
+/dotNet5782_3715_6941/Data
