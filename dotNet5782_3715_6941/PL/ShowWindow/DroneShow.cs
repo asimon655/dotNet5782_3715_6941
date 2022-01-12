@@ -85,15 +85,17 @@ namespace PL
         #region DroneShow
         BO.Drone drn;
         Action reset;
-        BackgroundWorker backgroundWorker1;
-        bool stop = false;
+        BackgroundWorker simulator;
+        bool exitPending = false;
         public Window2(BlApi.Ibl log, BO.Drone drn, Action? action = null)
         {
             InitializeComponent();
-            backgroundWorker1 = new BackgroundWorker();
-            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
-            backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.ProgressChanged += (s, e) => { Reset(); reset(); };
+            simulator = new BackgroundWorker();
+            simulator.DoWork += backgroundWorker1_DoWork;
+            simulator.WorkerSupportsCancellation = true;
+            simulator.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            simulator.WorkerReportsProgress = true;
+            simulator.ProgressChanged += backgroundWorker1_ProgressChanged;
             this.drn = drn;
             this.log = log;
             Add.Visibility = Visibility.Hidden;
@@ -336,26 +338,41 @@ namespace PL
         #region Simulator 
         private void Simulator_Checked(object sender, RoutedEventArgs e)
         {
-            stop = true;
-            if (!backgroundWorker1.IsBusy)
-                backgroundWorker1.RunWorkerAsync();
+            if (!simulator.IsBusy)
+                simulator.RunWorkerAsync();
         }
 
         private void Simulator_Unchecked(object sender, RoutedEventArgs e)
         {
-            stop = false;
+            simulator.CancelAsync();
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            Action refresh = () => backgroundWorker1.ReportProgress(1);
-            log.StartSimulator(drn.Id, refresh, () => stop);
+            log.StartSimulator(drn.Id, 
+                () => simulator.ReportProgress(1),
+                () => simulator.CancellationPending);
+        }
+        private void backgroundWorker1_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            Reset(); //local reset
+            reset(); // activate reset by the father window
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            object result = e.Result;
+            if (exitPending)
+                this.Close();
         }
 
-
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            exitPending = true;
+            if (simulator.IsBusy)
+            {
+                simulator.CancelAsync();
+                e.Cancel = true;
+                // present some loading thingy
+            }
+        }
         #endregion
 
 

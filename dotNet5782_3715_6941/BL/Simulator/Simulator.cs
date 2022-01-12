@@ -25,7 +25,7 @@ namespace Simulator
             logic = _logic;
             refresh = _refresh;
 
-            while (stop())
+            while (!stop())
             {
                 Drone drone = logic.GetDrone(droneId);
 
