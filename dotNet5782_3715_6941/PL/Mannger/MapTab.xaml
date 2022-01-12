@@ -10,10 +10,27 @@
       Title="MapTab">
 
     <Grid>
+       
         <Border 
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch" Background="#2596be" >
             <mapsui:MapControl Name="MyMapControl" Background="#2596be" ></mapsui:MapControl>
         </Border>
+        <Grid HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Button Grid.Column="0" Grid.Row="1" Background="LawnGreen" Click="Button_Click">
+                <Viewbox>
+                    <Label>H</Label>
+                </Viewbox>
+            </Button>
+        </Grid>
     </Grid>
 </Page>

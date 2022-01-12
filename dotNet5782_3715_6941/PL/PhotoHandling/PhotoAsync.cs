@@ -52,7 +52,6 @@ namespace PL
                         await Task.Run(() => File.Delete(filename));
                         
                         return await SaveImageAsync(imageUrl, filename, format, FileOther);
-
                     }
 
                 }

@@ -155,7 +155,7 @@
                                                 <Grid Grid.Row="1">
 
                                                     <Viewbox>
-                                                        <Label Content="{Binding ParcelTransfer.Target.id }">
+                                                        <Label Content="{Binding ParcelTransfer.Sender.id }">
 
                                                         </Label>
                                                     </Viewbox>
@@ -188,7 +188,7 @@
                                                 <Grid Grid.Row="1">
 
                                                     <Viewbox>
-                                                        <Label Content="{Binding ParcelTransfer.Target.name }" >
+                                                        <Label Content="{Binding ParcelTransfer.Sender.name }" >
 
                                                         </Label>
                                                     </Viewbox>

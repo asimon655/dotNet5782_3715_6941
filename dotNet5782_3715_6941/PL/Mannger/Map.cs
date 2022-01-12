@@ -44,7 +44,7 @@ namespace PL
         private const double D2R = Math.PI / 180;
         private const double PiDiv4 = Math.PI / 4;
         #endregion
-        private static Mapsui.Geometries.Point FromLonLat(double lon, double lat)
+        internal static Mapsui.Geometries.Point FromLonLat(double lon, double lat)
         {
             var lonRadians = D2R * lon;
             var latRadians = D2R * lat;
