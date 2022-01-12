@@ -12,10 +12,10 @@ namespace Simulator
 {
     class Simulator
     {
-        const int delay = 1000;
+        const int delay = 300;
         
         // speed in km/s
-        const double speed = 1;
+        const double speed = 1 ;
 
         BlApi.Ibl logic;
         Action refresh;

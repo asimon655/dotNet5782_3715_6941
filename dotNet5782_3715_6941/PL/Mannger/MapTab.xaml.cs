@@ -37,15 +37,15 @@ namespace PL
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
             IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
             IEnumerable<BO.Location>[] ALLPOINTSMOVED = MapHELP.SetPoints(dat);
-           MapHELP.DrawPointsOnMap(MyMapControl,ALLPOINTSMOVED[0], ids, 0.45, null, false, Models);
             MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[1], idStation, 0.25, "\\PL\\Images\\BASESTATION.png");
             MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
+            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[0], ids, 0.45, null, false, Models).Wait();
             #endregion
         }
-        internal void ResetLoct()
+        internal async Task ResetLoct()
         {
-            IEnumerable<BO.DroneList> NewLocts = dat.GetDrones();
-            MapHELP.ResetLoct(MyMapControl, NewLocts);
+            IEnumerable<BO.DroneList> NewLocts = await Task.Run( ()=> dat.GetDrones());
+            await MapHELP.ResetLoct(MyMapControl, NewLocts);
 
 
 
@@ -86,7 +86,7 @@ namespace PL
         }
         private void OpcL1(object sender, RoutedEventArgs e)
         {
-            ChangeOpacity(0);
+            ChangeOpacity(2);
         }
         private void OpcL2(object sender, RoutedEventArgs e)
         {
@@ -94,7 +94,7 @@ namespace PL
         }
         private void OpcL3(object sender, RoutedEventArgs e)
         {
-            ChangeOpacity(2);
+            ChangeOpacity(0);
         }
 
     }

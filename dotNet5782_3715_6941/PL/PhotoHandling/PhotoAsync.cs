@@ -28,8 +28,9 @@ namespace PL
         static private string Plus = "%20";
         static internal readonly string fullPathHeadder = TMP + RecognationName;
         static internal readonly string fullPathTail = fileEnd;
+        static internal readonly string SafeWord = "Drone";
         internal static string makePath<T>(T obj) => fullPathHeadder + obj.ToString().Replace(" ", "_") + fullPathTail;
-        internal static string makePathDrnSearch<T>(T obj) => GooglePhotosHeader + obj.ToString().Replace(" ",Plus) + GoooglePhotosTail;
+        internal static string makePathDrnSearch<T>(T obj) => GooglePhotosHeader + obj.ToString().Replace(" ",Plus)+Plus + SafeWord + GoooglePhotosTail;
 
         #endregion
         #region Costumers 

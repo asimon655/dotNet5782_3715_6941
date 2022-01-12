@@ -123,9 +123,9 @@ namespace PL
         #endregion
 
         #region Fields
-        private static List<Mapsui.Geometries.Point> pointsList = new List<Mapsui.Geometries.Point>();
         #region Cache
         private static Dictionary<String, int> Cache = new Dictionary<String, int>();
+        private static Dictionary<int, Mapsui.Geometries.Point> pointsMannger = new Dictionary<int ,Mapsui.Geometries.Point>();
         #endregion
         #endregion
 
@@ -147,64 +147,89 @@ namespace PL
             int[] StartsIndexes = new int[3] { 0, DronePoints.Count(), DronePoints.Count() + StationsPoints.Count() };
             return MovePoints(dat, ALLPOINTS, StartsIndexes);
         }
-        internal static async void DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
+        private static async Task<IFeature> CreateFeature(double  scale , double Longitude , double Lattitude, int Id ,bool FILL = false ,string ? path = null , string ? Name =null  )
         {
-
             Random rng = new Random();
-            var ly = new Mapsui.Layers.WritableLayer();
             Mapsui.Geometries.Point pt;
             Mapsui.Providers.Feature feature;
             Mapsui.Styles.LabelStyle x;
             Mapsui.Styles.VectorStyle x2;
             Mapsui.Styles.Color BGColor;
+            pt = FromLonLat(Longitude, Lattitude);
+
+            feature = new Mapsui.Providers.Feature { Geometry = pt };
+            BGColor = Mapsui.Styles.Color.FromArgb(
+                        rng.Next(120, 256),
+                        rng.Next(120, 256),
+                        rng.Next(120, 256),
+                        0);
+            x = new Mapsui.Styles.LabelStyle()
+            {
+                Text = Id.ToString(),
+                Font = new Mapsui.Styles.Font { FontFamily = "Courier New", Bold = true, Italic = true, },
+                ForeColor = BGColor,
+                Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 1),
+                HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
+                MaxWidth = 10,
+                WordWrap = LabelStyle.LineBreakMode.TailTruncation
+
+            };
+
+            if (FILL)
+            {
+                x2 = new Mapsui.Styles.VectorStyle
+                {
+                    Fill = new Mapsui.Styles.Brush(BGColor),
+                };
+                feature.Styles.Add(x2);
+            }
+            if (path is null && !(Name is null))
+            {
+                pointsMannger.TryAdd(Id, pt);
+
+                if (!File.Exists(PhotoAsync.makePath(Name)))
+                     await PhotoAsync.SaveFirstImageAsync((string)Name);
+
+                feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
+
+
+
+            }
+            else
+            {
+                feature.Styles.Add(CreateSymbolStyle(Directory.GetCurrentDirectory() + path, scale));
+
+            }
+            feature.Styles.Add(x);
+            return feature;
+
+
+
+
+
+
+        }
+        internal static async Task DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
+        {
+
+         
+            var ly = new Mapsui.Layers.WritableLayer();
+      
             ly.Style = null;
             for (int i = 0; i < points.Count(); i++)
             {
-                pt = FromLonLat(points.Skip(i).First().Longitude, points.Skip(i).First().Lattitude);
-                feature = new Mapsui.Providers.Feature { Geometry = pt };
-                BGColor = Mapsui.Styles.Color.FromArgb(
-                            rng.Next(120, 256),
-                            rng.Next(120, 256),
-                            rng.Next(120, 256),
-                            0);
-                x = new Mapsui.Styles.LabelStyle()
-                {
-                    Text = ids.Skip(i).First().ToString(),
-                    Font = new Mapsui.Styles.Font { FontFamily = "Courier New", Bold = true, Italic = true, },
-                    ForeColor = BGColor,
-                    Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 1),
-                    HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
-                    MaxWidth = 10,
-                    WordWrap = LabelStyle.LineBreakMode.TailTruncation 
-                    
-                };
-               
-                if (FILL)
-                {
-                    x2 = new Mapsui.Styles.VectorStyle
-                    {
-                        Fill = new Mapsui.Styles.Brush(BGColor),
-                    };
-                    feature.Styles.Add(x2);
-                }
-                if (path is null)
-                {
-                    pointsList.Add(pt);
-                    if (!File.Exists(PhotoAsync.makePath(Names.Skip(i).First())))
-                        await PhotoAsync.SaveFirstImageAsync(Names.Skip(i).First());
-                    
-                     feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Names.Skip(i).First()), scale));
-                 
-                      
-                    
-                }
-                else
-                {
-                    feature.Styles.Add(CreateSymbolStyle(Directory.GetCurrentDirectory() + path, scale));
+                
+                ly.Add((IFeature) await CreateFeature( scale 
+                    ,points.Skip(i).First().Longitude, 
+                    points.Skip(i).First().Lattitude,
+                    ids.Skip(i).First(),
+                    FILL , path as string , 
+                    (Names is null ? null : Names.Skip(i).First())
 
-                }
-                feature.Styles.Add(x);
-                ly.Add((IFeature)feature);
+
+
+
+                    ));
                 
             }
 
@@ -212,13 +237,34 @@ namespace PL
             MyMapControl.Map.Layers.Add(ly);
             MyMapControl.Refresh();
         }
-        internal static void ResetLoct(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.DroneList> NewLoct)
+        internal static async  Task ResetLoct(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.DroneList> NewLoct)
         {
             for (int i = 0; i < NewLoct.Count(); i++)
             {
                 Mapsui.Geometries.Point tmp = FromLonLat(NewLoct.Skip(i).First().Loct.Longitude, NewLoct.Skip(i).First().Loct.Lattitude);
-                pointsList.Skip(i).First().X = tmp.X;
-                pointsList.Skip(i).First().Y = tmp.Y;
+                Mapsui.Geometries.Point point;
+                if (pointsMannger.TryGetValue(NewLoct.Skip(i).First().Id, out point))
+                {
+                    point.X = tmp.X;
+                    point.Y = tmp.Y;
+                }
+                else
+                {
+                    IFeature feature = (IFeature)await CreateFeature(0.45
+                    , NewLoct.Skip(i).First().Loct.Longitude,
+                    NewLoct.Skip(i).First().Loct.Lattitude,
+                    NewLoct.Skip(i).First().Id,
+                    false, null,
+                    NewLoct.Skip(i).First().Model);
+                    (MyMapControl.Map.Layers.Skip(3).First() as WritableLayer).Add(feature);
+                      
+
+                } 
+
+
+
+
+
             }
         
         
