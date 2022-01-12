@@ -20,49 +20,50 @@ namespace BL
         public void AddDrone(Drone drone, int stationId)
         {
             lock (drones) lock (data)
-            // throw error if the DroneStat and Weight are out of the enum range
-            IsInEnum(drone.DroneStat);
-            IsInEnum(drone.Weight);
-            DO.Drone DroneTmp = new DO.Drone() {
-                Id = drone.Id,
-                MaxWeigth = (DO.WeightCategories)drone.Weight,
-                Modle = drone.Model
-            };
-            DO.Station PulledStaion;
-            try
-            {
-                PulledStaion = data.GetStation(stationId);
-                PulledStaion.ChargeSlots -= 1;
-                drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
-            }
-            catch (DO.IdDosntExists err)
-            {
-                throw new IdDosntExists(err);
-            }
-            try
-            {
-                data.AddDrone(DroneTmp);
-                data.AddDroneCharge(new DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
-                data.UpdateStations(PulledStaion);
-            }
-            catch (DO.IdAlreadyExists err)
-            {
-                throw new IdAlreadyExists(err);
-            }
-            drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
-            drone.DroneStat = DroneStatuses.Matance;
+                // throw error if the DroneStat and Weight are out of the enum range
+                IsInEnum(drone.DroneStat);
+                IsInEnum(drone.Weight);
+                DO.Drone DroneTmp = new DO.Drone()
+                {
+                    Id = drone.Id,
+                    MaxWeigth = (DO.WeightCategories)drone.Weight,
+                    Modle = drone.Model
+                };
+                DO.Station PulledStaion;
+                try
+                {
+                    PulledStaion = data.GetStation(stationId);
+                    PulledStaion.ChargeSlots -= 1;
+                    drone.Current = new Location(PulledStaion.Longitude, PulledStaion.Lattitude);
+                }
+                catch (DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err);
+                }
+                try
+                {
+                    data.AddDrone(DroneTmp);
+                    data.AddDroneCharge(new DO.DroneCharge { StaionId = stationId, DroneId = drone.Id });
+                    data.UpdateStations(PulledStaion);
+                }
+                catch (DO.IdAlreadyExists err)
+                {
+                    throw new IdAlreadyExists(err);
+                }
+                drone.BatteryStat = RandomGen.NextDouble() * 20 + 20;
+                drone.DroneStat = DroneStatuses.Matance;
 
-            DroneList TmpDrnLst = new DroneList()
-            {
-                Battery = drone.BatteryStat,
-                Id = drone.Id,
-                Loct = drone.Current,
-                DroneStat = drone.DroneStat,
-                Model = drone.Model,
-                Weight = drone.Weight
-            };
-            // if the data.AddDrone didnt fail its safe to add the drone
-            drones.Add(TmpDrnLst);
+                DroneList TmpDrnLst = new DroneList()
+                {
+                    Battery = drone.BatteryStat,
+                    Id = drone.Id,
+                    Loct = drone.Current,
+                    DroneStat = drone.DroneStat,
+                    Model = drone.Model,
+                    Weight = drone.Weight
+                };
+                // if the data.AddDrone didnt fail its safe to add the drone
+                drones.Add(TmpDrnLst);
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DroneCharge(int droneId)
@@ -104,31 +105,34 @@ namespace BL
             if (chargingPeriod < 0)
                 throw new NotValidTimePeriod("you tried to enter time that is smaller than 0 (forbidden) ",chargingPeriod); 
             
-            DroneList drony = GetDroneToList(droneId);
-            if (drony.DroneStat != DroneStatuses.Matance)
-                throw new EnumNotInRightStatus<DroneStatuses>("drone is not in matance , it is: ", drony.DroneStat);
+            lock (instance) lock(data)
+            {
+                DroneList drony = GetDroneToList(droneId);
+                if (drony.DroneStat != DroneStatuses.Matance)
+                    throw new EnumNotInRightStatus<DroneStatuses>("drone is not in matance , it is: ", drony.DroneStat);
 
-            int stationId;
-            try
-            {
-                stationId = data.GetDroneCharge(droneId).StaionId;
-                ///time perios is in hours 
-                drony.Battery = Math.Min(drony.Battery + ChargingSpeed * chargingPeriod, 100);
-                drony.DroneStat = DroneStatuses.Free;
-                data.DeleteDroneCharge(drony.Id);
+                int stationId;
+                try
+                {
+                    stationId = data.GetDroneCharge(droneId).StaionId;
+                    ///time perios is in hours 
+                    drony.Battery = Math.Min(drony.Battery + ChargingSpeed * chargingPeriod, 100);
+                    drony.DroneStat = DroneStatuses.Free;
+                    data.DeleteDroneCharge(drony.Id);
+                }
+                catch (DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err);
+                }
+                try
+                {
+                    DO.Station station = data.GetStation(stationId);
+                    station.ChargeSlots += 1;
+                    data.UpdateStations(station);
+                }
+                // if the Station cant be found no worries maybe the station was deleted in the mean while
+                catch (DO.IdDosntExists) { }
             }
-            catch (DO.IdDosntExists err)
-            {
-                throw new IdDosntExists(err);
-            }
-            try
-            {
-                DO.Station station = data.GetStation(stationId);
-                station.ChargeSlots += 1;
-                data.UpdateStations(station);
-            }
-            // if the Station cant be found no worries maybe the station was deleted in the mean while
-            catch (DO.IdDosntExists) { }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDrone(int droneId, string droneName)

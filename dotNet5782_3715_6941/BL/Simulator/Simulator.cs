@@ -15,7 +15,7 @@ namespace Simulator
         const int delay = 300;
         
         // speed in km/s
-        const double speed = 1 ;
+        const double speed = 0.3 ;
 
         BlApi.Ibl logic;
         Action refresh;
@@ -39,6 +39,10 @@ namespace Simulator
                         }
                         catch (notEnoughBattery)
                         {
+                            int stationId = logic.SimulatorDroneSaveChargeSlot(droneId);
+                            Location stationLoct = logic.GetStation(stationId).LoctConstant;
+                            moveDroneTo(drone, stationLoct);
+                            logic.SimulatorDroneReleaseChargeSlot(droneId);
                             logic.DroneCharge(droneId);
                             refresh();
                         }
@@ -71,11 +75,11 @@ namespace Simulator
                     case DroneStatuses.Matance:
                         try
                         {
+                            charge(drone);
                             double percenageGap = 100 - drone.BatteryStat;
                             double chargingPeriod = percenageGap * ChargingSpeed;
                             // multiply chargingPeriod in 3600 to make it sec from hours
-                            Thread.Sleep(delay);
-                            logic.DroneReleaseCharge(droneId, chargingPeriod);
+                            logic.DroneReleaseCharge(droneId, chargingPeriod / 3600);
                             refresh();
                         }
                         catch (IdDosntExists) { }
@@ -108,6 +112,20 @@ namespace Simulator
                 
                 refresh();
                 
+                Thread.Sleep(delay);
+            }
+        }
+
+        void charge(Drone drone)
+        {
+            while (drone.BatteryStat < 100 - ChargingSpeed)
+            {
+                drone.BatteryStat += ChargingSpeed;
+
+                logic.SimulatorUpdateBattary(drone.Id, drone.BatteryStat);
+
+                refresh();
+
                 Thread.Sleep(delay);
             }
         }

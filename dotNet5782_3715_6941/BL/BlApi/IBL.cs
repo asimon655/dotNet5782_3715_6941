@@ -279,6 +279,17 @@ namespace BlApi
         /// <param name="droneId"></param>
         /// <param name="location"></param>
         public void SimulatorUpdateLocation(int droneId, BO.Location location);
+        /// <summary>
+        /// save a charge slot in the closest station and return the station id
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
+        int SimulatorDroneSaveChargeSlot(int droneId);
+        /// <summary>
+        /// released a saved chage slot of a specific drone
+        /// </summary>
+        /// <param name="droneId"></param>
+        public void SimulatorDroneReleaseChargeSlot(int droneId);
         #endregion
 
         #region NEEDTOIMPLEMENTNOWSIMON
