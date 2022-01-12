@@ -11,11 +11,15 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int id)
         {
-            return Convert(GetDroneToList(id));
+            lock (drones) lock(data)
+            {
+                return Convert(GetDroneToList(id));
+            }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone, int stationId)
         {
+            lock (drones) lock (data)
             // throw error if the DroneStat and Weight are out of the enum range
             IsInEnum(drone.DroneStat);
             IsInEnum(drone.Weight);
@@ -148,124 +152,123 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void BindParcelToDrone(int droneId)
         {
-            DroneList drony = GetDroneToList(droneId);
-            if (drony.DroneStat != DroneStatuses.Free)
-                throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
-
-            IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Declared &&
-                                                                x.Weight <= (DO.WeightCategories)drony.Weight);
-            if (parcels.Count() == 0)
-                throw new CouldntFindPatcelThatsFits("There arent any free parcels (that fits the drone weight and location) to bind to the drone");
-
-            parcels = parcels.Where(x => CanReach(drony, x));
-            if (parcels.Count() == 0)
-                throw new notEnoughBattery("please send the drone to charge");
-
-            DO.Parcel resParcel = parcels.First();
-
-            foreach (var pack in parcels)
+            lock (drones) lock (data)
             {
-                if (pack.Priority > resParcel.Priority)
-                    resParcel = pack;
-                else if (pack.Priority == resParcel.Priority)
+                DroneList drony = GetDroneToList(droneId);
+                if (drony.DroneStat != DroneStatuses.Free)
+                    throw new EnumNotInRightStatus<DroneStatuses>("the dorne is not free", drony.DroneStat);
+
+                IEnumerable<DO.Parcel> parcels = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Declared &&
+                                                                    x.Weight <= (DO.WeightCategories)drony.Weight);
+                if (parcels.Count() == 0)
+                    throw new CouldntFindPatcelThatsFits("There arent any free parcels (that fits the drone weight and location) to bind to the drone");
+
+                parcels = parcels.Where(x => CanReach(drony, x));
+                if (parcels.Count() == 0)
+                    throw new notEnoughBattery("please send the drone to charge");
+
+                DO.Parcel resParcel = parcels.OrderByDescending(p => p.Priority)
+                                            .ThenByDescending(p => p.Weight)
+                                            .First();
+
+                drony.ParcelId = resParcel.Id;
+                resParcel.Requested = DateTime.Now;
+                resParcel.DroneId = drony.Id;
+                drony.DroneStat = DroneStatuses.Delivery;
+                try
                 {
-                    if (pack.Weight > resParcel.Weight)
-                        resParcel = pack;
-                    else if (pack.Weight == resParcel.Weight)
-                    {
-                        if (calculateDistance(drony.Loct, getParcelLoctSender(pack)) < calculateDistance(drony.Loct, getParcelLoctSender(resParcel)))
-                            resParcel = pack;
-                    }
+                    data.UpdateParcles(resParcel);
                 }
-            }
-            drony.ParcelId = resParcel.Id;
-            resParcel.Requested = DateTime.Now;
-            resParcel.DroneId = drony.Id;
-            drony.DroneStat = DroneStatuses.Delivery;
-            try
-            {
-                data.UpdateParcles(resParcel);
-            }
-            catch (DO.IdDosntExists err)
-            {
-                throw new IdDosntExists(err);
+                catch (DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err);
+                }
             }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DronePickUp(int droneId)
         {
-            DroneList drony = GetDroneToList(droneId);
-            if (drony.DroneStat != DroneStatuses.Delivery)
+            lock (drones) lock (data)
             {
-                throw new EnumNotInRightStatus<DroneStatuses>("the Drone Should be IN delivery mode , it is in: ", drony.DroneStat);
-            }
-            DO.Parcel pack = data.GetParcel((int)drony.ParcelId);
-            if (ParcelStatusC(pack) != ParcelStatus.Binded)
-            {
-                throw new EnumNotInRightStatus<ParcelStatus>("Parcel should be Binded when it is : ", ParcelStatusC(pack));
-            }
-            if (!CanReach(drony, pack, getParcelLoctSender))
-                throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
-            ///battery status changed !!! 
-            drony.Battery -= getPowerUsage(getParcelLoctSender(pack), drony.Loct, (WeightCategories)pack.Weight);
-            drony.Loct = getParcelLoctSender(pack);
-            pack.PickedUp = DateTime.Now;
-            try
-            {
-                data.UpdateParcles(pack);
-            }
-            catch (DO.IdDosntExists err)
-            {
-                throw new IdDosntExists(err);
+                DroneList drony = GetDroneToList(droneId);
+                if (drony.DroneStat != DroneStatuses.Delivery)
+                {
+                    throw new EnumNotInRightStatus<DroneStatuses>("the Drone Should be IN delivery mode , it is in: ", drony.DroneStat);
+                }
+                DO.Parcel pack = data.GetParcel((int)drony.ParcelId);
+                if (ParcelStatusC(pack) != ParcelStatus.Binded)
+                {
+                    throw new EnumNotInRightStatus<ParcelStatus>("Parcel should be Binded when it is : ", ParcelStatusC(pack));
+                }
+                if (!CanReach(drony, pack, getParcelLoctSender))
+                    throw new CantReachToDest("cant reach to the sender to pick up the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
+                ///battery status changed !!! 
+                drony.Battery -= getPowerUsage(getParcelLoctSender(pack), drony.Loct, (WeightCategories)pack.Weight);
+                drony.Loct = getParcelLoctSender(pack);
+                pack.PickedUp = DateTime.Now;
+                try
+                {
+                    data.UpdateParcles(pack);
+                }
+                catch (DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err);
+                }
             }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DroneDelivere(int droneId)
         {
-            DroneList drony = GetDroneToList(droneId);
-            if (drony.DroneStat != DroneStatuses.Delivery)
+            lock (drones) lock(data)
             {
-                throw new EnumNotInRightStatus<DroneStatuses>("Drone Should be in delivry!! it is now in the status of: ", drony.DroneStat);
-            }
-            DO.Parcel pack = data.GetParcel((int)drony.ParcelId);
-            if (ParcelStatusC(pack) != ParcelStatus.PickedUp)
-            {
-                throw new EnumNotInRightStatus<ParcelStatus>("parcel is not in the status pickedup it is in : ", ParcelStatusC(pack));
-            }
-            Location Target = getParcelLoctTarget(pack);
-            if (!CanReach(drony, pack, getParcelLoctTarget))
-            {
-                throw new CantReachToDest("cant reach to the target to deliver the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
-            }
-            drony.Battery -= getPowerUsage(Target, drony.Loct, (WeightCategories)pack.Weight);
-            drony.Loct = new Location(Target.Longitude, Target.Lattitude);
-            drony.DroneStat = DroneStatuses.Free;
-            drony.ParcelId = null;
-            pack.Delivered = DateTime.Now;
-            try
-            {
-                data.UpdateParcles(pack);
-            }
-            catch (DO.IdDosntExists err)
-            {
-                throw new IdDosntExists(err);
+                DroneList drony = GetDroneToList(droneId);
+                if (drony.DroneStat != DroneStatuses.Delivery)
+                {
+                    throw new EnumNotInRightStatus<DroneStatuses>("Drone Should be in delivry!! it is now in the status of: ", drony.DroneStat);
+                }
+                DO.Parcel pack = data.GetParcel((int)drony.ParcelId);
+                if (ParcelStatusC(pack) != ParcelStatus.PickedUp)
+                {
+                    throw new EnumNotInRightStatus<ParcelStatus>("parcel is not in the status pickedup it is in : ", ParcelStatusC(pack));
+                }
+                Location Target = getParcelLoctTarget(pack);
+                if (!CanReach(drony, pack, getParcelLoctTarget))
+                {
+                    throw new CantReachToDest("cant reach to the target to deliver the parcel ", drony.Battery, getPowerUsage(drony.Loct, getParcelLoctSender(pack), (WeightCategories)pack.Weight));
+                }
+                drony.Battery -= getPowerUsage(Target, drony.Loct, (WeightCategories)pack.Weight);
+                drony.Loct = new Location(Target.Longitude, Target.Lattitude);
+                drony.DroneStat = DroneStatuses.Free;
+                drony.ParcelId = null;
+                pack.Delivered = DateTime.Now;
+                try
+                {
+                    data.UpdateParcles(pack);
+                }
+                catch (DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err);
+                }
             }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void DeleteDrone(int id)
         {
-            try
+            lock (drones) lock(data)
             {
-                DroneList drone = GetDroneToList(id);
-                if (drone.DroneStat != DroneStatuses.Free)
-                    throw new CantDelete("cant delete the drone becouse he is not free", id);
+                try
+                {
+                    DroneList drone = GetDroneToList(id);
+                    if (drone.DroneStat != DroneStatuses.Free)
+                        throw new CantDelete("cant delete the drone becouse he is not free", id);
                 
-                drones.Remove(drone);
-                data.DeleteDrone(id);
-            }
-            catch (DO.IdDosntExists err)
-            {
-                throw new IdDosntExists(err);
+                    drones.Remove(drone);
+                    data.DeleteDrone(id);
+                }
+                catch (DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err);
+                }
             }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -276,7 +279,10 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneList> GetDronesFiltered(IEnumerable<DroneStatuses> statuses, IEnumerable<WeightCategories> weights)
         {
-            return drones.Where(x => statuses.Contains(x.DroneStat) && weights.Contains(x.Weight));
+            lock (drones)
+            {
+                return drones.Where(x => statuses.Contains(x.DroneStat) && weights.Contains(x.Weight));
+            }
         }
     }
 }
