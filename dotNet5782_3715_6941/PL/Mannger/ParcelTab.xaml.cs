@@ -28,8 +28,9 @@ namespace PL
         public Action reset;
         public void Reset()
         {
+           
             PopulateResetList();
-          // PopulateResetScottPlot();
+            // PopulateResetScottPlot();
 
 
 
@@ -40,7 +41,8 @@ namespace PL
             InitializeComponent();
             this.dat = dat;
             Reset();
-
+            WeightCB.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+            PriCB.ItemsSource = Enum.GetValues(typeof(BO.Priorities));
 
 
 
@@ -99,6 +101,35 @@ namespace PL
         {
             ListOf.ItemsSource = await Task.Run(() => dat.GetParcels());
         }
+        async Task PopulateResetListFilter()
+        {
+            DateTime ? F11 = F1.SelectedDate;
+            DateTime ? T11 = T1.SelectedDate;
+            DateTime? F21 = F2.SelectedDate;
+            DateTime? T21 = T2.SelectedDate;
+            DateTime? F31 = F3.SelectedDate;
+            DateTime? T31 = T3.SelectedDate;
+            DateTime? F41 = F4.SelectedDate;
+            DateTime? T41 = T4.SelectedDate;
+            List<BO.WeightCategories> W = new List<BO.WeightCategories>() ;
+            List<BO.Priorities> P = new List<BO.Priorities>() ;
+            if (!(WeightCB.SelectedItem is null))
+                W.Add((BO.WeightCategories)WeightCB.SelectedItem );
+            if (!(PriCB.SelectedItem is null))
+                P.Add((BO.Priorities)PriCB.SelectedItem);
+
+
+
+            ListOf.ItemsSource = await Task.Run(() => dat.GetParcelsFiltered(
+                (W.Count() == 0 ? (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories)) : W ) 
+                ,( P.Count == 0 ? (BO.Priorities[])Enum.GetValues(typeof(BO.Priorities)) : P) ,
+                F11 , T11 ,
+                 F21, T21,
+                  F31, T31,
+                   F41, T41
+
+                ));;
+        }
         internal async  Task PopulateResetScottPlot()
         {
             if (works)
@@ -142,6 +173,26 @@ namespace PL
         private void ListOf_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private async void F1_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await PopulateResetListFilter();
+        }
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            F1.SelectedDate = null;
+            T1.SelectedDate = null;
+            F2.SelectedDate = null;
+            T2.SelectedDate = null;
+            F3.SelectedDate = null;
+            T3.SelectedDate = null;
+            F4.SelectedDate = null;
+            T4.SelectedDate = null;
+            WeightCB.SelectedItem = null;
+            PriCB.SelectedItem = null;
+            await PopulateResetListFilter();
         }
     }
 }

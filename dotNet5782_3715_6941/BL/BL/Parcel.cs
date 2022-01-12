@@ -94,7 +94,7 @@ namespace BL
                                                         DateTime? PickUpFrom, DateTime? PickUpTo,
                                                         DateTime? DeliverFrom, DateTime? DeliverTo)
         {
-            return data.GetParcels(x => weights.Contains((BO.WeightCategories)x.Weight) && priorties.Contains((BO.Priorities)x.Priority) &&
+            return ( data.GetParcels(x => weights.Contains((BO.WeightCategories)x.Weight) && priorties.Contains((BO.Priorities)x.Priority) &&
                                     (CreationFrom is null || (x.Requested is not null && x.Requested >= CreationFrom)) &&
                                     (CreationTo is null || (x.Requested is not null && x.Requested <= CreationTo)) &&
                                     (BindFrom is null || (x.Schedulded is not null && x.Schedulded >= BindFrom)) &&
@@ -103,7 +103,7 @@ namespace BL
                                     (PickUpTo is null || (x.PickedUp is not null && x.PickedUp <= PickUpTo)) &&
                                     (DeliverFrom is null || (x.Delivered is not null && x.Delivered >= DeliverFrom)) &&
                                     (DeliverTo is null || (x.Delivered is not null && x.Delivered <= DeliverTo)))
-                    .Select(ConvertList);
+                    ) .Select(ConvertList);
         }
     }
 }

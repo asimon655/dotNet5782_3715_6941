@@ -64,9 +64,6 @@ namespace PL
                 predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
             StatusSelectorDrnStat.ItemsSource = predStat;
             StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOf.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("DroneStat");
-            view.GroupDescriptions.Add(groupDescription);
             #endregion
             Weight = WeightDefault;
             Stat = StatDefault;
