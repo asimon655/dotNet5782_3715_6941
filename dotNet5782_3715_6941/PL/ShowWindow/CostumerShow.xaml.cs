@@ -116,18 +116,15 @@ namespace PL
                     Phone_Num = PhoneTB.Text,
                     Loct = new BO.Location(Double.Parse(LongTB.Text), Double.Parse(LatTB.Text))
                 };
+                
                 if (file.Equals(""))
                 {
-                    bool valid = true ; 
-                    if (!File.Exists(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"))
-                        valid = Window2.SaveImage("https://thispersondoesnotexist.com/image", TMP + @"image" + Int32.Parse(IdTB.Text) + ".png", ImageFormat.Png);
-                    if (valid)
-                        CostumerPhoto.Source = new BitmapImage(new Uri(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"));
+                    MetaDataCstReset(CostumerPhoto, Int32.Parse(IdTB.Text));
                 }
                 else
                 {
                     if (!File.Exists(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"))
-                        File.Copy(file, TMP + @"image" + Int32.Parse(IdTB.Text) + ".png");
+                        File.Copy(file, PhotoAsync.makePath(Int32.Parse(IdTB.Text) ));
                 }
                 dat.AddCustomer(add);
                 this.Close();

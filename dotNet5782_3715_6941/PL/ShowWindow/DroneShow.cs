@@ -105,7 +105,7 @@ namespace PL
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
             else
                 ParcelOpsRFS(null);
-            if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
+            if (!File.Exists(PhotoAsync.makePath(drn.Model)))
                 PhotoAsync.SaveFirstImageAsync(drn.Model).ContinueWith(x => {
                     if (x.Result)
 
@@ -115,7 +115,7 @@ namespace PL
                         });
                 });
             else {
-                Photo0.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
+                Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
             }
                 
             
