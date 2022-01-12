@@ -42,11 +42,11 @@ namespace PL
             MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
             #endregion
         }
-        public void ResetLoct()
+        internal void ResetLoct()
         {
             IEnumerable<BO.DroneList> NewLocts = dat.GetDrones();
             MapHELP.ResetLoct(MyMapControl, NewLocts);
-            MyMapControl.Refresh();
+
 
 
         }

@@ -35,20 +35,23 @@ namespace PL
         #region Fields
         public Stat status;
         BlApi.Ibl dat;
+        BackgroundWorker MapTasker;
+        BackgroundWorker GraphTasker;
         #endregion
 
         #region Ctor 
         public ManngerWin(BlApi.Ibl dat)
         {
+           
             this.dat = dat;
-            InitializeComponent();
+            InitializeComponent(); 
             #region Framses-Initialize 
             DroneTab Drn = new DroneTab(dat);
             MapTab Map = new MapTab(dat) ;
             ClientsTab Client = new ClientsTab(dat);
             StaionsTab Stat = new StaionsTab(dat);
             ParcelTab pcl = new ParcelTab(dat);
-            Drn.reset = ()=>{ pcl.Reset(); Map.ResetLoct(); /*Stat.Reset(); ;*/ };
+            Drn.reset = ()=> { /*pcl.Reset(); Map.ResetLoct(); Stat.Reset(); ;*/ };
             Client.reset = () => { };//Map.Reset(); };
             pcl.reset = () => { };
             Stat.reset = () => { /*Map.Reset();*/ };
@@ -57,6 +60,48 @@ namespace PL
             MapFrame.NavigationService.Navigate(Map);
             CostumerFrame.NavigationService.Navigate(Client);
             StationFrame.NavigationService.Navigate(Stat);
+            MapTasker = new BackgroundWorker();
+            MapTasker.WorkerReportsProgress = true ;
+            MapTasker.RunWorkerCompleted += (x,y) => { };
+            
+            MapTasker.DoWork += (x,y) => {
+                while (true)
+                {
+                    Thread.Sleep(100);
+                    Map.ResetLoct();
+                    MapTasker.ReportProgress(1);
+                }
+            };
+            MapTasker.ProgressChanged += (x, y) => { Map.MyMapControl.Refresh(); };
+            MapTasker.RunWorkerAsync();
+            GraphTasker = new BackgroundWorker();
+            GraphTasker.WorkerReportsProgress = true;
+            GraphTasker.RunWorkerCompleted += (x, y) => { };
+
+            GraphTasker.DoWork += (x, y) => {
+                while (true)
+                {
+                    Thread.Sleep(500);
+                    pcl.PopulateResetScottPlot().ContinueWith( (x)=> { GraphTasker.ReportProgress(1); }) ;
+                    Drn.ResetPlots().ContinueWith((x)=> { GraphTasker.ReportProgress(2); });
+                   
+                }
+            };
+            GraphTasker.ProgressChanged += (x, y) => {
+                if (y.ProgressPercentage== 1)
+                {
+                    pcl.WpfPlotPack1.Render();
+                    pcl.WpfPlotPack2.Render();
+                    pcl.WpfPlotPack3.Render();
+                }
+                if (y.ProgressPercentage == 2)
+                {
+                    Drn.WpfPlot1.Render();
+                    Drn.WpfPlot2.Render();
+                    Drn.WpfPlot3.Render();
+                }
+            };
+            GraphTasker.RunWorkerAsync();
             #endregion
         }
         #endregion

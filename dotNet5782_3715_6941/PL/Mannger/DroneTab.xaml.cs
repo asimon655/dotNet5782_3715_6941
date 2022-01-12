@@ -77,6 +77,7 @@ namespace PL
                 item.Checked = true;
             }
             ResetPlots();
+            
           
 
 
@@ -85,7 +86,7 @@ namespace PL
         #region Buttons Functions
 
 
-        async void ResetPlots() {
+        public async Task ResetPlots() {
 
             #region Plots Initialize 
             BO.DronesModelsStats dronesStats = await Task.Run( () => dat.GetDronesModelsStats());
@@ -99,11 +100,11 @@ namespace PL
 
         }
 
-        public async void Reset()
+        public  void Reset()
         {
             //ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
             ListOf.Items.Refresh();
-            ResetPlots();
+            //ResetPlots();
 
         }
 

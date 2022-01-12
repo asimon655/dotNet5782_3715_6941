@@ -99,7 +99,7 @@ namespace PL
         {
             ListOf.ItemsSource = await Task.Run(() => dat.GetParcels());
         }
-        async  void PopulateResetScottPlot()
+        internal async  Task PopulateResetScottPlot()
         {
             if (works)
                 return;
@@ -108,15 +108,10 @@ namespace PL
             Task<double[]> task1_1 = Task.Run(() => dat.GetParcelsStatusesStats());
             Task<double[]> task2_1 = Task.Run(() => dat.GetParcelsWeightsStats());
             Task<double[]> task3_1 = Task.Run(() => dat.GetParcelsPrioretiesStats());
-            Task task1_2 = Task.Run(() => ScottPlotHELP.ClearGraph(WpfPlotPack1));
-            Task task2_2 = Task.Run(() => ScottPlotHELP.ClearGraph(WpfPlotPack2));
-            Task task3_2 = Task.Run(() => ScottPlotHELP.ClearGraph(WpfPlotPack3));
             double[] parcelstat = await task1_1;
             double[] WeightStat =await task2_1 ;
             double[] PrioStat = await task3_1; //Get all the data
-            await task1_2;
-            await task2_2;
-            await task3_2;
+
             if (works)
                 return;
             Task ?  task1_3 = null ;
@@ -136,18 +131,7 @@ namespace PL
                 await task3_3;
              if (works)
                 return;
-            
-            if (!works)
-            {
-                works = true; 
-                Dispatcher.Invoke(() =>
-                {
-                    WpfPlotPack1.Refresh();
-                    WpfPlotPack2.Refresh();
-                    WpfPlotPack3.Refresh();
-                });
-                works = false;
-            }
+  
 
 
             #endregion

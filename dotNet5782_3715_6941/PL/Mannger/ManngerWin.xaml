@@ -10,7 +10,7 @@
     <Grid>
         <wpfspark:PivotPanel x:Name="RootPanel"
                      HeaderHeight="50"
-                     HorizontalAlignment="Stretch"> 
+                     HorizontalAlignment="Stretch" > 
             <!--#region Tab Parcels-->
             <wpfspark:PivotItem>
                 <wpfspark:PivotItem.PivotHeader>
