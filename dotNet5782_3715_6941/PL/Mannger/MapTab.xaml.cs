@@ -50,11 +50,11 @@ namespace PL
 
 
         }
-        void ReturnHome()
+        private void ReturnHome(int Dur = 500 )
         {
             var bbox = new Mapsui.Geometries.BoundingBox(MapHELP.FromLonLat(34.732433, 31.987003), MapHELP.FromLonLat(34.988032, 32.166204));
             MyMapControl.Navigator.NavigateTo(bbox, ScaleMethod.Fit);
-            MyMapControl.Navigator.ZoomTo(40, 50);
+            MyMapControl.Navigator.ZoomTo(40, Dur);
             MyMapControl.Refresh();
         }
         BlApi.Ibl dat;
@@ -64,7 +64,7 @@ namespace PL
             InitializeComponent();
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
-            ReturnHome();
+            ReturnHome(0);
 
             this.dat = dat;
             Reset();
@@ -74,5 +74,6 @@ namespace PL
         {
             ReturnHome();
         }
+        
     }
 }

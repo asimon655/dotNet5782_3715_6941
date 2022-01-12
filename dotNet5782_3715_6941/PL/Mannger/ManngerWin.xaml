@@ -103,12 +103,12 @@ VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden"  />
             <!--#endregion-->
             
             <!--#region Tab Map-->
-            <wpfspark:PivotItem>
-                <wpfspark:PivotItem.PivotHeader>
+            <wpfspark:PivotItem >
+                <wpfspark:PivotItem.PivotHeader >
                     <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
                      FontSize="28"
                      ActiveForeground="BlueViolet"
-                     InactiveForeground="Black" >
+                     InactiveForeground="Black"  >
                         <TextBlock Margin="7">
                             Map
 

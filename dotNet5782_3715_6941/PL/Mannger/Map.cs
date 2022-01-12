@@ -175,8 +175,10 @@ namespace PL
                     Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 1),
                     HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
                     MaxWidth = 10,
-                    WordWrap = LabelStyle.LineBreakMode.TailTruncation
+                    WordWrap = LabelStyle.LineBreakMode.TailTruncation 
+                    
                 };
+               
                 if (FILL)
                 {
                     x2 = new Mapsui.Styles.VectorStyle
