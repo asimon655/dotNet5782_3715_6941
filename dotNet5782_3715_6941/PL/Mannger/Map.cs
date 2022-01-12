@@ -44,7 +44,7 @@ namespace PL
         private const double D2R = Math.PI / 180;
         private const double PiDiv4 = Math.PI / 4;
         #endregion
-        private static Mapsui.Geometries.Point FromLonLat(double lon, double lat)
+        internal static Mapsui.Geometries.Point FromLonLat(double lon, double lat)
         {
             var lonRadians = D2R * lon;
             var latRadians = D2R * lat;
@@ -175,8 +175,10 @@ namespace PL
                     Halo = new Mapsui.Styles.Pen(Mapsui.Styles.Color.Black, 1),
                     HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
                     MaxWidth = 10,
-                    WordWrap = LabelStyle.LineBreakMode.TailTruncation
+                    WordWrap = LabelStyle.LineBreakMode.TailTruncation 
+                    
                 };
+               
                 if (FILL)
                 {
                     x2 = new Mapsui.Styles.VectorStyle
@@ -203,6 +205,7 @@ namespace PL
                 }
                 feature.Styles.Add(x);
                 ly.Add((IFeature)feature);
+                
             }
 
 
