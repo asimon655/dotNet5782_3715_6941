@@ -52,7 +52,7 @@
             </ToggleButton>
             <ToggleButton Click="OpcL2" Grid.Row="2">
                 <Viewbox>
-                    <Label>Cst</Label>
+                    <Label>ST</Label>
                 </Viewbox>
                 <ToggleButton.Style>
                     <Style TargetType="{x:Type ToggleButton}">
@@ -68,7 +68,7 @@
             </ToggleButton>
             <ToggleButton Click="OpcL3" Grid.Row="1">
                 <Viewbox>
-                    <Label>ST</Label>
+                    <Label>Cst</Label>
                 </Viewbox>
                 <ToggleButton.Style>
                     <Style TargetType="{x:Type ToggleButton}">
