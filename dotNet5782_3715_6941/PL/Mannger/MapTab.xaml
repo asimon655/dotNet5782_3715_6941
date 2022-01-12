@@ -25,12 +25,63 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="20*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.Row="1" Background="LawnGreen" Click="Button_Click">
+            <Button Grid.Column="0" Grid.Row="4" Background="LawnGreen" Click="Button_Click">
                 <Viewbox>
                     <Label>H</Label>
                 </Viewbox>
             </Button>
+            <ToggleButton Click="OpcL1" Grid.Row="3">
+                <Viewbox>
+                    <Label>Drn</Label>
+                </Viewbox>
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Background" Value="Green"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+            <ToggleButton Click="OpcL2" Grid.Row="2">
+                <Viewbox>
+                    <Label>Cst</Label>
+                </Viewbox>
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Background" Value="Green"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+            <ToggleButton Click="OpcL3" Grid.Row="1">
+                <Viewbox>
+                    <Label>ST</Label>
+                </Viewbox>
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Background" Value="Green"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Background" Value="Red"/>
+                            </Trigger>
+                        </Style.Triggers>
+
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
         </Grid>
     </Grid>
 </Page>
