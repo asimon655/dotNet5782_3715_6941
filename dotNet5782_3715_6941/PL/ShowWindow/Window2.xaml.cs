@@ -110,5 +110,16 @@ namespace PL
         {
             myPopup0.IsOpen = false;
         }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            try {
+                log.UpdateDrone(drn.Id, WCEB.Text);
+            
+            } catch(Exception err) {
+                MessageBox.Show(err.Message, "Error");
+            
+            }
+        }
     }
 }

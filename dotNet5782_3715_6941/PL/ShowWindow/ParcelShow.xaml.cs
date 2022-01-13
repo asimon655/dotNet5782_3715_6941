@@ -49,6 +49,7 @@ namespace PL
         }
   
         BlApi.Ibl dat;
+        BO.Parcel pcl; 
         static internal string TMP = System.IO.Path.GetTempPath();
         public ParcelShow(BlApi.Ibl dat)
             {
@@ -73,6 +74,7 @@ namespace PL
      
             this.dat = dat;
             InitializeComponent();
+            this.pcl = parcely;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
             this.DataContext = parcely;
@@ -149,5 +151,9 @@ namespace PL
             
             }
         }
+
+ 
+
+   
     }
 }
