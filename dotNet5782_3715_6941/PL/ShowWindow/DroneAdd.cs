@@ -15,6 +15,8 @@ namespace PL
         {
             pageof = pg;
             log = x;
+
+            windowType = WindowType.add;
             InitializeComponent();
             Add.Visibility = Visibility.Visible;
             Show.Visibility = Visibility.Hidden;

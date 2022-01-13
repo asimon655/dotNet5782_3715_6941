@@ -195,10 +195,10 @@ namespace PL
 
                 if (!File.Exists(PhotoAsync.makePath(Name)))
                 {
-                    await PhotoAsync.SaveFirstImageAsync(Name);
+                    PhotoAsync.SaveFirstImageAsync(Name).ContinueWith(x => { if(x.Result)feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale)); });
                 }
-
-                feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
+                else
+                    feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
 
 
 

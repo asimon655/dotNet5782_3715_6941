@@ -31,12 +31,14 @@ namespace Dal
 
                 /// constant for loop limit - right programing rules 
                 const int StationInit = 5;
-                const int DroneInit = 50;
-                const int ParcelInit = 1000;
-                const int CostumerInit = 100;
+                const int DroneInit = 10;
+                const int ParcelInit = 50;
+                const int CostumerInit = 20;
 
                 string[] names = { "James", "James", "John", "Michael", "William", "David", "David",
                                     "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan"};
+
+                string[] droneNames = { "Mavic 1", "Mavic 2", "MavicMini2" };
 
                 List<int> dronesDelivery = new List<int>();
 
@@ -69,7 +71,7 @@ namespace Dal
                     Drone drone = new Drone()
                     {
                         Id = RandomGen.Next(1000000, 9999999),
-                        Modle = "Mavic " + RandomGen.Next(1, 6),
+                        Modle = droneNames[RandomGen.Next(droneNames.Length)],
                         MaxWeigth = (WeightCategories)RandomGen.Next(0, 2 + 1)
                     };
                     switch (i % 3)

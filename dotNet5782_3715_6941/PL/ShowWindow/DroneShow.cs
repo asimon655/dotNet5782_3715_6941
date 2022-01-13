@@ -7,7 +7,11 @@ using System.Windows.Media.Imaging;
 namespace PL
 {
 
-
+    enum WindowType
+    {
+        show,
+        add
+    };
 
 
     /// <summary>
@@ -15,6 +19,7 @@ namespace PL
     /// </summary>
     public partial class Window2 : Window
     {
+        
 
         #region MetaDataReset
         private void Reset()
@@ -97,6 +102,8 @@ namespace PL
         private readonly Action reset;
         private readonly BackgroundWorker simulator;
         private bool exitPending = false;
+        private WindowType windowType;
+
         public Window2(BlApi.Ibl log, BO.Drone drn, Action? action = null)
         {
             InitializeComponent();
@@ -108,6 +115,7 @@ namespace PL
             simulator.ProgressChanged += backgroundWorker1_ProgressChanged;
             this.drn = drn;
             this.log = log;
+            windowType = WindowType.show;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
             DataContext = drn;
@@ -397,6 +405,8 @@ namespace PL
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            if (windowType == WindowType.add)
+                return;
             exitPending = true;
             if (simulator.IsBusy)
             {
