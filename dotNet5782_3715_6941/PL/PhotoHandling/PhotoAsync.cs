@@ -58,9 +58,11 @@ namespace PL
                         {
                             try
                             {
-                                await Task.Run(() => File.Delete(filename));
+                                await Task.Delay(50);
+                                 File.Delete(filename);
                             }
                             catch {
+                                CriticalSection.Remove(imageUrl);
                                 return false;
                             }
                             CriticalSection.Remove(imageUrl);
@@ -72,8 +74,7 @@ namespace PL
                 }
                 catch
                 {
-
-
+                    CriticalSection.Remove(imageUrl);
                     return false;
                 }
                 return true;
