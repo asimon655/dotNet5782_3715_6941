@@ -48,7 +48,7 @@ namespace PL
                 client.Dispose();
                 if (!(FileOther is null))
                 {
-                    if (AreEqule(filename, FileOther))
+                    if (await AreEqule(filename, FileOther))
                     {
                         await Task.Run(() => File.Delete(filename));
                         
@@ -65,23 +65,21 @@ namespace PL
             }
             return true;
         }
-        static private bool AreEqule(string filepath1, string filepath2)
+        static private async  Task<bool> AreEqule(string filepath1, string filepath2)
         {
             FileInfo first = new FileInfo(filepath1);
             FileInfo second = new FileInfo(filepath2);
-            if (second.Length == 0 || first.Length == 0)
-                return true;
-            if ((first.CreationTime-second.CreationTime   ).Milliseconds < 400)
-                return true;
             if (first.Length != second.Length)
                 return false;
+            if (second.Length == 0 || first.Length == 0)
+                return true;
             using (FileStream fs1 = first.OpenRead())
             using (FileStream fs2 = second.OpenRead())
             {
-                HMACSHA384 h1 = new HMACSHA384();
+                HMACSHA1 h1 = new HMACSHA1();
 
-                byte[] hash1 = h1.ComputeHash(fs1);
-                byte[] hash2 = h1.ComputeHash(fs2);
+                byte[] hash1 =await h1.ComputeHashAsync(fs1);
+                byte[] hash2 =await  h1.ComputeHashAsync(fs2);
                 for (int i = 0; i < hash2.Length; i++)
                     if (hash1[i] != hash2[i])
                         return false;

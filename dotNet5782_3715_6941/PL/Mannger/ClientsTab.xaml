@@ -421,71 +421,7 @@
                         <RowDefinition Height="0.5*" />
                     </Grid.RowDefinitions>
 
-                    <ComboBox Grid.Column="1" Grid.Row="1"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorWeigthStat"   >
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="#84DCCF"/>
-                                <GradientStop Color="#84DCCF" Offset="1"/>
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
-                        <ComboBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="20"/>
-                            </Style>
-                        </ComboBox.Resources>
-                    </ComboBox>
-
-                    <ComboBox Grid.Column="3" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat"   >
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="Blue"/>
-                                <GradientStop Color="Blue" Offset="1"/>
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
-
-
-
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Name="chkCountry" Width="220"   IsChecked="{Binding Checked}" Content="{Binding statusof}" >
-                                </CheckBox>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-
-
-
-                    <ComboBox Grid.Column="1" Grid.Row="3"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorWeigthStat1"   >
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="#84DCCF"/>
-                                <GradientStop Color="#84DCCF" Offset="1"/>
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
-                        <ComboBox.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="20"/>
-                            </Style>
-                        </ComboBox.Resources>
-                    </ComboBox>
-
-                    <ComboBox Grid.Column="3" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   FontFamily="..\Fonts\Cinzel-VariableFont_wght.ttf #Cinzel" BorderThickness="5" BorderBrush="Black" Name="StatusSelectorDrnStat1"   >
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1">
-                                <GradientStop Color="Blue"/>
-                                <GradientStop Color="Blue" Offset="1"/>
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
-
-
-
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox Name="chkCountry" Width="220"   IsChecked="{Binding Checked}" Content="{Binding statusof}" >
-                                </CheckBox>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
+                  
                 </Grid>
                 <Grid Grid.Row="3">
                     <Grid.RowDefinitions>
@@ -497,7 +433,7 @@
                         <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="4*" />
                     </Grid.ColumnDefinitions>
-                    <Button  Grid.Row="1" Grid.Column="0"  Background="GreenYellow" >Reset
+                    <Button  Click="Button_Click_3" Grid.Row="1" Grid.Column="0"  Background="GreenYellow" >Reset
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="25,0,0,25"/>

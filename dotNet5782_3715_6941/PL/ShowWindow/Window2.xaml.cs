@@ -45,13 +45,7 @@ namespace PL
 
 
                 log.AddDrone(drony, (int)(StatCB).SelectedItem);
-                try
-                {
-                    if (pageof is MainWindow)
-                        (pageof as MainWindow).ListOf.ItemsSource = log.GetDronesFiltered((pageof as MainWindow).Stat, (pageof as MainWindow).Weight);
-                 
-                }
-                catch { }
+          
 
                
             }

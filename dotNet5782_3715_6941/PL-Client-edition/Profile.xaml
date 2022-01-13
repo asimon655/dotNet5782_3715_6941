@@ -1,0 +1,97 @@
+﻿<Page x:Class="PL_Client_edition.Profile"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PL_Client_edition"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Profile">
+
+    <Grid>
+        <Grid x:Name="Show" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Image Source="\Images\user.png" Stretch="Fill" x:Name="CostumerPhoto"/>
+                    <Button Name="DelteAccount" Click="Button_Click" Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Grid.Column="0">
+                                <Label>Delete Account</Label>
+                            </Viewbox>
+                            <Image Grid.Column="1" Source="/Images/DELETE.png"></Image>
+                        </Grid>
+                     
+                    </Button>
+                </Grid>
+               
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" /> 
+                    </Grid.RowDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="3,3,3,0">
+                        <Viewbox Grid.Row="0" >
+                            <Label Content="Name:" />
+                        </Viewbox>
+                    </Border>
+
+                    <Border  Grid.Row="1" BorderBrush="Black" BorderThickness="3,0,3,3">
+                        <Viewbox>
+                            <Label Content="{Binding Name}" />
+                        </Viewbox>
+                    </Border>
+
+                    <Border Grid.Row="2" BorderBrush="Black" BorderThickness="3,3,3,0">
+                        <Viewbox >
+                            <Label Content="Phone:"  />
+                        </Viewbox>
+                    </Border>
+                    <Border  Grid.Row="3" BorderBrush="Black" BorderThickness="3,0,3,3">
+                        <Viewbox>
+                            <Label Content="{Binding Phone_Num}" Grid.Row="3"/>
+                        </Viewbox>
+                    </Border>
+
+
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderBrush="Black" BorderThickness="3,3,0,3">
+                        <Viewbox >
+                            <Label Content="ID:"  />
+                        </Viewbox>
+                    </Border>
+                    <Border  Grid.Column="1" BorderBrush="Black" BorderThickness="0,3,3,3">
+                        <Viewbox >
+                            <Label Content="{Binding Id}"/>
+                        </Viewbox>
+                    </Border>
+
+                </Grid>
+            </Grid>
+   
+
+        </Grid>
+    </Grid>
+</Page>

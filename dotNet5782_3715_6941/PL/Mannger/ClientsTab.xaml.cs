@@ -33,14 +33,16 @@ namespace PL
 
 
         }
-        public ClientsTab(BlApi.Ibl dat)
+        public  ClientsTab(BlApi.Ibl dat)
         {
 
             this.dat = dat;
             InitializeComponent();
             Reset();
-    
-  
+
+
+
+
         }
 
         private void ListOfClients_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -81,6 +83,48 @@ namespace PL
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             ResultsOfSearch.ItemsSource = dat.SmartSearchCostumer(SmartTB.Text);
+        }
+        #region Populates 
+        private async Task<IEnumerable<int>> GetHowManyReached()
+        {
+            return  await Task.Run(()=> (from cl in dat.GetCustomers() select cl.ParcelDeliveredAndGot).Distinct());
+        
+        }
+        private async Task<IEnumerable<int>> GetHowManyUnReached()
+        {
+            return await Task.Run(() => (from cl in dat.GetCustomers() select cl.ParcelDeliveredAndNotGot).Distinct());
+
+        }
+        private async Task<IEnumerable<int>> GetHowManyParcelGot()
+        {
+            return await Task.Run(() => (from cl in dat.GetCustomers() select cl.ParcelGot).Distinct());
+
+        }
+        private async Task<IEnumerable<int>> GetHowManyInTheWay()
+        {
+            return await Task.Run(() => (from cl in dat.GetCustomers() select cl.InTheWay).Distinct());
+
+        }
+
+        private async Task search()
+        {
+          
+        
+
+            ListOf.ItemsSource = await Task.Run(() => dat.GetCustomers());
+        
+        }
+        #endregion
+
+        private async  void ReachedCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await search();
+        }
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+            await search();
         }
     }
 }

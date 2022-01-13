@@ -34,7 +34,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{DC0BA222-B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalGeo", "LocalGeo\LocalGeo.csproj", "{DCA99011-7A3D-46D1-A00C-307A5BB8439E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InitalizeXml", "InitalizeXml\InitalizeXml.csproj", "{0513E3F6-DFE5-4663-BA59-5AA57A91C9D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InitalizeXml", "InitalizeXml\InitalizeXml.csproj", "{0513E3F6-DFE5-4663-BA59-5AA57A91C9D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL-Client-edition", "PL-Client-edition\PL-Client-edition.csproj", "{838571F6-7DCF-4F29-8BC1-30AEA710C69F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +80,10 @@ Global
 		{0513E3F6-DFE5-4663-BA59-5AA57A91C9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0513E3F6-DFE5-4663-BA59-5AA57A91C9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0513E3F6-DFE5-4663-BA59-5AA57A91C9D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{838571F6-7DCF-4F29-8BC1-30AEA710C69F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{838571F6-7DCF-4F29-8BC1-30AEA710C69F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{838571F6-7DCF-4F29-8BC1-30AEA710C69F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{838571F6-7DCF-4F29-8BC1-30AEA710C69F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

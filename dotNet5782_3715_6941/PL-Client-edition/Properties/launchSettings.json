@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PL-Client-edition": {
+      "commandName": "Project",
+      "workingDirectory": "$(SolutionDir)"
+    }
+  }
+}

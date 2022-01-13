@@ -33,17 +33,17 @@ namespace PL
     {
 
         #region Fields
-        public Stat status;
+
         BlApi.Ibl dat;
         BackgroundWorker MapTasker;
         BackgroundWorker GraphTasker;
         #endregion
 
         #region Ctor 
-        public ManngerWin(BlApi.Ibl dat)
+        public ManngerWin()
         {
            
-            this.dat = dat;
+            this.dat = BlApi.BlFactory.GetBl(); ;
             InitializeComponent(); 
             #region Framses-Initialize 
             DroneTab Drn = new DroneTab(dat);
@@ -90,15 +90,23 @@ namespace PL
             GraphTasker.ProgressChanged += (x, y) => {
                 if (y.ProgressPercentage== 1)
                 {
-                    pcl.WpfPlotPack1.Render();
-                    pcl.WpfPlotPack2.Render();
-                    pcl.WpfPlotPack3.Render();
+                    try
+                    {
+                        pcl.WpfPlotPack1.Render();
+                        pcl.WpfPlotPack2.Render();
+                        pcl.WpfPlotPack3.Render();
+                    }
+                    catch { }
                 }
                 if (y.ProgressPercentage == 2)
                 {
-                    Drn.WpfPlot1.Render();
-                    Drn.WpfPlot2.Render();
-                    Drn.WpfPlot3.Render();
+                    try
+                    {
+                        Drn.WpfPlot1.Render();
+                        Drn.WpfPlot2.Render();
+                        Drn.WpfPlot3.Render();
+                    }
+                    catch { }
                 }
             };
             GraphTasker.RunWorkerAsync();
