@@ -1,9 +1,9 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using DO;
 
 namespace Dal
 {
@@ -11,25 +11,34 @@ namespace Dal
     {
         public DalXml() { }
 
-        static DalXml() {}
+        static DalXml() { }
         internal static readonly object padlock = new object();
         internal static DalXml instance;
-         static DalXml Instance {
-            get {
-                if (instance == null) {
-                    lock(padlock) {  
-                        if (instance == null) {  
-                            instance = new DalXml();  
+
+        private static DalXml Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (padlock)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new DalXml();
                         }
                     }
                 }
-                return instance;  
+                return instance;
             }
         }
 
-        public double[] GetPowerConsumption() => XmlConfig.GetPowerConsts();
-        
-        Dictionary<Type, string> fileNames = new Dictionary<Type, string>() {
+        public double[] GetPowerConsumption()
+        {
+            return XmlConfig.GetPowerConsts();
+        }
+
+        private readonly Dictionary<Type, string> fileNames = new Dictionary<Type, string>() {
                 {typeof(Customer) , "Customers.xml"},
                 {typeof(Drone) , "Drones.xml"},
                 {typeof(DroneCharge) , "DronesCharges.xml"},
@@ -39,7 +48,7 @@ namespace Dal
                 {typeof(CustomerPic) , "CustomerPics.xml"},
             };
 
-        List<T> Read<T>()
+        private List<T> Read<T>()
         {
             XmlSerializer ser = new XmlSerializer(typeof(List<T>));
             XmlReader reader;
@@ -67,7 +76,7 @@ namespace Dal
             }
         }
 
-        void Write<T>(List<T> data)
+        private void Write<T>(List<T> data)
         {
             XmlSerializer ser = new XmlSerializer(typeof(List<T>));
 
@@ -83,16 +92,16 @@ namespace Dal
             }
             try
             {
-                ser.Serialize(writer, data);    
+                ser.Serialize(writer, data);
             }
-            catch(Exception) { throw; }
+            catch (Exception) { throw; }
             finally
             {
                 writer.Close();
             }
         }
 
-        static int Update<T>(List<T> listy, T updater)
+        private static int Update<T>(List<T> listy, T updater)
         {
             var id = typeof(T).GetProperty("Id");
             var isDeleted = typeof(T).GetProperty("IsDeleted");
@@ -102,11 +111,14 @@ namespace Dal
             int index = listy.FindIndex(x => !(bool)isDeleted.GetValue(x, null) && (int)id.GetValue(x, null) == updaterId);
 
             if (index != -1)
+            {
                 listy[index] = updater;
-            
+            }
+
             return index;
         }
-        static int Delete<T>(List<T> listy, int deleteId)
+
+        private static int Delete<T>(List<T> listy, int deleteId)
         {
             var id = typeof(T).GetProperty("Id");
             var isDeleted = typeof(T).GetProperty("IsDeleted");

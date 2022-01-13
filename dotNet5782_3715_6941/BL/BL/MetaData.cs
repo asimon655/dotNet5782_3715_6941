@@ -1,21 +1,21 @@
 using BO;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Xml;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Xml;
 
 namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
-        static internal string TMP = Path.GetTempPath();
-        static internal async Task<DO.DronePic> SaveDroneFirstImage(string Model)
+        internal static string TMP = Path.GetTempPath();
+        internal static async Task<DO.DronePic> SaveDroneFirstImage(string Model)
         {
             // Declaring 'x' as a new WebClient() method
             WebClient x = new WebClient();
@@ -42,7 +42,7 @@ namespace BL
                 throw new NoOrBadInternet("please connect to unfiltered intenet");
             }
         }
-        static internal async Task SaveImage(string imageUrl, string filename, ImageFormat format)
+        internal static async Task SaveImage(string imageUrl, string filename, ImageFormat format)
         {
             WebClient client = new WebClient();
             try
@@ -124,7 +124,10 @@ namespace BL
                 List<string> QuestionAndAnswers = new List<string>();
                 await Task.Run(() => doc.LoadXml(plaintext));
                 foreach (XmlNode Element in doc.DocumentElement.ChildNodes)
+                {
                     QuestionAndAnswers.Add(Element.InnerText);
+                }
+
                 return QuestionAndAnswers;
             }
             catch

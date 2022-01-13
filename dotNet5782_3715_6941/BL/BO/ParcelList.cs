@@ -1,13 +1,13 @@
 ﻿namespace BO
 {
-    public class ParcelList 
+    public class ParcelList
     {
-        public int Id { set; get;  }
-        public string SenderName { set; get;  }
-        public string TargetName { set; get;  }
-        public WeightCategories Weight { set; get;  }
-        public Priorities Priorety { set; get;  }
-        public ParcelStatus ParcelStatus { set; get;  }
+        public int Id { set; get; }
+        public string SenderName { set; get; }
+        public string TargetName { set; get; }
+        public WeightCategories Weight { set; get; }
+        public Priorities Priorety { set; get; }
+        public ParcelStatus ParcelStatus { set; get; }
 
         public override string ToString()
         {

@@ -26,7 +26,7 @@ namespace BL
             {
                 return data.GetParcels(x => x.Id.ToString().StartsWith(id.ToString())).Select(ConvertList);
             }
-            return data.GetParcels(x => data.GetCustomer(x.SenderId).Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) || 
+            return data.GetParcels(x => data.GetCustomer(x.SenderId).Name.Contains(query, StringComparison.CurrentCultureIgnoreCase) ||
                                         data.GetCustomer(x.TargetId).Name.Contains(query, StringComparison.CurrentCultureIgnoreCase))
                                         .Select(ConvertList);
         }
@@ -43,7 +43,7 @@ namespace BL
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<BO.DroneList> SmartSearchDrone(string query)
         {
-            int id; 
+            int id;
             if (int.TryParse(query, out id))
             {
                 return drones.FindAll(x => x.Id.ToString().StartsWith(id.ToString()));

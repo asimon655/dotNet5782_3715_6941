@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BO;
+using System.Collections.Generic;
 using System.Linq;
-using BO;
 using System.Runtime.CompilerServices;
 
 namespace BL
@@ -23,7 +23,9 @@ namespace BL
         public void AddStation(Station station)
         {
             if (station.LoctConstant.Lattitude > 90 || station.LoctConstant.Lattitude < -90 || station.LoctConstant.Longitude > 180 || station.LoctConstant.Longitude < -180)
+            {
                 throw new LocationOutOfRange("the Location Values are out of boundries  :  ", station.LoctConstant.Longitude, station.LoctConstant.Lattitude);
+            }
 
             DO.Station StationTmp = new DO.Station()
             {
@@ -40,7 +42,7 @@ namespace BL
             catch (DO.IdAlreadyExists err)
             {
                 throw new IdAlreadyExists(err);
-            } 
+            }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateStation(int stationId, string? stationName = null, int? stationChargeSlots = null)

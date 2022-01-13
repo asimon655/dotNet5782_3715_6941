@@ -12,9 +12,9 @@
                      HeaderHeight="50"
                      HorizontalAlignment="Stretch" > 
             <!--#region Tab Parcels-->
-            <wpfspark:PivotItem>
+            <wpfspark:PivotItem >
                 <wpfspark:PivotItem.PivotHeader>
-                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                    <wpfspark:PivotHeaderControl Name="ParcelsPHC" FontFamily="Segoe WP"
                  FontSize="28"
                  ActiveForeground="OrangeRed"
                  InactiveForeground="Black">
@@ -36,7 +36,7 @@ VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" />
             <!--#region Tab Drones-->
             <wpfspark:PivotItem>
                 <wpfspark:PivotItem.PivotHeader>
-                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                    <wpfspark:PivotHeaderControl Name="DronesPHC" FontFamily="Segoe WP"
                  FontSize="28"
                  ActiveForeground="LawnGreen"
                  InactiveForeground="Black">
@@ -57,7 +57,7 @@ VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden" />
             <!--#region  Tab Stations -->
             <wpfspark:PivotItem>
                 <wpfspark:PivotItem.PivotHeader>
-                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                    <wpfspark:PivotHeaderControl Name="StationsPHC" FontFamily="Segoe WP"
                      FontSize="28"
                      ActiveForeground="BlueViolet"
                      InactiveForeground="Black" >
@@ -80,7 +80,7 @@ VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden"  />
             <!--#region Tab Costumers -->
             <wpfspark:PivotItem>
                 <wpfspark:PivotItem.PivotHeader>
-                    <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                    <wpfspark:PivotHeaderControl Name="CostumersPHC" FontFamily="Segoe WP"
                      FontSize="28"
                      ActiveForeground="BlueViolet"
                      InactiveForeground="Black" >
@@ -106,6 +106,7 @@ VerticalAlignment="Stretch" Width="auto" NavigationUIVisibility="Hidden"  />
             <wpfspark:PivotItem >
                 <wpfspark:PivotItem.PivotHeader >
                     <wpfspark:PivotHeaderControl FontFamily="Segoe WP"
+                                                 Name="MapPHC"
                      FontSize="28"
                      ActiveForeground="BlueViolet"
                      InactiveForeground="Black"  >

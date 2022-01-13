@@ -151,12 +151,12 @@ namespace Itinero.LocalGeo.Operations
                 throw new InvalidOperationException("A hull should at least contain three elements");
             }
 
-            var a = (Coordinate) aNullable;
-            var b = (Coordinate) bNullable;
+            var a = (Coordinate)aNullable;
+            var b = (Coordinate)bNullable;
 
             points.Remove(a);
             points.Remove(b);
-            
+
             // Split the resting set into a left and right partition...
             points.PartitionLeftRight(a, b, out var leftSet, out var rightSet);
 
@@ -199,7 +199,7 @@ namespace Itinero.LocalGeo.Operations
                 throw new InvalidOperationException("Not enough elements in longest distance, should not happen");
             }
 
-            var c = (Coordinate) cNullable;
+            var c = (Coordinate)cNullable;
             points.Remove(c);
 
             // We have a triangle. Exclude everything in the triangle

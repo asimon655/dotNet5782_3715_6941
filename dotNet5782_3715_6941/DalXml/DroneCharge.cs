@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DO;
 using System.Runtime.CompilerServices;
 
 namespace Dal
@@ -14,7 +14,9 @@ namespace Dal
             List<DroneCharge> data = Read<DroneCharge>();
 
             if (data.Any(x => x.DroneId == droneCharge.DroneId))
+            {
                 throw new IdAlreadyExists("the drone is already in charge", droneCharge.DroneId);
+            }
 
             data.Add(droneCharge);
 
@@ -57,7 +59,9 @@ namespace Dal
             int removed = data.RemoveAll(x => x.DroneId == droneId);
 
             if (removed == 0)
+            {
                 throw new IdDosntExists("the drone is not in charge", droneId);
+            }
 
             Write(data);
         }

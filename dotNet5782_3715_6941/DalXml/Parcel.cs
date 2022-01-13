@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DO;
 using System.Runtime.CompilerServices;
 
 namespace Dal

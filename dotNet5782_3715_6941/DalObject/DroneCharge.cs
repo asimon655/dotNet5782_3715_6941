@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DO;
 using System.Runtime.CompilerServices;
 
 namespace Dal
@@ -45,7 +45,8 @@ namespace Dal
             }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> expr) {
+        public IEnumerable<DroneCharge> GetDronesCharges(Predicate<DroneCharge> expr)
+        {
             return DataSource.DronesCharges.FindAll(expr);
         }
         [MethodImpl(MethodImplOptions.Synchronized)]

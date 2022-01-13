@@ -1,15 +1,15 @@
 ﻿namespace BO
 {
-    public class ParcelInDrone 
+    public class ParcelInDrone
     {
         public int Id { set; get; }
-        public Priorities Priorety{ set; get;  }
-        public WeightCategories Weight { set; get;  }
-        public CustomerInParcel Sender { set; get;  }
+        public Priorities Priorety { set; get; }
+        public WeightCategories Weight { set; get; }
+        public CustomerInParcel Sender { set; get; }
         public CustomerInParcel Target { set; get; }
-        public Location Pickup { set; get;  }
-        public Location Dst { set; get;  }
-        public double Distance { set; get;  }
+        public Location Pickup { set; get; }
+        public Location Dst { set; get; }
+        public double Distance { set; get; }
 
         public override string ToString()
         {

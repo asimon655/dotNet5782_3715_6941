@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PL
 {
@@ -24,9 +15,21 @@ namespace PL
     public partial class DroneTab : Page
     {
         #region Predicts 
-        public Predicate<T> combine<T>(Predicate<T>? a, Predicate<T>? b) => new Predicate<T>(x => ConvertorNullable<T>(a)(x) && ConvertorNullable<T>(b)(x));
-        Predicate<T> OrGate<T>(Predicate<T>? a, Predicate<T>? b) => new Predicate<T>(x => ConvertorNullable<T>(a)(x) || ConvertorNullable<T>(b)(x));
-        Predicate<T> ConvertorNullable<T>(Predicate<T>? a) => (a is null ? new Predicate<T>(x => true) : a);
+        public Predicate<T> combine<T>(Predicate<T>? a, Predicate<T>? b)
+        {
+            return new Predicate<T>(x => ConvertorNullable<T>(a)(x) && ConvertorNullable<T>(b)(x));
+        }
+
+        private Predicate<T> OrGate<T>(Predicate<T>? a, Predicate<T>? b)
+        {
+            return new Predicate<T>(x => ConvertorNullable<T>(a)(x) || ConvertorNullable<T>(b)(x));
+        }
+
+        private Predicate<T> ConvertorNullable<T>(Predicate<T>? a)
+        {
+            return (a is null ? new Predicate<T>(x => true) : a);
+        }
+
         public IEnumerable<BO.WeightCategories> Weight;
         public IEnumerable<BO.DroneStatuses> Stat;
         public IEnumerable<BO.WeightCategories> WeightDefault = (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories));
@@ -34,15 +37,15 @@ namespace PL
         #endregion
 
         #region Fields 
-        BlApi.Ibl dat;
-        List<CheckBoxStatus> predStat;
+        private readonly BlApi.Ibl dat;
+        private readonly List<CheckBoxStatus> predStat;
         #endregion
         public Action reset;
 
-        public DroneTab(BlApi.Ibl dat )
+        public DroneTab(BlApi.Ibl dat)
         {
             InitializeComponent();
-    
+
             this.dat = dat;
 
             #region Predicts Initialize 
@@ -51,17 +54,24 @@ namespace PL
             Stat = StatDefault;
             predStat = new List<CheckBoxStatus>();
             foreach (BO.DroneStatuses enm in StatDefault)
+            {
                 predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
+            }
             #endregion
 
             #region ListView Initialize 
-            Binding myBinding = new Binding();
-            myBinding.Source = dat.GetDronesFiltered(Stat, Weight);
+            Binding myBinding = new Binding
+            {
+                Source = dat.GetDronesFiltered(Stat, Weight)
+            };
             BindingOperations.SetBinding(ListOf, ListView.ItemsSourceProperty, myBinding);
 
             predStat = new List<CheckBoxStatus>();
             foreach (BO.DroneStatuses enm in StatDefault)
+            {
                 predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
+            }
+
             StatusSelectorDrnStat.ItemsSource = predStat;
             StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             #endregion
@@ -74,8 +84,8 @@ namespace PL
                 item.Checked = true;
             }
             ResetPlots();
-            
-          
+
+
 
 
 
@@ -83,10 +93,11 @@ namespace PL
         #region Buttons Functions
 
 
-        public async Task ResetPlots() {
+        public async Task ResetPlots()
+        {
 
             #region Plots Initialize 
-            BO.DronesModelsStats dronesStats = await Task.Run( () => dat.GetDronesModelsStats());
+            BO.DronesModelsStats dronesStats = await Task.Run(() => dat.GetDronesModelsStats());
             if (dronesStats.names.Length != 0 && dronesStats.vals.Length != 0 && dronesStats.pos.Length != 0)
             {
                 ScottPlotHELP.createModelsBar(WpfPlot2, dronesStats.pos, dronesStats.names, dronesStats.vals);
@@ -97,7 +108,7 @@ namespace PL
 
         }
 
-        public  void Reset()
+        public void Reset()
         {
             //ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
             ListOf.Items.Refresh();
@@ -122,7 +133,9 @@ namespace PL
         private void ListOf_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (!((sender as ListView).SelectedItem is null))
-                new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), ()=>{ reset(); Reset(); }).Show();
+            {
+                new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), () => { reset(); Reset(); }).Show();
+            }
             //new Window2(a).Show();
 
         }
@@ -134,7 +147,7 @@ namespace PL
             {
                 Reset();
                 reset();
-            }; 
+            };
             add.Show();
         }
 
@@ -148,14 +161,18 @@ namespace PL
 
 
         }
-        static bool IsSorted<T>(IEnumerable<T> enumerable) where T : IComparable<T>
+
+        private static bool IsSorted<T>(IEnumerable<T> enumerable) where T : IComparable<T>
         {
             T prev = default(T);
             bool prevSet = false;
             foreach (var item in enumerable)
             {
                 if (prevSet && (prev == null || prev.CompareTo(item) > 0))
+                {
                     return false;
+                }
+
                 prev = item;
                 prevSet = true;
             }
@@ -164,14 +181,16 @@ namespace PL
 
         private void Battery_Click(object sender, RoutedEventArgs e)
         {
-            Dictionary<String, String> dict = new Dictionary<string, string>();
-            dict.Add("Id", "Id");
-            dict.Add("Model", "Model");
-            dict.Add("Battery", "Battery");
-            dict.Add("Location", "Loct");
-            dict.Add("MaxWeight", "Weight");
-            dict.Add("DroneStatus", "DroneStat");
-            dict.Add("Binded Parcel Id", "ParcelId");
+            Dictionary<string, string> dict = new Dictionary<string, string>
+            {
+                { "Id", "Id" },
+                { "Model", "Model" },
+                { "Battery", "Battery" },
+                { "Location", "Loct" },
+                { "MaxWeight", "Weight" },
+                { "DroneStatus", "DroneStat" },
+                { "Binded Parcel Id", "ParcelId" }
+            };
 
 
 
@@ -189,7 +208,7 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new Window2(dat,this ).Show();
+            new Window2(dat, this).Show();
 
         }
 

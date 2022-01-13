@@ -8,9 +8,9 @@ using System.Xml.Serialization;
 
 namespace InitalizeXml
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var dataSource = Type.GetType($"Dal.DataSource, DalObject");
 
@@ -82,7 +82,7 @@ namespace InitalizeXml
             int IdCreation = (int)IdCreationField.GetValue(null);
 
             XElement XmlConfig = new XElement("config", new XElement[] {
-                new XElement("power-usage", new XElement[] { 
+                new XElement("power-usage", new XElement[] {
                     new XElement("PowerConsumptionFree", PowerConsumptionFree),
                     new XElement("PowerConsumptionLight", PowerConsumptionLight),
                     new XElement("PowerConsumptionMedium", PowerConsumptionMedium),

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DO;
 using System.Runtime.CompilerServices;
 
 namespace Dal
@@ -16,7 +16,9 @@ namespace Dal
             List<Station> data = Read<Station>();
 
             if (data.Any(x => x.Id == station.Id))
+            {
                 throw new IdAlreadyExists("there is already a station with that id", station.Id);
+            }
 
             data.Add(station);
 
@@ -60,7 +62,7 @@ namespace Dal
             {
                 throw new IdDosntExists("the Id Drone is dosnt exists", station.Id);
             }
-            
+
             Write(stations);
         }
         [MethodImpl(MethodImplOptions.Synchronized)]

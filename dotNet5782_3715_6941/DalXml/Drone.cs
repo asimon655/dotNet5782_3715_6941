@@ -1,16 +1,16 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Linq;
-using DO;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 namespace Dal
 {
     internal sealed partial class DalXml : DalApi.IDal
     {
-        XElement ReadDroneXml()
+        private XElement ReadDroneXml()
         {
             try
             {
@@ -22,7 +22,7 @@ namespace Dal
             }
         }
 
-        void WriteDroneXml(XElement data)
+        private void WriteDroneXml(XElement data)
         {
             try
             {
@@ -34,16 +34,19 @@ namespace Dal
                 data.Save(Path.Combine("Data", fileNames[typeof(Drone)]));
             }
         }
-        Drone XmlToDrone(XElement elem)
+
+        private Drone XmlToDrone(XElement elem)
         {
-            return new Drone() {
-                Id= int.Parse(elem.Element("Id").Value),
-                Modle= elem.Element("Modle").Value,
+            return new Drone()
+            {
+                Id = int.Parse(elem.Element("Id").Value),
+                Modle = elem.Element("Modle").Value,
                 MaxWeigth = (WeightCategories)Enum.Parse(typeof(WeightCategories), elem.Element("MaxWeigth").Value),
                 IsDeleted = bool.Parse(elem.Element("IsDeleted").Value),
             };
         }
-        XElement DroneToXml(Drone drone)
+
+        private XElement DroneToXml(Drone drone)
         {
             return new XElement("Drone", new XElement[] {
                 new XElement("Id", drone.Id),
@@ -73,7 +76,9 @@ namespace Dal
                  where int.Parse(x.Element("Id").Value) == drone.Id
                  select true)
                  .Any())
+            {
                 throw new IdAlreadyExists("the Id Drone is already taken", drone.Id);
+            }
 
             data.Add(DroneToXml(drone));
 
@@ -89,7 +94,9 @@ namespace Dal
                            .FirstOrDefault();
 
             if (drone.Id != id)
+            {
                 throw new IdDosntExists("the Id could not be found", id);
+            }
 
             return drone;
         }
@@ -101,7 +108,7 @@ namespace Dal
             IEnumerable<Drone> drones = from drone in data.Elements()
                                         where !IsDeletedOf(drone)
                                         select XmlToDrone(drone);
-            
+
             return drones;
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -112,7 +119,7 @@ namespace Dal
             IEnumerable<Drone> dronys = from drone in data.Elements()
                                         where !IsDeletedOf(drone) && expr(XmlToDrone(drone))
                                         select XmlToDrone(drone);
-            
+
             return dronys;
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -133,7 +140,9 @@ namespace Dal
                                select x).FirstOrDefault();
 
             if (_drone == default(XElement))
+            {
                 throw new IdDosntExists("the Id could not be found", drone.Id);
+            }
 
             _drone.ReplaceWith(DroneToXml(drone));
 
@@ -149,7 +158,9 @@ namespace Dal
                                select x).FirstOrDefault();
 
             if (_drone == default(XElement))
+            {
                 throw new IdDosntExists("the Id could not be found", id);
+            }
 
             _drone.Element("IsDeleted").SetValue(true);
 

@@ -16,10 +16,9 @@
  *  limitations under the License.
  */
 
+using Itinero.LocalGeo.Operations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Itinero.LocalGeo.Operations;
 
 namespace Itinero.LocalGeo
 {
@@ -91,12 +90,20 @@ namespace Itinero.LocalGeo
         public static List<Coordinate> SimplifyBetween(this List<Coordinate> points, float epsilonInMeter, int first, int last)
         {
             if (points == null)
+            {
                 throw new ArgumentNullException(nameof(points));
+            }
+
             if (epsilonInMeter <= 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(points));
+            }
+
             if (first > last)
+            {
                 throw new ArgumentException(string.Format("first[{0}] must be smaller or equal than last[{1}]!",
                     first, last));
+            }
 
             if (first + 1 != last)
             {
@@ -148,12 +155,20 @@ namespace Itinero.LocalGeo
         public static Coordinate[] SimplifyBetween(this Coordinate[] points, float epsilonInMeter, int first, int last)
         {
             if (points == null)
+            {
                 throw new ArgumentNullException("points");
+            }
+
             if (epsilonInMeter <= 0)
+            {
                 throw new ArgumentOutOfRangeException("epsilon");
+            }
+
             if (first > last)
+            {
                 throw new ArgumentException(string.Format("first[{0}] must be smaller or equal than last[{1}]!",
                     first, last));
+            }
 
             if (first + 1 != last)
             {
@@ -282,7 +297,11 @@ namespace Itinero.LocalGeo
         /// <returns></returns>
         public static Coordinate LocationAfterDistance(Coordinate coordinate1, Coordinate coordinate2, float distanceBetween, float offset)
         {
-            if (distanceBetween < 0.05f) return coordinate1; // when line segment < 5cm return first coordinate. 
+            if (distanceBetween < 0.05f)
+            {
+                return coordinate1; // when line segment < 5cm return first coordinate. 
+            }
+
             var ratio = offset / distanceBetween;
             return new Coordinate(
                 (coordinate2.Latitude - coordinate1.Latitude) * ratio + coordinate1.Latitude,

@@ -1,16 +1,16 @@
-﻿using System;
-using BO;
-using BlApi;
+﻿using BO;
+using System;
 
 namespace ConsoleUI_BL
 {
-    class Program
+    internal class Program
     {
-        static private BlApi.Ibl Logistics;
-        static void Main(string[] args)
+        private static BlApi.Ibl Logistics;
+
+        private static void Main(string[] args)
         {
             Logistics = BlApi.BlFactory.GetBl();
-             
+
             int enter;/// for the sub switches 
             int command;
             do
@@ -29,9 +29,11 @@ namespace ConsoleUI_BL
                         {
                             case (int)Add.Costumer:
                                 {
-                                    Customer costumer = new Customer();
-                                    costumer.Id = SysFunc.SafeEnterUInt("Id: ");
-                                    costumer.Loct = new Location(SysFunc.SafeEnterDouble("Longitude: "), SysFunc.SafeEnterDouble("Lattitude: ")); 
+                                    Customer costumer = new Customer
+                                    {
+                                        Id = SysFunc.SafeEnterUInt("Id: "),
+                                        Loct = new Location(SysFunc.SafeEnterDouble("Longitude: "), SysFunc.SafeEnterDouble("Lattitude: "))
+                                    };
                                     Console.Write("Name: ");
                                     costumer.Name = Console.ReadLine();
                                     Console.Write("Phone: ");
@@ -50,8 +52,10 @@ namespace ConsoleUI_BL
                                 break;
                             case (int)Add.Drone:
                                 {
-                                    Drone drone = new Drone();
-                                    drone.Id = SysFunc.SafeEnterUInt("Id: ");
+                                    Drone drone = new Drone
+                                    {
+                                        Id = SysFunc.SafeEnterUInt("Id: ")
+                                    };
                                     Console.WriteLine("Maxweight=>please enter a number from the menue : ");
                                     SysFunc.printEnum<BO.WeightCategories>();
                                     drone.Weight = (BO.WeightCategories)SysFunc.SafeEnterUInt("Maxweight: (Choose from the numbers above:  "); ;
@@ -72,9 +76,11 @@ namespace ConsoleUI_BL
                                 break;
                             case (int)Add.Package:
                                 {
-                                    Parcel parcel = new Parcel();
-                                    parcel.SenderParcelToCostumer = new CustomerInParcel() { id = SysFunc.SafeEnterUInt("please enter Sender ID: ") };
-                                    parcel.GetterParcelToCostumer = new CustomerInParcel() { id = SysFunc.SafeEnterUInt("please enter Target ID: ") };
+                                    Parcel parcel = new Parcel
+                                    {
+                                        SenderParcelToCostumer = new CustomerInParcel() { id = SysFunc.SafeEnterUInt("please enter Sender ID: ") },
+                                        GetterParcelToCostumer = new CustomerInParcel() { id = SysFunc.SafeEnterUInt("please enter Target ID: ") }
+                                    };
                                     Console.WriteLine("Priorty=>please enter a number from the menue : ");
                                     SysFunc.printEnum<Priorities>();
                                     parcel.Priority = (BO.Priorities)SysFunc.SafeEnterUInt("enter a number from the numbers above");
@@ -94,11 +100,13 @@ namespace ConsoleUI_BL
                                 break;
                             case (int)Add.Staion:
                                 {
-                                    Station station = new Station();
-                                    station.Id = SysFunc.SafeEnterUInt("Id: ");
+                                    Station station = new Station
+                                    {
+                                        Id = SysFunc.SafeEnterUInt("Id: ")
+                                    };
                                     Console.WriteLine("Name: ");
                                     station.Name = Console.ReadLine();
-                                    station.LoctConstant = new Location (SysFunc.SafeEnterDouble("Latitude: "), SysFunc.SafeEnterDouble("Longitude: "));
+                                    station.LoctConstant = new Location(SysFunc.SafeEnterDouble("Latitude: "), SysFunc.SafeEnterDouble("Longitude: "));
                                     station.NumOfFreeOnes = SysFunc.SafeEnterUInt("ChargeSlots: ");
                                     try
                                     {
@@ -132,8 +140,8 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
-                                } 
+                                    Console.WriteLine("Error : " + err);
+                                }
                                 break;
                             case (int)Details.Costumer:
                                 Console.WriteLine("enter Costumer Id please : ");
@@ -144,7 +152,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
+                                    Console.WriteLine("Error : " + err);
                                 }
                                 break;
                             case (int)Details.Drone:
@@ -158,7 +166,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
+                                    Console.WriteLine("Error : " + err);
                                 }
                                 break;
                             case (int)Details.Package:
@@ -172,7 +180,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
+                                    Console.WriteLine("Error : " + err);
                                 }
                                 break;
                             case (int)Details.exit:
@@ -199,7 +207,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
+                                    Console.WriteLine("Error : " + err);
                                 }
                                 break;
                             case (int)Update.UpdateStation:
@@ -215,7 +223,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
+                                    Console.WriteLine("Error : " + err);
                                 }
                                 break;
                             case (int)Update.UpdateCostumer:
@@ -232,7 +240,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
+                                    Console.WriteLine("Error : " + err);
                                 }
                                 break;
                             case (int)Update.BindPackgeAndDrone:
@@ -245,7 +253,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
+                                    Console.WriteLine("Error : " + err);
                                 }
                                 break;
                             case (int)Update.DroneTakePackge:
@@ -260,7 +268,7 @@ namespace ConsoleUI_BL
                                 {
                                     Console.WriteLine("Error : " + err);
                                 }
-                                break;  
+                                break;
                             case (int)Update.DroneProvidePackge:
                                 try
                                 {
@@ -299,7 +307,7 @@ namespace ConsoleUI_BL
                                 catch (Exception err)
                                 {
                                     Console.WriteLine("Error : " + err);
-                                } 
+                                }
                                 break;
                             case (int)Update.exit:
                                 break;
@@ -358,7 +366,7 @@ namespace ConsoleUI_BL
                                 }
                                 catch (Exception err)
                                 {
-                                    Console.WriteLine("Error : "+err);
+                                    Console.WriteLine("Error : " + err);
                                 }
                                 break;
                             case (int)Delete.exit:
@@ -373,5 +381,5 @@ namespace ConsoleUI_BL
 
         }
     }
-    
+
 }

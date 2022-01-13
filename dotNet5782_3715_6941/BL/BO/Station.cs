@@ -2,13 +2,13 @@
 
 namespace BO
 {
-    public class Station 
+    public class Station
     {
         public int Id { set; get; }
         public string Name { set; get; }
-        public Location LoctConstant { get; set;  }
+        public Location LoctConstant { get; set; }
         public int NumOfFreeOnes { set; get; }
-        public List<DroneCharge> DroneInChargeList { set ; get; }
+        public List<DroneCharge> DroneInChargeList { set; get; }
 
         public override string ToString()
         {
@@ -17,6 +17,6 @@ namespace BO
                     $"location : {LoctConstant}\n" +
                     $"free charging slots : {NumOfFreeOnes}\n" +
                     $"drones in charge : {string.Join('\n', DroneInChargeList)}";
-        } 
+        }
     }
 }

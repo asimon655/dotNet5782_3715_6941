@@ -67,7 +67,7 @@ namespace Itinero.LocalGeo
                 var count = System.Math.Floor(degrees / 360.0);
                 degrees = degrees - (360.0 * count);
             }
-            else if(degrees < 0)
+            else if (degrees < 0)
             {
                 var count = System.Math.Floor(-degrees / 360.0) + 1;
                 degrees = degrees + (360.0 * count);

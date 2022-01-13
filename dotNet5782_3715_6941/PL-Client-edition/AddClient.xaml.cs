@@ -4,15 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL_Client_edition
 {
@@ -22,27 +16,31 @@ namespace PL_Client_edition
     public partial class AddClient : Window
     {
         #region Fields 
-        BlApi.Ibl dat;
-        IEnumerable<string> Answers;
-        static internal string TMP = System.IO.Path.GetTempPath();
-        string file = "";
+        private readonly BlApi.Ibl dat;
+        private IEnumerable<string> Answers;
+        internal static string TMP = System.IO.Path.GetTempPath();
+        private string file = "";
         #endregion
         internal void MetaDataCstReset(System.Windows.Controls.Image Photo2, int SenderId)
         {
 
             if (!File.Exists(PhotoAsync.makePath(SenderId)))
-                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum).ContinueWith(x => {
+            {
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum).ContinueWith(x =>
+                {
                     if (x.Result)
-
+                    {
                         Dispatcher.Invoke(() =>
                         {
                             Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                         });
+                    }
                 });
+            }
             else
+            {
                 Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
-
-
+            }
         }
 
 
@@ -55,7 +53,8 @@ namespace PL_Client_edition
 
             this.dat = dat;
 
-            dat.GetCapchaQuestion().ContinueWith(x => {
+            dat.GetCapchaQuestion().ContinueWith(x =>
+            {
 
                 Dispatcher.Invoke(() =>
                 {
@@ -86,22 +85,24 @@ namespace PL_Client_edition
                 BO.Customer add = new BO.Customer()
                 {
                     Name = NameTB.Text,
-                    Id = Int32.Parse(IdTB.Text),
+                    Id = int.Parse(IdTB.Text),
                     Phone_Num = PhoneTB.Text,
-                    Loct = new BO.Location(Double.Parse(LongTB.Text), Double.Parse(LatTB.Text))
+                    Loct = new BO.Location(double.Parse(LongTB.Text), double.Parse(LatTB.Text))
                 };
 
                 if (file.Equals(""))
                 {
-                    MetaDataCstReset(new Image(), Int32.Parse(IdTB.Text));
+                    MetaDataCstReset(new Image(), int.Parse(IdTB.Text));
                 }
                 else
                 {
-                    if (!File.Exists(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"))
-                        File.Copy(file, PhotoAsync.makePath(Int32.Parse(IdTB.Text)));
+                    if (!File.Exists(TMP + @"image" + int.Parse(IdTB.Text) + ".png"))
+                    {
+                        File.Copy(file, PhotoAsync.makePath(int.Parse(IdTB.Text)));
+                    }
                 }
                 dat.AddCustomer(add);
-                this.Close();
+                Close();
             }
             catch (Exception err)
             {

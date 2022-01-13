@@ -16,8 +16,6 @@
  *  limitations under the License.
  */
 
-using System;
-
 namespace Itinero.LocalGeo
 {
     /// <summary>
@@ -29,7 +27,7 @@ namespace Itinero.LocalGeo
         private readonly float _minLon;
         private readonly float _maxLat;
         private readonly float _maxLon;
-        
+
         /// <summary>
         /// Creates a new box.
         /// </summary>
@@ -70,46 +68,22 @@ namespace Itinero.LocalGeo
         /// <summary>
         /// Gets the minimum latitude.
         /// </summary>
-        public float MinLat
-        {
-            get
-            {
-                return _minLat;
-            }
-        }
+        public float MinLat => _minLat;
 
         /// <summary>
         /// Gets the maximum latitude.
         /// </summary>
-        public float MaxLat
-        {
-            get
-            {
-                return _maxLat;
-            }
-        }
+        public float MaxLat => _maxLat;
 
         /// <summary>
         /// Gets the minimum longitude.
         /// </summary>
-        public float MinLon
-        {
-            get
-            {
-                return _minLon;
-            }
-        }
+        public float MinLon => _minLon;
 
         /// <summary>
         /// Gets the maximum longitude.
         /// </summary>
-        public float MaxLon
-        {
-            get
-            {
-                return _maxLon;
-            }
-        }
+        public float MaxLon => _maxLon;
 
         /// <summary>
         /// Returns true if this box overlaps the given coordinates.
@@ -127,17 +101,17 @@ namespace Itinero.LocalGeo
         /// <returns>True if any parts of the two boxes overlap.</returns>
         public bool Overlaps(Box box)
         {
-            var thisCenter = this.Center;
+            var thisCenter = Center;
             if (box.Overlaps(thisCenter.Latitude, thisCenter.Latitude))
             {
                 return true;
             }
             var otherCenter = box.Center;
-            if (this.Overlaps(otherCenter.Latitude, otherCenter.Latitude))
+            if (Overlaps(otherCenter.Latitude, otherCenter.Latitude))
             {
                 return true;
             }
-            return this.IntersectsPotentially(box.MinLon, box.MinLat, box.MaxLon, box.MaxLat);
+            return IntersectsPotentially(box.MinLon, box.MinLat, box.MaxLon, box.MaxLat);
         }
 
         /// <summary>
@@ -145,13 +119,13 @@ namespace Itinero.LocalGeo
         /// </summary>
         public Box ExpandWith(float lat, float lon)
         {
-            if (this.Overlaps(lat, lon))
+            if (Overlaps(lat, lon))
             { // assume this happens in most cases.
                 return this;
             }
 
-            return new Box(System.Math.Min(this.MinLat, lat), System.Math.Min(this.MinLon, lon),
-                System.Math.Max(this.MaxLat, lat), System.Math.Max(this.MaxLon, lon));
+            return new Box(System.Math.Min(MinLat, lat), System.Math.Min(MinLon, lon),
+                System.Math.Max(MaxLat, lat), System.Math.Max(MaxLon, lon));
         }
 
         /// <summary>
@@ -181,17 +155,11 @@ namespace Itinero.LocalGeo
         /// <summary>
         /// Gets the exact center of this box.
         /// </summary>
-        public Coordinate Center
+        public Coordinate Center => new Coordinate()
         {
-            get
-            {
-                return new Coordinate()
-                {
-                    Latitude = (_maxLat + _minLat) / 2f,
-                    Longitude = (_minLon + _maxLon) / 2f
-                };
-            }
-        }
+            Latitude = (_maxLat + _minLat) / 2f,
+            Longitude = (_minLon + _maxLon) / 2f
+        };
 
         /// <summary>
         /// Returns a resized version of this box.

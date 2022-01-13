@@ -1,4 +1,3 @@
-using BO;
 using System;
 
 namespace BO
@@ -6,13 +5,13 @@ namespace BO
     public class InValidSumOfChargeSlots : Exception
     {
         public int chargingstaionsenter { get; set; }
-        public  int usingchargingstaions { get; set; }
+        public int usingchargingstaions { get; set; }
         public InValidSumOfChargeSlots() : base() { }
-        public InValidSumOfChargeSlots(String message) : base(message) { }
-        public InValidSumOfChargeSlots(String message, int _chargings , int _chargingenterstaions) : base(message)
+        public InValidSumOfChargeSlots(string message) : base(message) { }
+        public InValidSumOfChargeSlots(string message, int _chargings, int _chargingenterstaions) : base(message)
         {
             chargingstaionsenter = _chargingenterstaions;
-            usingchargingstaions = _chargings; 
+            usingchargingstaions = _chargings;
         }
         public override string ToString()
         {
@@ -23,29 +22,29 @@ namespace BO
     public class CouldntFindPatcelThatsFits : Exception
     {
         public CouldntFindPatcelThatsFits() : base() { }
-        public CouldntFindPatcelThatsFits(String message) : base(message) { }
+        public CouldntFindPatcelThatsFits(string message) : base(message) { }
     }
     public class notEnoughBattery : Exception
     {
         public notEnoughBattery() : base() { }
-        public notEnoughBattery(String message) : base(message) { }
+        public notEnoughBattery(string message) : base(message) { }
     }
 
     public class CantReachToDest : Exception
     {
         public double battery { get; set; }
-        public double required { get; set;  } 
+        public double required { get; set; }
         public CantReachToDest() : base() { }
-        public CantReachToDest(String message) : base(message) { }
-        public CantReachToDest(String message, double _battery ,double _required ) : base(message)
+        public CantReachToDest(string message) : base(message) { }
+        public CantReachToDest(string message, double _battery, double _required) : base(message)
         {
             battery = _battery;
-            required = _required; 
+            required = _required;
         }
         public override string ToString()
         {
-            return Message + " \nbattery: "+battery.ToString()+"\nrequired: "+
-                required.ToString() + "\nmissing: "+(required-battery).ToString();
+            return Message + " \nbattery: " + battery.ToString() + "\nrequired: " +
+                required.ToString() + "\nmissing: " + (required - battery).ToString();
         }
     }
 
@@ -55,11 +54,11 @@ namespace BO
         public T stat { get; set; }
 
         public EnumNotInRightStatus() : base() { }
-        public EnumNotInRightStatus(String message) : base(message) { }
-        public EnumNotInRightStatus(String message, T _stat) : base(message)
+        public EnumNotInRightStatus(string message) : base(message) { }
+        public EnumNotInRightStatus(string message, T _stat) : base(message)
         {
             stat = _stat;
-        }   
+        }
         public override string ToString()
         {
             return Message + stat.ToString();
@@ -69,17 +68,16 @@ namespace BO
 
     public class NotValidTimePeriod : Exception
     {
-        
-        double time { set; get;  } 
+        private double time { set; get; }
         public NotValidTimePeriod() : base() { }
-        public NotValidTimePeriod(String message) : base(message) { }
-        public NotValidTimePeriod(String message, double _time) : base(message)
+        public NotValidTimePeriod(string message) : base(message) { }
+        public NotValidTimePeriod(string message, double _time) : base(message)
         {
             time = _time;
         }
         public override string ToString()
         {
-            return Message + time  ;
+            return Message + time;
         }
     }
 
@@ -88,9 +86,9 @@ namespace BO
     {
         public int id { get; set; }
 
-        public IdAlreadyExists() : base() {}
-        public IdAlreadyExists(String message) : base(message) {}
-        public IdAlreadyExists(String message, int _id) : base(message)
+        public IdAlreadyExists() : base() { }
+        public IdAlreadyExists(string message) : base(message) { }
+        public IdAlreadyExists(string message, int _id) : base(message)
         {
             id = _id;
         }
@@ -109,8 +107,8 @@ namespace BO
     {
         public int id { get; set; }
 
-        public IdDosntExists() : base() {}
-        public IdDosntExists(string message) : base(message) {}
+        public IdDosntExists() : base() { }
+        public IdDosntExists(string message) : base(message) { }
         public IdDosntExists(string message, int _id) : base(message)
         {
             id = _id;
@@ -128,16 +126,16 @@ namespace BO
 
     public class LocationOutOfRange : Exception
     {
-        public double  Lonigtuide { get; set; }
+        public double Lonigtuide { get; set; }
         public double Latitude { get; set; }
-        public LocationOutOfRange(string message, double Lonigtuide , double Latitude) : base(message)
+        public LocationOutOfRange(string message, double Lonigtuide, double Latitude) : base(message)
         {
             this.Latitude = Latitude;
-            this.Lonigtuide = Lonigtuide; 
+            this.Lonigtuide = Lonigtuide;
         }
         public override string ToString()
         {
-            return Message + "Latitude: "+ Latitude.ToString() + "Longituide : " + Lonigtuide.ToString(); 
+            return Message + "Latitude: " + Latitude.ToString() + "Longituide : " + Lonigtuide.ToString();
         }
     }
 
@@ -145,7 +143,7 @@ namespace BO
     public class EnumOutOfRange : Exception
     {
         public int value { get; set; }
-        public EnumOutOfRange(String message, int _value) : base(message)
+        public EnumOutOfRange(string message, int _value) : base(message)
         {
             value = _value;
         }

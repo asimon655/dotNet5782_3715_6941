@@ -20,7 +20,7 @@ namespace Itinero.LocalGeo.Operations
         {
             var l = points.Count;
             var area = 0f;
-            for (var i = 1; i < l+1; i++)
+            for (var i = 1; i < l + 1; i++)
             {
                 var p = points[i % l];
                 var pi = points[(i + 1) % l];

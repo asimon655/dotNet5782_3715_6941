@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PL
+﻿namespace PL
 {
-    enum ParcelO
-    { 
-        Bind=1 , 
-        PickUp ,
+    internal enum ParcelO
+    {
+        Bind = 1,
+        PickUp,
         Deliver
     }
-    enum DroneO
-    { 
-        Charge ,
+
+    internal enum DroneO
+    {
+        Charge,
         Realse
-    } 
+    }
 
 }

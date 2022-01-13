@@ -8,7 +8,8 @@ namespace BL
         #region Convert
         public Drone Convert(DroneList drone)
         {
-            Drone newDrone = new Drone(){
+            Drone newDrone = new Drone()
+            {
                 Id = drone.Id,
                 Weight = drone.Weight,
                 Model = drone.Model,
@@ -22,47 +23,61 @@ namespace BL
                 {
                     DO.Parcel parcely = data.GetParcel((int)drone.ParcelId);
                     DO.Customer Sender = data.GetCustomer(parcely.SenderId);
-                    DO.Customer Getter = data.GetCustomer(parcely.TargetId);  
+                    DO.Customer Getter = data.GetCustomer(parcely.TargetId);
                     Location SenderLCT = new Location(Sender.Longitude, Sender.Lattitude);
                     Location GetterLCT = new Location(Getter.Longitude, Getter.Lattitude);
-                    ParcelInDrone parcelTransfer = new ParcelInDrone() {
-                        Id = parcely.Id , 
-                        Pickup = SenderLCT   , 
-                        Dst =   GetterLCT,
-                        Distance = ParcelStatusC(parcely) == ParcelStatus.Binded ? calculateDistance(drone.Loct , SenderLCT) :
+                    ParcelInDrone parcelTransfer = new ParcelInDrone()
+                    {
+                        Id = parcely.Id,
+                        Pickup = SenderLCT,
+                        Dst = GetterLCT,
+                        Distance = ParcelStatusC(parcely) == ParcelStatus.Binded ? calculateDistance(drone.Loct, SenderLCT) :
                                    ParcelStatusC(parcely) == ParcelStatus.PickedUp ? calculateDistance(drone.Loct, GetterLCT) : 0,
-                        Weight = (WeightCategories)parcely.Weight , 
-                        Priorety = (Priorities)parcely.Priority , 
-                        Sender = new CustomerInParcel() { id = parcely.SenderId, name = Sender.Name } , 
+                        Weight = (WeightCategories)parcely.Weight,
+                        Priorety = (Priorities)parcely.Priority,
+                        Sender = new CustomerInParcel() { id = parcely.SenderId, name = Sender.Name },
                         Target = new CustomerInParcel() { id = parcely.TargetId, name = Getter.Name }
                     };
                     newDrone.ParcelTransfer = parcelTransfer;
                 }
-                catch (DO.IdDosntExists err) {
-                    throw new IdDosntExists(err); 
+                catch (DO.IdDosntExists err)
+                {
+                    throw new IdDosntExists(err);
                 }
             }
             return newDrone;
         }
-        private Station Convert(DO.Station station) => new Station(){
+        private Station Convert(DO.Station station)
+        {
+            return new Station()
+            {
                 Id = station.Id,
                 NumOfFreeOnes = station.ChargeSlots,
                 LoctConstant = new Location(station.Longitude, station.Lattitude),
-                Name = station.Name , 
-                DroneInChargeList = (from drones in data.GetDronesCharges(x => x.StaionId == station.Id) select
-                                     (new DroneCharge() {
-                                         DroneId = drones.DroneId,
-                                         Battery = GetDroneToList(drones.DroneId).Battery
-                                     }) ).ToList ()  
-                };
-        private Customer Convert(DO.Customer costumer) => new Customer() { 
-            Id = costumer.Id, 
-            Loct = new Location(costumer.Longitude, costumer.Lattitude), 
-            Name = costumer.Name, 
-            Phone_Num = costumer.Phone , 
-            FromClient = ( from package in data.GetParcels(x => x.SenderId == costumer.Id)  select (CustomerToParcelC(package, new CustomerInParcel() {id = costumer.Id, name = costumer.Name})) ).ToList() ,
-            ToClient = (from package in data.GetParcels(x => x.TargetId == costumer.Id) select (CustomerToParcelC(package, new CustomerInParcel() {id = costumer.Id, name = costumer.Name}))).ToList()
-        };
+                Name = station.Name,
+                DroneInChargeList = (from drones in data.GetDronesCharges(x => x.StaionId == station.Id)
+                                     select
+    (new DroneCharge()
+    {
+        DroneId = drones.DroneId,
+        Battery = GetDroneToList(drones.DroneId).Battery
+    })).ToList()
+            };
+        }
+
+        private Customer Convert(DO.Customer costumer)
+        {
+            return new Customer()
+            {
+                Id = costumer.Id,
+                Loct = new Location(costumer.Longitude, costumer.Lattitude),
+                Name = costumer.Name,
+                Phone_Num = costumer.Phone,
+                FromClient = (from package in data.GetParcels(x => x.SenderId == costumer.Id) select (CustomerToParcelC(package, new CustomerInParcel() { id = costumer.Id, name = costumer.Name }))).ToList(),
+                ToClient = (from package in data.GetParcels(x => x.TargetId == costumer.Id) select (CustomerToParcelC(package, new CustomerInParcel() { id = costumer.Id, name = costumer.Name }))).ToList()
+            };
+        }
+
         private Parcel Convert(DO.Parcel parcel)
         {
             try
@@ -91,35 +106,55 @@ namespace BL
             }
             catch (DO.IdDosntExists err)
             {
-                throw new IdDosntExists(err); 
-            } 
+                throw new IdDosntExists(err);
+            }
         }
         #endregion
 
         #region ConvertList
-        private CustomerList ConvertList(DO.Customer gety) =>  new CustomerList() { 
-                Id = gety.Id 
-                ,Name=gety.Name 
-                ,Phone=gety.Phone 
-                ,ParcelDeliveredAndGot =data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) == ParcelStatus.Delivered)  
-                ,InTheWay= data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) != ParcelStatus.Delivered)
-                ,ParcelGot = data.CountParcels(x => x.TargetId == gety.Id && ParcelStatusC(x) == ParcelStatus.Delivered) 
-                ,ParcelDeliveredAndNotGot = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) != ParcelStatus.Delivered) };
-        private ParcelList ConvertList(DO.Parcel x) => new ParcelList()
+        private CustomerList ConvertList(DO.Customer gety)
         {
-            Id = x.Id,
-            ParcelStatus = ParcelStatusC(x),
-            Priorety = (Priorities)x.Priority,
-            SenderName = data.GetCustomer(x.SenderId).Name,
-            TargetName = data.GetCustomer(x.TargetId).Name,
-            Weight = (WeightCategories)x.Weight
-        };
-        private StationList ConvertList(DO.Station station) => new StationList() { 
+            return new CustomerList()
+            {
+                Id = gety.Id
+,
+                Name = gety.Name
+,
+                Phone = gety.Phone
+,
+                ParcelDeliveredAndGot = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) == ParcelStatus.Delivered)
+,
+                InTheWay = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) != ParcelStatus.Delivered)
+,
+                ParcelGot = data.CountParcels(x => x.TargetId == gety.Id && ParcelStatusC(x) == ParcelStatus.Delivered)
+,
+                ParcelDeliveredAndNotGot = data.CountParcels(x => x.SenderId == gety.Id && ParcelStatusC(x) != ParcelStatus.Delivered)
+            };
+        }
+
+        private ParcelList ConvertList(DO.Parcel x)
+        {
+            return new ParcelList()
+            {
+                Id = x.Id,
+                ParcelStatus = ParcelStatusC(x),
+                Priorety = (Priorities)x.Priority,
+                SenderName = data.GetCustomer(x.SenderId).Name,
+                TargetName = data.GetCustomer(x.TargetId).Name,
+                Weight = (WeightCategories)x.Weight
+            };
+        }
+
+        private StationList ConvertList(DO.Station station)
+        {
+            return new StationList()
+            {
                 Id = station.Id,
                 Name = station.Name,
                 FreePorts = station.ChargeSlots,
                 BusyPorts = data.CountDronesCharges(x => x.StaionId == station.Id)
             };
+        }
         #endregion
 
         #region other Converts
@@ -144,10 +179,13 @@ namespace BL
                 }
             }
             if (caseNum == -1)
+            {
                 throw new EnumOutOfRange("the parcel is not even decleared ", -1);
+            }
+
             return (ParcelStatus)caseNum;
         }
-        static public ParcelStatus ParcelStatusC(Parcel parcel)
+        public static ParcelStatus ParcelStatusC(Parcel parcel)
         {
 
             int caseNum = -1;
@@ -168,12 +206,16 @@ namespace BL
                 }
             }
             if (caseNum == -1)
+            {
                 throw new EnumOutOfRange("the parcel is not even decleared ", -1);
+            }
+
             return (ParcelStatus)caseNum;
         }
         private ParcelInCustomer CustomerToParcelC(DO.Parcel parcel, CustomerInParcel parentCustomer)
         {
-            return new ParcelInCustomer() {
+            return new ParcelInCustomer()
+            {
                 Id = parcel.Id,
                 Priority = (Priorities)parcel.Priority,
                 Status = ParcelStatusC(parcel),
@@ -183,4 +225,4 @@ namespace BL
         }
         #endregion
     }
-} 
+}

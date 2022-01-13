@@ -7,13 +7,13 @@ namespace BO
     {
         public Location(double longitude, double lattitude)
         {
-            this.Longitude = longitude;
-            this.Lattitude = lattitude;
+            Longitude = longitude;
+            Lattitude = lattitude;
         }
         public Location(Itinero.LocalGeo.Coordinate coordinate)
         {
-            this.Longitude = coordinate.Longitude;
-            this.Lattitude = coordinate.Latitude;
+            Longitude = coordinate.Longitude;
+            Lattitude = coordinate.Latitude;
         }
         public double Longitude { set; get; }
         public double Lattitude { set; get; }
@@ -21,10 +21,14 @@ namespace BO
         public int CompareTo(object? obj)
         {
             if (obj is null)
+            {
                 return 1;
+            }
 
             if (obj.GetType() != typeof(Location))
+            {
                 return 1;
+            }
 
             Location loct = (Location)obj;
 
@@ -33,7 +37,7 @@ namespace BO
 
         public string DecimalToSexagesimal() /// calacs it with the well known algorithem that we found olnline ( beacuse u didnt gave that to us ) 
         {
-            String result = "";
+            string result = "";
             // Longitude
             bool direction = (0 > Longitude);
             Longitude = Math.Abs(Longitude);

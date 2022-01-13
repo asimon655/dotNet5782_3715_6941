@@ -1,18 +1,9 @@
 ﻿using Mapsui.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PL
 {
@@ -21,13 +12,14 @@ namespace PL
     /// </summary>
     public partial class MapTab : Page
     {
-        public void Reset() {
+        public void Reset()
+        {
 
             #region Remove all Layers 
             foreach (var layer in MyMapControl.Map.Layers.Skip(1))
             {
                 MyMapControl.Map.Layers.Remove(layer);
-            
+
             }
             #endregion
             #region Map Initialize 
@@ -44,23 +36,24 @@ namespace PL
         }
         internal async Task ResetLoct()
         {
-            IEnumerable<BO.DroneList> NewLocts = await Task.Run( ()=> dat.GetDrones());
+            IEnumerable<BO.DroneList> NewLocts = await Task.Run(() => dat.GetDrones());
             await MapHELP.ResetLoct(MyMapControl, NewLocts);
 
 
 
         }
-        private void ReturnHome(int Dur = 500 )
+        private void ReturnHome(int Dur = 500)
         {
             var bbox = new Mapsui.Geometries.BoundingBox(MapHELP.FromLonLat(34.732433, 31.987003), MapHELP.FromLonLat(34.988032, 32.166204));
             MyMapControl.Navigator.NavigateTo(bbox, ScaleMethod.Fit);
             MyMapControl.Navigator.ZoomTo(40, Dur);
             MyMapControl.Refresh();
         }
-        BlApi.Ibl dat;
+
+        private readonly BlApi.Ibl dat;
         public MapTab(BlApi.Ibl dat)
         {
-     
+
             InitializeComponent();
             MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
             MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
@@ -72,9 +65,14 @@ namespace PL
         private void ChangeOpacity(int index)
         {
             if (MyMapControl.Map.Layers.Skip(index + 1).First().Opacity == 0)
+            {
                 MyMapControl.Map.Layers.Skip(index + 1).First().Opacity = 1;
+            }
             else
+            {
                 MyMapControl.Map.Layers.Skip(index + 1).First().Opacity = 0;
+            }
+
             MyMapControl.Refresh();
 
 
@@ -82,7 +80,7 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ReturnHome();
-            
+
         }
         private void OpcL1(object sender, RoutedEventArgs e)
         {
