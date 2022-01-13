@@ -30,10 +30,10 @@ namespace Dal
                 //all the data is realistic - phone number have 10 digits  and id have 9 digits  
 
                 /// constant for loop limit - right programing rules 
-                const int StationInit = 5;
-                const int DroneInit = 10;
-                const int ParcelInit = 50;
-                const int CostumerInit = 20;
+                const int StationInit = 50;
+                const int DroneInit = 100;
+                const int ParcelInit = 500;
+                const int CostumerInit = 200;
 
                 string[] names = { "James", "James", "John", "Michael", "William", "David", "David",
                                     "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan"};

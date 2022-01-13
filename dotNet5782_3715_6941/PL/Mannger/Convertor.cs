@@ -75,7 +75,12 @@ namespace PL
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return new SolidColorBrush(Color.FromRgb((byte)(255 - (int)((double)value * 255 / 100)), (byte)((int)((double)value * 255 / 100)), 0));
+            if ((double)value<30 || (double)value >=60 )
+                return new SolidColorBrush(Color.FromRgb((byte)(255 - (int)((double)value * 255 / 100)), (byte)((int)((double)value * 255 / 100)), 0));
+            if((double)value < 60)
+                return new SolidColorBrush(Color.FromRgb((byte)(255 - (int)(255-(double)value * 255 / 100)+102), (byte)(255-(int)((double)value * 255 / 100)+102), 0));
+            return null;
+
         }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

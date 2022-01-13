@@ -34,6 +34,10 @@ namespace PL
             {
                 ParcelOpsRFS(null);
             }
+            if (!(drn.ParcelTransfer is null))
+            {
+                MetaDataCstReset(Photo1, Photo2, drn.ParcelTransfer.Sender.id, drn.ParcelTransfer.Target.id);
+            }
         }
         internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
         {

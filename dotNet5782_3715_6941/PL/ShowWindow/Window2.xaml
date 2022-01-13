@@ -653,7 +653,7 @@
                                                         <TextBlock>
                                 <Run> Binded </Run>
                                 <LineBreak> </LineBreak>
-                                <Run>parcels: </Run>
+                                <Run>parcel Id: </Run>
                                                         </TextBlock>
                                                     </Viewbox>
                                                 </Button>

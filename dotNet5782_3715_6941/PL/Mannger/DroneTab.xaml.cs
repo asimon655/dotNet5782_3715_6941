@@ -222,6 +222,7 @@ namespace PL
                 ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
                 Reset();
                 reset();
+             
 
             }
             catch (Exception err)
