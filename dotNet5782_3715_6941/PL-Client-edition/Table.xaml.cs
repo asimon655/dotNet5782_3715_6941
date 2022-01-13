@@ -20,6 +20,19 @@ namespace PL_Client_edition
     /// </summary>
     public partial class Table : Page
     {
+        async Task ResetTables()
+        {
+            cst = await Task.Run(() => {
+                return dat.GetCostumer(cst.Id);
+            });
+            this.DataContext = cst;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(cst.ToClient);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Priority");
+            view.GroupDescriptions.Add(groupDescription);
+            view = (CollectionView)CollectionViewSource.GetDefaultView(cst.FromClient);
+            groupDescription = new PropertyGroupDescription("Priority");
+            view.GroupDescriptions.Add(groupDescription);
+        }
         BO.Customer cst;
         BlApi.Ibl dat;
         public Table(BlApi.Ibl dat, BO.Customer cst)
@@ -28,14 +41,7 @@ namespace PL_Client_edition
             this.dat = dat;
             this.cst = cst;
             this.DataContext = cst;
-            #region ListView Grouping 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(cst.ToClient);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Priority");
-            view.GroupDescriptions.Add(groupDescription);
-            view = (CollectionView)CollectionViewSource.GetDefaultView(cst.FromClient);
-            groupDescription = new PropertyGroupDescription("Priority");
-            view.GroupDescriptions.Add(groupDescription);
-            #endregion
+            ResetTables();
         }
 
         private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -45,7 +51,26 @@ namespace PL_Client_edition
 
         private void ListOfPackgesFrom_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelInCustomer).Id)).Show();
+            if(!((sender as ListView).SelectedItem is null))
+                new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelInCustomer).Id)).Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+          ParcelShow pclWin =   new ParcelShow(dat , cst.Id);
+            pclWin.Closed +=  (async (x, y) => {
+
+                await ResetTables();
+
+
+            });
+            pclWin.Show();
+
+        }
+
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+           await ResetTables();
         }
     }
 }

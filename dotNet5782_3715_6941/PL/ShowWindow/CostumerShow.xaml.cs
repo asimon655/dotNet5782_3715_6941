@@ -32,9 +32,10 @@ namespace PL
         #endregion
         internal void MetaDataCstReset(System.Windows.Controls.Image Photo2 ,int SenderId)
         {
-            
+
             if (!File.Exists(PhotoAsync.makePath(SenderId)))
-                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum).ContinueWith(x => {
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum).ContinueWith(x =>
+                {
                     if (x.Result)
 
                         Dispatcher.Invoke(() =>
@@ -43,7 +44,11 @@ namespace PL
                         });
                 });
             else
-                Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                try
+                {
+                    Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                }
+                catch { }
 
 
         }

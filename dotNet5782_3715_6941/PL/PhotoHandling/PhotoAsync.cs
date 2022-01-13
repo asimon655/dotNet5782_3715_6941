@@ -36,34 +36,48 @@ namespace PL
         #region Costumers 
         static internal async Task<bool> SaveImageAsync(string imageUrl, string filename, ImageFormat format, String? FileOther = null)
         {
-
-            WebClient client = new WebClient();
-            try
+            if (CriticalSection.Count((x) => x == imageUrl) == 0)
             {
-
-
-                await client.DownloadFileTaskAsync(imageUrl, filename);
-                client.Dispose();
-
-                client.Dispose();
-                if (!(FileOther is null))
+                CriticalSection.Add(imageUrl);
+                WebClient client = new WebClient();
+                try
                 {
-                    if (await AreEqule(filename, FileOther))
+
+
+                    await client.DownloadFileTaskAsync(imageUrl, filename);
+                    client.Dispose();
+
+                    client.Dispose();
+                    if (!(FileOther is null))
                     {
-                        await Task.Run(() => File.Delete(filename));
-                        
-                        return await SaveImageAsync(imageUrl, filename, format, FileOther);
+                        if (await AreEqule(filename, FileOther))
+                        {
+                            await Task.Run(() => File.Delete(filename));
+
+                            return await SaveImageAsync(imageUrl, filename, format, FileOther);
+                        }
+
                     }
+                    CriticalSection.Remove(imageUrl); 
+                }
+                catch
+                {
+
+
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                while(await Task.Run(()=> CriticalSection.Count((x) => x == imageUrl)!= 0))
+                {
+                    await Task.Delay(100);
+                   
 
                 }
-            }
-            catch
-            {
-
-
-                return false;
-            }
-            return true;
+                return true;
+            } 
         }
         static private async  Task<bool> AreEqule(string filepath1, string filepath2)
         {
@@ -91,6 +105,7 @@ namespace PL
         }
 
         #endregion#region Drones
+        static List<String> CriticalSection = new List<string>();
         #region Drones
         static internal async Task<bool> SaveFirstImageAsync(string Model)
         {

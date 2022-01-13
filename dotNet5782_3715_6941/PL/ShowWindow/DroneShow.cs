@@ -48,25 +48,37 @@ namespace PL
             if (!File.Exists(PhotoAsync.makePath(TargetId)))
                 PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x => {
                     if (x.Result)
-                       Dispatcher.Invoke(() =>
-                        {
-                            Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
-                        });
+                        Dispatcher.Invoke(() =>
+                         {
+                             Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                         });
                     if (!File.Exists(PhotoAsync.makePath(SenderId)))
-                        PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x => {
+                        PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x =>
+                        {
                             if (x.Result)
 
                                 Dispatcher.Invoke(() =>
                                 {
-                                    Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                    try
+                                    {
+                                        Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                    }
+                                    catch { }
                                 });
                         });
                     else
-                        Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                        try
+                        {
+                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                        }
+                        catch { }
                 });
             else
-                Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
 
+                try
+                {
+                    Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                } catch { }
 
 
         }

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="ParcelShow" Height="450" Width="800">
     <Grid>
-        <Grid Name="Show" Visibility="Hidden">
+        <Grid Name="Show" Visibility="Visible">
             <wpfspark:PivotPanel x:Name="RootPanel"
                      HeaderHeight="50"
                      HorizontalAlignment="Stretch">
@@ -355,7 +355,25 @@
                     </wpfspark:PivotItem.PivotHeader>
                     <wpfspark:PivotItem.PivotContent>
                         <wpfspark:PivotContentControl>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Button Name="Operations" Click="Button_Click_4" Grid.Column="1" Grid.Row="1">
+                                    <Viewbox>
+                                        <Label Content="{Binding}"></Label>
+                                    </Viewbox>
+                                </Button>
+   
 
+                            </Grid>
                         </wpfspark:PivotContentControl>
                     </wpfspark:PivotItem.PivotContent>
                 </wpfspark:PivotItem>
@@ -364,7 +382,7 @@
             </wpfspark:PivotPanel>
 
         </Grid>
-        <Grid Name="Add" Visibility="Visible">
+        <Grid Name="Add" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="8*" />
                 <RowDefinition Height="*" />
@@ -374,40 +392,25 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Viewbox>
-                    <Label FontWeight="UltraLight" >Sender Id:</Label>
-                </Viewbox>
-                <Viewbox Grid.Row="1">
+
+                <Viewbox Grid.Row="0">
                     <Label FontWeight="UltraLight">Target Id:</Label>
                 </Viewbox>
-                <Viewbox Grid.Row="2">
+                <Viewbox Grid.Row="1">
                     <Label FontWeight="UltraLight">Weight:</Label>
                 </Viewbox>
 
-                <Viewbox Grid.Row="3">
+                <Viewbox Grid.Row="2">
                     <Label FontWeight="UltraLight">Priorety:</Label>
                 </Viewbox>
-                <Grid Grid.Row="0" Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ComboBox Name="SIdCB" Grid.Row="1" Grid.Column="1" ></ComboBox>
-                </Grid>
 
-                <Grid Grid.Row="1" Grid.Column="1">
+
+                <Grid Grid.Row="0" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -420,7 +423,7 @@
                     </Grid.ColumnDefinitions>
                     <ComboBox Name="TIdCB" Grid.Row="1" Grid.Column="1" ></ComboBox>
                 </Grid>
-                <Grid Grid.Row="2" Grid.Column="1">
+                <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -433,7 +436,7 @@
                     </Grid.ColumnDefinitions>
                     <ComboBox Name="WeightCB" Grid.Row="1" Grid.Column="1" ></ComboBox>
                 </Grid>
-                <Grid Grid.Row="3" Grid.Column="1">
+                <Grid Grid.Row="2" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />

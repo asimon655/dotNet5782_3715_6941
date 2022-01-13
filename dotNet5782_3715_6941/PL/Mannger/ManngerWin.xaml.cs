@@ -37,24 +37,93 @@ namespace PL
         BlApi.Ibl dat;
         BackgroundWorker MapTasker;
         BackgroundWorker GraphTasker;
+        Dictionary<string, PivotHeaderControl> RefreshMannger = new Dictionary<string, PivotHeaderControl>();
+        DroneTab Drn;
+        MapTab Map;
+        ClientsTab Client;
+        StaionsTab Stat;
+        ParcelTab pcl;
         #endregion
 
         #region Ctor 
+        private async Task ResetByWindow()
+        {
+            
+            if (RefreshMannger["Drones"].IsActive)
+            {
+               await Task.Run( () => Dispatcher.Invoke(() =>
+               {
+                   Drn.Reset();
+               }) );
+            }
+            if (RefreshMannger["Map"].IsActive)
+            {
+                await Task.Run(async () => await Dispatcher.Invoke(async() =>
+                {
+                    await Map.ResetLoct();
+                }));
+              
+            }
+            if (RefreshMannger["Parcels"].IsActive)
+            {
+                await Task.Run(async () => {
+                    await Task.Delay(600);
+                    Dispatcher.Invoke(() =>
+{
+pcl.Reset();
+});
+                });
+               
+            }
+            if (RefreshMannger["Stations"].IsActive)
+            {
+                await Task.Run(async () => {
+                    await Task.Delay(600);
+                    Dispatcher.Invoke(() =>
+{
+Stat.Reset();
+});
+                });
+
+            }
+            if (RefreshMannger["Costumers"].IsActive)
+            {
+                await Task.Run(async () => {
+                    await Task.Delay(600);
+                    Dispatcher.Invoke(() =>
+{
+  Client.Reset();
+});
+                });
+            }
+
+
+
+        }
         public ManngerWin()
         {
            
             this.dat = BlApi.BlFactory.GetBl(); ;
             InitializeComponent(); 
             #region Framses-Initialize 
-            DroneTab Drn = new DroneTab(dat);
-            MapTab Map = new MapTab(dat) ;
-            ClientsTab Client = new ClientsTab(dat);
-            StaionsTab Stat = new StaionsTab(dat);
-            ParcelTab pcl = new ParcelTab(dat);
-            Drn.reset = ()=> { /*pcl.Reset(); Map.ResetLoct(); Stat.Reset(); ;*/ };
-            Client.reset = () => { };//Map.Reset(); };
-            pcl.reset = () => { };
-            Stat.reset = () => { /*Map.Reset();*/ };
+             Drn = new DroneTab(dat);
+             Map = new MapTab(dat) ;
+             Client = new ClientsTab(dat);
+            Stat = new StaionsTab(dat);
+             pcl = new ParcelTab(dat);
+            RefreshMannger.Add("Parcels", ParcelsPHC);
+            RefreshMannger.Add("Map", MapPHC);
+            RefreshMannger.Add("Drones", DronesPHC);
+            RefreshMannger.Add("Stations", StationsPHC);
+            RefreshMannger.Add("Costumers", CostumersPHC);
+
+
+
+
+            Drn.reset = ()=> { ResetByWindow(); };
+            Client.reset = () => { ResetByWindow(); }; 
+            pcl.reset = () => { ResetByWindow(); };
+            Stat.reset = () => { ResetByWindow(); };
             DroneFrame.NavigationService.Navigate(Drn);
             ParcelFrame.NavigationService.Navigate(pcl);
             MapFrame.NavigationService.Navigate(Map);
@@ -110,6 +179,7 @@ namespace PL
                 }
             };
             GraphTasker.RunWorkerAsync();
+
             #endregion
         }
         #endregion
