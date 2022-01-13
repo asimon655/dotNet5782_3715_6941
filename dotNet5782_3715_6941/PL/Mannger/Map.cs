@@ -109,21 +109,15 @@ namespace PL
         }
         private static SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double ? scale)
         {
-            if (scale is null)
-            {
-                System.Drawing.Image img = System.Drawing.Image.FromFile(@"c:\ggs\ggs Access\images\members\1.jpg");
-                return new SymbolStyle { BitmapId = (int)bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = File., SymbolOffset = new Offset(0.0, 0.0, true) };
-
-            }
-            else
-            {
+       
+            
                 int? bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
                 if (!(bitmapId is null))
                 {
                     return new SymbolStyle { BitmapId = (int)bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = (double)scale, SymbolOffset = new Offset(0.0, 0.0, true) };
                 }
                 return null;
-            }
+         
             
         }
         #endregion

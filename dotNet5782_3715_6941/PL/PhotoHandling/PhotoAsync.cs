@@ -36,8 +36,10 @@ namespace PL
 
         #endregion
         #region Costumers 
-        internal static async Task<bool> SaveImageAsync(string imageUrl, string filename, ImageFormat format, string? FileOther = null)
+        internal static async Task<bool> SaveImageAsync(string imageUrl, string filename, ImageFormat format, string? FileOther = null , int hm =0 )
         {
+            if (hm > 5)
+                return false;
             if (CriticalSection.Count((x) => x == imageUrl) == 0)
             {
                 CriticalSection.Add(imageUrl);
@@ -55,8 +57,8 @@ namespace PL
                         if (await AreEqule(filename, FileOther))
                         {
                             await Task.Run(() => File.Delete(filename));
-
-                            return await SaveImageAsync(imageUrl, filename, format, FileOther);
+                            CriticalSection.Remove(imageUrl);
+                            return await SaveImageAsync(imageUrl, filename, format, FileOther , ++ hm );
                         }
 
                     }
@@ -72,12 +74,15 @@ namespace PL
             }
             else
             {
-                while (await Task.Run(() => CriticalSection.Count((x) => x == imageUrl) != 0))
+                int hmi = 0; 
+                while (await Task.Run(() => CriticalSection.Count((x) => x == imageUrl) != 0) && hmi++ < 5)
                 {
-                    await Task.Delay(100);
+                    await Task.Delay(10);
 
 
                 }
+                if (hmi == 6)
+                    return false;
                 return true;
             }
         }
