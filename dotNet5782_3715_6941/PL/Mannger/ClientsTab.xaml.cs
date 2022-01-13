@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PL
 {
@@ -22,7 +15,7 @@ namespace PL
     public partial class ClientsTab : Page
     {
         #region Fields 
-        BlApi.Ibl dat;
+        private readonly BlApi.Ibl dat;
         #endregion
         public Action reset;
         public void Reset()
@@ -33,7 +26,7 @@ namespace PL
 
 
         }
-        public  ClientsTab(BlApi.Ibl dat)
+        public ClientsTab(BlApi.Ibl dat)
         {
 
             this.dat = dat;
@@ -87,8 +80,8 @@ namespace PL
         #region Populates 
         private async Task<IEnumerable<int>> GetHowManyReached()
         {
-            return  await Task.Run(()=> (from cl in dat.GetCustomers() select cl.ParcelDeliveredAndGot).Distinct());
-        
+            return await Task.Run(() => (from cl in dat.GetCustomers() select cl.ParcelDeliveredAndGot).Distinct());
+
         }
         private async Task<IEnumerable<int>> GetHowManyUnReached()
         {
@@ -108,15 +101,15 @@ namespace PL
 
         private async Task search()
         {
-          
-        
+
+
 
             ListOf.ItemsSource = await Task.Run(() => dat.GetCustomers());
-        
+
         }
         #endregion
 
-        private async  void ReachedCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void ReachedCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             await search();
         }

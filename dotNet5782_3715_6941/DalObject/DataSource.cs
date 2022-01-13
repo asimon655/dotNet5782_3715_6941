@@ -1,12 +1,11 @@
-using System.Collections.Generic;
-using System;
 using DO;
+using System;
+using System.Collections.Generic;
 
 
 namespace Dal
 {
-
-    class DataSource
+    internal class DataSource
     {
         internal static Random RandomGen = new Random();
 
@@ -18,15 +17,15 @@ namespace Dal
         internal static List<DronePic> DronePics = new List<DronePic>();
         internal static List<CustomerPic> CustomerPics = new List<CustomerPic>();
         //until here array var declartion 
-        static internal class Config
+        internal static class Config
         {
-            static internal double PowerConsumptionFree = 1;
-            static internal double PowerConsumptionLight = 2;
-            static internal double PowerConsumptionMedium = 3;
-            static internal double PowerConsumptionHeavy = 4;
-            static internal double ChargingSpeed = 5; 
-            static internal int IdCreation = 0;
-            static internal void Initalize()
+            internal static double PowerConsumptionFree = 1;
+            internal static double PowerConsumptionLight = 2;
+            internal static double PowerConsumptionMedium = 3;
+            internal static double PowerConsumptionHeavy = 4;
+            internal static double ChargingSpeed = 5;
+            internal static int IdCreation = 0;
+            internal static void Initalize()
             {
                 //all the data is realistic - phone number have 10 digits  and id have 9 digits  
 
@@ -42,6 +41,7 @@ namespace Dal
                 List<int> dronesDelivery = new List<int>();
 
                 for (int i = 0; i < StationInit; i++)
+                {
                     Stations.Add(new Station()
                     {
                         Id = RandomGen.Next(1000000, 9999999),
@@ -50,21 +50,27 @@ namespace Dal
                         Lattitude = randomLattitude(),
                         Longitude = randomLongitude()
                     });
+                }
+
                 for (int i = 0; i < CostumerInit; i++)
-                    Costumers.Add( new Customer() {
+                {
+                    Costumers.Add(new Customer()
+                    {
                         Id = RandomGen.Next(1000000, 9999999),
                         Name = names[RandomGen.Next(names.Length)],
                         Phone = "0" + RandomGen.Next(50, 59).ToString() + "-" + RandomGen.Next(100, 1000).ToString() + "-" + RandomGen.Next(1000, 10000).ToString(),
                         Lattitude = randomLattitude(),
                         Longitude = randomLongitude()
                     });
+                }
+
                 for (int i = 0; i < DroneInit; i++)
                 {
                     Drone drone = new Drone()
                     {
                         Id = RandomGen.Next(1000000, 9999999),
                         Modle = "Mavic " + RandomGen.Next(1, 6),
-                        MaxWeigth = (WeightCategories)RandomGen.Next(0, 2+1)
+                        MaxWeigth = (WeightCategories)RandomGen.Next(0, 2 + 1)
                     };
                     switch (i % 3)
                     {
@@ -83,24 +89,25 @@ namespace Dal
                 }
                 for (int i = 0; i < ParcelInit; i++)
                 {
-                    int random = RandomGen.Next(Costumers.Count); 
+                    int random = RandomGen.Next(Costumers.Count);
 
                     DateTime scheduledtmp = new DateTime(1995, 1, 1).AddSeconds(RandomGen.Next(0, 86400)).AddDays(RandomGen.Next((DateTime.Today - new DateTime(1995, 1, 1)).Days));
                     /// created random time between today today to 1955 1th in janury 12:00:00 AM 
-                    Parcel parcel = new Parcel() {
+                    Parcel parcel = new Parcel()
+                    {
                         Id = ++IdCreation,
-                        Priority = (Priorities)RandomGen.Next(0, 2+1),
-                        Weight = (WeightCategories)RandomGen.Next(0, 2+1),
+                        Priority = (Priorities)RandomGen.Next(0, 2 + 1),
+                        Weight = (WeightCategories)RandomGen.Next(0, 2 + 1),
                         Schedulded = scheduledtmp,
                         Requested = null,
                         PickedUp = null,
                         Delivered = null,
                         DroneId = null,
                         SenderId = Costumers[random].Id,
-                        TargetId = Costumers[(random+2)%Costumers.Count].Id
+                        TargetId = Costumers[(random + 2) % Costumers.Count].Id
                     };
 
-                    if ((i%4 == 1 || i%4 == 2) && dronesDelivery.Count > 0) // the on deliver parcels
+                    if ((i % 4 == 1 || i % 4 == 2) && dronesDelivery.Count > 0) // the on deliver parcels
                     {
                         DateTime requested = scheduledtmp.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
                                                                                                      /// addeed time to the randomed time i created before 
@@ -108,14 +115,14 @@ namespace Dal
                         parcel.DroneId = dronesDelivery[RandomGen.Next(dronesDelivery.Count)];
                         dronesDelivery.Remove((int)parcel.DroneId); // the drone is on delivery
 
-                        if (i%4 != 2) // i%4 == 1
+                        if (i % 4 != 2) // i%4 == 1
                         {
                             DateTime pickedup = requested.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
                                                                                                      /// addeed time to the randomed added  time i created before 
                             parcel.PickedUp = pickedup;
                         }
                     }
-                    else if (i%4 == 0) // delivered parcels
+                    else if (i % 4 == 0) // delivered parcels
                     {
                         DateTime requested = scheduledtmp.AddSeconds(RandomGen.Next(0, 86400 * 365));/// 86400 is one day in secs 
                                                                                                      /// addeed time to the randomed time i created before 
@@ -130,17 +137,17 @@ namespace Dal
                                                                                                  /// addeed time to the randomed added  added time i created before 
                         parcel.Delivered = delivered;
                     }
-                        
-                    Parcels.Add (parcel);
-                } 
+
+                    Parcels.Add(parcel);
+                }
             }
 
-            static internal double randomLattitude()
+            internal static double randomLattitude()
             {
-               
+
                 return 31.991251d + RandomGen.NextDouble() * (32.099796 - 31.991251d);
             }
-            static internal double randomLongitude()
+            internal static double randomLongitude()
             {
                 return 34.740364d + RandomGen.NextDouble() * (34.909191 - 34.740364);
             }

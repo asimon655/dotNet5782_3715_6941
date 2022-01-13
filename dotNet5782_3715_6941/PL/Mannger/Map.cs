@@ -1,32 +1,15 @@
-﻿using ScottPlot;
+﻿using Mapsui.Layers;
+using Mapsui.Providers;
+using Mapsui.Styles;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WPFSpark;
-using Mapsui.Utilities;
-using Mapsui.Layers;
-using HarfBuzzSharp;
-using Mapsui.Styles;
-using Mapsui.Providers;
-using System.IO;
-using System.Drawing.Imaging;
 
 namespace PL
-    {
+{
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -85,19 +68,25 @@ namespace PL
 
 
         }
-        private static IEnumerable<BO.Location>[] MovePoints(BlApi.Ibl dat, IEnumerable<BO.Location> pointsToDraw, int[] StartIndexes) {
+        private static IEnumerable<BO.Location>[] MovePoints(BlApi.Ibl dat, IEnumerable<BO.Location> pointsToDraw, int[] StartIndexes)
+        {
             List<BO.Location> pointsonce = new List<BO.Location>();
             {
                 int i = 0;
                 foreach (var loct in pointsToDraw)
                 {
                     if (pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude) > 1)
+                    {
                         pointsonce.Add(new BO.Location(
                             loct.Longitude + 0.0001 * pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude)
                             , loct.Lattitude + 0.0001 * pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude)
                             ));
+                    }
                     else
+                    {
                         pointsonce.Add(new BO.Location(loct.Longitude, loct.Lattitude));
+                    }
+
                     i++;
 
                 }
@@ -106,8 +95,13 @@ namespace PL
             for (int i = 0; i < StartIndexes.Length; i++)
             {
                 if (i == (StartIndexes.Length - 1))
+                {
                     ReturnVal[i] = pointsonce.GetRange(StartIndexes[i], pointsToDraw.Count() - StartIndexes[i]);
-                else ReturnVal[i] = pointsonce.GetRange(StartIndexes[i], StartIndexes[i + 1] - StartIndexes[i]);
+                }
+                else
+                {
+                    ReturnVal[i] = pointsonce.GetRange(StartIndexes[i], StartIndexes[i + 1] - StartIndexes[i]);
+                }
             }
             return ReturnVal;
 
@@ -117,15 +111,18 @@ namespace PL
         {
             int? bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
             if (!(bitmapId is null))
+            {
                 return new SymbolStyle { BitmapId = (int)bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = scale, SymbolOffset = new Offset(0.0, 0.0, true) };
+            }
+
             return null;
         }
         #endregion
 
         #region Fields
         #region Cache
-        private static Dictionary<String, int> Cache = new Dictionary<String, int>();
-        private static Dictionary<int, Mapsui.Geometries.Point> pointsMannger = new Dictionary<int ,Mapsui.Geometries.Point>();
+        private static readonly Dictionary<string, int> Cache = new Dictionary<string, int>();
+        private static readonly Dictionary<int, Mapsui.Geometries.Point> pointsMannger = new Dictionary<int, Mapsui.Geometries.Point>();
         #endregion
         #endregion
 
@@ -139,15 +136,24 @@ namespace PL
             IEnumerable<BO.Location> UserPoints = from userID in idUser select dat.GetCostumer(userID).Loct;
             List<BO.Location> ALLPOINTS = new List<BO.Location>();
             foreach (var x in DronePoints)
+            {
                 ALLPOINTS.Add(x);
+            }
+
             foreach (var x in StationsPoints)
+            {
                 ALLPOINTS.Add(x);
+            }
+
             foreach (var x in UserPoints)
+            {
                 ALLPOINTS.Add(x);
+            }
+
             int[] StartsIndexes = new int[3] { 0, DronePoints.Count(), DronePoints.Count() + StationsPoints.Count() };
             return MovePoints(dat, ALLPOINTS, StartsIndexes);
         }
-        private static async Task<IFeature> CreateFeature(double  scale , double Longitude , double Lattitude, int Id ,bool FILL = false ,string ? path = null , string ? Name =null  )
+        private static async Task<IFeature> CreateFeature(double scale, double Longitude, double Lattitude, int Id, bool FILL = false, string? path = null, string? Name = null)
         {
             Random rng = new Random();
             Mapsui.Geometries.Point pt;
@@ -188,7 +194,9 @@ namespace PL
                 pointsMannger.TryAdd(Id, pt);
 
                 if (!File.Exists(PhotoAsync.makePath(Name)))
-                     await PhotoAsync.SaveFirstImageAsync((string)Name);
+                {
+                    await PhotoAsync.SaveFirstImageAsync(Name);
+                }
 
                 feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
 
@@ -212,32 +220,33 @@ namespace PL
         internal static async Task DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
         {
 
-         
-            var ly = new Mapsui.Layers.WritableLayer();
-      
-            ly.Style = null;
+
+            var ly = new Mapsui.Layers.WritableLayer
+            {
+                Style = null
+            };
             for (int i = 0; i < points.Count(); i++)
             {
-                
-                ly.Add((IFeature) await CreateFeature( scale 
-                    ,points.Skip(i).First().Longitude, 
+
+                ly.Add(await CreateFeature(scale
+                    , points.Skip(i).First().Longitude,
                     points.Skip(i).First().Lattitude,
                     ids.Skip(i).First(),
-                    FILL , path as string , 
+                    FILL, path,
                     (Names is null ? null : Names.Skip(i).First())
 
 
 
 
                     ));
-                
+
             }
 
 
             MyMapControl.Map.Layers.Add(ly);
             MyMapControl.Refresh();
         }
-        internal static async  Task ResetLoct(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.DroneList> NewLoct)
+        internal static async Task ResetLoct(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.DroneList> NewLoct)
         {
             for (int i = 0; i < NewLoct.Count(); i++)
             {
@@ -250,25 +259,25 @@ namespace PL
                 }
                 else
                 {
-                    IFeature feature = (IFeature)await CreateFeature(0.45
+                    IFeature feature = await CreateFeature(0.45
                     , NewLoct.Skip(i).First().Loct.Longitude,
                     NewLoct.Skip(i).First().Loct.Lattitude,
                     NewLoct.Skip(i).First().Id,
                     false, null,
                     NewLoct.Skip(i).First().Model);
                     (MyMapControl.Map.Layers.Skip(3).First() as WritableLayer).Add(feature);
-                      
 
-                } 
+
+                }
 
 
 
 
 
             }
-        
-        
-        
+
+
+
         }
 
 

@@ -26,7 +26,7 @@ namespace BL
             // throw error if the Weight and Priority are out of the enum range
             IsInEnum(parcel.Weight);
             IsInEnum(parcel.Priority);
-            
+
             try
             {
                 data.GetCustomer(parcel.SenderParcelToCostumer.id);
@@ -41,7 +41,8 @@ namespace BL
                 throw new SenderGetterAreSame("the sender and getter cant be the same ", parcel.GetterParcelToCostumer.id);
             }
 
-            DO.Parcel ParcelTmp = new DO.Parcel() {
+            DO.Parcel ParcelTmp = new DO.Parcel()
+            {
                 Schedulded = DateTime.Now,
                 Requested = null,
                 PickedUp = null,
@@ -68,7 +69,9 @@ namespace BL
             {
                 DO.Parcel parcel = data.GetParcel(id);
                 if (parcel.DroneId is not null)
+                {
                     throw new CantDelete("can't delete the parcel because it has been bonded to a drone already", id);
+                }
 
                 data.DeleteParcel(id);
             }
@@ -94,16 +97,16 @@ namespace BL
                                                         DateTime? PickUpFrom, DateTime? PickUpTo,
                                                         DateTime? DeliverFrom, DateTime? DeliverTo)
         {
-            return ( data.GetParcels(x => weights.Contains((BO.WeightCategories)x.Weight) && priorties.Contains((BO.Priorities)x.Priority) &&
-                                    (CreationFrom is null || (x.Requested is not null && x.Requested >= CreationFrom)) &&
-                                    (CreationTo is null || (x.Requested is not null && x.Requested <= CreationTo)) &&
-                                    (BindFrom is null || (x.Schedulded is not null && x.Schedulded >= BindFrom)) &&
-                                    (BindTo is null || (x.Schedulded is not null && x.Schedulded <= BindTo)) &&
-                                    (PickUpFrom is null || (x.PickedUp is not null && x.PickedUp >= PickUpFrom)) &&
-                                    (PickUpTo is null || (x.PickedUp is not null && x.PickedUp <= PickUpTo)) &&
-                                    (DeliverFrom is null || (x.Delivered is not null && x.Delivered >= DeliverFrom)) &&
-                                    (DeliverTo is null || (x.Delivered is not null && x.Delivered <= DeliverTo)))
-                    ) .Select(ConvertList);
+            return (data.GetParcels(x => weights.Contains((BO.WeightCategories)x.Weight) && priorties.Contains((BO.Priorities)x.Priority) &&
+                                   (CreationFrom is null || (x.Requested is not null && x.Requested >= CreationFrom)) &&
+                                   (CreationTo is null || (x.Requested is not null && x.Requested <= CreationTo)) &&
+                                   (BindFrom is null || (x.Schedulded is not null && x.Schedulded >= BindFrom)) &&
+                                   (BindTo is null || (x.Schedulded is not null && x.Schedulded <= BindTo)) &&
+                                   (PickUpFrom is null || (x.PickedUp is not null && x.PickedUp >= PickUpFrom)) &&
+                                   (PickUpTo is null || (x.PickedUp is not null && x.PickedUp <= PickUpTo)) &&
+                                   (DeliverFrom is null || (x.Delivered is not null && x.Delivered >= DeliverFrom)) &&
+                                   (DeliverTo is null || (x.Delivered is not null && x.Delivered <= DeliverTo)))
+                    ).Select(ConvertList);
         }
     }
 }

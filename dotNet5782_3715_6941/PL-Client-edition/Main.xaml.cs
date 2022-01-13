@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace PL_Client_edition
 {
@@ -19,30 +7,35 @@ namespace PL_Client_edition
     /// </summary>
     public partial class Main : Window
     {
-        BlApi.Ibl dat;
-        BO.Customer cst;
-        Profile? prf = null; 
-        Table ?  tbl =null ; 
-        void ResetProfile()
+        private readonly BlApi.Ibl dat;
+        private readonly BO.Customer cst;
+        private Profile? prf = null;
+        private Table? tbl = null;
+
+        private void ResetProfile()
         {
             Profile.Visibility = Visibility.Visible;
             Parcels.Visibility = Visibility.Hidden;
             if (prf is null)
             {
                 prf = new Profile(dat, cst);
-                prf.DelteAccount.Click += (x, y) => { new LoginWindow(dat).Show(); this.Close(); };
+                prf.DelteAccount.Click += (x, y) => { new LoginWindow(dat).Show(); Close(); };
             }
             Profile.NavigationService.Navigate(prf);
         }
-        void ResetPrcales()
+
+        private void ResetPrcales()
         {
             Profile.Visibility = Visibility.Hidden;
             Parcels.Visibility = Visibility.Visible;
-            if(tbl is null )
+            if (tbl is null)
+            {
                 tbl = new Table(dat, cst);
+            }
+
             Parcels.NavigationService.Navigate(tbl);
         }
-        public Main(BlApi.Ibl dat , int costumerId)
+        public Main(BlApi.Ibl dat, int costumerId)
         {
             InitializeComponent();
             this.dat = dat;

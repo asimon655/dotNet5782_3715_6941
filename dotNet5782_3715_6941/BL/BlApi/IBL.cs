@@ -1,5 +1,4 @@
-﻿using BO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -206,7 +205,7 @@ namespace BlApi
         /// <param name="ParcelGot"></param>
         /// <param name="InTheWay"></param>
         /// <returns></returns>
-        IEnumerable<BO.CustomerList> GetCostumersFiltered(IEnumerable<int>? reached, IEnumerable<int>? Unreched ,IEnumerable<int>? ParcelGot, IEnumerable<int>? InTheWay);
+        IEnumerable<BO.CustomerList> GetCostumersFiltered(IEnumerable<int>? reached, IEnumerable<int>? Unreched, IEnumerable<int>? ParcelGot, IEnumerable<int>? InTheWay);
         #endregion
 
         #region Get Stats

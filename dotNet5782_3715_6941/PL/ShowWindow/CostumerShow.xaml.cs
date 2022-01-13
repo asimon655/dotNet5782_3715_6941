@@ -1,22 +1,14 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Security.Cryptography;
-using WPFSpark;
 namespace PL
 {
     /// <summary>
@@ -25,35 +17,38 @@ namespace PL
     public partial class CostumerShow : Window
     {
         #region Fields 
-        BlApi.Ibl dat;
-        IEnumerable<string> Answers;
-        static internal string TMP = System.IO.Path.GetTempPath();
-        string file="";
+        private readonly BlApi.Ibl dat;
+        private IEnumerable<string> Answers;
+        internal static string TMP = System.IO.Path.GetTempPath();
+        private string file = "";
         #endregion
-        internal void MetaDataCstReset(System.Windows.Controls.Image Photo2 ,int SenderId)
+        internal void MetaDataCstReset(System.Windows.Controls.Image Photo2, int SenderId)
         {
 
             if (!File.Exists(PhotoAsync.makePath(SenderId)))
+            {
                 PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum).ContinueWith(x =>
                 {
                     if (x.Result)
-
+                    {
                         Dispatcher.Invoke(() =>
                         {
                             Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                         });
+                    }
                 });
+            }
             else
+            {
                 try
                 {
                     Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                 }
                 catch { }
-
-
+            }
         }
 
-        public CostumerShow                                                                                                                                                                                                                                        (BlApi.Ibl dat, BO.Customer cst)
+        public CostumerShow(BlApi.Ibl dat, BO.Customer cst)
         {
             this.dat = dat;
             InitializeComponent();
@@ -61,7 +56,7 @@ namespace PL
 
             Show.Visibility = Visibility.Visible;
             Add.Visibility = Visibility.Hidden;
-            this.DataContext = cst;
+            DataContext = cst;
             #region ListView Grouping 
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(cst.ToClient);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("Priority");
@@ -80,22 +75,23 @@ namespace PL
             InitializeComponent();
 
             this.dat = dat;
-            
-            dat.GetCapchaQuestion().ContinueWith(x => {
-                
+
+            dat.GetCapchaQuestion().ContinueWith(x =>
+            {
+
                 Dispatcher.Invoke(() =>
                 {
                     myPopup.DataContext = x.Result.First();
                     CaptchCheck.IsEnabled = true;
-                   
+
                 });
                 Answers = x.Result.Skip(1);
 
 
-            } 
+            }
             );
-           
-          
+
+
             Add.Visibility = Visibility.Visible;
             Show.Visibility = Visibility.Hidden;
             RtbInputFile.Drop += RtbInputFile_Drop;
@@ -117,26 +113,28 @@ namespace PL
                 BO.Customer add = new BO.Customer()
                 {
                     Name = NameTB.Text,
-                    Id = Int32.Parse(IdTB.Text),
+                    Id = int.Parse(IdTB.Text),
                     Phone_Num = PhoneTB.Text,
-                    Loct = new BO.Location(Double.Parse(LongTB.Text), Double.Parse(LatTB.Text))
+                    Loct = new BO.Location(double.Parse(LongTB.Text), double.Parse(LatTB.Text))
                 };
-                
+
                 if (file.Equals(""))
                 {
-                    MetaDataCstReset(CostumerPhoto, Int32.Parse(IdTB.Text));
+                    MetaDataCstReset(CostumerPhoto, int.Parse(IdTB.Text));
                 }
                 else
                 {
-                    if (!File.Exists(TMP + @"image" + Int32.Parse(IdTB.Text) + ".png"))
-                        File.Copy(file, PhotoAsync.makePath(Int32.Parse(IdTB.Text) ));
+                    if (!File.Exists(TMP + @"image" + int.Parse(IdTB.Text) + ".png"))
+                    {
+                        File.Copy(file, PhotoAsync.makePath(int.Parse(IdTB.Text)));
+                    }
                 }
                 dat.AddCustomer(add);
-                this.Close();
+                Close();
             }
             catch (Exception err)
             {
-                MessageBox.Show(err.Message, "Error"); 
+                MessageBox.Show(err.Message, "Error");
             }
 
         }
@@ -214,14 +212,14 @@ namespace PL
 
             }
         }
-        
 
-private void RtbInputFile_PreviewDragOver(object sender, DragEventArgs e)
+
+        private void RtbInputFile_PreviewDragOver(object sender, DragEventArgs e)
         {
             e.Handled = true;
         }
 
-        
+
 
 
 

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DO;
 using System.Runtime.CompilerServices;
 
 
@@ -15,9 +15,11 @@ namespace Dal
             customer.IsDeleted = false;
 
             List<Customer> customers = Read<Customer>();
-            
+
             if (customers.Any(x => x.Id == customer.Id))
+            {
                 throw new IdAlreadyExists("there is already a customer with that id", customer.Id);
+            }
 
             customers.Add(customer);
 

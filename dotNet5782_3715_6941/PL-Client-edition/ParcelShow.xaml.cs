@@ -1,21 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 namespace PL_Client_edition
 {
-    enum ParcelO
+    internal enum ParcelO
     {
         Bind = 1,
         PickUp,
@@ -29,37 +20,46 @@ namespace PL_Client_edition
         internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
         {
             if (!File.Exists(PhotoAsync.makePath(TargetId)))
+            {
                 PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x =>
                 {
                     if (x.Result)
+                    {
                         Dispatcher.Invoke(() =>
                         {
                             Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                         });
-
+                    }
                 });
+            }
             else
+            {
                 Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+            }
+
             if (!File.Exists(PhotoAsync.makePath(SenderId)))
+            {
                 PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x =>
                 {
                     if (x.Result)
-
+                    {
                         Dispatcher.Invoke(() =>
                         {
                             Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                         });
+                    }
                 });
+            }
             else
+            {
                 Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
-
-
-
+            }
         }
-        BlApi.Ibl dat;
-        BO.Parcel Parcely;
-        static internal string TMP = System.IO.Path.GetTempPath();
-        int Cstid;
+
+        private readonly BlApi.Ibl dat;
+        private BO.Parcel Parcely;
+        internal static string TMP = System.IO.Path.GetTempPath();
+        private readonly int Cstid;
         public ParcelShow(BlApi.Ibl dat, int CstId)
         {
             this.dat = dat;
@@ -70,7 +70,7 @@ namespace PL_Client_edition
             Array TargetIds = (from sender in dat.GetCustomers() select sender.Id).ToArray();
             Array WeightVals = Enum.GetValues(typeof(BO.WeightCategories));
             Array PrioVals = Enum.GetValues(typeof(BO.Priorities));
-            this.Cstid = CstId;
+            Cstid = CstId;
             TIdCB.ItemsSource = TargetIds;
             WeightCB.ItemsSource = WeightVals;
             PrioCB.ItemsSource = PrioVals;
@@ -82,19 +82,20 @@ namespace PL_Client_edition
         {
 
             this.dat = dat;
-            this.Parcely = parcely;
+            Parcely = parcely;
             InitializeComponent();
-      
+
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
-            this.DataContext = parcely;
+            DataContext = parcely;
             try
             {
                 Operations.DataContext = ParcelC(Parcely);
             }
-            catch  {
+            catch
+            {
 
-                Operations.IsEnabled = false; 
+                Operations.IsEnabled = false;
             }
             if (!(parcely.ParcelDrone is null))
             {
@@ -102,15 +103,18 @@ namespace PL_Client_edition
 
 
                 if (!File.Exists(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"))
+                {
                     PhotoAsync.SaveFirstImageAsync(drn.Model).ContinueWith(x =>
                     {
                         if (x.Result)
-
+                        {
                             Dispatcher.Invoke(() =>
                             {
                                 Drone.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
                             });
+                        }
                     });
+                }
                 else
                 {
                     Drone.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
@@ -135,7 +139,9 @@ namespace PL_Client_edition
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if ((DataContext as BO.Parcel).ParcelDrone is null)
+            {
                 MessageBox.Show("There is no drone that binded", "Alert");
+            }
             //else
             //new Window2(dat, dat.GetDrone((DataContext as BO.Parcel).ParcelDrone.Id)).Show();
         }
@@ -159,7 +165,7 @@ namespace PL_Client_edition
                 };
 
                 dat.AddParcel(add);
-                this.Close();
+                Close();
 
 
             }
@@ -190,7 +196,10 @@ namespace PL_Client_edition
                 }
             }
             if (caseNum < 1)
+            {
                 throw new Exception("the parcel is not even decleared ");
+            }
+
             return (ParcelO)caseNum;
 
         }
@@ -200,7 +209,7 @@ namespace PL_Client_edition
             ParcelO Parcelstatus = ParcelC(Parcely);
             if (Parcelstatus != ParcelO.Bind)
             {
-                this.Parcely = await Task.Run(() => dat.GetParcel(Parcely.Id));
+                Parcely = await Task.Run(() => dat.GetParcel(Parcely.Id));
                 Operations.DataContext = Parcelstatus;
                 if (Parcelstatus == ParcelO.PickUp)
                 {
@@ -220,5 +229,5 @@ namespace PL_Client_edition
             }
         }
     }
-  
-    }
+
+}

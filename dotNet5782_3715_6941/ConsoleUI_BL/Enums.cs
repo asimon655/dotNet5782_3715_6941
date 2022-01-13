@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace ConsoleUI_BL
@@ -24,20 +19,21 @@ namespace ConsoleUI_BL
         Delete
     }
     // the options of the option Add (Add from the main menu)
-    public enum Add {
+    public enum Add
+    {
         [Description("Exit")]
         exit,
         [Description("Add Station for the Staions List")]
-        Staion ,
+        Staion,
         [Description("Add Drone to the Drone List ")]
         Drone,
         [Description("Add new costumer ")]
-        Costumer ,
+        Costumer,
         [Description("Add Package")]
-        Package, 
+        Package,
     }
     // the options of the option Update (Update from the main menu)
-    public enum Update 
+    public enum Update
     {
         [Description("Exit")]
         exit,

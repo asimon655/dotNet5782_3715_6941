@@ -1,9 +1,8 @@
-using BlApi;
 using BL;
 
-namespace BlApi 
+namespace BlApi
 {
-    public static class BlFactory 
+    public static class BlFactory
     {
         public static Ibl GetBl()
         {

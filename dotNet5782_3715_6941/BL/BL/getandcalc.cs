@@ -1,8 +1,8 @@
 ﻿using BO;
+using Itinero.LocalGeo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Itinero.LocalGeo;
 
 namespace BL
 {
@@ -13,7 +13,7 @@ namespace BL
         /// </summary>
         /// <param name="droneId"></param>
         /// <returns></returns>
-        int getBindedUndeliveredParcel(int droneId)
+        private int getBindedUndeliveredParcel(int droneId)
         {
             IEnumerable<DO.Parcel> parcels = data.GetParcels(x => x.DroneId == droneId && ParcelStatusC(x) != ParcelStatus.Delivered);
             DO.Parcel parcel = parcels.FirstOrDefault();
@@ -36,12 +36,13 @@ namespace BL
 
             return Coordinate.DistanceEstimateInMeter(coordinate1, coordinate2) / 1000;
         }
+
         /// <summary>
         /// return the id of closes station to a given location
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        int getClosesStation(Location location)
+        private int getClosesStation(Location location)
         {
             int stationId = 0;
             double shortestDistance = double.MaxValue;
@@ -131,6 +132,7 @@ namespace BL
                 throw new IdDosntExists(err);
             }
         }
+
         /// <summary>
         /// return true if the drone can reach the location of the sender/target of a given parcel
         /// </summary>
@@ -138,17 +140,18 @@ namespace BL
         /// <param name="parcel"></param>
         /// <param name="function">function to extract the location of the sender/target</param>
         /// <returns></returns>
-        static bool CanReach(DroneList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
+        private static bool CanReach(DroneList drony, DO.Parcel parcel, Func<DO.Parcel, Location> function)
         {
             return getPowerUsage(drony.Loct, function(parcel), (WeightCategories)parcel.Weight) <= drony.Battery;
         }
+
         /// <summary>
         /// return true if the drone can pickup deliver and get to the nearest station
         /// </summary>
         /// <param name="drony"></param>
         /// <param name="parcel"></param>
         /// <returns></returns>
-        bool CanReach(DroneList drony, DO.Parcel parcel)
+        private bool CanReach(DroneList drony, DO.Parcel parcel)
         {
             Location senderLoct = getParcelLoctSender(parcel);
             Location targetLoct = getParcelLoctTarget(parcel);
@@ -160,29 +163,31 @@ namespace BL
                             getPowerUsage(targetLoct, stationLoct);
             return travel <= drony.Battery;
         }
+
         /// <summary>
         /// get drone from our list
         /// if not found throw IdDosntExists error
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        DroneList GetDroneToList(int Id)
+        private DroneList GetDroneToList(int Id)
         {
             DroneList drone = drones.FirstOrDefault(s => s.Id == Id);
             /// if the Drone wasnt found throw error
-            if (!(drone is null ) && drone.Id != Id)
+            if (!(drone is null) && drone.Id != Id)
             {
                 throw new IdDosntExists("the Id could not be found", Id);
             }
             return drone;
         }
+
         /// <summary>
         /// generic function that check if a given value is in the range of his enum
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <exception cref="EnumOutOfRange"></exception>
-        void IsInEnum<T>(T value) where T : IConvertible
+        private void IsInEnum<T>(T value) where T : IConvertible
         {
             if (!Enum.IsDefined(typeof(T), value))
             {

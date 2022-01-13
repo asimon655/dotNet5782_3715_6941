@@ -1,9 +1,9 @@
 ﻿namespace BO
 {
-    public class CustomerInParcel 
+    public class CustomerInParcel
     {
-        public int id { set; get;  }
-        public string name { set; get;  }
+        public int id { set; get; }
+        public string name { set; get; }
 
 
         public override string ToString()

@@ -1,23 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL
 {
@@ -32,31 +17,39 @@ namespace PL
     {
 
         #region MetaDataReset
-        void Reset()
+        private void Reset()
         {
-            this.drn = log.GetDrone(drn.Id);
-            this.DataContext = drn;
+            drn = log.GetDrone(drn.Id);
+            DataContext = drn;
             if (!(drn.ParcelTransfer is null))
+            {
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            }
             else
+            {
                 ParcelOpsRFS(null);
-
-
+            }
         }
-        internal void MetaDataCstReset(  System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
+        internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
         {
             if (!File.Exists(PhotoAsync.makePath(TargetId)))
-                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x => {
+            {
+                PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x =>
+                {
                     if (x.Result)
+                    {
                         Dispatcher.Invoke(() =>
                          {
                              Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                          });
+                    }
+
                     if (!File.Exists(PhotoAsync.makePath(SenderId)))
+                    {
                         PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x =>
                         {
                             if (x.Result)
-
+                            {
                                 Dispatcher.Invoke(() =>
                                 {
                                     try
@@ -65,22 +58,27 @@ namespace PL
                                     }
                                     catch { }
                                 });
+                            }
                         });
+                    }
                     else
+                    {
                         try
                         {
                             Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                         }
                         catch { }
+                    }
                 });
+            }
             else
-
+            {
                 try
                 {
                     Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
-                } catch { }
-
-
+                }
+                catch { }
+            }
         }
 
         #endregion
@@ -95,10 +93,10 @@ namespace PL
         #endregion
 
         #region DroneShow
-        BO.Drone drn;
-        Action reset;
-        BackgroundWorker simulator;
-        bool exitPending = false;
+        private BO.Drone drn;
+        private readonly Action reset;
+        private readonly BackgroundWorker simulator;
+        private bool exitPending = false;
         public Window2(BlApi.Ibl log, BO.Drone drn, Action? action = null)
         {
             InitializeComponent();
@@ -112,30 +110,41 @@ namespace PL
             this.log = log;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
-            this.DataContext = drn;
+            DataContext = drn;
             reset = action;
 
             if (!(drn.ParcelTransfer is null))
+            {
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            }
             else
+            {
                 ParcelOpsRFS(null);
-            if (!File.Exists(PhotoAsync.makePath(drn.Model)))
-                PhotoAsync.SaveFirstImageAsync(drn.Model).ContinueWith(x => {
-                    if (x.Result)
+            }
 
+            if (!File.Exists(PhotoAsync.makePath(drn.Model)))
+            {
+                PhotoAsync.SaveFirstImageAsync(drn.Model).ContinueWith(x =>
+                {
+                    if (x.Result)
+                    {
                         Dispatcher.Invoke(() =>
                         {
                             Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
                         });
+                    }
                 });
-            else {
+            }
+            else
+            {
                 Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
             }
-                
-            
-            if(!(drn.ParcelTransfer is null ))
-                MetaDataCstReset(Photo1, Photo2, drn.ParcelTransfer.Sender.id, drn.ParcelTransfer.Target.id);
 
+
+            if (!(drn.ParcelTransfer is null))
+            {
+                MetaDataCstReset(Photo1, Photo2, drn.ParcelTransfer.Sender.id, drn.ParcelTransfer.Target.id);
+            }
         }
 
 
@@ -147,14 +156,17 @@ namespace PL
 
         private void PopupShiwiw(object sender, RoutedEventArgs e)
         {
-            
-            if (!(drn.ParcelTransfer is null))
-                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
-            else
-                ParcelOpsRFS(null);
 
+            if (!(drn.ParcelTransfer is null))
+            {
+                ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+            }
+            else
+            {
+                ParcelOpsRFS(null);
+            }
         }
-        
+
         private ParcelO ParcelC(BO.Parcel parcel)
         {
 
@@ -176,7 +188,10 @@ namespace PL
                 }
             }
             if (caseNum < 1)
+            {
                 throw new Exception("the parcel is not even decleared ");
+            }
+
             return (ParcelO)caseNum;
 
         }
@@ -197,7 +212,7 @@ namespace PL
             Opeation2.IsEnabled = false;
             Opeation3.IsEnabled = false;
             Opeation4.IsEnabled = false;
-           
+
             if (pcl is null) /// parcel only created and never binded 
             {
                 if (drn.DroneStat == BO.DroneStatuses.Free)
@@ -234,11 +249,12 @@ namespace PL
                     Opeation3.Background = System.Windows.Media.Brushes.MediumVioletRed;
                     Opeation3.IsEnabled = true;
                 }
-           
-            }
-            if(!(reset is null))
-                reset();
 
+            }
+            if (!(reset is null))
+            {
+                reset();
+            }
         }
         private void Bind(object sender, RoutedEventArgs e)
         {
@@ -246,7 +262,7 @@ namespace PL
             {
                 log.BindParcelToDrone(drn.Id);
                 drn = log.GetDrone(drn.Id);
-               this.DataContext = drn;
+                DataContext = drn;
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
             }
             catch (Exception err)
@@ -267,7 +283,7 @@ namespace PL
             {
                 log.DronePickUp(drn.Id);
                 drn = log.GetDrone(drn.Id);
-               this.DataContext = drn;
+                DataContext = drn;
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
             }
             catch (Exception err)
@@ -286,8 +302,8 @@ namespace PL
             try
             {
                 log.DroneDelivere(drn.Id);
-               drn = log.GetDrone(drn.Id);
-               this.DataContext = drn;
+                drn = log.GetDrone(drn.Id);
+                DataContext = drn;
 
                 ParcelOpsRFS(null);
             }
@@ -309,7 +325,7 @@ namespace PL
             {
                 log.DroneCharge(drn.Id);
                 drn = log.GetDrone(drn.Id);
-               this.DataContext = drn;
+                DataContext = drn;
                 ParcelOpsRFS(null);
             }
             catch (Exception err)
@@ -328,7 +344,7 @@ namespace PL
         {
             try
             {
-                log.DroneReleaseCharge(drn.Id,  Double.Parse(TBREALSE.Text));
+                log.DroneReleaseCharge(drn.Id, double.Parse(TBREALSE.Text));
                 drn = log.GetDrone(drn.Id);
                 ParcelOpsRFS(null);
             }
@@ -351,7 +367,9 @@ namespace PL
         private void Simulator_Checked(object sender, RoutedEventArgs e)
         {
             if (!simulator.IsBusy)
+            {
                 simulator.RunWorkerAsync();
+            }
         }
 
         private void Simulator_Unchecked(object sender, RoutedEventArgs e)
@@ -360,7 +378,7 @@ namespace PL
         }
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            log.StartSimulator(drn.Id, 
+            log.StartSimulator(drn.Id,
                 () => simulator.ReportProgress(1),
                 () => simulator.CancellationPending);
         }
@@ -372,7 +390,9 @@ namespace PL
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (exitPending)
-                this.Close();
+            {
+                Close();
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)

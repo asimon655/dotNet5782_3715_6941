@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BO;
+﻿using BO;
+using Itinero.LocalGeo;
+using System;
 using System.Threading;
 using static BL.Bl;
-using Itinero.LocalGeo;
 
 namespace Simulator
 {
-    class Simulator
+    internal class Simulator
     {
-        const int delay = 300;
-        
-        // speed in km/s
-        const double speed = 0.3 ;
+        private const int delay = 300;
 
-        BlApi.Ibl logic;
-        Action refresh;
+        // speed in km/s
+        private const double speed = 0.3;
+        private readonly BlApi.Ibl logic;
+        private readonly Action refresh;
 
         public Simulator(BlApi.Ibl _logic, int droneId, Action _refresh, Func<bool> stop)
         {
@@ -88,7 +83,7 @@ namespace Simulator
             }
         }
 
-        void moveDroneTo(Drone drone, Location location, WeightCategories? weightCategories = null)
+        private void moveDroneTo(Drone drone, Location location, WeightCategories? weightCategories = null)
         {
             Coordinate source = new Coordinate(drone.Current.Lattitude, drone.Current.Longitude);
             Coordinate destination = new Coordinate(location.Lattitude, location.Longitude);
@@ -109,14 +104,14 @@ namespace Simulator
 
                 logic.SimulatorUpdateLocation(drone.Id, drone.Current);
                 logic.SimulatorUpdateBattary(drone.Id, drone.BatteryStat);
-                
+
                 refresh();
-                
+
                 Thread.Sleep(delay);
             }
         }
 
-        void charge(Drone drone)
+        private void charge(Drone drone)
         {
             while (drone.BatteryStat < 100 - ChargingSpeed)
             {

@@ -1,26 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL
 {
-   
+
 
 
 
@@ -29,25 +14,25 @@ namespace PL
     /// </summary>
     public partial class Window2 : Window
     {
-
-        List<Object> pacads = new List<object>(); 
-        BlApi.Ibl log;
-        Page pageof;
+        private readonly List<object> pacads = new List<object>();
+        private readonly BlApi.Ibl log;
+        private readonly Page pageof;
         private void Button_Click_Add(object sender, RoutedEventArgs e)
         {
             try
             {
-                BO.Drone drony = new BO.Drone();
-
-                drony.Model = NameTB .Text;
-                drony.Id = Convert.ToInt32(IdTB.Text);
-                drony.Weight = (BO.WeightCategories)(WeightCB).SelectedItem;
+                BO.Drone drony = new BO.Drone
+                {
+                    Model = NameTB.Text,
+                    Id = Convert.ToInt32(IdTB.Text),
+                    Weight = (BO.WeightCategories)(WeightCB).SelectedItem
+                };
 
 
                 log.AddDrone(drony, (int)(StatCB).SelectedItem);
-          
 
-               
+
+
             }
             catch (Exception err)
             {
@@ -57,33 +42,38 @@ namespace PL
             }
             finally
             {
-                this.Close();
+                Close();
             }
-            
+
         }
         private void Button_Click_Show(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (!(drn.ParcelTransfer is null))
-                new ParcelShow(log, log.GetParcel(drn.ParcelTransfer.Id)).Show(); 
+            {
+                new ParcelShow(log, log.GetParcel(drn.ParcelTransfer.Id)).Show();
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (!(drn.ParcelTransfer is null))
-            new CostumerShow(log, log.GetCostumer(drn.ParcelTransfer.Target.id)).Show();
+            {
+                new CostumerShow(log, log.GetCostumer(drn.ParcelTransfer.Target.id)).Show();
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (!(drn.ParcelTransfer is null))
+            {
                 new CostumerShow(log, log.GetCostumer(drn.ParcelTransfer.Sender.id)).Show();
-           
+            }
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)

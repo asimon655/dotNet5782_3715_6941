@@ -1,14 +1,12 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace DalApi
 {
-    class DalConfig
+    internal class DalConfig
     {
         internal static string DalName;
         internal static Dictionary<string, string> DalPackages;

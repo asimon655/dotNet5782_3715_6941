@@ -7,27 +7,31 @@ namespace BL
 {
     public sealed partial class Bl : BlApi.Ibl
     {
-        static Bl() {}
+        static Bl() { }
         internal static readonly object padlock = new object();
         internal static Bl instance;
-        internal static Bl Instance {
-            get {
-                if (instance == null) {
-                    lock(padlock) {  
-                        if (instance == null) {  
-                            instance = new Bl();  
+        internal static Bl Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (padlock)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new Bl();
                         }
                     }
                 }
-                return instance;  
+                return instance;
             }
         }
 
 
 
         internal DalApi.IDal data;
-
-        List<DroneList> drones = new List<DroneList>();
+        private readonly List<DroneList> drones = new List<DroneList>();
 
         internal Random RandomGen = new Random();
 
@@ -53,10 +57,12 @@ namespace BL
             // initilazing the drones list
             foreach (var drone in data.GetDrones())
             {
-                DroneList newDrone = new DroneList();
-                newDrone.Id = drone.Id;
-                newDrone.Model = drone.Modle;
-                newDrone.Weight = (WeightCategories)drone.MaxWeigth;
+                DroneList newDrone = new DroneList
+                {
+                    Id = drone.Id,
+                    Model = drone.Modle,
+                    Weight = (WeightCategories)drone.MaxWeigth
+                };
 
                 int parcelId = getBindedUndeliveredParcel(drone.Id);
 

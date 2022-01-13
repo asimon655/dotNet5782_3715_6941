@@ -16,7 +16,7 @@ namespace BO
     /// i used description because i can reuse it in the gui and it look like the coolest thing 
     /// </summary>
     /// 
-    public  enum WeightCategories
+    public enum WeightCategories
     {
         [Description("easy weight ")]
         Easy,
@@ -25,10 +25,10 @@ namespace BO
         [Description("heavy weight  ")]
         Heavy,
     };
-    public  enum ParcelStatus
+    public enum ParcelStatus
     {
         [Description("Parcel Declared ")]
-        Declared ,
+        Declared,
         [Description("Parcel Binded ")]
         Binded,
         [Description("Parcel PickedUp  ")]
@@ -44,9 +44,9 @@ namespace BO
         [Description("Drone is in Delivery ")]
         Delivery,
         [Description("free Drone  ")]
-        Free,  
+        Free,
         [Description("Drone need Matance  ")]
         Matance,
-     
+
     };
 }

@@ -16,7 +16,6 @@
  *  limitations under the License.
  */
 
-using System;
 using Itinero.Navigation.Directions;
 
 namespace Itinero.LocalGeo
@@ -25,17 +24,17 @@ namespace Itinero.LocalGeo
     /// Represents a coordinate.
     /// </summary>
     public struct Coordinate
-    { 
-        const double RadiusOfEarth = 6371000;
+    {
+        private const double RadiusOfEarth = 6371000;
 
         /// <summary>
         /// Creates a new coordinate.
         /// </summary>
         public Coordinate(float latitude, float longitude)
         {
-            this.Latitude = latitude;
-            this.Longitude = longitude;
-            this.Elevation = null;
+            Latitude = latitude;
+            Longitude = longitude;
+            Elevation = null;
         }
 
         /// <summary>
@@ -43,9 +42,9 @@ namespace Itinero.LocalGeo
         /// </summary>
         public Coordinate(float latitude, float longitude, short elevation)
         {
-            this.Latitude = latitude;
-            this.Longitude = longitude;
-            this.Elevation = elevation;
+            Latitude = latitude;
+            Longitude = longitude;
+            Elevation = elevation;
         }
 
         /// <summary>
@@ -53,9 +52,9 @@ namespace Itinero.LocalGeo
         /// </summary>
         public Coordinate(double latitude, double longitude) : this()
         {
-            this.Latitude = (float)latitude;
-            this.Longitude = (float)longitude;
-            this.Elevation = null;
+            Latitude = (float)latitude;
+            Longitude = (float)longitude;
+            Elevation = null;
         }
 
         /// <summary>
@@ -80,8 +79,8 @@ namespace Itinero.LocalGeo
         {
             var ratioInRadians = distance / RadiusOfEarth;
 
-            var oldLat = this.Latitude.ToRadians();
-            var oldLon = this.Longitude.ToRadians();
+            var oldLat = Latitude.ToRadians();
+            var oldLon = Longitude.ToRadians();
             var bearing = ((double)(int)direction).ToRadians();
 
             var newLatitude = System.Math.Asin(
@@ -98,7 +97,7 @@ namespace Itinero.LocalGeo
                                       System.Math.Cos(ratioInRadians) -
                                       System.Math.Sin(oldLat) *
                                       System.Math.Sin(newLatitude));
-            
+
             var newLat = newLatitude.ToDegrees();
             if (newLat > 180)
             {
@@ -147,7 +146,7 @@ namespace Itinero.LocalGeo
         public static float DistanceEstimateInMeter(System.Collections.Generic.List<Coordinate> coordinates)
         {
             var length = 0f;
-            for(var i = 1; i < coordinates.Count; i++)
+            for (var i = 1; i < coordinates.Count; i++)
             {
                 length += Coordinate.DistanceEstimateInMeter(coordinates[i - 1].Latitude, coordinates[i - 1].Longitude,
                     coordinates[i].Latitude, coordinates[i].Longitude);
@@ -158,7 +157,7 @@ namespace Itinero.LocalGeo
         /// <summary>
         /// Returns true if this coordinate is valid.
         /// </summary>
-        public bool Valid => Validate(this.Latitude, this.Longitude);
+        public bool Valid => Validate(Latitude, Longitude);
 
         /// <summary>
         /// Validates the given lat/lon.
@@ -168,10 +167,26 @@ namespace Itinero.LocalGeo
         /// <returns>True if both are in range.</returns>
         public static bool Validate(double lat, double lon)
         {
-            if (lat < -90) return false;
-            if (lat > 90) return false;
-            if (lon < -180) return false;
-            if (lon > 180) return false;
+            if (lat < -90)
+            {
+                return false;
+            }
+
+            if (lat > 90)
+            {
+                return false;
+            }
+
+            if (lon < -180)
+            {
+                return false;
+            }
+
+            if (lon > 180)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -181,16 +196,16 @@ namespace Itinero.LocalGeo
         public Coordinate OffsetWithDistances(float meter)
         {
             var offsetLat = new Coordinate(
-                this.Latitude + 0.1f, this.Longitude);
+                Latitude + 0.1f, Longitude);
             var offsetLon = new Coordinate(
-                this.Latitude, this.Longitude + 0.1f);
+                Latitude, Longitude + 0.1f);
             var latDistance = Coordinate.DistanceEstimateInMeter(offsetLat, this);
             var lonDistance = Coordinate.DistanceEstimateInMeter(offsetLon, this);
 
-            return new Coordinate(this.Latitude + (meter / latDistance) * 0.1f,
-                this.Longitude + (meter / lonDistance) * 0.1f);
+            return new Coordinate(Latitude + (meter / latDistance) * 0.1f,
+                Longitude + (meter / lonDistance) * 0.1f);
         }
-        
+
         /// <summary>
         /// Returns a description of this object.
         /// </summary>

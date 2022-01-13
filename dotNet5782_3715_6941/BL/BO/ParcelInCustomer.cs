@@ -1,10 +1,10 @@
 namespace BO
 {
-    public class ParcelInCustomer 
+    public class ParcelInCustomer
     {
         public int Id { set; get; }
-        public WeightCategories Weight {set; get ; }
-        public Priorities Priority { set; get;  } 
+        public WeightCategories Weight { set; get; }
+        public Priorities Priority { set; get; }
         public ParcelStatus Status { set; get; }
         public CustomerInParcel ParentCustomer { set; get; }
 

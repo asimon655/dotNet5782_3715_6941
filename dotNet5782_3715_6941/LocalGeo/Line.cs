@@ -25,7 +25,7 @@ namespace Itinero.LocalGeo
     /// </summary>
     public struct Line
     {
-        const double E = 0.0000000001;
+        private const double E = 0.0000000001;
         private readonly Coordinate _coordinate1;
         private readonly Coordinate _coordinate2;
 
@@ -41,82 +41,40 @@ namespace Itinero.LocalGeo
         /// <summary>
         /// Returns parameter A of an equation describing this line as Ax + By = C
         /// </summary>
-        public float A
-        {
-            get
-            {
-                return _coordinate2.Latitude - _coordinate1.Latitude;
-            }
-        }
+        public float A => _coordinate2.Latitude - _coordinate1.Latitude;
 
         /// <summary>
         /// Returns parameter B of an equation describing this line as Ax + By = C
         /// </summary>
-        public float B
-        {
-            get
-            {
-                return _coordinate1.Longitude - _coordinate2.Longitude;
-            }
-        }
+        public float B => _coordinate1.Longitude - _coordinate2.Longitude;
 
         /// <summary>
         /// Returns parameter C of an equation describing this line as Ax + By = C
         /// </summary>
-        public float C
-        {
-            get
-            {
-                return this.A * _coordinate1.Longitude + this.B * _coordinate1.Latitude;
-            }
-        }
+        public float C => A * _coordinate1.Longitude + B * _coordinate1.Latitude;
 
         /// <summary>
         /// Gets the first coordinate.
         /// </summary>
-        public Coordinate Coordinate1
-        {
-            get
-            {
-                return _coordinate1;
-            }
-        }
+        public Coordinate Coordinate1 => _coordinate1;
 
         /// <summary>
         /// Gets the second coordinate.
         /// </summary>
-        public Coordinate Coordinate2
-        {
-            get
-            {
-                return _coordinate2;
-            }
-        }
+        public Coordinate Coordinate2 => _coordinate2;
 
         /// <summary>
         /// Gets the middle of this line.
         /// </summary>
         /// <returns></returns>
-        public Coordinate Middle
-        {
-            get
-            {
-                return new Coordinate((this.Coordinate1.Latitude + this.Coordinate2.Latitude) / 2,
-                    (this.Coordinate1.Longitude + this.Coordinate2.Longitude) / 2);
-            }
-        }
+        public Coordinate Middle => new Coordinate((Coordinate1.Latitude + Coordinate2.Latitude) / 2,
+                    (Coordinate1.Longitude + Coordinate2.Longitude) / 2);
 
 
         /// <summary>
         /// Gets the length of this line.
         /// </summary>
-        public float Length
-        {
-            get
-            {
-                return Coordinate.DistanceEstimateInMeter(_coordinate1, _coordinate2);
-            }
-        }
+        public float Length => Coordinate.DistanceEstimateInMeter(_coordinate1, _coordinate2);
 
         /// <summary>
         /// Calculates the intersection point of the given line with this line. 
@@ -127,20 +85,20 @@ namespace Itinero.LocalGeo
         /// </summary>
         public Coordinate? Intersect(Line line)
         {
-            var det = (double)(line.A * this.B - this.A * line.B);
+            var det = (double)(line.A * B - A * line.B);
             if (System.Math.Abs(det) <= E)
             { // lines are parallel; no intersections.
                 return null;
             }
             else
             { // lines are not the same and not parallel so they will intersect.
-                double x = (this.B * line.C - line.B * this.C) / det;
-                double y = (line.A * this.C - this.A * line.C) / det;
+                double x = (B * line.C - line.B * C) / det;
+                double y = (line.A * C - A * line.C) / det;
 
                 var coordinate = new Coordinate((float)y, (float)x);
 
                 // check if the coordinate is on this line.
-                var dist = this.A * this.A + this.B * this.B;
+                var dist = A * A + B * B;
                 var line1 = new Line(coordinate, _coordinate1);
                 var distTo1 = line1.A * line1.A + line1.B * line1.B;
                 if (distTo1 > dist)
@@ -160,15 +118,15 @@ namespace Itinero.LocalGeo
                     { // don't calculate anything, elevation is identical.
                         coordinate.Elevation = _coordinate1.Elevation;
                     }
-                    else if (System.Math.Abs(this.A) < E && System.Math.Abs(this.B) < E)
+                    else if (System.Math.Abs(A) < E && System.Math.Abs(B) < E)
                     { // tiny segment, not stable to calculate offset
                         coordinate.Elevation = _coordinate1.Elevation;
                     }
                     else
                     { // calculate offset and calculate an estimiate of the elevation.
-                        if (System.Math.Abs(this.A) > System.Math.Abs(this.B))
+                        if (System.Math.Abs(A) > System.Math.Abs(B))
                         {
-                            var diffLat = System.Math.Abs(this.A);
+                            var diffLat = System.Math.Abs(A);
                             var diffLatIntersection = System.Math.Abs(coordinate.Latitude - _coordinate1.Latitude);
 
                             coordinate.Elevation = (short)((_coordinate2.Elevation - _coordinate1.Elevation) * (diffLatIntersection / diffLat) +
@@ -176,7 +134,7 @@ namespace Itinero.LocalGeo
                         }
                         else
                         {
-                            var diffLon = System.Math.Abs(this.B);
+                            var diffLon = System.Math.Abs(B);
                             var diffLonIntersection = System.Math.Abs(coordinate.Longitude - _coordinate1.Longitude);
 
                             coordinate.Elevation = (short)((_coordinate2.Elevation - _coordinate1.Elevation) * (diffLonIntersection / diffLon) +
@@ -193,20 +151,20 @@ namespace Itinero.LocalGeo
         /// </summary>
         public Coordinate? ProjectOn(Coordinate coordinate)
         {
-            if (this.Length < E)
-            { 
+            if (Length < E)
+            {
                 return null;
             }
 
             // get direction vector.
-            var diffLat = ((double)_coordinate2.Latitude - (double)_coordinate1.Latitude) * 100.0;
-            var diffLon = ((double)_coordinate2.Longitude - (double)_coordinate1.Longitude) * 100.0;
+            var diffLat = (_coordinate2.Latitude - (double)_coordinate1.Latitude) * 100.0;
+            var diffLon = (_coordinate2.Longitude - (double)_coordinate1.Longitude) * 100.0;
 
             // increase this line in length if needed.
             var thisLine = this;
-            if (this.Length < 50)
+            if (Length < 50)
             {
-                thisLine = new Line(_coordinate1, new Coordinate((float)(diffLat + coordinate.Latitude), 
+                thisLine = new Line(_coordinate1, new Coordinate((float)(diffLat + coordinate.Latitude),
                     (float)(diffLon + coordinate.Longitude)));
             }
 
@@ -230,7 +188,7 @@ namespace Itinero.LocalGeo
                 .OffsetWithDirection(xLength, yDirection);
             diffLat = second.Latitude - thisLine.Coordinate1.Latitude;
             diffLon = second.Longitude - thisLine.Coordinate1.Longitude;
-            
+
             // create second point from the given coordinate.
             second = new Coordinate((float)(diffLat + coordinate.Latitude), (float)(diffLon + coordinate.Longitude));
 
@@ -248,7 +206,7 @@ namespace Itinero.LocalGeo
             if (!thisLine.Equals(this))
             {
                 // check if the coordinate is on this line.
-                var dist = this.A * this.A + this.B * this.B;
+                var dist = A * A + B * B;
                 var line1 = new Line(projected.Value, _coordinate1);
                 var distTo1 = line1.A * line1.A + line1.B * line1.B;
                 if (distTo1 > dist)
@@ -271,7 +229,7 @@ namespace Itinero.LocalGeo
         /// </summary>
         public float? DistanceInMeter(Coordinate coordinate)
         {
-            var projected = this.ProjectOn(coordinate);
+            var projected = ProjectOn(coordinate);
             if (projected.HasValue)
             {
                 return Coordinate.DistanceEstimateInMeter(coordinate, projected.Value);

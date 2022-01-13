@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using DO;
+using System.Collections.Generic;
 using System.Linq;
-using DO;
 using System.Runtime.CompilerServices;
 
 namespace Dal
@@ -14,7 +14,9 @@ namespace Dal
 
             DronePic res = data.Find(x => x.Model == Model);
             if (res.Model != Model)
+            {
                 throw new IdDosntExists("there is no pic saved under that Id");
+            }
 
             return res;
         }
@@ -25,7 +27,9 @@ namespace Dal
 
             CustomerPic res = data.Find(x => x.Id == customerId);
             if (res.Id != customerId)
+            {
                 throw new IdDosntExists("there is no pic saved under that Id");
+            }
 
             return res;
         }
@@ -35,7 +39,9 @@ namespace Dal
             List<DronePic> data = Read<DronePic>();
 
             if (data.Any(x => x.Model == pic.Model))
+            {
                 throw new IdAlreadyExists("there is already pic saved under that Model Name");
+            }
 
             data.Add(pic);
 
@@ -47,7 +53,9 @@ namespace Dal
             List<CustomerPic> data = Read<CustomerPic>();
 
             if (data.Any(x => x.Id == pic.Id))
+            {
                 throw new IdAlreadyExists("there is already pic saved under that type and Id", pic.Id);
+            }
 
             data.Add(pic);
 

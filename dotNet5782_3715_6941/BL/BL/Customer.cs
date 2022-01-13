@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BO;
+using System.Collections.Generic;
 using System.Linq;
-using BO;
 using System.Runtime.CompilerServices;
 
 namespace BL
@@ -23,13 +23,16 @@ namespace BL
         public void AddCustomer(Customer costumer)
         {
             if (costumer.Loct.Lattitude > 90 || costumer.Loct.Lattitude < -90 || costumer.Loct.Longitude > 180 || costumer.Loct.Longitude < -180)
+            {
                 throw new LocationOutOfRange("the Location Values are out of boundries  :  ", costumer.Loct.Longitude, costumer.Loct.Lattitude);
+            }
 
-            DO.Customer CostumerTmp = new DO.Customer() {
-                Id = costumer.Id, 
+            DO.Customer CostumerTmp = new DO.Customer()
+            {
+                Id = costumer.Id,
                 Lattitude = costumer.Loct.Lattitude,
                 Longitude = costumer.Loct.Longitude,
-                Name = costumer.Name, 
+                Name = costumer.Name,
                 Phone = costumer.Phone_Num
             };
             try
@@ -38,8 +41,8 @@ namespace BL
             }
             catch (DO.IdAlreadyExists err)
             {
-                throw new IdAlreadyExists( err);
-            } 
+                throw new IdAlreadyExists(err);
+            }
         }
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateCostumer(int costumerId, string costumerName = null, string costumerPhone = null)
@@ -48,9 +51,15 @@ namespace BL
             {
                 DO.Customer customer = data.GetCustomer(costumerId);
                 if (!(costumerName is null))
+                {
                     customer.Name = costumerName;
+                }
+
                 if (!(costumerPhone is null))
+                {
                     customer.Phone = costumerPhone;
+                }
+
                 data.UpdateCustomer(customer);
             }
             catch (DO.IdDosntExists err)

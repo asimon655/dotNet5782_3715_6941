@@ -9,5 +9,5 @@
         public double Lattitude { set; get; }
         public bool IsDeleted { set; get; }
     }
-    
+
 }

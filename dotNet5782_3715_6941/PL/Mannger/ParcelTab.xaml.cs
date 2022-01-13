@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PL
 {
@@ -22,13 +14,13 @@ namespace PL
     public partial class ParcelTab : Page
     {
         #region Fields 
-        BlApi.Ibl dat;
-        bool works = false; 
+        private readonly BlApi.Ibl dat;
+        private readonly bool works = false;
         #endregion
         public Action reset;
         public void Reset()
         {
-           
+
             PopulateResetList();
             // PopulateResetScottPlot();
 
@@ -86,7 +78,7 @@ namespace PL
         }
 
 
-            
+
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             ResultsOfSearch.ItemsSource = dat.SmartSearchParcel(SmartTB.Text);
@@ -97,72 +89,101 @@ namespace PL
 
         }
         #region Populates
-        async void PopulateResetList()
+        private async void PopulateResetList()
         {
             ListOf.ItemsSource = await Task.Run(() => dat.GetParcels());
         }
-        async Task PopulateResetListFilter()
+
+        private async Task PopulateResetListFilter()
         {
-            DateTime ? F11 = F1.SelectedDate;
-            DateTime ? T11 = T1.SelectedDate;
+            DateTime? F11 = F1.SelectedDate;
+            DateTime? T11 = T1.SelectedDate;
             DateTime? F21 = F2.SelectedDate;
             DateTime? T21 = T2.SelectedDate;
             DateTime? F31 = F3.SelectedDate;
             DateTime? T31 = T3.SelectedDate;
             DateTime? F41 = F4.SelectedDate;
             DateTime? T41 = T4.SelectedDate;
-            List<BO.WeightCategories> W = new List<BO.WeightCategories>() ;
-            List<BO.Priorities> P = new List<BO.Priorities>() ;
+            List<BO.WeightCategories> W = new List<BO.WeightCategories>();
+            List<BO.Priorities> P = new List<BO.Priorities>();
             if (!(WeightCB.SelectedItem is null))
-                W.Add((BO.WeightCategories)WeightCB.SelectedItem );
+            {
+                W.Add((BO.WeightCategories)WeightCB.SelectedItem);
+            }
+
             if (!(PriCB.SelectedItem is null))
+            {
                 P.Add((BO.Priorities)PriCB.SelectedItem);
-
-
+            }
 
             ListOf.ItemsSource = await Task.Run(() => dat.GetParcelsFiltered(
-                (W.Count() == 0 ? (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories)) : W ) 
-                ,( P.Count == 0 ? (BO.Priorities[])Enum.GetValues(typeof(BO.Priorities)) : P) ,
-                F11 , T11 ,
+                (W.Count() == 0 ? (BO.WeightCategories[])Enum.GetValues(typeof(BO.WeightCategories)) : W)
+                , (P.Count == 0 ? (BO.Priorities[])Enum.GetValues(typeof(BO.Priorities)) : P),
+                F11, T11,
                  F21, T21,
                   F31, T31,
                    F41, T41
 
-                ));;
+                )); ;
         }
-        internal async  Task PopulateResetScottPlot()
+        internal async Task PopulateResetScottPlot()
         {
             if (works)
+            {
                 return;
+            }
 
             #region Plots Initialize 
             Task<double[]> task1_1 = Task.Run(() => dat.GetParcelsStatusesStats());
             Task<double[]> task2_1 = Task.Run(() => dat.GetParcelsWeightsStats());
             Task<double[]> task3_1 = Task.Run(() => dat.GetParcelsPrioretiesStats());
             double[] parcelstat = await task1_1;
-            double[] WeightStat =await task2_1 ;
+            double[] WeightStat = await task2_1;
             double[] PrioStat = await task3_1; //Get all the data
 
             if (works)
+            {
                 return;
-            Task ?  task1_3 = null ;
-            Task ?  task2_3 =null ;
-            Task ?  task3_3 =null ;
+            }
+
+            Task? task1_3 = null;
+            Task? task2_3 = null;
+            Task? task3_3 = null;
             if (parcelstat.Length != 0)
+            {
                 task1_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, parcelstat));
+            }
+
             if (WeightStat.Length != 0)
+            {
                 task2_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.WeightCategories>(WpfPlotPack2, WeightStat));
+            }
+
             if (PrioStat.Length != 0)
+            {
                 task3_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.Priorities>(WpfPlotPack3, PrioStat));
+            }
+
             if (!(task1_3 is null))
+            {
                 await task1_3;
+            }
+
             if (!(task2_3 is null))
+            {
                 await task2_3;
+            }
+
             if (!(task3_3 is null))
+            {
                 await task3_3;
-             if (works)
+            }
+
+            if (works)
+            {
                 return;
-  
+            }
+
 
 
             #endregion

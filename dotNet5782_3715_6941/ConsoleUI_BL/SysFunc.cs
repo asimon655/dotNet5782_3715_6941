@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace ConsoleUI_BL
 {
-    class SysFunc
+    internal class SysFunc
     {
 
 
 
-        public static int SafeEnterUInt(String prefix = "")///enters int ( it reccimends to uint but the func do not insist with the client) and if it cants parse it , it shows error massage and thre is a option to print inputing  message like py input  
+        public static int SafeEnterUInt(string prefix = "")///enters int ( it reccimends to uint but the func do not insist with the client) and if it cants parse it , it shows error massage and thre is a option to print inputing  message like py input  
         {
             Console.Write(prefix);
             int num;
@@ -20,7 +17,7 @@ namespace ConsoleUI_BL
 
         }
 
-        public static double SafeEnterDouble(String prefix = "")///enters double and if it cants parse it , it shows error massage and thre is a option to print inputing  message like py input  
+        public static double SafeEnterDouble(string prefix = "")///enters double and if it cants parse it , it shows error massage and thre is a option to print inputing  message like py input  
         {
             Console.Write(prefix);
             double num;
@@ -35,14 +32,20 @@ namespace ConsoleUI_BL
         {
 
             foreach (T item in list)
+            {
                 if (!(item.Equals(default(T))))
+                {
                     Console.WriteLine(item.ToString());
-
+                }
+            }
         }
         public static void printEnum<T>() where T : struct, IConvertible //prints all the enum options  of any enum (where T: struct Icon.... promiss that this is doing that )  and kicks out all the deafult things 
         {
             foreach (T i in Enum.GetValues(typeof(T)))
-                Console.WriteLine(Convert.ToUInt32(i).ToString() + ".) " + EnumHelper.GetDescription<T>((T)i));
+            {
+                Console.WriteLine(Convert.ToUInt32(i).ToString() + ".) " + EnumHelper.GetDescription<T>(i));
+            }
+
             ///foreach (T i in Enum.GetValues(typeof(T))) return alll the enums that exsist in that enum type 
             ///Convert.ToUInt32(i).ToString() - force convert to int because otherwise it do not work  - that is the most powerull and basic convert 
             ///EnumHelper.GetDescription<T>((T)i) => my functuion that returns the descrption 
@@ -50,7 +53,7 @@ namespace ConsoleUI_BL
         }
 
     }
-    internal  static class EnumHelper
+    internal static class EnumHelper
     {
         // this method returns the description of a specific enum value
         // (the description is filled in the Enums.cs file
@@ -60,10 +63,12 @@ namespace ConsoleUI_BL
         {
             // checking if T is infact an enum
             if (!typeof(T).IsEnum)
+            {
                 return null;
+            }
 
-            String description = enumValue.ToString();
-             System.Reflection.FieldInfo fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
+            string description = enumValue.ToString();
+            System.Reflection.FieldInfo fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
 
             if (fieldInfo != null)
             {
@@ -76,6 +81,6 @@ namespace ConsoleUI_BL
 
             return description;
         }
-        
+
     }
 }

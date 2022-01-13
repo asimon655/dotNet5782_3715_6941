@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Dal
 {
-    class XmlConfig
+    internal class XmlConfig
     {
         private static XElement ReadConfigXml()
         {

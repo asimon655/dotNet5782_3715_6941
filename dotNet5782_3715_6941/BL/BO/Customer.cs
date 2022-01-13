@@ -2,14 +2,14 @@
 
 namespace BO
 {
-    public class Customer 
+    public class Customer
     {
 
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone_Num { get; set; }
         public Location Loct { get; set; }
-        public List<ParcelInCustomer> FromClient { get; set; } 
+        public List<ParcelInCustomer> FromClient { get; set; }
         public List<ParcelInCustomer> ToClient { get; set; }
 
         public override string ToString()
