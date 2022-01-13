@@ -56,7 +56,13 @@ namespace PL
                     {
                         if (await AreEqule(filename, FileOther))
                         {
-                            await Task.Run(() => File.Delete(filename));
+                            try
+                            {
+                                await Task.Run(() => File.Delete(filename));
+                            }
+                            catch {
+                                return false;
+                            }
                             CriticalSection.Remove(imageUrl);
                             return await SaveImageAsync(imageUrl, filename, format, FileOther , ++ hm );
                         }

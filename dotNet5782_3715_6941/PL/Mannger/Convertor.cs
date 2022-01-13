@@ -100,6 +100,18 @@ namespace PL
         }
 
     }
+    public class Disappearer : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return (value is null ? new GridLength(0, GridUnitType.Star) : new GridLength(1, GridUnitType.Star));
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
 
 
 }

@@ -9,6 +9,7 @@
         Title="Window2" Height="450" Width="800"  Icon="..\Images\icon0.ico"  >
     <Window.Resources>
         <local:BatteryCRT x:Key="BatteryCRT"></local:BatteryCRT>
+        <local:Disappearer x:Key="Disappearer"></local:Disappearer>
 
     </Window.Resources>
 
@@ -56,7 +57,7 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="{Binding ParcelTransfer ,Converter={StaticResource Disappearer}}"/>
 
 
                                     </Grid.RowDefinitions>
@@ -385,7 +386,7 @@
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" x:Name="UpdateCol" />
    
                                                     </Grid.ColumnDefinitions>
                                                     <Button Click="Update_Click"  Name="Update" IsEnabled="False" Grid.Column="1">
@@ -458,7 +459,7 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="{Binding ParcelTransfer  ,Converter={StaticResource Disappearer}}"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0">
                                             <Grid.RowDefinitions>
@@ -497,7 +498,7 @@
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="{Binding ParcelTransfer ,Converter={StaticResource Disappearer}}"/>
 
 
                                             </Grid.RowDefinitions>
@@ -557,7 +558,7 @@
                                                 </Grid>
                                                 <Grid Grid.Column="1">
                                                     <Viewbox>
-                                                        <Label Content="{Binding ParcelTransfer.Priorety }">
+                                                        <Label Content="{Binding ParcelTransfer.Priorety}">
 
                                                         </Label>
                                                     </Viewbox>
@@ -638,10 +639,6 @@
 
 
                                         </Grid>
-
-
-
-
                                         <Grid Grid.Column="3">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
