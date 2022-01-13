@@ -110,3 +110,14 @@
 ## gists
 [Generic read write list to xml](https://gist.github.com/asimon655/e50e3e45ee0798367fe2f3d5e51749e0)
 
+## Technology's and libraries
+* .net 5.0
+* Wpf
+* Wpf spark
+* Maps ui
+* LocalGeo by iterio
+* HtmlArtibrary
+
+## more things
+* Use of background worker
+* Use of asyce programming
