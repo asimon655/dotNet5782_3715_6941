@@ -418,7 +418,7 @@
                                             </Grid>
                                             <Grid Grid.Column="1">
                                                 <Viewbox>
-                                                    <TextBox Name="WCEB" MouseDown="TextBox_MouseDown" Background="Transparent" BorderBrush="Transparent" Text="{Binding Model }" >
+                                                    <TextBox Name="WCEB" MouseDown="WCEB_MouseDown" Background="Transparent" BorderBrush="Transparent" Text="{Binding Model }" >
 
                                                     </TextBox>
                                                 </Viewbox>

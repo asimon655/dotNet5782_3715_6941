@@ -107,15 +107,24 @@ namespace PL
 
 
         }
-        private static SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double scale)
+        private static SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double ? scale)
         {
-            int? bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
-            if (!(bitmapId is null))
+            if (scale is null)
             {
-                return new SymbolStyle { BitmapId = (int)bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = scale, SymbolOffset = new Offset(0.0, 0.0, true) };
-            }
+                System.Drawing.Image img = System.Drawing.Image.FromFile(@"c:\ggs\ggs Access\images\members\1.jpg");
+                return new SymbolStyle { BitmapId = (int)bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = File., SymbolOffset = new Offset(0.0, 0.0, true) };
 
-            return null;
+            }
+            else
+            {
+                int? bitmapId = GetBitmapIdForEmbeddedResource(embeddedResourcePath);
+                if (!(bitmapId is null))
+                {
+                    return new SymbolStyle { BitmapId = (int)bitmapId, SymbolType = SymbolType.Ellipse, SymbolScale = (double)scale, SymbolOffset = new Offset(0.0, 0.0, true) };
+                }
+                return null;
+            }
+            
         }
         #endregion
 
@@ -195,10 +204,12 @@ namespace PL
 
                 if (!File.Exists(PhotoAsync.makePath(Name)))
                 {
-                    await PhotoAsync.SaveFirstImageAsync(Name);
+                    PhotoAsync.SaveFirstImageAsync(Name).ContinueWith(x => { feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), null)); });
                 }
-
-                feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
+                else
+                {
+                    feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
+                }
 
 
 

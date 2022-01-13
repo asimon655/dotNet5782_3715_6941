@@ -13,7 +13,7 @@
         <local:HalfScale x:Key="HalfScale"></local:HalfScale>
     </Window.Resources>
     <Grid>
-    <Grid Name="Show" Visibility="Visible">
+    <Grid Name="Show" Visibility="Hidden">
         <wpfspark:PivotPanel x:Name="RootPanel"
                      HeaderHeight="50"
                      HorizontalAlignment="Stretch">
@@ -44,15 +44,8 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Source="https://content.parcelsolutions.net/13ecae39-c9be-4cb8-b6ab-198fc72f286b/landing-pages/parcel-collection-image.png"></Image>
-                                      
-                                </Grid>
-                                    <Grid Grid.Column="1">
+                                <Image Source="https://content.parcelsolutions.net/13ecae39-c9be-4cb8-b6ab-198fc72f286b/landing-pages/parcel-collection-image.png"></Image>
+                                <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
@@ -67,7 +60,7 @@
 
                                     <Border  Grid.Row="1" BorderBrush="Black" BorderThickness="3,0,3,3">
                                         <Viewbox>
-                                                <TextBox x:Name="WCEB" MouseDown="TextBox_MouseDown" Text="{Binding Weight}" ></TextBox>
+                                            <Label Content="{Binding Weight}" ></Label>
                                         </Viewbox>
                                     </Border>
 
@@ -78,7 +71,7 @@
                                     </Border>
                                     <Border  Grid.Row="3" BorderBrush="Black" BorderThickness="3,0,3,3">
                                         <Viewbox>
-                                            <TextBox x:Name="PRCB" MouseDown="TextBox_MouseDown" Text="{Binding Priority}" Grid.Row="3"></TextBox>
+                                            <Label Content="{Binding Priority}" Grid.Row="3"></Label>
                                         </Viewbox>
                                     </Border>
 
@@ -376,7 +369,7 @@
         </wpfspark:PivotPanel>
 
     </Grid>
-    <Grid Name="Add" Visibility="Hidden">
+    <Grid Name="Add" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="8*" />
                 <RowDefinition Height="*" />
@@ -460,7 +453,6 @@
                 </Grid>
 
             </Grid>
-        
             <Button Click="Button_Click_3" Grid.Row="1">
                 <Viewbox>
                     <Label>Add Parcel</Label></Viewbox>

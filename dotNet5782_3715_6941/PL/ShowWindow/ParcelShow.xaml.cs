@@ -50,6 +50,7 @@ namespace PL
         }
 
         private readonly BlApi.Ibl dat;
+        BO.Parcel pcl; 
         internal static string TMP = System.IO.Path.GetTempPath();
         public ParcelShow(BlApi.Ibl dat)
         {

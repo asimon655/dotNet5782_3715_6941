@@ -111,5 +111,13 @@ namespace PL
             
             }
         }
+
+        private void WCEB_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (WCEB.Text == drn.Model.ToString())
+                Update.IsEnabled = false;
+            else
+                Update.IsEnabled = true;
+        }
     }
 }

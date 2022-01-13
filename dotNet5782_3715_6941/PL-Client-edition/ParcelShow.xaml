@@ -366,7 +366,7 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <Button Name="Operations" Click="Button_Click_4" Grid.Column="1" Grid.Row="1">
+                                <Button Name="Operations2" Click="Button_Click_4" Grid.Column="1" Grid.Row="1">
                                     <Viewbox>
                                         <Label Content="{Binding}"></Label>
                                     </Viewbox>

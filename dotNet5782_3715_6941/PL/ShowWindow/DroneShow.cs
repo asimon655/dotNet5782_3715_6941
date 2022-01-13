@@ -406,13 +406,6 @@ namespace PL
             }
         }
         #endregion
-        private void TextBox_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (WCEB.Text == drn.Model.ToString())
-                Update.IsEnabled = false;
-            else
-                Update.IsEnabled = true;
-        }
 
 
     }
