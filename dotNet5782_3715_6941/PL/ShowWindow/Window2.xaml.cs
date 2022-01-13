@@ -112,12 +112,18 @@ namespace PL
             }
         }
 
-        private void WCEB_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void WCEB_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (WCEB.Text == drn.Model.ToString())
+            {
                 Update.IsEnabled = false;
+                UpdateCol.Width = new GridLength(0, GridUnitType.Star);
+            }
             else
+            {
                 Update.IsEnabled = true;
+                UpdateCol.Width = new GridLength(1, GridUnitType.Star);
+            }
         }
     }
 }

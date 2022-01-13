@@ -386,7 +386,7 @@
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="*" />
-                                                        <ColumnDefinition Width="*" x:Name="UpdateCol" />
+                                                        <ColumnDefinition Width="0*" x:Name="UpdateCol" />
    
                                                     </Grid.ColumnDefinitions>
                                                     <Button Click="Update_Click"  Name="Update" IsEnabled="False" Grid.Column="1">
@@ -419,7 +419,7 @@
                                             </Grid>
                                             <Grid Grid.Column="1">
                                                 <Viewbox>
-                                                    <TextBox Name="WCEB" MouseDown="WCEB_MouseDown" Background="Transparent" BorderBrush="Transparent" Text="{Binding Model }" >
+                                                    <TextBox Name="WCEB" TextChanged="WCEB_TextChanged"  Background="Transparent" BorderBrush="Transparent" Text="{Binding Model }" >
 
                                                     </TextBox>
                                                 </Viewbox>
