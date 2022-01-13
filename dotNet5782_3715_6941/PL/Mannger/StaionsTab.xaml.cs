@@ -68,5 +68,10 @@ namespace PL
         {
             ResultsOfSearch.ItemsSource = dat.SmartSearchStation(SmartTB.Text);
         }
+
+        private void WpfPlot2_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

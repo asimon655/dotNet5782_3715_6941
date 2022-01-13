@@ -536,7 +536,7 @@
                                     <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.id}"  Header="Sender id" Width="auto" />
                                     <GridViewColumn DisplayMemberBinding="{Binding Status}"  Header="Status" Width="auto"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Weight}"  Header="Weight" Width="auto" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Priorety}"  Header="Priority" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Priority}"  Header="Priority" Width="auto"/>
 
                                 </GridView>
 
@@ -601,7 +601,7 @@
                                     <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.id}"  Header="Sender id" Width="auto" />
                                     <GridViewColumn DisplayMemberBinding="{Binding Status}"  Header="Status" Width="auto"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Weight}"  Header="Weight" Width="auto" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Priorety}"  Header="Priority" Width="auto"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Priority}"  Header="Priority" Width="auto"/>
 
                                 </GridView>
 
