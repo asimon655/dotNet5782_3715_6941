@@ -20,18 +20,18 @@ namespace Dal
         //until here array var declartion 
         static internal class Config
         {
-            static internal double PowerConsumptionFree = 0.003;
-            static internal double PowerConsumptionLight = 0.006;
-            static internal double PowerConsumptionMedium = 0.008;
-            static internal double PowerConsumptionHeavy = 0.001;
-            static internal double ChargingSpeed = 33; 
+            static internal double PowerConsumptionFree = 1;
+            static internal double PowerConsumptionLight = 2;
+            static internal double PowerConsumptionMedium = 3;
+            static internal double PowerConsumptionHeavy = 4;
+            static internal double ChargingSpeed = 5; 
             static internal int IdCreation = 0;
             static internal void Initalize()
             {
                 //all the data is realistic - phone number have 10 digits  and id have 9 digits  
 
                 /// constant for loop limit - right programing rules 
-                const int StationInit = 20;
+                const int StationInit = 5;
                 const int DroneInit = 50;
                 const int ParcelInit = 1000;
                 const int CostumerInit = 100;

@@ -96,16 +96,34 @@ namespace PL
         {
             // Declaring 'x' as a new WebClient() method
             WebClient x = new WebClient();
-
+            x.Headers.Add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36");
             try
             {
                 // Setting the URL, then downloading the data from the URL.
                 string source = await x.DownloadStringTaskAsync(new Uri(makePathDrnSearch(Model)));
-                HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
-                // Loading document's source via HtmlAgilityPack
-                await Task.Run(() => document.LoadHtml(source));
-                var nodes = document.DocumentNode.SelectNodes("//img[@src]");
-                string link = await Task.Run(() => nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value);
+                //HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
+                //// Loading document's source via HtmlAgilityPack
+                //await Task.Run(() => document.LoadHtml(source));
+                //var nodes = document.DocumentNode.SelectNodes("//img[@src]");
+                //string link = await Task.Run(() => nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value);
+                int hash_place = source.IndexOf("data-tbnid=\"") + "data-tbnid=\"".Length;
+
+                string hash = source.Substring(hash_place, 14);
+
+                int link_place = 0;
+
+                link_place = source.IndexOf(hash, link_place) + hash.Length;
+                link_place = source.IndexOf(hash, link_place) + hash.Length;
+                link_place = source.IndexOf(hash, link_place) + hash.Length;
+                link_place = source.IndexOf(hash, link_place) + hash.Length;
+
+                link_place = source.IndexOf('[', link_place) + 1;
+                link_place = source.IndexOf('[', link_place) + 2;
+
+                int link_end = source.IndexOf('"', link_place);
+
+                string link = source.Substring(link_place, link_end - link_place);
+
                 return await SaveImageAsync(link, makePath(Model), fileEndEnum);
             }
             catch

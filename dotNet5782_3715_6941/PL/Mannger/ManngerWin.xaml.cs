@@ -81,7 +81,7 @@ namespace PL
             GraphTasker.DoWork += (x, y) => {
                 while (true)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep(1000);
                     pcl.PopulateResetScottPlot().ContinueWith( (x)=> { GraphTasker.ReportProgress(1); }) ;
                     Drn.ResetPlots().ContinueWith((x)=> { GraphTasker.ReportProgress(2); });
                    
