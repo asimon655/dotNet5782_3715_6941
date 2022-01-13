@@ -393,7 +393,7 @@ namespace PL
         private void backgroundWorker1_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
             Reset(); //local reset
-            reset(); // activate reset by the father window
+            reset(); // activate reset by the father window5
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

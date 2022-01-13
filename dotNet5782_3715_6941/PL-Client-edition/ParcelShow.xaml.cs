@@ -78,6 +78,31 @@ namespace PL_Client_edition
 
 
         }
+        private async void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            Operations2.IsEnabled = false;
+            ParcelO Parcelstatus = ParcelC(Parcely);
+            if (Parcelstatus != ParcelO.Bind)
+            {
+                Parcely = await Task.Run(() => dat.GetParcel(Parcely.Id));
+                Operations2.DataContext = Parcelstatus;
+                if (Parcelstatus == ParcelO.PickUp)
+                {
+                    Operations2.IsEnabled = true;
+                    await Task.Run(() => dat.DroneDelivere(Parcely.ParcelDrone.Id));
+
+                    Operations2.DataContext = Parcelstatus;
+                }
+                if (Parcelstatus == ParcelO.Bind)
+                {
+                    Operations2.IsEnabled = true;
+                    await Task.Run(() => dat.DronePickUp(Parcely.ParcelDrone.Id));
+                    Operations2.DataContext = Parcelstatus;
+
+
+                }
+            }
+        }
         public ParcelShow(BlApi.Ibl dat, BO.Parcel parcely)
         {
 
@@ -90,12 +115,12 @@ namespace PL_Client_edition
             DataContext = parcely;
             try
             {
-                Operations.DataContext = ParcelC(Parcely);
+                Operations2.DataContext = ParcelC(Parcely);
             }
             catch
             {
 
-                Operations.IsEnabled = false;
+                Operations2.IsEnabled = false;
             }
             if (!(parcely.ParcelDrone is null))
             {
@@ -175,6 +200,7 @@ namespace PL_Client_edition
 
             }
         }
+
         private ParcelO ParcelC(BO.Parcel parcel)
         {
 
@@ -203,31 +229,7 @@ namespace PL_Client_edition
             return (ParcelO)caseNum;
 
         }
-        private async void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-            Operations.IsEnabled = false;
-            ParcelO Parcelstatus = ParcelC(Parcely);
-            if (Parcelstatus != ParcelO.Bind)
-            {
-                Parcely = await Task.Run(() => dat.GetParcel(Parcely.Id));
-                Operations.DataContext = Parcelstatus;
-                if (Parcelstatus == ParcelO.PickUp)
-                {
-                    Operations.IsEnabled = true;
-                    await Task.Run(() => dat.DroneDelivere(Parcely.ParcelDrone.Id));
-
-                    Operations.DataContext = Parcelstatus;
-                }
-                if (Parcelstatus == ParcelO.Bind)
-                {
-                    Operations.IsEnabled = true;
-                    await Task.Run(() => dat.DronePickUp(Parcely.ParcelDrone.Id));
-                    Operations.DataContext = Parcelstatus;
-
-
-                }
-            }
-        }
+       
     }
 
 }

@@ -382,7 +382,19 @@
                                         </Grid.ColumnDefinitions >
                                         <Grid Grid.Column="0">
                                             <Border BorderThickness="7" BorderBrush="Black">
-                                                <Image x:Name="Photo0" Source="../Images/drone_photo.jpg" Stretch="Fill" />
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+   
+                                                    </Grid.ColumnDefinitions>
+                                                    <Button Click="Update_Click"  Name="Update" IsEnabled="False" Grid.Column="1">
+                                                        <Viewbox>
+                                                            <Label>Update</Label>
+                                                        </Viewbox>
+                                                    </Button>
+                                                    <Image x:Name="Photo0" Source="../Images/drone_photo.jpg" Stretch="Fill" />
+                                                </Grid>
                                             </Border>
 
                                         </Grid>
@@ -406,9 +418,9 @@
                                             </Grid>
                                             <Grid Grid.Column="1">
                                                 <Viewbox>
-                                                    <Label Content="{Binding Model }" >
+                                                    <TextBox Name="WCEB" MouseDown="WCEB_MouseDown" Background="Transparent" BorderBrush="Transparent" Text="{Binding Model }" >
 
-                                                    </Label>
+                                                    </TextBox>
                                                 </Viewbox>
                                             </Grid>
                                             <Border Grid.Column="2" BorderThickness="0,7,7,7" BorderBrush="Black">
@@ -505,7 +517,7 @@
                                                 </Grid>
                                                 <Grid Grid.Column="1">
                                                     <Viewbox>
-                                                        <Label Content="{Binding Weight }">
+                                                        <Label Name="PRCB" Background="Transparent" BorderBrush="Transparent" Content="{Binding Weight }">
 
                                                         </Label>
                                                     </Viewbox>
