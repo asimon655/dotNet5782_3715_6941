@@ -10,7 +10,7 @@ namespace PL
     /// </summary>
     public partial class ParcelShow : Window
     {
-        internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
+        internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId) //Apply   PhotoAsync.SaveImageAsync when the Task (Like Promise in js) returned and if the file Already Exsists it Apply it directly 
         {
             if (!File.Exists(PhotoAsync.makePath(TargetId)))
             {
@@ -20,10 +20,15 @@ namespace PL
                     {
                         Dispatcher.Invoke(() =>
                         {
-                            Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                            try
+                            {
+                                Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                            }
+                            catch { }
                         });
                     }
 
+                    #region Only when the First Request Returned - to prevent Double smae photo to the clients 
                     if (!File.Exists(PhotoAsync.makePath(SenderId)))
                     {
                         PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x =>
@@ -32,21 +37,30 @@ namespace PL
                             {
                                 Dispatcher.Invoke(() =>
                                 {
-                                    Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                    try
+                                    {
+                                        Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                    }
+                                    catch { }
                                 });
                             }
                         });
                     }
                     else
                     {
-                        Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
-                    }
+                        try
+                        {
+                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                        }
+                        catch { }
+                    } 
+                    #endregion
                 });
             }
             else
             {
                
-                if (!File.Exists(PhotoAsync.makePath(SenderId)))
+                if (!File.Exists(PhotoAsync.makePath(SenderId))) // if file 1 is alrdeay exsists try for file 2 
                 {
                     PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x =>
                     {
@@ -54,7 +68,11 @@ namespace PL
                         {
                             Dispatcher.Invoke(() =>
                             {
-                                Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                try
+                                {
+                                    Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                }
+                                catch { }
                             });
                         }
                     });
@@ -65,7 +83,7 @@ namespace PL
                 }
                 Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
             }
-        }
+        } 
 
         private readonly BlApi.Ibl dat;
         BO.Parcel pcl; 

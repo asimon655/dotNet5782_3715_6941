@@ -104,7 +104,7 @@ namespace PL
 
 
 
-
+            Drn.Deltereset = () => { Map.Reset(); };
             Drn.reset = () => { ResetByWindow(); };
             Client.reset = () => { ResetByWindow(); };
             pcl.reset = () => { ResetByWindow(); };
