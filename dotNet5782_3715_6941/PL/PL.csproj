@@ -16,15 +16,10 @@
     <None Remove="Images\DELETE.png" />
     <None Remove="Images\DroneMenu.jpg" />
     <None Remove="Images\drone_photo.jpg" />
-    <None Remove="Images\frame_142_delay-0.04s.gif" />
     <None Remove="Images\FWAY.png" />
-    <None Remove="Images\gif1.gif" />
-    <None Remove="Images\gif2.gif" />
     <None Remove="Images\icon0.ico" />
-    <None Remove="Images\logo.ico" />
     <None Remove="Images\OWAY.png" />
     <None Remove="Images\ParcelToMenu.jpg" />
-    <None Remove="Images\plus.jpg" />
     <None Remove="Images\Plus.png" />
     <None Remove="Images\reset.jpg" />
     <None Remove="Images\SearchIcon.png" />
@@ -59,31 +54,16 @@
     <Content Include="Images\drone_photo.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\frame_142_delay-0.04s.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\FWAY.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\gif1.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\gif2.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Images\icon0.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\logo.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\OWAY.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\ParcelToMenu.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\plus.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Plus.png">

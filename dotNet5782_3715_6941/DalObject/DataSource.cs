@@ -38,7 +38,7 @@ namespace Dal
                 string[] names = { "James", "James", "John", "Michael", "William", "David", "David",
                                     "Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan"};
 
-                string[] droneNames = { "Mavic 1", "Mavic 2", "MavicMini2" };
+                string[] droneNames = { "Mavic 1", "Mavic 2", "Mavic Mini 2","Matrice 600","Inspire 1 ","Evo 1 pro","Bibop 1 ","Syma x5" };
 
                 List<int> dronesDelivery = new List<int>();
 

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
-        Title="Window2" Height="450" Width="800"  Icon="..\Images\icon0.ico"  >
+        Title="Drones Detials " Height="450" Width="800"  Icon="..\Images\icon0.ico"  >
     <Window.Resources>
         <local:BatteryCRT x:Key="BatteryCRT"></local:BatteryCRT>
         <local:Disappearer x:Key="Disappearer"></local:Disappearer>
@@ -739,9 +739,16 @@
 
                                     </Grid.RowDefinitions>
                                     <Grid>
-                                        <CheckBox Checked="Simulator_Checked" Unchecked="Simulator_Unchecked" x:Name="Simulator">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.07*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox VerticalAlignment="Center" Grid.Column="0" Checked="Simulator_Checked" Unchecked="Simulator_Unchecked" x:Name="Simulator">
                                     
                                         </CheckBox>
+                                    <Viewbox Grid.Column="1">
+                                        <Label FontWeight="UltraLight">Simulator</Label></Viewbox>
                                     </Grid>
                                     <Grid  Grid.Row="1">
                                     <Grid.ColumnDefinitions>

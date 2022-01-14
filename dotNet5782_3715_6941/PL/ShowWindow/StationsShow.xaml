@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:PL"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="StationsShow">
+      Title="Stations Show">
     <Grid>
     <Grid x:Name="Show" Visibility="Hidden">
         <Grid.RowDefinitions>
