@@ -27,6 +27,11 @@
 
 # dotNet5782_3715_6941
 ## Minip project by Idan Maman and Abraham Simon . 
+Cool and Special Codes : 
+## Idan's Gists:
+### https://gist.github.com/idanmaman2
+##Abrhams's Gists : 
+### [Generic read write list to xml](https://gist.github.com/asimon655/e50e3e45ee0798367fe2f3d5e51749e0)
 ## Requirment: 
 >### *Windows 10+ Computer(dont work on windows systems that are under of the version 10.0. 10240) 
 >### *unfilterd(Rimon or NetSpark) Internet stable connection  . 
@@ -107,8 +112,7 @@
 > ![image](https://user-images.githubusercontent.com/90776557/146789064-1cc00acc-6594-45d2-9d6b-52183aaaffd4.png)
 
 
-## gists
-[Generic read write list to xml](https://gist.github.com/asimon655/e50e3e45ee0798367fe2f3d5e51749e0)
+
 
 ## Technology's and libraries
 * .net 5.0
