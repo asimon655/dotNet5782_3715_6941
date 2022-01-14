@@ -181,7 +181,11 @@ namespace PL
             }
             else
             {
-                Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
+                try
+                {
+                    Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
+                }
+                catch { }
             }
 
 
