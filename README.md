@@ -1,24 +1,28 @@
-# **__ TO DO LIST __ **
->## parcel add  x
->## base staion add xv
->## parcel list filter by time x
->## Add Actions SelectormFor Each Object x
->## Add try to any BL function call  x
->## Add Convertors x
->## PO - add file pathes and some other functions - make my life easier x
->## Theme x
->## ControlTemplate x
->## Transform x
->## DataTemplate x
->## trigger x
->## Fix back system 
->## async map
->## cache bitmap of map
->## cache bitmap of trashcan
->## simulator reset only drone list
->## use the method simon wrote for pics
->
-
+## bonus list
+* מחיקה על ידי דגל
+* ארכיטקטורה שנייה (פרוייקטים מפוצלים)
+* שני פרוייקטים לאדמין וללקוחות
+* פרוייקט שכותב את datasource initilize ל xml
+* תמונות לרחפנים (מגוגל תמונות על פי שם רחפן)
+* מפה עם סימלונים של הרחפנים תחנות ולקוחות
+* אפשרות להעלמת ולהחזרת ישות מהמפה (נגיד לראות רק את הרחפנים)
+* סימולטור מקדם את מיקום הרחפנים כל delay
+* מיקום הרחפנים מתעדכן בזמן אמת על המפה
+* הסימולטור מעלה את הבטריה בטעינה בהדרגה
+* אפשרות להפעלת כמה סימולטורים בו זמנית
+* סינגלטון lazy מירבי ו thread safe
+* שאלת capcha ביצירת לקוח חדש
+* תרשימי עוגה לסטטוס הרחפנים ולמשקל המירבי
+* תרשים עמודות לפי שם מודל הרחפן
+* תרשימי עוגה לחבילות לפי הסטטוס והמשקל
+* התרשימים מתעדכנים בזמן אמת
+* חיפוש חכם לכל ישות ( לפי id או תחילת ה id או לפי השם)
+* 100 צבעים לבטריה המצויירת
+* שימוש ב Data binding ו data context מירבי
+* שימוש בטריגרים
+* שימוש ב style
+* שימוש ב converts
+* שימוש chache של bitmaps
 
 
 # dotNet5782_3715_6941
@@ -103,5 +107,17 @@
 > ![image](https://user-images.githubusercontent.com/90776557/146789064-1cc00acc-6594-45d2-9d6b-52183aaaffd4.png)
 
 
+## gists
+[Generic read write list to xml](https://gist.github.com/asimon655/e50e3e45ee0798367fe2f3d5e51749e0)
 
+## Technology's and libraries
+* .net 5.0
+* Wpf
+* Wpf spark
+* Maps ui
+* LocalGeo by iterio
+* HtmlArtibrary
 
+## more things
+* Use of background worker
+* Use of asyce programming
