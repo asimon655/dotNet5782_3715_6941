@@ -27,7 +27,7 @@ namespace PL
         private const double D2R = Math.PI / 180;
         private const double PiDiv4 = Math.PI / 4;
         #endregion
-        internal static Mapsui.Geometries.Point FromLonLat(double lon, double lat)
+        internal static Mapsui.Geometries.Point FromLonLat(double lon, double lat) //converts from Lon,Lat to X,Y (Maps Ui uses X,Y and doesnt use Lon,Lat)
         {
             var lonRadians = D2R * lon;
             var latRadians = D2R * lat;
@@ -38,7 +38,7 @@ namespace PL
 
             return new Mapsui.Geometries.Point(x, y);
         }
-        private static int? GetBitmapIdForEmbeddedResource(string imagePath)
+        private static int? GetBitmapIdForEmbeddedResource(string imagePath)//creates BitMap on the RAM for the Photo 
         {
             int val;
             if (!Cache.TryGetValue(imagePath, out val))
@@ -68,8 +68,9 @@ namespace PL
 
 
         }
-        private static IEnumerable<BO.Location>[] MovePoints(BlApi.Ibl dat, IEnumerable<BO.Location> pointsToDraw, int[] StartIndexes)
+        private static IEnumerable<BO.Location>[] MovePoints(BlApi.Ibl dat, IEnumerable<BO.Location> pointsToDraw, int[] StartIndexes)//If there any collisions it moves the points 
         {
+            
             List<BO.Location> pointsonce = new List<BO.Location>();
             {
                 int i = 0;
@@ -107,7 +108,7 @@ namespace PL
 
 
         }
-        private static SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double ? scale)
+        private static SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double ? scale)//creates Image(SYMBOL) to add to the Feature List of the point 
         {
        
             
@@ -124,8 +125,8 @@ namespace PL
 
         #region Fields
         #region Cache
-        private static readonly Dictionary<string, int> Cache = new Dictionary<string, int>();
-        private static readonly Dictionary<int, Mapsui.Geometries.Point> pointsMannger = new Dictionary<int, Mapsui.Geometries.Point>();
+        private static readonly Dictionary<string, int> Cache = new Dictionary<string, int>(); //Cache to prevent bitmap of the same Photo Twice 
+        private static readonly Dictionary<int, Mapsui.Geometries.Point> pointsMannger = new Dictionary<int, Mapsui.Geometries.Point>(); //pointsMannger Cache  to update The drones Location 
         #endregion
         #endregion
 
@@ -164,7 +165,7 @@ namespace PL
             Mapsui.Styles.LabelStyle x;
             Mapsui.Styles.VectorStyle x2;
             Mapsui.Styles.Color BGColor;
-            pt = FromLonLat(Longitude, Lattitude);
+            pt = FromLonLat(Longitude, Lattitude); 
 
             feature = new Mapsui.Providers.Feature { Geometry = pt };
             BGColor = Mapsui.Styles.Color.FromArgb(
@@ -192,13 +193,13 @@ namespace PL
                 };
                 feature.Styles.Add(x2);
             }
-            if (path is null && !(Name is null))
+            if (path is null && !(Name is null)) //for Scraping 
             {
                 pointsMannger.TryAdd(Id, pt);
 
                 if (!File.Exists(PhotoAsync.makePath(Name)))
                 {
-                    PhotoAsync.SaveFirstImageAsync(Name).ContinueWith(x => { if(x.Result)feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale)); });
+                    PhotoAsync.SaveFirstImageAsync(Name).ContinueWith(x => { if(x.Result)feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale)); }); 
                 }
                 else
                     feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
@@ -206,7 +207,7 @@ namespace PL
 
 
             }
-            else
+            else //const Image 
             {
                 feature.Styles.Add(CreateSymbolStyle(Directory.GetCurrentDirectory() + path, scale));
 

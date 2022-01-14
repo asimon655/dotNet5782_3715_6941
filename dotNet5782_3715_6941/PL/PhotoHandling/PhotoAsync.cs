@@ -13,17 +13,17 @@ namespace PL
     {
         #region PhotoAsunc Functions 
         #region Constans 
-        internal const string FaceAIURL = "https://thispersondoesnotexist.com/image";
-        internal const string GooglePhotosHeader = @"https://www.google.com/search?q=";
-        internal const string GoooglePhotosTail = @"&tbm=isch&hl=iw&tbs=ic:trans&sa=X&ved=0CAMQpwVqFwoTCKjYjPC9qvUCFQAAAAAdAAAAABAI&biw=1522&bih=769";
+        internal const string FaceAIURL = "https://thispersondoesnotexist.com/image"; //The Ai that creats the peoples photos 
+        internal const string GooglePhotosHeader = "https://www.google.com/search?q=";
+        internal const string GoooglePhotosTail = "&tbm=isch&hl=iw&tbs=ic:trans&sa=X&ved=0CAMQpwVqFwoTCKjYjPC9qvUCFQAAAAAdAAAAABAI&biw=1522&bih=769";
         internal static string TMP = System.IO.Path.GetTempPath();
         internal const string fileEnd = ".png";
         internal static readonly ImageFormat fileEndEnum = ImageFormat.Png;
         private const string RecognationName = @"image";
-        private static readonly string Plus = "%20";
+        private const string Plus = "%20";
         internal static readonly string fullPathHeadder = TMP + RecognationName;
         internal static readonly string fullPathTail = fileEnd;
-        internal static readonly string SafeWord = "Drone";
+        internal const string SafeWord = "Drone"; //Prevent you from getting wird photos if you put vird Models Name (like doge,lion,chair ... ) 
         internal static string makePath<T>(T obj)
         {
             return fullPathHeadder + obj.ToString().Replace(" ", "_") + fullPathTail;
@@ -36,36 +36,50 @@ namespace PL
 
         #endregion
         #region Costumers 
+        internal static async Task<bool> tryDelte(string FilePath , int RecCount =0 )
+        {
+            try
+            {
+                await Task.Delay(200);
+                File.Delete(FilePath); //Delte the file 
+                return true;
+            }
+            catch  {
+                if (RecCount >= 10)
+                    return false;
+                return await   tryDelte(FilePath, ++RecCount);
+
+
+            }
+
+        }
         internal static async Task<bool> SaveImageAsync(string imageUrl, string filename, ImageFormat format, string? FileOther = null , int hm =0 )
         {
-            if (hm > 5)
-                return false;
-            if (CriticalSection.Count((x) => x == imageUrl) == 0)
+            if (hm > 5) // limit recursion depth to 5 
+                return false; 
+            if (CriticalSection.Count((x) => x == imageUrl) == 0) //check if the Critical Section is free
             {
-                CriticalSection.Add(imageUrl);
+                CriticalSection.Add(imageUrl); //lock Upgraded Critical Section
                 WebClient client = new WebClient();
                 try
                 {
 
 
-                    await client.DownloadFileTaskAsync(imageUrl, filename);
-                    client.Dispose();
-
-                    client.Dispose();
-                    if (!(FileOther is null))
+                    await client.DownloadFileTaskAsync(imageUrl, filename); // Save The File Async 
+                    client.Dispose(); //closes WebClient
+                    if (!(FileOther is null)) //checks if the 2th cilet photo downlad to prevent from downloading twice 
                     {
-                        if (await AreEqule(filename, FileOther))
+                        if (await AreEqule(filename, FileOther)) // Compare between the files 
                         {
-                            try
+                            if (!await tryDelte(filename))
                             {
-                                await Task.Delay(50);
-                                File.Delete(filename);
+                                //cant Delte 
+                                CriticalSection.Remove(imageUrl); // free the critical Section 
+                                return false; // the program didnt success
                             }
-                            catch {
-                                CriticalSection.Remove(imageUrl);
-                                return false;
-                            }
+
                             CriticalSection.Remove(imageUrl);
+                            await Task.Delay(100);
                             return await SaveImageAsync(imageUrl, filename, format, FileOther, ++hm);
                         }
 
@@ -75,7 +89,7 @@ namespace PL
                 catch
                 {
                     CriticalSection.Remove(imageUrl);
-                    return false;
+                    return false; // the program didnt success
                 }
                 return true;
             }
@@ -121,7 +135,7 @@ namespace PL
             using (FileStream fs1 = first.OpenRead())
             using (FileStream fs2 = second.OpenRead())
             {
-                HMACSHA1 h1 = new HMACSHA1();
+                HMACSHA1 h1 = new HMACSHA1();// uses Sha1 to compare between the files - Async 
 
                 byte[] hash1 = await h1.ComputeHashAsync(fs1);
                 byte[] hash2 = await h1.ComputeHashAsync(fs2);
@@ -153,16 +167,16 @@ namespace PL
                 HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
                 // Loading document's source via HtmlAgilityPack
                 await Task.Run(() => document.LoadHtml(source));
-                var nodes = document.DocumentNode.SelectNodes("//img[@src]");
-                string link = await Task.Run(() => nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value);
-                return await SaveImageAsync(link, makePath(Model), fileEndEnum);
+                var nodes = document.DocumentNode.SelectNodes("//img[@src]"); // search form image and inside her for src(HTML)
+                string link = await Task.Run(() => nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value);//gets the first valid link
+                return await SaveImageAsync(link, makePath(Model), fileEndEnum); // uses SaveImageAsync To save him
             }
             catch
             {
 
                 return false;
             }
-            // Declaring 'document' as new HtmlAgilityPack() method
+
 
 
 
