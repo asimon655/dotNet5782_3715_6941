@@ -59,14 +59,14 @@ namespace PL
                             try
                             {
                                 await Task.Delay(50);
-                                 File.Delete(filename);
+                                File.Delete(filename);
                             }
                             catch {
                                 CriticalSection.Remove(imageUrl);
                                 return false;
                             }
                             CriticalSection.Remove(imageUrl);
-                            return await SaveImageAsync(imageUrl, filename, format, FileOther , ++ hm );
+                            return await SaveImageAsync(imageUrl, filename, format, FileOther, ++hm);
                         }
 
                     }
@@ -81,15 +81,26 @@ namespace PL
             }
             else
             {
-                int hmi = 0; 
-                while (await Task.Run(() => CriticalSection.Count((x) => x == imageUrl) != 0) && hmi++ < 5)
+                int hmi = 0;
+                    try
                 {
-                    await Task.Delay(10);
+                    while ( CriticalSection.Count((x) => x == imageUrl) != 0 && hmi++ < 10)
+                    {
+                        await Task.Delay(100);
 
 
+                    }
+                    if (hmi == 6)
+                    {
+                        CriticalSection.Remove(imageUrl);
+                        return false;
+                    }
                 }
-                if (hmi == 6)
+                catch
+                {
+                    CriticalSection.Remove(imageUrl);
                     return false;
+                }
                 return true;
             }
         }

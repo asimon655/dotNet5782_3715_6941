@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -21,6 +23,7 @@ namespace PL
     {
         
 
+        internal object Lock ; 
         #region MetaDataReset
         private void Reset()
         {
@@ -49,7 +52,11 @@ namespace PL
                     {
                         Dispatcher.Invoke(() =>
                          {
-                             Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                             try
+                             {
+                                 Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                             }
+                             catch { }
                          });
                     }
 
@@ -419,10 +426,15 @@ namespace PL
                 () => simulator.ReportProgress(1),
                 () => simulator.CancellationPending);
         }
-        private void backgroundWorker1_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        private  void backgroundWorker1_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
-            Reset(); //local reset
-            reset(); // activate reset by the father window5
+            if (!Monitor.TryEnter(Lock)) return; 
+            lock (Lock) { 
+                Reset(); //local reset
+                reset(); // activate reset by the father window5
+                
+                
+            }
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

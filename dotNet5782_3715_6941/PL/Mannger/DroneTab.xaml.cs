@@ -41,13 +41,13 @@ namespace PL
         private readonly List<CheckBoxStatus> predStat;
         #endregion
         public Action reset;
-
+        object Lock;
         public DroneTab(BlApi.Ibl dat)
         {
             InitializeComponent();
 
             this.dat = dat;
-
+            Lock = new object();
             #region Predicts Initialize 
             ListOf.ItemsSource = dat.GetDrones();
             Weight = WeightDefault;
@@ -134,7 +134,10 @@ namespace PL
         {
             if (!((sender as ListView).SelectedItem is null))
             {
-                new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), () => { reset(); Reset(); }).Show();
+
+                Window2  pg = new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), () => { reset(); Reset(); });
+                pg.Lock = this.Lock;
+                pg.Show();
             }
             //new Window2(a).Show();
 
