@@ -29,7 +29,7 @@
 ## Minip project by Idan Maman and Abraham Simon . 
 Cool and Special Codes : 
 ## Idan's Gists:
-### [Map and Photos Async and more codes]https://gist.github.com/idanmaman2
+### [Map and Photos Async and more codes](https://gist.github.com/idanmaman2)
 ## Abrhams's Gists : 
 ### [Generic read write list to xml](https://gist.github.com/asimon655/e50e3e45ee0798367fe2f3d5e51749e0)
 ## Requirment: 
