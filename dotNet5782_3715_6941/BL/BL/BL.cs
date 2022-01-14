@@ -65,6 +65,8 @@ namespace BL
                 };
 
                 int parcelId = getBindedUndeliveredParcel(drone.Id);
+                
+                int stationId = isCharged(drone.Id);
 
                 if (parcelId != -1) // the drone is binded
                 {
@@ -116,54 +118,65 @@ namespace BL
                         newDrone.Battery = RandomGen.Next((int)minimumBattery, 99) + RandomGen.NextDouble();
                     }
                 }
+                else if (stationId != -1) // the drone registered as matance
+                {
+                    newDrone.DroneStat = DroneStatuses.Matance;
+                    // set drone location to the station
+                    DO.Station station = data.GetStation(stationId);
+                    newDrone.Loct = new Location(station.Longitude, station.Lattitude);
+                    // the matance is already registered in drone charge
+                    // set drone battery
+                    newDrone.Battery = RandomGen.NextDouble() * 20;
+                }
                 else // the drone is not binded
                 {
                     // set DroneStat to a random value between Free, Matance
                     newDrone.DroneStat = (DroneStatuses)RandomGen.Next((int)DroneStatuses.Free, (int)DroneStatuses.Matance + 1);
-                }
-                if (newDrone.DroneStat == DroneStatuses.Matance)
-                {
-                    // set drone location to a random starion with free charging slots
-                    IEnumerable<DO.Station> stationsFreePorts = data.GetStations(x => x.ChargeSlots > 0);
-                    int random_i = RandomGen.Next(stationsFreePorts.Count());
-                    DO.Station station = stationsFreePorts.ElementAt(random_i);
-                    newDrone.Loct = new Location(station.Longitude, station.Lattitude);
-                    // register the matance in drone charge
-                    data.AddDroneCharge(new DO.DroneCharge { StaionId = station.Id, DroneId = newDrone.Id });
-                    // set drone battery
-                    newDrone.Battery = RandomGen.NextDouble() * 20;
-                }
-                if (newDrone.DroneStat == DroneStatuses.Free)
-                {
-                    // set drone location to a random customer that recived a parcel
-                    IEnumerable<DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Delivered);
-                    if (parcelsDelivered.Count() > 0)
-                    {
-                        int random_i = RandomGen.Next(parcelsDelivered.Count());
-                        DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
-                        DO.Customer costumer = data.GetCustomer(parcel.TargetId);
-                        newDrone.Loct = new Location(costumer.Longitude, costumer.Lattitude);
-                    }
-                    // if there are no deliverd parcels 
-                    else
+
+                    if (newDrone.DroneStat == DroneStatuses.Matance)
                     {
                         // set drone location to a random starion with free charging slots
                         IEnumerable<DO.Station> stationsFreePorts = data.GetStations(x => x.ChargeSlots > 0);
                         int random_i = RandomGen.Next(stationsFreePorts.Count());
-                        DO.Station stationy = stationsFreePorts.ElementAt(random_i);
-                        newDrone.Loct = new Location(stationy.Longitude, stationy.Lattitude);
+                        DO.Station station = stationsFreePorts.ElementAt(random_i);
+                        newDrone.Loct = new Location(station.Longitude, station.Lattitude);
+                        // register the matance in drone charge
+                        data.AddDroneCharge(new DO.DroneCharge { StaionId = station.Id, DroneId = newDrone.Id });
+                        // set drone battery
+                        newDrone.Battery = RandomGen.NextDouble() * 20;
                     }
+                    if (newDrone.DroneStat == DroneStatuses.Free)
+                    {
+                        // set drone location to a random customer that recived a parcel
+                        IEnumerable<DO.Parcel> parcelsDelivered = data.GetParcels(x => ParcelStatusC(x) == ParcelStatus.Delivered);
+                        if (parcelsDelivered.Count() > 0)
+                        {
+                            int random_i = RandomGen.Next(parcelsDelivered.Count());
+                            DO.Parcel parcel = parcelsDelivered.ElementAt(random_i);
+                            DO.Customer costumer = data.GetCustomer(parcel.TargetId);
+                            newDrone.Loct = new Location(costumer.Longitude, costumer.Lattitude);
+                        }
+                        // if there are no deliverd parcels 
+                        else
+                        {
+                            // set drone location to a random starion with free charging slots
+                            IEnumerable<DO.Station> stationsFreePorts = data.GetStations(x => x.ChargeSlots > 0);
+                            int random_i = RandomGen.Next(stationsFreePorts.Count());
+                            DO.Station stationy = stationsFreePorts.ElementAt(random_i);
+                            newDrone.Loct = new Location(stationy.Longitude, stationy.Lattitude);
+                        }
 
-                    // get the location of the closest station to that costumer
-                    int stationId = getClosesStation(newDrone.Loct);
-                    DO.Station station = data.GetStation(stationId);
-                    Location stationLoct = new Location(station.Longitude, station.Lattitude);
+                        // get the location of the closest station to that costumer
+                        int chargeStationId = getClosesStation(newDrone.Loct);
+                        DO.Station station = data.GetStation(chargeStationId);
+                        Location stationLoct = new Location(station.Longitude, station.Lattitude);
 
-                    // calculate the minimum battery this trip will take
-                    double minimumBattery = 0;
-                    minimumBattery += getPowerUsage(newDrone.Loct, stationLoct);
-                    // set the drone battery randomly between the minimumBattery and 100%
-                    newDrone.Battery = 100D - RandomGen.NextDouble() * minimumBattery;
+                        // calculate the minimum battery this trip will take
+                        double minimumBattery = 0;
+                        minimumBattery += getPowerUsage(newDrone.Loct, stationLoct);
+                        // set the drone battery randomly between the minimumBattery and 100%
+                        newDrone.Battery = 100D - RandomGen.NextDouble() * minimumBattery;
+                    }
                 }
                 // add newDrone to drones list
                 drones.Add(newDrone);
