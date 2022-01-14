@@ -27,6 +27,8 @@ namespace PL
                             catch { }
                         });
                     }
+                    else
+                        Dispatcher.Invoke(() => Photo1.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
 
                     #region Only when the First Request Returned - to prevent Double smae photo to the clients 
                     if (!File.Exists(PhotoAsync.makePath(SenderId)))
@@ -44,6 +46,8 @@ namespace PL
                                     catch { }
                                 });
                             }
+                            else
+                                Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                         });
                     }
                     else
@@ -75,6 +79,8 @@ namespace PL
                                 catch { }
                             });
                         }
+                        else
+                            Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                     });
                 }
                 else
@@ -131,6 +137,8 @@ namespace PL
                                 Drone.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
                             });
                         }
+                        else
+                            Dispatcher.Invoke(() => Drone.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                     });
                 }
                 else
