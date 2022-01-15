@@ -104,7 +104,7 @@ namespace PL
 
 
                     }
-                    if (hmi == 6)
+                    if (hmi >= 10)
                     {
                         CriticalSection.Remove(imageUrl);
                         return false;
