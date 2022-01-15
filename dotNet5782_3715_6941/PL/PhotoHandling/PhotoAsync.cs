@@ -78,7 +78,7 @@ namespace PL
                                 return false; // the program didnt success
                             }
 
-                            CriticalSection.Remove(imageUrl);
+                            
                             await Task.Delay(100);
                             return await SaveImageAsync(imageUrl, filename, format, FileOther, ++hm);
                         }
