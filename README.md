@@ -123,11 +123,11 @@ Cool and Special Codes :
  ## Snart Search : 
  > ![image](https://user-images.githubusercontent.com/90776557/149632436-99dc05e3-8e73-4a32-9077-a931234b7173.png)
 
->![image](https://user-images.githubusercontent.com/90776557/149632504-7823a9b3-49ca-4b61-a7c5-d680f5f51063.png)
+>![image](https://user-images.githubusercontent.com/90776557/149638418-bfe23e56-9b24-4c8a-85a9-38b02c0850a8.png)
 
 >![image](https://user-images.githubusercontent.com/90776557/149632512-6e064f10-4b66-4bca-882c-ba77d03cb144.png)
 
->![image](https://user-images.githubusercontent.com/90776557/149632513-573e02ae-483a-421e-a2c0-84a84f7ea952.png)
+>![image](https://user-images.githubusercontent.com/90776557/149638426-e33e54b1-be56-4879-9e13-3c8bb40d9f62.png)
 
 
 > you can write a detial about the Object and the amsrt search will find it for you : 
