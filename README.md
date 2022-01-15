@@ -121,7 +121,7 @@ Cool and Special Codes :
 >in the map you can see all the **clients** , **drones** and **base stations** 
  
  
- ## Snart Search : 
+ ## Smart Search : 
  > ![image](https://user-images.githubusercontent.com/90776557/149632436-99dc05e3-8e73-4a32-9077-a931234b7173.png)
 
 >![image](https://user-images.githubusercontent.com/90776557/149638418-bfe23e56-9b24-4c8a-85a9-38b02c0850a8.png)
@@ -143,7 +143,8 @@ Cool and Special Codes :
   ## **Graphs:**
 
  >  ![image](https://user-images.githubusercontent.com/90776557/149631893-5e90a325-921f-4b46-8da0-f912d46e5005.png)
-> ![image](https://user-images.githubusercontent.com/90776557/149631899-33ea0367-9742-480b-accb-283ab63b425c.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149639432-46eb1419-68e9-4f0c-a85e-b762252202fb.png)
+
 
 
 
