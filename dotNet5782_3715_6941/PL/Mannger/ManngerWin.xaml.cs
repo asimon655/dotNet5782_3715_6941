@@ -17,7 +17,6 @@ namespace PL
         #region Fields
 
         private readonly BlApi.Ibl dat;
-        private object Lock; 
         private readonly BackgroundWorker MapTasker;
         private readonly BackgroundWorker GraphTasker;
         private readonly Dictionary<string, PivotHeaderControl> RefreshMannger = new Dictionary<string, PivotHeaderControl>();
@@ -32,58 +31,58 @@ namespace PL
         private async Task ResetByWindow()
         {
 
-
             if (RefreshMannger["Drones"].IsActive)
             {
-                //Nothing 
+                await Task.Run(() => Dispatcher.Invoke(() =>
+               {
+                   Drn.Reset();
+               }));
             }
-            Monitor.Enter(Lock);
-            await Task.Delay(600);
             if (RefreshMannger["Map"].IsActive)
+            {
+                await Task.Run(async () => await Dispatcher.Invoke(async () =>
                 {
-                    await Task.Run(async () => await Dispatcher.Invoke(async () =>
-                    {
-                        await Map.ResetLoct();
-                    }));
+                    await Map.ResetLoct();
+                }));
 
-                }
-                if (RefreshMannger["Parcels"].IsActive)
+            }
+            if (RefreshMannger["Parcels"].IsActive)
+            {
+                await Task.Run(async () =>
                 {
-                    await Task.Run(async () =>
-                    {
-                        await Task.Delay(600);
-                        Dispatcher.Invoke(() =>
-    {
-        pcl.Reset();
-    });
-                    });
+                    await Task.Delay(600);
+                    Dispatcher.Invoke(() =>
+{
+    pcl.Reset();
+});
+                });
 
-                }
-                if (RefreshMannger["Stations"].IsActive)
+            }
+            if (RefreshMannger["Stations"].IsActive)
+            {
+                await Task.Run(async () =>
                 {
-                    await Task.Run(async () =>
-                    {
-                        await Task.Delay(600);
-                        Dispatcher.Invoke(() =>
-    {
-        Stat.Reset();
-    });
-                    });
+                    await Task.Delay(600);
+                    Dispatcher.Invoke(() =>
+{
+    Stat.Reset();
+});
+                });
 
-                }
-                if (RefreshMannger["Costumers"].IsActive)
+            }
+            if (RefreshMannger["Costumers"].IsActive)
+            {
+                await Task.Run(async () =>
                 {
-                    await Task.Run(async () =>
-                    {
-                        await Task.Delay(600);
-                        Dispatcher.Invoke(() =>
-    {
-        Client.Reset();
-    });
-                    });
-                }
+                    await Task.Delay(600);
+                    Dispatcher.Invoke(() =>
+{
+    Client.Reset();
+});
+                });
+            }
 
-            Monitor.Exit(Lock);
+
 
         }
         public ManngerWin()

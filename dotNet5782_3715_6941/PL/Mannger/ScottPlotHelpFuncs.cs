@@ -38,7 +38,15 @@ namespace PL
         {
             Pie.Plot.Clear();
             string[] labels = Enum.GetNames(typeof(T));
-
+            if (labels.Length >= 4)
+            {
+                string tmp = labels[0];
+                double tmp2 = values[0];
+                values[0] = values[1];
+                labels[0] = labels[1];
+                values[1] = tmp2;
+                labels[1] = tmp;
+                    }
 
             // Language colors from https://github.com/ozh/github-colors
             System.Drawing.Color[] sliceColors =

@@ -78,8 +78,8 @@ namespace PL
                                 return false; // the program didnt success
                             }
 
-                            
-                            await Task.Delay(100);
+                            CriticalSection.Remove(imageUrl);
+                            await Task.Delay(300);
                             return await SaveImageAsync(imageUrl, filename, format, FileOther, ++hm);
                         }
 
@@ -100,7 +100,7 @@ namespace PL
                 {
                     while ( CriticalSection.Count((x) => x == imageUrl) != 0 && hmi++ < 10)
                     {
-                        await Task.Delay(100);
+                        await Task.Delay(500);
 
 
                     }
