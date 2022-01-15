@@ -41,6 +41,7 @@ namespace PL
         private readonly List<CheckBoxStatus> predStat;
         #endregion
         public Action reset;
+        public Action Deltereset;
         object Lock;
         public DroneTab(BlApi.Ibl dat)
         {
@@ -107,6 +108,36 @@ namespace PL
             #endregion
 
         }
+        public void fullReset()
+        {
+            Binding myBinding = new Binding
+            {
+                Source = dat.GetDronesFiltered(Stat, Weight)
+            };
+            BindingOperations.SetBinding(ListOf, ListView.ItemsSourceProperty, myBinding);
+
+           
+            foreach (BO.DroneStatuses enm in StatDefault)
+            {
+                predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
+            }
+
+            StatusSelectorDrnStat.ItemsSource = predStat;
+            StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
+            #endregion
+            Weight = WeightDefault;
+            Stat = StatDefault;
+            StatusSelectorWeigthStat.SelectedIndex = -1;
+            StatusSelectorDrnStat.SelectedIndex = -1;
+            foreach (CheckBoxStatus item in predStat)
+            {
+                item.Checked = true;
+            }
+            ResetPlots();
+
+
+
+        }
 
         public void Reset()
         {
@@ -148,7 +179,7 @@ namespace PL
             Window add = new Window2(dat, this);
             add.Closed += (sender, e) =>
             {
-                Reset();
+                fullReset();
                 reset();
             };
             add.Show();
@@ -204,7 +235,6 @@ namespace PL
             }
         }
 
-        #endregion
 
 
 
@@ -223,9 +253,10 @@ namespace PL
                 int id = (int)(sender as Button).Tag;
                 dat.DeleteDrone(id);
                 ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
-                Reset();
-                reset();
-             
+                fullReset();
+                Deltereset();
+
+
 
             }
             catch (Exception err)

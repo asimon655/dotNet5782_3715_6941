@@ -59,6 +59,8 @@ namespace PL
                              catch { }
                          });
                     }
+                    else
+                        Dispatcher.Invoke(() => Photo1.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
 
                     if (!File.Exists(PhotoAsync.makePath(SenderId)))
                     {
@@ -75,6 +77,8 @@ namespace PL
                                     catch { }
                                 });
                             }
+                            else
+                                Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                         });
                     }
                     else
@@ -106,6 +110,8 @@ namespace PL
                                     catch { }
                                 });
                             }
+                            else
+                                Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                         });
                     }
                     else
@@ -177,11 +183,17 @@ namespace PL
                             Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
                         });
                     }
+                    else
+                        Dispatcher.Invoke(() => Photo0.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                 });
             }
             else
             {
-                Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
+                try
+                {
+                    Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
+                }
+                catch { }
             }
 
 

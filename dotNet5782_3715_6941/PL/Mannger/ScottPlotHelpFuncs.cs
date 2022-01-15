@@ -5,7 +5,7 @@ using System.Drawing;
 namespace PL
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Scott Plot Functions to create some coolm graphs 
     /// </summary>
     public static class ScottPlotHELP
     {

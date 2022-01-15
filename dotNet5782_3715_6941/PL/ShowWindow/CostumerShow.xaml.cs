@@ -36,6 +36,8 @@ namespace PL
                             Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                         });
                     }
+                    else
+                        Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                 });
             }
             else
