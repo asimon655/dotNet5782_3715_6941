@@ -151,7 +151,7 @@ Cool and Special Codes :
  > in precantage pies or in bars
 
 ## Tabels Features : 
-#The tabels hum[ing around when the simulator is activated cause we didnt use virtualization - if we will go to the competition we will fix that. 
+# The tabels junping around when the simulator is activated cause we didnt use virtualization - if we will go to the competition we will fix that. 
 
 ### Sort by click on the Header : 
 > ![image](https://user-images.githubusercontent.com/90776557/149632165-e4983715-2f51-48cf-b6f2-ec08100fc055.png)
