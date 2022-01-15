@@ -23,6 +23,17 @@ namespace BL
             }
             return parcel.Id;
         }
+        private int isCharged(int droneId)
+        {
+            try
+            {
+                return data.GetDroneCharge(droneId).StaionId;
+            }
+            catch (DO.IdDosntExists)
+            {
+                return -1;
+            }
+        }
         /// <summary>
         /// calculate distance between two locations
         /// </summary>
