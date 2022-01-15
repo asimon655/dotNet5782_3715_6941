@@ -54,6 +54,10 @@ Cool and Special Codes :
 > ![image](https://user-images.githubusercontent.com/90776557/146791904-dffa5192-b169-4a48-8b62-9e68386fc5a3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791935-4c6d41e3-2d02-4ee2-bb7f-0565e8f647e9.png)
 
+ ## Rows disapear if there is no content : 
+ > ![image](https://user-images.githubusercontent.com/90776557/149639473-5ae068ce-7bdc-4d30-a163-aed22f3bec77.png)
+ > 
+> ![image](https://user-images.githubusercontent.com/90776557/149639482-0bbebff0-42ba-4bf6-a2a9-45976a189509.png)
 
 ### **Battery Animations:**
 ####  the battery is animated : 
