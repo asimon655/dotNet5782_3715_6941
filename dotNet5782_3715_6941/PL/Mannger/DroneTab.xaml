@@ -259,9 +259,15 @@
             </Grid>
             <Grid Grid.Row="3">
 
-                <Border    BorderBrush="Black" BorderThickness="2"> 
+                <Border    BorderBrush="Transparent"> 
                 <Grid>
-                        <ListView  MouseDoubleClick="ListOf_MouseDoubleClick" x:Name="ResultsOfSearch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.1*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.1*" />
+
+                        </Grid.ColumnDefinitions>
+                        <ListView Grid.Column="1" BorderBrush="Black" BorderThickness="3" MouseDoubleClick="ListOf_MouseDoubleClick" x:Name="ResultsOfSearch">
                   
 
                             <ListView.View>
