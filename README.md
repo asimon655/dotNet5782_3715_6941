@@ -69,6 +69,7 @@ Cool and Special Codes :
 
 
 ## **Client Sign Up**
+![image](https://user-images.githubusercontent.com/90776557/149639219-aca919bf-b118-482e-a828-a283273177b3.png)
 
 ![image](https://user-images.githubusercontent.com/90776557/147875488-77c4a05d-032a-4362-8412-8fac6d3910fc.png)
 
@@ -171,7 +172,22 @@ Cool and Special Codes :
 
 
 
+># Client's Window : 
+ ## Login Page: [Transpernt Background Window - Windows 10 Style ]
+> ![image](https://user-images.githubusercontent.com/90776557/149639236-3c9f4dfb-86b0-4538-8e85-d751e0548db9.png)
+## Costumer Detials Page : 
+>![image](https://user-images.githubusercontent.com/90776557/149639312-8824da57-9dca-4f3e-b18b-e9dafe0426af.png)
 
+> if the client didnt chose a photo an AI will create one for him 
+> ![image](https://user-images.githubusercontent.com/90776557/149639335-28b59fb7-9f43-4a7a-997e-64ab1b39fa05.png)
+> 
+> #Delete Costumer : 
+> 
+> ![image](https://user-images.githubusercontent.com/90776557/149639354-be528eb7-62c8-4611-8833-bc53528752ea.png)
+
+
+## Supplies Detials : 
+>![image](https://user-images.githubusercontent.com/90776557/149639349-c8ed58cc-ea1c-43de-971f-a1ed37726290.png)
 
 ## Technology's and libraries
 * .net 5.0
