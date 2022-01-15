@@ -56,9 +56,17 @@ Cool and Special Codes :
 
 
 ### **Battery Animations:**
->the battery is animated : Ecample : 
->![image](https://user-images.githubusercontent.com/90776557/146791426-0ddb4cef-f60b-46a4-97b7-fcb566a8ca8b.png)
-![image](https://user-images.githubusercontent.com/90776557/146791521-77814542-d7d4-4de3-a8a6-bc70ca851466.png)
+####  the battery is animated : 
+> ![image](https://user-images.githubusercontent.com/90776557/149631868-15ee0afd-ec61-411e-bd1b-51a8d8c7d503.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149631790-3ef1b26d-b81f-44e4-b4f3-d1b5f9eba239.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149631796-f445ec87-c360-4264-abef-61bff1ccbd01.png)
+
+
+
+### Example
+![image](https://user-images.githubusercontent.com/90776557/149631744-abdf5092-76ac-4dfa-926b-6c2f90d1314b.png)
+
+
 
 ## **Client Sign Up**
 
@@ -70,9 +78,13 @@ Cool and Special Codes :
 ![image](https://user-images.githubusercontent.com/90776557/147875497-312d869f-6a71-4d6b-8915-1e6e67c860d1.png)
 
 
->### Sequirty: 
+>### Secuirty: 
 >all the answers to the Captcha saved and transferd over the intenet hashed(MD5) so hacking to the Captcha system is almost impossible. 
 
+> ### If you want to upload your own user photo you can by draging it to the Drag And Drop Box : 
+> ![image](https://user-images.githubusercontent.com/90776557/149632378-b0153a1f-f62f-45ec-a0e7-82da509935df.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149632399-39f99d03-0d5b-4cbe-abe7-4da43ef52696.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149632419-c8484b58-bc43-4aba-8bcf-6c63f02c0cc2.png)
 
 
 
@@ -81,18 +93,57 @@ Cool and Special Codes :
 # **Admin Window** 
 ## **Map:**
     
-   ![image](https://user-images.githubusercontent.com/90776557/147394053-9cd1629f-a131-412d-b588-442e5e8fd753.png)
+>![image](https://user-images.githubusercontent.com/90776557/149632095-a095010e-cb6c-4887-a27c-e40c902c8f81.png)
+
    >### Moving Points Function : 
    >to enable clear view of two points that is in one spot we moved some points a little from the spot. 
 ![image](https://user-images.githubusercontent.com/90776557/147394057-0c107749-97d3-4aff-bc28-98adf44f793a.png)
+> ### Buttons :
+> #### Focus:[Focus you to the area of tel aviv -H for Home]
+>    >![image](https://user-images.githubusercontent.com/90776557/149631947-490695c3-84fe-434b-8fd7-6a0c4f0791ff.png)
+> #### Show and Unshow layers : 
+>  ![image](https://user-images.githubusercontent.com/90776557/149631976-7b734007-d159-41b2-9ac5-2a3b1a1fb4a1.png)
+>  
+> ![image](https://user-images.githubusercontent.com/90776557/149631984-8da7ba18-40dc-4db5-908d-53925687c0b4.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149632131-f129f653-46bb-4b2e-a325-9d27a4ab6049.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149632134-fe57e785-c2ae-41eb-b76f-3c4a365323d5.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149632140-fbb5e57e-71c5-4b49-b089-9b1d6fbd4328.png)
+
+
+> ###Simulator : 
+> the map,graphs and the tables refreshed live : 
+> 
+
 
 
 
 >in the map you can see all the **clients** , **drones** and **base stations** 
-  
+ 
+ 
+ ## Snart Search : 
+ > ![image](https://user-images.githubusercontent.com/90776557/149632436-99dc05e3-8e73-4a32-9077-a931234b7173.png)
+
+>![image](https://user-images.githubusercontent.com/90776557/149632504-7823a9b3-49ca-4b61-a7c5-d680f5f51063.png)
+
+>![image](https://user-images.githubusercontent.com/90776557/149632512-6e064f10-4b66-4bca-882c-ba77d03cb144.png)
+
+>![image](https://user-images.githubusercontent.com/90776557/149632513-573e02ae-483a-421e-a2c0-84a84f7ea952.png)
+
+
+> you can write a detial about the Object and the amsrt search will find it for you : 
+> ![image](https://user-images.githubusercontent.com/90776557/149632462-9521b603-a808-4004-a242-770bb9385cb5.png)
+
+> if there are a few results it will show all of them : 
+> 
+> ![image](https://user-images.githubusercontent.com/90776557/149632493-57e68504-304e-4897-bd73-20813cedd88d.png)
+
+ 
+ 
   ## **Graphs:**
 
- >  ![image](https://user-images.githubusercontent.com/90776557/146779144-96fd73ef-085b-42da-a771-7691df4e8b78.png) ![image](https://user-images.githubusercontent.com/90776557/146779160-48786fc0-197f-43cc-88e4-e53fcaccd0d7.png)
+ >  ![image](https://user-images.githubusercontent.com/90776557/149631893-5e90a325-921f-4b46-8da0-f912d46e5005.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149631899-33ea0367-9742-480b-accb-283ab63b425c.png)
+
 
 
 
@@ -100,16 +151,23 @@ Cool and Special Codes :
  > in precantage pies or in bars
 
 ## Tabels Features : 
-### Grouping : 
->![image](https://user-images.githubusercontent.com/90776557/146788793-009394bf-e129-45e0-b48f-24b7641a7fac.png)
->![image](https://user-images.githubusercontent.com/90776557/146788762-459eab16-874d-4f76-9fea-286da31dd7cb.png)
+
 ### Sort by click on the Header : 
-> ![image](https://user-images.githubusercontent.com/90776557/146788892-b014681d-1fbc-47a7-9c0d-e73ac8719646.png)
->![image](https://user-images.githubusercontent.com/90776557/146788945-54a31a84-3494-46ae-8c25-b16c4233ca64.png)
-### Progress Bar for Battery : 
-    NOT IMPLEMNTED YET - CONVERT BOMUS ----- 
-### Open Detials by click ojn the row: 
-> ![image](https://user-images.githubusercontent.com/90776557/146789064-1cc00acc-6594-45d2-9d6b-52183aaaffd4.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149632165-e4983715-2f51-48cf-b6f2-ec08100fc055.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149632561-322c62ef-87ea-45cc-adb3-dcb10b4dd62c.png)
+
+### Delete Items : 
+> if the item can be delted a trash can icon will show up - by click on him the item will be delted : 
+> 
+> ![image](https://user-images.githubusercontent.com/90776557/149632190-a23a272a-beb9-40e9-9325-6bb60e3101b5.png)
+> 
+> ![image](https://user-images.githubusercontent.com/90776557/149632193-3aa4657c-feef-47f5-aee7-515977244fbd.png)
+### Progress Bar for Battery : (In Parcek Show)
+> ![image](https://user-images.githubusercontent.com/90776557/149632225-997c3996-a01a-482f-9210-f4194cfe8cc3.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149632228-806c1c05-63a9-41a2-9f62-77191a799961.png)
+### Open Detials by click on the row: 
+> ![image](https://user-images.githubusercontent.com/90776557/149632315-313df311-f65f-4a1a-a9ec-fec4989733b4.png)
+
 
 
 
