@@ -78,7 +78,7 @@ namespace PL
             if ((double)value<30 || (double)value >=60 )
                 return new SolidColorBrush(Color.FromRgb((byte)(255 - (int)((double)value * 255 / 100)), (byte)((int)((double)value * 255 / 100)), 0));
             if((double)value < 60)
-                return new SolidColorBrush(Color.FromRgb((byte)(255 - (int)(255-(double)value * 255 / 100)+102), (byte)(255-(int)((double)value * 255 / 100)+102), 0));
+                return new SolidColorBrush(Color.FromRgb((byte)(255 - (255-(double)value * 255 / 100)+102), (byte)(255-((double)value * 255 / 100)+102), 0));
             return null;
 
         }
