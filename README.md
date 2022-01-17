@@ -54,6 +54,10 @@ Cool and Special Codes :
 > ![image](https://user-images.githubusercontent.com/90776557/146791904-dffa5192-b169-4a48-8b62-9e68386fc5a3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791935-4c6d41e3-2d02-4ee2-bb7f-0565e8f647e9.png)
 
+ ## Rows disapear if there is no content : 
+ > ![image](https://user-images.githubusercontent.com/90776557/149639473-5ae068ce-7bdc-4d30-a163-aed22f3bec77.png)
+ > 
+> ![image](https://user-images.githubusercontent.com/90776557/149639482-0bbebff0-42ba-4bf6-a2a9-45976a189509.png)
 
 ### **Battery Animations:**
 ####  the battery is animated : 
@@ -69,6 +73,7 @@ Cool and Special Codes :
 
 
 ## **Client Sign Up**
+![image](https://user-images.githubusercontent.com/90776557/149639219-aca919bf-b118-482e-a828-a283273177b3.png)
 
 ![image](https://user-images.githubusercontent.com/90776557/147875488-77c4a05d-032a-4362-8412-8fac6d3910fc.png)
 
@@ -120,14 +125,14 @@ Cool and Special Codes :
 >in the map you can see all the **clients** , **drones** and **base stations** 
  
  
- ## Snart Search : 
+ ## Smart Search : 
  > ![image](https://user-images.githubusercontent.com/90776557/149632436-99dc05e3-8e73-4a32-9077-a931234b7173.png)
 
->![image](https://user-images.githubusercontent.com/90776557/149632504-7823a9b3-49ca-4b61-a7c5-d680f5f51063.png)
+>![image](https://user-images.githubusercontent.com/90776557/149638418-bfe23e56-9b24-4c8a-85a9-38b02c0850a8.png)
 
 >![image](https://user-images.githubusercontent.com/90776557/149632512-6e064f10-4b66-4bca-882c-ba77d03cb144.png)
 
->![image](https://user-images.githubusercontent.com/90776557/149632513-573e02ae-483a-421e-a2c0-84a84f7ea952.png)
+>![image](https://user-images.githubusercontent.com/90776557/149638426-e33e54b1-be56-4879-9e13-3c8bb40d9f62.png)
 
 
 > you can write a detial about the Object and the amsrt search will find it for you : 
@@ -142,7 +147,8 @@ Cool and Special Codes :
   ## **Graphs:**
 
  >  ![image](https://user-images.githubusercontent.com/90776557/149631893-5e90a325-921f-4b46-8da0-f912d46e5005.png)
-> ![image](https://user-images.githubusercontent.com/90776557/149631899-33ea0367-9742-480b-accb-283ab63b425c.png)
+> ![image](https://user-images.githubusercontent.com/90776557/149639432-46eb1419-68e9-4f0c-a85e-b762252202fb.png)
+
 
 
 
@@ -171,7 +177,22 @@ Cool and Special Codes :
 
 
 
+># Client's Window : 
+ ## Login Page: [Transpernt Background Window - Windows 10 Style ]
+> ![image](https://user-images.githubusercontent.com/90776557/149639236-3c9f4dfb-86b0-4538-8e85-d751e0548db9.png)
+## Costumer Detials Page : 
+>![image](https://user-images.githubusercontent.com/90776557/149639312-8824da57-9dca-4f3e-b18b-e9dafe0426af.png)
 
+> if the client didnt chose a photo an AI will create one for him 
+> ![image](https://user-images.githubusercontent.com/90776557/149639335-28b59fb7-9f43-4a7a-997e-64ab1b39fa05.png)
+> 
+> #Delete Costumer : 
+> 
+> ![image](https://user-images.githubusercontent.com/90776557/149639354-be528eb7-62c8-4611-8833-bc53528752ea.png)
+
+
+## Supplies Detials : 
+>![image](https://user-images.githubusercontent.com/90776557/149639349-c8ed58cc-ea1c-43de-971f-a1ed37726290.png)
 
 ## Technology's and libraries
 * .net 5.0
