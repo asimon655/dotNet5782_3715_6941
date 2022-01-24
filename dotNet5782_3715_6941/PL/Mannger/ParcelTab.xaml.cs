@@ -48,7 +48,7 @@ namespace PL
             new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelList).Id)).Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             Window add = new ParcelShow(dat);
             add.Closed += (sender, e) =>
@@ -59,7 +59,7 @@ namespace PL
             add.Show();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Delete_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace PL
 
 
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Smart_Search(object sender, RoutedEventArgs e)
         {
             ResultsOfSearch.ItemsSource = dat.SmartSearchParcel(SmartTB.Text);
         }
@@ -201,7 +201,7 @@ namespace PL
             await PopulateResetListFilter();
         }
 
-        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        private async void Reset_Click(object sender, RoutedEventArgs e)
         {
             F1.SelectedDate = null;
             T1.SelectedDate = null;

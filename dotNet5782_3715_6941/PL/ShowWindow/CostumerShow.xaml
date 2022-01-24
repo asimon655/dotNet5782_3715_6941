@@ -109,16 +109,16 @@
                                     </Viewbox>
 
                                 </Border>
-                      
-                                    <Button IsEnabled="False" Name="CaptchCheck" Click="Button_Click_3"  Grid.Row="6"  Grid.Column="1">
+
+                                <Button IsEnabled="False" Name="CaptchCheck" Click="CaptchaCheck"  Grid.Row="6"  Grid.Column="1">
   
                                         <Viewbox>
                                         <Label Content="Check" FontWeight="Bold"/>
                                     </Viewbox>
                                 </Button>
-                                
-                            
-                                    <Button   Click="Button_Click_2" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+
+
+                                <Button   Click="PopUpShow" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
               
                                         <Viewbox>
                                         <Label Content="X" FontWeight="Bold"/> 
@@ -411,7 +411,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Border  Grid.Column="1" CornerRadius="25" BorderBrush="Black" BorderThickness="3">
-                    <Button Click="Button_Click" Name="ButtonAdd"  IsEnabled="False" >
+                    <Button Click="AddCst" Name="ButtonAdd"  IsEnabled="False" >
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="15"/>

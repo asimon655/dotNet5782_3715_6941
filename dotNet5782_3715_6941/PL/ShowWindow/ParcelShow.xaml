@@ -177,7 +177,7 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <Border Grid.Column="0" BorderBrush="Black" BorderThickness="3,3,3,3">
-                                                    <Button Click="Button_Click_2">
+                                                    <Button Click="DroneShow">
                                                         <Image Name ="Drone"  Source="..\Images\drone_photo.jpg" Stretch="Fill"></Image>
                                                     </Button>
                                                 </Border>
@@ -230,7 +230,7 @@
                                                         <RowDefinition Height="*" />
                                                         <RowDefinition Height="4*" />
                                                     </Grid.RowDefinitions>
-                                                    <Button Click="Button_Click_1" >
+                                                    <Button Click="CstShowSender" >
                                                         <Viewbox>
                                                             <Label Content="Source"/>
                                                         </Viewbox>
@@ -289,7 +289,7 @@
                                                         <RowDefinition Height="4*" />
                                                     </Grid.RowDefinitions>
 
-                                                    <Button Click="Button_Click" >
+                                                    <Button Click="CstShowTarget" >
                                                         <Viewbox>
                                                             <Label Content="Target"/>
                                                         </Viewbox>
@@ -453,7 +453,7 @@
                 </Grid>
 
             </Grid>
-            <Button Click="Button_Click_3" Grid.Row="1">
+            <Button Click="Add_Click" Grid.Row="1">
                 <Viewbox>
                     <Label>Add Parcel</Label></Viewbox>
             </Button>

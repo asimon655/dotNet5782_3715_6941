@@ -43,7 +43,7 @@
 
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="1">
-                                    <Button Click="Button_Click_Show">
+                                    <Button Click="PopUpShow_Show">
                                         <Viewbox>
                                             <Label  >
                                                 Back To Menu
@@ -126,7 +126,7 @@
                                                 </Grid>
                                                 <Grid Grid.Row="1">
 
-                                                    <Button Click="Button_Click_2">
+                                                    <Button Click="PopUpShow_2">
                                                         <Viewbox>
                                                             <Label>Sender</Label>
                                                         </Viewbox>
@@ -274,7 +274,7 @@
                                                     <Image  x:Name="Photo1" Source="../Images/user.png" Stretch="Fill"></Image>
                                                 </Grid>
                                                 <Grid Grid.Row="1">
-                                                    <Button Click="Button_Click_1">
+                                                    <Button Click="PopUpShow_1">
                                                         <Viewbox>
                                                             <Label>
                                                                 Target
@@ -645,7 +645,7 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions >
                                             <Grid Grid.Column="0">
-                                                <Button Click="Button_Click">
+                                                <Button Click="PopUpShow">
                                                     <Viewbox>
                                                         <TextBlock>
                                 <Run> Binded </Run>
@@ -809,7 +809,7 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Bind">Confirm</Button>
-                                                            <Button   Click="Button_Click_7" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button   Click="PopUpShow_7" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -848,7 +848,7 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="PickUp">Confirm</Button>
-                                                            <Button   Click="Button_Click_3" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button   Click="PopUpShow_3" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -888,7 +888,7 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Deliver">Confirm</Button>
-                                                            <Button   Click="Button_Click_4" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button   Click="PopUpShow_4" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -936,7 +936,7 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Charge">Confirm</Button>
-                                                            <Button   Click="Button_Click_5" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button   Click="PopUpShow_5" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -977,7 +977,7 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="3" Grid.Column="1" Click="Realse">Confirm</Button>
-                                                            <Button   Click="Button_Click_6" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button   Click="PopUpShow_6" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -1114,7 +1114,7 @@
                 </Grid>
 
             </Grid>
-            <Button Click="Button_Click_Add" Grid.Row="1">
+            <Button Click="PopUpShow_Add" Grid.Row="1">
                 <Viewbox>
                     <Label>Add Parcel</Label>
                 </Viewbox>

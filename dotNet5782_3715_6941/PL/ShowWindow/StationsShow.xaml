@@ -138,7 +138,7 @@
           
                 </Border>
                 <Border BorderBrush="Black" BorderThickness="3,3,3,3" Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}">
-                    <Button Click="Button_Click"  BorderBrush="#FF6594EC"   Background="#FF6594EC" >
+                    <Button Click="Add_Click"  BorderBrush="#FF6594EC"   Background="#FF6594EC" >
                         <Viewbox>
                             <Image Stretch="Fill" Source="../Images/plus.png"></Image>
                         </Viewbox>

@@ -108,7 +108,7 @@ namespace PL
             new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelInCustomer).Id)).Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddCst(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace PL
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void PopUpShow(object sender, RoutedEventArgs e)
         {
             myPopup.IsOpen = false;
         }
@@ -167,7 +167,7 @@ namespace PL
             }
             return hash.ToString();
         }
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void CaptchaCheck(object sender, RoutedEventArgs e)
         {
 
 

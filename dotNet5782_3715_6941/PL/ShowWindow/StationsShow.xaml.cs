@@ -35,7 +35,7 @@ namespace PL
             new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneCharge).DroneId)).Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             try
             {

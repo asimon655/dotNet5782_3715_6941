@@ -151,18 +151,18 @@ namespace PL
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CstShowTarget(object sender, RoutedEventArgs e)
         {
             new CostumerShow(dat, dat.GetCostumer((DataContext as BO.Parcel).GetterParcelToCostumer.id)).Show();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void CstShowSender(object sender, RoutedEventArgs e)
         {
             new CostumerShow(dat, dat.GetCostumer((DataContext as BO.Parcel).SenderParcelToCostumer.id)).Show();
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void DroneShow(object sender, RoutedEventArgs e)
         {
             if ((DataContext as BO.Parcel).ParcelDrone is null)
             {
@@ -174,7 +174,7 @@ namespace PL
             }
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Add_Click(object sender, RoutedEventArgs e)
         {
             try
             {

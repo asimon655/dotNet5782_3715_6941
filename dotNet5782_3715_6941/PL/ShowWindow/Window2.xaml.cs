@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace PL
 {
@@ -17,7 +19,7 @@ namespace PL
         private readonly List<object> pacads = new List<object>();
         private readonly BlApi.Ibl log;
         private readonly Page pageof;
-        private void Button_Click_Add(object sender, RoutedEventArgs e)
+        private void PopUpShow_Add(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -46,13 +48,13 @@ namespace PL
             }
 
         }
-        private void Button_Click_Show(object sender, RoutedEventArgs e)
+        private void PopUpShow_Show(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void PopUpShow(object sender, RoutedEventArgs e)
         {
             if (!(drn.ParcelTransfer is null))
             {
@@ -60,7 +62,7 @@ namespace PL
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void PopUpShow_1(object sender, RoutedEventArgs e)
         {
             if (!(drn.ParcelTransfer is null))
             {
@@ -68,7 +70,7 @@ namespace PL
             }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void PopUpShow_2(object sender, RoutedEventArgs e)
         {
             if (!(drn.ParcelTransfer is null))
             {
@@ -76,27 +78,27 @@ namespace PL
             }
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void PopUpShow_3(object sender, RoutedEventArgs e)
         {
             myPopup2.IsOpen = false;
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void PopUpShow_4(object sender, RoutedEventArgs e)
         {
             myPopup3.IsOpen = false;
         }
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
+        private void PopUpShow_5(object sender, RoutedEventArgs e)
         {
             myPopup1.IsOpen = false;
         }
 
-        private void Button_Click_6(object sender, RoutedEventArgs e)
+        private void PopUpShow_6(object sender, RoutedEventArgs e)
         {
             myPopup4.IsOpen = false;
         }
 
-        private void Button_Click_7(object sender, RoutedEventArgs e)
+        private void PopUpShow_7(object sender, RoutedEventArgs e)
         {
             myPopup0.IsOpen = false;
         }
@@ -105,7 +107,31 @@ namespace PL
         {
             try {
                 log.UpdateDrone(drn.Id, WCEB.Text);
-            
+
+                if (!File.Exists(PhotoAsync.makePath(drn.Model)))
+                {
+                    PhotoAsync.SaveFirstImageAsync(drn.Model).ContinueWith(x =>
+                    {
+                        if (x.Result)
+                        {
+                            Dispatcher.Invoke(() =>
+                            {
+                                Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
+                            });
+                        }
+                        else
+                            Dispatcher.Invoke(() => Photo0.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
+                    });
+                }
+                else
+                {
+                    try
+                    {
+                        Photo0.Source = new BitmapImage(new Uri(PhotoAsync.makePath(drn.Model)));
+                    }
+                    catch { }
+                }
+
             } catch(Exception err) {
                 MessageBox.Show(err.Message, "Error");
             

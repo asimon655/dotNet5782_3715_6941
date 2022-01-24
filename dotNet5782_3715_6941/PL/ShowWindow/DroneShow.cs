@@ -44,6 +44,8 @@ namespace PL
         }
         internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
         {
+            Photo1.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg"));
+            Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg"));
             if (!File.Exists(PhotoAsync.makePath(TargetId)))
             {
                 PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x =>
@@ -155,12 +157,12 @@ namespace PL
             simulator.RunWorkerCompleted += Worker_RunWorkerCompleted;
             simulator.WorkerReportsProgress = true;
             simulator.ProgressChanged += backgroundWorker1_ProgressChanged;
-            this.drn = drn;
+            this.drn = drn; 
             this.log = log;
             windowType = WindowType.show;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
-            DataContext = drn;
+       
             reset = action;
 
             if (!(drn.ParcelTransfer is null))
@@ -196,11 +198,7 @@ namespace PL
                 catch { }
             }
 
-
-            if (!(drn.ParcelTransfer is null))
-            {
-                MetaDataCstReset(Photo1, Photo2, drn.ParcelTransfer.Sender.id, drn.ParcelTransfer.Target.id);
-            }
+            Reset();
         }
 
 
@@ -307,6 +305,7 @@ namespace PL
                 }
 
             }
+         
             if (!(reset is null))
             {
                 reset();
@@ -316,10 +315,12 @@ namespace PL
         {
             try
             {
+               
                 log.BindParcelToDrone(drn.Id);
                 drn = log.GetDrone(drn.Id);
                 DataContext = drn;
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+                Reset();
             }
             catch (Exception err)
             {
@@ -341,6 +342,7 @@ namespace PL
                 drn = log.GetDrone(drn.Id);
                 DataContext = drn;
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+                Reset();
             }
             catch (Exception err)
             {
@@ -362,6 +364,7 @@ namespace PL
                 DataContext = drn;
 
                 ParcelOpsRFS(null);
+                Reset();
             }
             catch (Exception err)
             {
@@ -383,6 +386,7 @@ namespace PL
                 drn = log.GetDrone(drn.Id);
                 DataContext = drn;
                 ParcelOpsRFS(null);
+                Reset();
             }
             catch (Exception err)
             {
@@ -403,6 +407,7 @@ namespace PL
                 log.DroneReleaseCharge(drn.Id, double.Parse(TBREALSE.Text));
                 drn = log.GetDrone(drn.Id);
                 ParcelOpsRFS(null);
+                Reset();
             }
             catch (Exception err)
             {
@@ -440,7 +445,7 @@ namespace PL
         }
         private  void backgroundWorker1_ProgressChanged(object? sender, ProgressChangedEventArgs e)
         {
-            if (!Monitor.TryEnter(Lock)) return; 
+            if (!(Lock is null) && !Monitor.TryEnter(Lock)) return; 
             lock (Lock) { 
                 Reset(); //local reset
                 reset(); // activate reset by the father window5

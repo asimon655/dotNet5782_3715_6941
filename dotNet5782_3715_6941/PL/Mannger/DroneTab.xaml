@@ -149,7 +149,7 @@
 
                                             <Button Tag="{Binding Id}"  Width="50" Height="50"  Visibility="{Binding DroneStat , Converter={StaticResource DELDRN}  }"
                         VerticalAlignment="Center"
-                        Click="Button_Click_3"  Background="Transparent" BorderThickness="0" 
+                        Click="Delte_Click"  Background="Transparent" BorderThickness="0" 
                                                   >
 
                                                 <Viewbox Stretch="Fill">
@@ -234,7 +234,7 @@
                             <RowDefinition Height="4*" />
                             <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
-                        <Button  BorderBrush="Transparent" Grid.Row="1" Background="Transparent" Click="Button_Click_4">
+                        <Button  BorderBrush="Transparent" Grid.Row="1" Background="Transparent" Click="SmartSearch">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="38"/>
@@ -247,7 +247,7 @@
                         </Button>
                         
                         <Viewbox  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1">
-                            <TextBox  BorderBrush="White" BorderThickness="0" KeyDown="Button_Click_4"  Name="SmartTB">
+                            <TextBox  BorderBrush="White" BorderThickness="0" TextChanged="SmartSearch"  Name="SmartTB">
                             </TextBox>
                         </Viewbox>   
                      
@@ -409,14 +409,14 @@
                         <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="4*" />
                     </Grid.ColumnDefinitions>
-                    <Button  Click="Button_Click" Grid.Row="1" Grid.Column="0"  Background="HotPink" >Reset
+                    <Button  Click="Reset_Click" Grid.Row="1" Grid.Column="0"  Background="HotPink" >Reset
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="25,0,0,25"/>
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Click="Button_Click_2" Grid.Row="1" Grid.Column="1" Background="DeepPink">Add
+                    <Button Click="Add" Grid.Row="1" Grid.Column="1" Background="DeepPink">Add
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="0,25,25,0"/>

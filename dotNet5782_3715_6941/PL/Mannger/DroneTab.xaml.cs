@@ -139,6 +139,7 @@ namespace PL
 
         }
 
+        #region Clicks
         public void Reset()
         {
             //ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
@@ -147,7 +148,7 @@ namespace PL
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Reset_Click(object sender, RoutedEventArgs e)
         {
             Reset();
         }
@@ -166,7 +167,7 @@ namespace PL
             if (!((sender as ListView).SelectedItem is null))
             {
 
-                Window2  pg = new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), () => { reset(); Reset(); });
+                Window2 pg = new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), () => { reset(); Reset(); });
                 pg.Lock = this.Lock;
                 pg.Show();
             }
@@ -174,7 +175,7 @@ namespace PL
 
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Add(object sender, RoutedEventArgs e)
         {
             Window add = new Window2(dat, this);
             add.Closed += (sender, e) =>
@@ -235,17 +236,7 @@ namespace PL
             }
         }
 
-
-
-
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new Window2(dat, this).Show();
-
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Delte_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -265,7 +256,7 @@ namespace PL
             }
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void SmartSearch(object sender, RoutedEventArgs e)
         {
             ResultsOfSearch.ItemsSource = dat.SmartSearchDrone(SmartTB.Text);
         }
@@ -273,6 +264,7 @@ namespace PL
         private void ListOf_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }
+        } 
+        #endregion
     }
 }
