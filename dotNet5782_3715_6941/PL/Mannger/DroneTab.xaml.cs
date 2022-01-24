@@ -150,7 +150,7 @@ namespace PL
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            Reset();
+            fullReset();
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
