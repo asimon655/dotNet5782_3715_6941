@@ -532,7 +532,7 @@
                                     </GridView.ColumnHeaderContainerStyle>
 
                                     <GridViewColumn DisplayMemberBinding="{Binding Id}"  Header="Id" Width="auto"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.name}"  Header="Sender Name" Width="auto" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.name}"  Header="Target Name" Width="auto" />
                                     <GridViewColumn DisplayMemberBinding="{Binding ParentCustomer.id}"  Header="Sender id" Width="auto" />
                                     <GridViewColumn DisplayMemberBinding="{Binding Status}"  Header="Status" Width="auto"/>
                                     <GridViewColumn DisplayMemberBinding="{Binding Weight}"  Header="Weight" Width="auto" />

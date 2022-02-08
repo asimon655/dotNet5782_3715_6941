@@ -67,14 +67,15 @@ namespace BL
 
         private Customer Convert(DO.Customer costumer)
         {
+      
             return new Customer()
             {
                 Id = costumer.Id,
                 Loct = new Location(costumer.Longitude, costumer.Lattitude),
                 Name = costumer.Name,
                 Phone_Num = costumer.Phone,
-                FromClient = (from package in data.GetParcels(x => x.SenderId == costumer.Id) select (CustomerToParcelC(package, new CustomerInParcel() { id = costumer.Id, name = costumer.Name }))).ToList(),
-                ToClient = (from package in data.GetParcels(x => x.TargetId == costumer.Id) select (CustomerToParcelC(package, new CustomerInParcel() { id = costumer.Id, name = costumer.Name }))).ToList()
+                FromClient = (from package in data.GetParcels(x => x.SenderId == costumer.Id) select (CustomerToParcelC(package, new CustomerInParcel() { id = package.TargetId, name =data.GetCustomer(package.TargetId).Name }))).ToList(),
+                ToClient = (from package in data.GetParcels(x => x.TargetId == costumer.Id) select (CustomerToParcelC(package, new CustomerInParcel() { id = package.SenderId, name = data.GetCustomer(package.SenderId).Name }))).ToList()
             };
         }
 
