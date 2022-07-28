@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Mapsui.Utilities;
+using PL.Map;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Threading;
@@ -23,7 +26,9 @@ namespace PL
     {
         
 
-        internal object Lock ; 
+        internal object Lock ;
+        private const int CircleRadius = 5;
+        private readonly Mapsui.Providers.IFeature droneUI;  
         #region MetaDataReset
         private void Reset()
         {
@@ -41,6 +46,17 @@ namespace PL
             {
                 MetaDataCstReset(Photo1, Photo2, drn.ParcelTransfer.Sender.id, drn.ParcelTransfer.Target.id);
             }
+
+            Mapsui.Geometries.Point topLeft = drn.Current.ToPlPoint() + new Mapsui.Geometries.Point(-CircleRadius, CircleRadius);
+            Mapsui.Geometries.Point bottomRight = topLeft + new Mapsui.Geometries.Point(2 * CircleRadius, -2 * CircleRadius);
+            var bbox = new Mapsui.Geometries.BoundingBox(topLeft, bottomRight);
+            MyMapControl.Navigator.NavigateTo(bbox, ScaleMethod.Fit);
+            MyMapControl.Navigator.ZoomTo(CircleRadius * 2, 10);
+            MyMapControl.Refresh();
+            droneUI.Geometry = drn.Current.ToPlPoint();
+            MyMapControl.Refresh();
+
+
         }
         internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
         {
@@ -146,7 +162,9 @@ namespace PL
         private readonly Action reset;
         private readonly BackgroundWorker simulator;
         private bool exitPending = false;
+        private readonly Mapsui.Styles.Color DroneColor = Mapsui.Styles.Color.FromArgb(255, 240, 0, 240);
         private WindowType windowType;
+
 
         public Window2(BlApi.Ibl log, BO.Drone drn, Action? action = null)
         {
@@ -159,6 +177,18 @@ namespace PL
             simulator.ProgressChanged += backgroundWorker1_ProgressChanged;
             this.drn = drn; 
             this.log = log;
+            droneUI = MapHELP.CreateFeature(0.1, drn.Current, drn.Id, true, "\\PL\\Images\\drone-map.png"); 
+            MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
+            MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
+            Mapsui.Geometries.Point topLeft = drn.Current.ToPlPoint() + new Mapsui.Geometries.Point(-CircleRadius, CircleRadius);
+            Mapsui.Geometries.Point bottomRight = topLeft + new Mapsui.Geometries.Point(2 * CircleRadius, -2 * CircleRadius);
+            var bbox = new Mapsui.Geometries.BoundingBox(topLeft, bottomRight);
+            MyMapControl.Navigator.NavigateTo(bbox, ScaleMethod.Fit);
+            MyMapControl.Navigator.ZoomTo(CircleRadius * 2, 10);
+            var ly = new Mapsui.Layers.WritableLayer() { Name="Drone"};
+            ly.Add(droneUI);
+            MyMapControl.Refresh();
+            MyMapControl.Map.Layers.Add(ly);
             windowType = WindowType.show;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;

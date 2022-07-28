@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
+        xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark" xmlns:mapsui="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
         Title="Drones Detials " Height="450" Width="800"  Icon="..\Images\icon0.ico"  >
     <Window.Resources>
         <local:BatteryCRT x:Key="BatteryCRT"></local:BatteryCRT>
@@ -462,35 +462,7 @@
                                             <ColumnDefinition Width="{Binding ParcelTransfer  ,Converter={StaticResource Disappearer}}"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="*"/>
-
-
-                                            </Grid.RowDefinitions>
-                                            <Grid Grid.Row="0">
-                                                <Viewbox>
-                                                    <Label >
-                                                        Location
-                                                    </Label>
-
-
-                                                </Viewbox>
-                                            </Grid>
-                                            <Grid Grid.Row="1">
-                                                <Viewbox>
-                                                    <Label Content="{Binding Current.Lattitude}" >
-                                                    </Label>
-                                                </Viewbox>
-                                            </Grid>
-                                            <Grid Grid.Row="2">
-                                                <Viewbox>
-                                                    <Label Content="{Binding Current.Longitude}" >
-
-                                                    </Label>
-                                                </Viewbox>
-                                            </Grid>
+                                            <mapsui:MapControl Name="MyMapControl" Background="#2596be" ></mapsui:MapControl>
 
 
                                         </Grid>

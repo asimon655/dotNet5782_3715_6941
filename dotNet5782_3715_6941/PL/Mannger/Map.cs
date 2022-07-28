@@ -1,6 +1,7 @@
 ﻿using Mapsui.Layers;
 using Mapsui.Providers;
 using Mapsui.Styles;
+using PL.Map;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,23 +22,7 @@ namespace PL
 
 
         #region Internal Functions
-        #region Constans 
-        private const double Radius = 6378137;
-        private const double E = 0.0000000848191908426;
-        private const double D2R = Math.PI / 180;
-        private const double PiDiv4 = Math.PI / 4;
-        #endregion
-        internal static Mapsui.Geometries.Point FromLonLat(double lon, double lat) //converts from Lon,Lat to X,Y (Maps Ui uses X,Y and doesnt use Lon,Lat)
-        {
-            var lonRadians = D2R * lon;
-            var latRadians = D2R * lat;
-
-            var x = Radius * lonRadians;
-            //y=a×ln[tan(π/4+φ/2)×((1-e×sinφ)/(1+e×sinφ))^(e/2)]
-            var y = Radius * Math.Log(Math.Tan(PiDiv4 + latRadians * 0.5) / Math.Pow(Math.Tan(PiDiv4 + Math.Asin(E * Math.Sin(latRadians)) / 2), E));
-
-            return new Mapsui.Geometries.Point(x, y);
-        }
+       
         private static int? GetBitmapIdForEmbeddedResource(string imagePath)//creates BitMap on the RAM for the Photo 
         {
             int val;
@@ -157,7 +142,7 @@ namespace PL
             int[] StartsIndexes = new int[3] { 0, DronePoints.Count(), DronePoints.Count() + StationsPoints.Count() };
             return MovePoints(dat, ALLPOINTS, StartsIndexes);
         }
-        private static async Task<IFeature> CreateFeature(double scale, double Longitude, double Lattitude, int Id, bool FILL = false, string? path = null, string? Name = null)
+        public  static IFeature CreateFeature(double scale,BO.Location loct , int Id, bool FILL = false, string? path = null, string? Name = null)
         {
             Random rng = new Random();
             Mapsui.Geometries.Point pt;
@@ -165,7 +150,7 @@ namespace PL
             Mapsui.Styles.LabelStyle x;
             Mapsui.Styles.VectorStyle x2;
             Mapsui.Styles.Color BGColor;
-            pt = FromLonLat(Longitude, Lattitude); 
+            pt = loct.ToPlPoint(); 
 
             feature = new Mapsui.Providers.Feature { Geometry = pt };
             BGColor = Mapsui.Styles.Color.FromArgb(
@@ -199,7 +184,7 @@ namespace PL
 
                 if (!File.Exists(PhotoAsync.makePath(Name)))
                 {
-                    PhotoAsync.SaveFirstImageAsync(Name).ContinueWith(x => { if(x.Result)feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale)); }); 
+                     PhotoAsync.SaveFirstImageAsync(Name).ContinueWith(x => { if(x.Result)feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale)); }); 
                 }
                 else
                     feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
@@ -221,7 +206,7 @@ namespace PL
 
 
         }
-        internal static async Task DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
+        internal static void DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
         {
 
 
@@ -232,16 +217,11 @@ namespace PL
             for (int i = 0; i < points.Count(); i++)
             {
 
-                ly.Add(await CreateFeature(scale
-                    , points.Skip(i).First().Longitude,
-                    points.Skip(i).First().Lattitude,
+                ly.Add(CreateFeature(scale
+                    , points.Skip(i).First(),
                     ids.Skip(i).First(),
                     FILL, path,
                     (Names is null ? null : Names.Skip(i).First())
-
-
-
-
                     ));
 
             }
@@ -250,11 +230,11 @@ namespace PL
             MyMapControl.Map.Layers.Add(ly);
             MyMapControl.Refresh();
         }
-        internal static async Task ResetLoct(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.DroneList> NewLoct)
+        internal static  void  ResetLoct(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.DroneList> NewLoct)
         {
             for (int i = 0; i < NewLoct.Count(); i++)
             {
-                Mapsui.Geometries.Point tmp = FromLonLat(NewLoct.Skip(i).First().Loct.Longitude, NewLoct.Skip(i).First().Loct.Lattitude);
+                Mapsui.Geometries.Point tmp =NewLoct.Skip(i).First().Loct.ToPlPoint();
                 Mapsui.Geometries.Point point;
                 if (pointsMannger.TryGetValue(NewLoct.Skip(i).First().Id, out point))
                 {
@@ -263,9 +243,8 @@ namespace PL
                 }
                 else
                 {
-                    IFeature feature = await CreateFeature(0.45
-                    , NewLoct.Skip(i).First().Loct.Longitude,
-                    NewLoct.Skip(i).First().Loct.Lattitude,
+                    IFeature feature = CreateFeature(0.45
+                    , NewLoct.Skip(i).First().Loct,
                     NewLoct.Skip(i).First().Id,
                     false, null,
                     NewLoct.Skip(i).First().Model);

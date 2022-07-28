@@ -1,4 +1,5 @@
 ﻿using Mapsui.Utilities;
+using PL.Map;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,22 +30,23 @@ namespace PL
             IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
             IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
             IEnumerable<BO.Location>[] ALLPOINTSMOVED = MapHELP.SetPoints(dat);
-            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true).ContinueWith(x => Dispatcher.Invoke(() => { MyMapControl.Refresh(); })); ;
-            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[1], idStation, 0.25, "\\PL\\Images\\BASESTATION.png").ContinueWith(x => Dispatcher.Invoke(() => { MyMapControl.Refresh(); })); ;
-            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[0], ids, 0.45, null, false, Models).ContinueWith(x=>Dispatcher.Invoke(()=>{ MyMapControl.Refresh(); }) );
+            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
+            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[1], idStation, 0.25, "\\PL\\Images\\BASESTATION.png");
+            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[0], ids, 0.45, null, false, Models);
+            MyMapControl.Refresh(); 
             #endregion
         }
         internal async Task ResetLoct()
         {
             IEnumerable<BO.DroneList> NewLocts = await Task.Run(() => dat.GetDrones());
-            await MapHELP.ResetLoct(MyMapControl, NewLocts);
+             MapHELP.ResetLoct(MyMapControl, NewLocts);
 
 
 
         }
         private void ReturnHome(int Dur = 500)
         {
-            var bbox = new Mapsui.Geometries.BoundingBox(MapHELP.FromLonLat(34.732433, 31.987003), MapHELP.FromLonLat(34.988032, 32.166204));
+            var bbox = new Mapsui.Geometries.BoundingBox(new BO.Location(34.732433, 31.987003).ToPlPoint(), new BO.Location(34.988032, 32.166204).ToPlPoint());
             MyMapControl.Navigator.NavigateTo(bbox, ScaleMethod.Fit);
             MyMapControl.Navigator.ZoomTo(40, Dur);
             MyMapControl.Refresh();
@@ -64,13 +66,14 @@ namespace PL
         }
         private void ChangeOpacity(int index)
         {
-            if (MyMapControl.Map.Layers.Skip(index + 1).First().Opacity == 0)
+            index++; 
+            if (MyMapControl.Map.Layers.Skip(index ).First().Opacity == 0)
             {
-                MyMapControl.Map.Layers.Skip(index + 1).First().Opacity = 1;
+                MyMapControl.Map.Layers.Skip(index ).First().Opacity = 1;
             }
             else
             {
-                MyMapControl.Map.Layers.Skip(index + 1).First().Opacity = 0;
+                MyMapControl.Map.Layers.Skip(index ).First().Opacity = 0;
             }
 
             MyMapControl.Refresh();
