@@ -49,19 +49,26 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            try
+            if (MessageBox.Show("Do you want delte that station? this action is ireverseable ",
+"Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
 
-                int id = (int)(sender as Button).Tag;
-                dat.DeleteStation(id);
-                Reset();
-                reset();
+                try
+                {
 
+                    int id = (int)(sender as Button).Tag;
+                    dat.DeleteStation(id);
+                    Reset();
+                    reset();
+
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error");
+                }
             }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error");
-            }
+    
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

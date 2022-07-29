@@ -11,7 +11,7 @@ namespace Simulator
         private const int delay = 300;
 
         // speed in km/s
-        private const double speed = 0.3;
+        private const double speed = 0.25;
         private readonly BlApi.Ibl logic;
         private readonly Action refresh;
 

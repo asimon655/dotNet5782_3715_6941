@@ -238,22 +238,27 @@ namespace PL
 
         private void Delte_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (MessageBox.Show("Are you sure you want to delte this drone ? this action is ireverseable ",
+                "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
+                try
+                {
 
-                int id = (int)(sender as Button).Tag;
-                dat.DeleteDrone(id);
-                ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
-                fullReset();
-                Deltereset();
+                    int id = (int)(sender as Button).Tag;
+                    dat.DeleteDrone(id);
+                    ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
+                    fullReset();
+                    Deltereset();
 
 
 
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error");
+                }
             }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error");
-            }
+    
         }
 
         private void SmartSearch(object sender, RoutedEventArgs e)

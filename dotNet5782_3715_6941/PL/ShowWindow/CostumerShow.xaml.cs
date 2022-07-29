@@ -105,7 +105,8 @@ namespace PL
 
         private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelInCustomer).Id)).Show();
+            if(((sender as ListView).SelectedItem is BO.Parcel))
+                new ParcelShow(dat, dat.GetParcel(((sender as ListView).SelectedItem as BO.ParcelInCustomer).Id)).Show();
         }
 
         private void AddCst(object sender, RoutedEventArgs e)

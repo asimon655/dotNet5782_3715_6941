@@ -56,19 +56,25 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            try
+            if (MessageBox.Show("Do you want to delte this client ? this action is ireverseable ",
+"Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
+                try
+                {
 
-                int id = (int)(sender as Button).Tag;
-                dat.DeleteCustomer(id);
-                Reset();
-                reset();
+                    int id = (int)(sender as Button).Tag;
+                    dat.DeleteCustomer(id);
+                    Reset();
+                    reset();
 
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error");
+                }
             }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error");
-            }
+  
+     
         }
 
 

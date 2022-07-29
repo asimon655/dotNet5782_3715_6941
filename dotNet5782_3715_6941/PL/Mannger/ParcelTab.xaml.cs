@@ -61,19 +61,25 @@ namespace PL
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (MessageBox.Show("Are you sure you want to delte this parcel ? this action is ireverseable",
+"Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
+                try
+                {
 
-                int id = (int)(sender as Button).Tag;
-                dat.DeleteParcel(id);
-                Reset();
-                //reset();
+                    int id = (int)(sender as Button).Tag;
+                    dat.DeleteParcel(id);
+                    Reset();
+                    //reset();
 
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error");
+                }
             }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error");
-            }
+
+     
 
         }
 
