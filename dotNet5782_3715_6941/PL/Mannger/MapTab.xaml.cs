@@ -1,4 +1,7 @@
-﻿using Mapsui.Utilities;
+﻿using BruTile.Predefined;
+using BruTile.Web;
+using Mapsui.Layers;
+using Mapsui.Utilities;
 using PL.Map;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +60,18 @@ namespace PL
         {
 
             InitializeComponent();
-            MyMapControl.Map.Layers.Add(OpenStreetMap.CreateTileLayer());
+            //	https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png working normal 
+            // 	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png working  dark
+            //  https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png working bright
+            //  https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288wotking regular better then def 
+            //  https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288 old westy style 
+            //  
+            var tileSource = new HttpTileSource(new GlobalSphericalMercator(), "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", new[] { "a", "b", "c" }, name: "OpenStreetMap", userAgent: "OpenStreetMap in Mapsui");
+            var tileLayer = new TileLayer(tileSource)
+            {
+                Name = "OSM",
+            };
+            MyMapControl.Map.Layers.Add(tileLayer);
             MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
             ReturnHome(0);
 

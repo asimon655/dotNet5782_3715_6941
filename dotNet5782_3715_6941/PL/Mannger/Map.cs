@@ -167,8 +167,10 @@ namespace PL
                 HorizontalAlignment = LabelStyle.HorizontalAlignmentEnum.Left,
                 MaxWidth = 10,
                 WordWrap = LabelStyle.LineBreakMode.TailTruncation
+                
 
             };
+            
 
             if (FILL)
             {
@@ -183,14 +185,9 @@ namespace PL
                 pointsMannger.TryAdd(Id, pt);
 
                 if (!File.Exists(PhotoAsync.makePath(Name)))
-                {
                      PhotoAsync.SaveFirstImageAsync(Name).ContinueWith(x => { if(x.Result)feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale)); }); 
-                }
                 else
                     feature.Styles.Add(CreateSymbolStyle(PhotoAsync.makePath(Name), scale));
-
-
-
             }
             else //const Image 
             {

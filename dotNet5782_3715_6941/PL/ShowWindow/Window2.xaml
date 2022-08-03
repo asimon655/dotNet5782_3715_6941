@@ -79,38 +79,7 @@
                                             </Grid.ColumnDefinitions >
                                             <Grid Grid.Column="3">
 
-                                                <Grid Grid.Column="0">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="*"/>
-
-
-                                                    </Grid.RowDefinitions>
-                                                    <Grid Grid.Row="0">
-                                                        <Viewbox>
-                                                            <Label >
-                                                                Location
-                                                            </Label>
-                                                        </Viewbox>
-                                                    </Grid>
-                                                    <Grid Grid.Row="1">
-                                                        <Viewbox>
-                                                            <Label Content="{Binding ParcelTransfer.Pickup.Lattitude }" >
-                                                            </Label>
-                                                        </Viewbox>
-                                                    </Grid>
-                                                    <Grid Grid.Row="2">
-                                                        <Viewbox>
-                                                            <Label Content="{Binding ParcelTransfer.Pickup.Longitude }">
-
-                                                            </Label>
-                                                        </Viewbox>
-                                                    </Grid>
-
-
-                                                </Grid>
-
+                                                <Image Name="SenderImage"></Image>
 
 
                                             </Grid>
@@ -228,37 +197,7 @@
                                             </Grid.ColumnDefinitions >
                                             <Grid Grid.Column="3">
 
-                                                <Grid Grid.Column="0">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="*"/>
-
-
-                                                    </Grid.RowDefinitions>
-                                                    <Grid Grid.Row="0">
-                                                        <Viewbox>
-                                                            <Label >
-                                                                Location
-                                                            </Label>
-                                                        </Viewbox>
-                                                    </Grid>
-                                                    <Grid Grid.Row="1">
-                                                        <Viewbox>
-                                                            <Label  Content="{Binding ParcelTransfer.Dst.Lattitude}" >
-                                                            </Label>
-                                                        </Viewbox>
-                                                    </Grid>
-                                                    <Grid Grid.Row="2">
-                                                        <Viewbox>
-                                                            <Label Content="{Binding ParcelTransfer.Dst.Longitude }" >
-
-                                                            </Label>
-                                                        </Viewbox>
-                                                    </Grid>
-
-
-                                                </Grid>
+                                                <Image Name="GeterImage"></Image>
 
 
 

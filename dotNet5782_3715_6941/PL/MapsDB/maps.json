@@ -1,0 +1,26 @@
+{
+  "maps": [
+    {
+      "name": "John",
+      "link": "Doe",
+      "logo": "",
+      "bgColor": ""
+    },
+    {
+      "name": "John",
+      "link": "Doe",
+      "logo": "",
+      "bgColor": ""
+    },
+    {
+      "name": "John",
+      "link": "Doe",
+      "logo": "",
+      "bgColor" :  ""
+    }
+  ],
+  "main link ": "https://wiki.openstreetmap.org/wiki/Tile_servers"
+  
+
+
+}

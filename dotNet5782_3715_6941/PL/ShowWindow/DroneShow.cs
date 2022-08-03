@@ -26,7 +26,7 @@ namespace PL
     {
         
 
-        internal object Lock ;
+        internal object Lock = new object() ;
         private const int CircleRadius = 5;
         private readonly Mapsui.Providers.IFeature droneUI;  
         #region MetaDataReset
@@ -187,8 +187,14 @@ namespace PL
             MyMapControl.Navigator.ZoomTo(CircleRadius * 2, 10);
             var ly = new Mapsui.Layers.WritableLayer() { Name="Drone"};
             ly.Add(droneUI);
-            MyMapControl.Refresh();
+            //var droneUI2 = MapHELP.CreateFeature(0.1, drn.ParcelTransfer.Pickup, drn.ParcelTransfer.Id, true, @"\PL\Images\ClientToMenu.jpg");
+            //ly.Add(droneUI2);
             MyMapControl.Map.Layers.Add(ly);
+            MyMapControl.Refresh();
+
+
+
+
             windowType = WindowType.show;
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
@@ -198,6 +204,7 @@ namespace PL
             if (!(drn.ParcelTransfer is null))
             {
                 ParcelOpsRFS(log.GetParcel(drn.ParcelTransfer.Id));
+
             }
             else
             {
@@ -312,6 +319,8 @@ namespace PL
                     Opeation4.Background = System.Windows.Media.Brushes.Red;
                 }
 
+
+
             }
             else
             {
@@ -333,7 +342,12 @@ namespace PL
                     Opeation3.Background = System.Windows.Media.Brushes.MediumVioletRed;
                     Opeation3.IsEnabled = true;
                 }
-
+                LocationPhoto loctPhotoS = new LocationPhoto(drn.ParcelTransfer.Pickup, "https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288");
+                loctPhotoS.zoomLevel = 17;
+                SenderImage.Source = loctPhotoS.LoadImageSync();
+                LocationPhoto loctPhotoG = new LocationPhoto(drn.ParcelTransfer.Dst, "https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288");
+                loctPhotoG.zoomLevel = 17;
+                GeterImage.Source = loctPhotoG.LoadImageSync();
             }
          
             if (!(reset is null))
@@ -454,6 +468,7 @@ namespace PL
 
 
         #endregion
+
         #region Simulator 
         private void Simulator_Checked(object sender, RoutedEventArgs e)
         {
@@ -478,7 +493,7 @@ namespace PL
             if (!(Lock is null) && !Monitor.TryEnter(Lock)) return; 
             lock (Lock) { 
                 Reset(); //local reset
-                reset(); // activate reset by the father window5
+                //reset(); // activate reset by the father window5
                 
                 
             }

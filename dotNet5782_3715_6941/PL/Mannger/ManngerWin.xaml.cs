@@ -52,9 +52,9 @@ namespace PL
                 {
                     await Task.Delay(600);
                     Dispatcher.Invoke(() =>
-{
-    pcl.Reset();
-});
+                    {
+                        pcl.Reset();
+                    });
                 });
 
             }
@@ -64,9 +64,9 @@ namespace PL
                 {
                     await Task.Delay(600);
                     Dispatcher.Invoke(() =>
-{
-    Stat.Reset();
-});
+                    {
+                        Stat.Reset();
+                    });
                 });
 
             }
@@ -76,9 +76,9 @@ namespace PL
                 {
                     await Task.Delay(600);
                     Dispatcher.Invoke(() =>
-{
-    Client.Reset();
-});
+                    {
+                        Client.Reset();
+                    });
                 });
             }
 
@@ -157,7 +157,9 @@ namespace PL
                         pcl.WpfPlotPack2.Render();
                         pcl.WpfPlotPack3.Render();
                     }
-                    catch { }
+                    catch {
+                        MessageBox.Show("UnKnown error in plots happend!!!");
+                    }
                 }
                 if (y.ProgressPercentage == 2)
                 {
@@ -167,7 +169,9 @@ namespace PL
                         Drn.WpfPlot2.Render();
                         Drn.WpfPlot3.Render();
                     }
-                    catch { }
+                    catch {
+                        MessageBox.Show("UnKnown error in plots happend!!!");
+                    }
                 }
             };
             GraphTasker.RunWorkerAsync();
