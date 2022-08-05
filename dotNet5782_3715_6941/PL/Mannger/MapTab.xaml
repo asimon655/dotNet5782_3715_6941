@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:PL"
        xmlns:mapsui="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
       mc:Ignorable="d" 
+       xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
        Height="auto" Width="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
       Title="MapTab">
 
@@ -21,20 +22,108 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="20*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="20*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Button Grid.Column="0" Grid.Row="4" Background="LawnGreen" Click="Button_Click">
+            <ToggleButton Name ="Settings" Grid.Column="2" Grid.Row="0"   Background="#19F5DEB3"  >
+                <Image Source="..\Images\settings.png" Width="55" Height="55" Name="MapTheme"></Image>
+            </ToggleButton>
+            <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=Settings}" Placement="Relative"  
+            PopupAnimation="Slide" >
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Label Content="Menu: Map Chooser" FontSize="15" HorizontalAlignment="Left" Foreground="Gray"></Label>
+            
+                        
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#FF508EF5" Height="400" Width="500" >
+                        <ListView Name="Maps" MouseDoubleClick="Maps_MouseDoubleClick">
+
+                            <ListView.View  >
+
+                                <GridView     AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
+
+
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=name}" Header="Name" Width="auto" />
+
+                                    <GridViewColumn Header="bg color ">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Grid  Background="{Binding Path=bgColor}" Height="15"  Width="15" ></Grid>
+
+
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+
+                                    <GridViewColumn Header=" is heavy?">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox  IsChecked="{Binding Path=heavy}" IsHitTestVisible="false"></CheckBox>
+
+
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=description}" x:Name="description" Header="description" Width="auto"  />
+
+                                    <GridView.ColumnHeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Border BorderThickness="0,0,0,1" BorderBrush="#FF212529" Background="#FF212529">
+                                                            <TextBlock x:Name="ContentHeader" Text="{TemplateBinding Content}" Padding="5,5,5,0" Width="{TemplateBinding Width}" TextAlignment="Center" />
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="OverridesDefaultStyle" Value="True" />
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="BorderBrush" Value="#FF212529" />
+                                            <Setter Property="Background" Value="#FF212529" />
+                                            <Setter Property="Foreground" Value="White" />
+                                            <Setter Property="FontWeight" Value="Bold" />
+
+                                        </Style>
+                                    </GridView.ColumnHeaderContainerStyle>
+
+                                </GridView>
+
+                            </ListView.View>
+
+
+
+
+
+
+                        </ListView>
+
+                    </Grid>
+                </Grid>
+               
+            </Popup>
+
+            <Button Grid.Column="0" Grid.Row="5" Background="LawnGreen" Click="Button_Click">
                 <Viewbox>
                     <Label>H</Label>
                 </Viewbox>
             </Button>
-            <ToggleButton Click="OpcL1" Grid.Row="3">
+            <ToggleButton Tag="2" Click="OpcL" Grid.Row="4">
                 <Viewbox>
                     <Label>Drn</Label>
                 </Viewbox>
@@ -50,7 +139,7 @@
                     </Style>
                 </ToggleButton.Style>
             </ToggleButton>
-            <ToggleButton Click="OpcL2" Grid.Row="2">
+            <ToggleButton Tag="1" Click="OpcL" Grid.Row="3">
                 <Viewbox>
                     <Label>ST</Label>
                 </Viewbox>
@@ -66,7 +155,7 @@
                     </Style>
                 </ToggleButton.Style>
             </ToggleButton>
-            <ToggleButton Click="OpcL3" Grid.Row="1">
+            <ToggleButton Tag="0" Click="OpcL" Grid.Row="2">
                 <Viewbox>
                     <Label>Cst</Label>
                 </Viewbox>

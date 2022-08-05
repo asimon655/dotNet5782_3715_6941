@@ -344,10 +344,10 @@ namespace PL
                 }
                 LocationPhoto loctPhotoS = new LocationPhoto(drn.ParcelTransfer.Pickup, "https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288");
                 loctPhotoS.zoomLevel = 17;
-                SenderImage.Source = loctPhotoS.LoadImageSync();
+                loctPhotoS.loadImageAsync().ContinueWith((x) => Dispatcher.Invoke(() =>SenderImage.Source = x.Result )) ;
                 LocationPhoto loctPhotoG = new LocationPhoto(drn.ParcelTransfer.Dst, "https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288");
                 loctPhotoG.zoomLevel = 17;
-                GeterImage.Source = loctPhotoG.LoadImageSync();
+                loctPhotoG.loadImageAsync().ContinueWith((x) => Dispatcher.Invoke(() => GeterImage.Source = x.Result));
             }
          
             if (!(reset is null))

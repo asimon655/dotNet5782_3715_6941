@@ -14,54 +14,16 @@ namespace PL.Map
     {
         BO.Location photoLocation;
         public BO.Location location { get => photoLocation; }
-
-        string mapLink;
-
-        public string map { get => mapLink; }
-
-         Dictionary<string, string> tokens;
+        public string map { get; set;  }
         public int zoomLevel { get; set;  }
-
-        public string mapParsed
-        {
-
-            get
-            {
-                TileLoct tileLoct = location.ToTileLoct(zoomLevel);
-                tokens = new Dictionary<string, string> {
-
-                { "{x}", tileLoct.x.ToString() },
-                { "{y}", tileLoct.y.ToString()},
-                { "{z}",tileLoct.z.ToString() } ,
-                { "{s}" , "a" }
-                 
-            };
-                var r = new Regex(string.Join("|", tokens.Keys.Select(Regex.Escape)));
-                var me = new MatchEvaluator(m => tokens[m.Value]);
-
-                return r.Replace(mapLink, me); ;
-            }
-
-        }
         public LocationPhoto(BO.Location loc, String MapLink)
         {
             this.photoLocation = loc;
-            mapLink = MapLink; 
-   
-
-        }
-                       
-        private byte[] downloadPhotosync()
+            map= MapLink; 
+        }                   
+        public  async Task<BitmapImage> loadImageAsync()
         {
-
-            WebClient client = new WebClient();
-            byte[] data = client.DownloadData(mapParsed);
-            return data ;
-        }
-
-        public  BitmapImage LoadImageSync()
-        {
-            byte [] imageData = downloadPhotosync();
+            byte [] imageData =  await photoLocation.getLoactionPhoto(map,zoomLevel);
             if (imageData == null || imageData.Length == 0) return null;
             var image = new BitmapImage();
             using (var mem = new MemoryStream(imageData))
@@ -77,18 +39,6 @@ namespace PL.Map
             image.Freeze();
             return image;
         }
-
-
-
-        public  class TileLoct { //PDS - PASSIVE DATA STRUCTRE 
-
-            public int x;
-            public int y;
-            public int z; 
-        
-        }
-
-
     }
 
   

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Mannger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,8 @@ namespace PL
         private readonly BlApi.Ibl dat;
         private readonly bool works = false;
         #endregion
-        public Action reset;
+        public event updateReset resetData; 
+
         public void Reset()
         {
 
@@ -54,7 +56,7 @@ namespace PL
             add.Closed += (sender, e) =>
             {
                 Reset();
-                reset();
+                resetData();
             };
             add.Show();
         }

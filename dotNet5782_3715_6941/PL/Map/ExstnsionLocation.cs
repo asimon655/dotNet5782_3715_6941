@@ -31,20 +31,6 @@ namespace PL.Map
         }
 
 
-        public static LocationPhoto.TileLoct ToTileLoct(this BO.Location loct ,int zoomSize )
-        {
-            Func<double,double> toRad = (double deg) => ((deg % 360) / 180 * Math.PI);
-            LocationPhoto.TileLoct res = new LocationPhoto.TileLoct();
-            int n = (int)Math.Pow(2,zoomSize);
-            res.x = (int)(n * ((loct.Longitude+ 180) / 360));
-            res.y= (int)(n * (1 - (Math.Log(Math.Tan(toRad(loct.Lattitude)) + 1/Math.Cos(toRad(loct.Lattitude))) / Math.PI)) / 2);
-            res.z = zoomSize; 
-            
-            return res ; 
-
-
-        }
-
 
 
     }

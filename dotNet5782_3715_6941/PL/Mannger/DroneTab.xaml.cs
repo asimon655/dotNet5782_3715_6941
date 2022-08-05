@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Mannger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,8 +41,14 @@ namespace PL
         private readonly BlApi.Ibl dat;
         private readonly List<CheckBoxStatus> predStat;
         #endregion
-        public Action reset;
-        public Action Deltereset;
+
+        #region events
+        public event updateReset resetDataUpdate;
+        public event updateReset resetDataDelete;
+        #endregion
+
+
+     
         object Lock;
         public DroneTab(BlApi.Ibl dat)
         {
@@ -167,7 +174,7 @@ namespace PL
             if (!((sender as ListView).SelectedItem is null))
             {
 
-                Window2 pg = new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), () => { reset(); Reset(); });
+                Window2 pg = new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), () => { resetDataUpdate(); Reset(); });
                 pg.Lock = this.Lock;
                 pg.Show();
             }
@@ -181,7 +188,7 @@ namespace PL
             add.Closed += (sender, e) =>
             {
                 fullReset();
-                reset();
+                resetDataUpdate();
             };
             add.Show();
         }
@@ -248,7 +255,7 @@ namespace PL
                     dat.DeleteDrone(id);
                     ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
                     fullReset();
-                    Deltereset();
+                    resetDataDelete();
 
 
 

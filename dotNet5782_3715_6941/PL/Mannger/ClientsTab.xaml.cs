@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Mannger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,9 @@ namespace PL
         #region Fields 
         private readonly BlApi.Ibl dat;
         #endregion
-        public Action reset;
+     
+        public event updateReset resetData;
+
         public void Reset()
         {
             #region List Initialize 
@@ -49,7 +52,7 @@ namespace PL
             add.Closed += (sender, e) =>
             {
                 Reset();
-                reset();
+                resetData();
             };
             add.Show();
         }
@@ -65,7 +68,7 @@ namespace PL
                     int id = (int)(sender as Button).Tag;
                     dat.DeleteCustomer(id);
                     Reset();
-                    reset();
+                    resetData();
 
                 }
                 catch (Exception err)

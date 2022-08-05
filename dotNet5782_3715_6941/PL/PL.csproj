@@ -24,12 +24,14 @@
     <None Remove="Images\Plus.png" />
     <None Remove="Images\reset.jpg" />
     <None Remove="Images\SearchIcon.png" />
+    <None Remove="Images\settings.png" />
     <None Remove="Images\StaionToList.jpg" />
     <None Remove="Images\THWAY.png" />
     <None Remove="Images\TWAY.png" />
     <None Remove="Images\user.png" />
     <None Remove="Images\v.png" />
     <None Remove="Images\WMTB.png" />
+    <None Remove="MapsDB\maps.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +81,9 @@
     <Content Include="Images\SearchIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\StaionToList.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -95,6 +100,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\WMTB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapsDB\maps.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

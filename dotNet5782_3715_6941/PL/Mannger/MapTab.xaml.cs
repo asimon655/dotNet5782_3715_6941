@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace PL
 {
@@ -16,6 +17,10 @@ namespace PL
     /// </summary>
     public partial class MapTab : Page
     {
+
+        private readonly BlApi.Ibl dat;
+
+        #region ResetFunctions
         public void Reset()
         {
 
@@ -36,17 +41,21 @@ namespace PL
             MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
             MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[1], idStation, 0.25, "\\PL\\Images\\BASESTATION.png");
             MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[0], ids, 0.45, null, false, Models);
-            MyMapControl.Refresh(); 
+            MyMapControl.Refresh();
             #endregion
         }
+
         internal async Task ResetLoct()
         {
             IEnumerable<BO.DroneList> NewLocts = await Task.Run(() => dat.GetDrones());
-             MapHELP.ResetLoct(MyMapControl, NewLocts);
+            MapHELP.ResetLoct(MyMapControl, NewLocts);
 
 
 
         }
+        #endregion
+
+
         private void ReturnHome(int Dur = 500)
         {
             var bbox = new Mapsui.Geometries.BoundingBox(new BO.Location(34.732433, 31.987003).ToPlPoint(), new BO.Location(34.988032, 32.166204).ToPlPoint());
@@ -55,29 +64,28 @@ namespace PL
             MyMapControl.Refresh();
         }
 
-        private readonly BlApi.Ibl dat;
         public MapTab(BlApi.Ibl dat)
         {
 
             InitializeComponent();
-            //	https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png working normal 
-            // 	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png working  dark
-            //  https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png working bright
-            //  https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288wotking regular better then def 
-            //  https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288 old westy style 
-            //  
-            var tileSource = new HttpTileSource(new GlobalSphericalMercator(), "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", new[] { "a", "b", "c" }, name: "OpenStreetMap", userAgent: "OpenStreetMap in Mapsui");
-            var tileLayer = new TileLayer(tileSource)
-            {
-                Name = "OSM",
-            };
-            MyMapControl.Map.Layers.Add(tileLayer);
-            MyMapControl.Map.BackColor = Mapsui.Styles.Color.FromArgb(255, 171, 210, 223);
+
+            ExestionsionMap.getMapDBObject().ContinueWith(x => Dispatcher.Invoke( ()=> Maps.ItemsSource = x.Result.maps ) );
+
+
+            Task task = MyMapControl.Map.TaskLoadTheme(
+                (object obj)=> Dispatcher.Invoke(() => {
+                    MyMapControl.Refresh(); 
+                } )
+            ); // we load it in it is own time , no pressure 
+         
+
             ReturnHome(0);
 
             this.dat = dat;
+   
             Reset();
         }
+
         private void ChangeOpacity(int index)
         {
             index++; 
@@ -94,23 +102,29 @@ namespace PL
 
 
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ReturnHome();
 
         }
-        private void OpcL1(object sender, RoutedEventArgs e)
+
+        private void OpcL(object sender, RoutedEventArgs e)
         {
-            ChangeOpacity(2);
-        }
-        private void OpcL2(object sender, RoutedEventArgs e)
-        {
-            ChangeOpacity(1);
-        }
-        private void OpcL3(object sender, RoutedEventArgs e)
-        {
-            ChangeOpacity(0);
+            ChangeOpacity(int.Parse((sender as ToggleButton).Tag.ToString()));
         }
 
+        private void Maps_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+            Task task = MyMapControl.Map.TaskLoadTheme(  
+                  (object obj) => Dispatcher.Invoke(() => {
+                      MyMapControl.Refresh();
+                  }), ((sender as ListView).SelectedItem as MapsDBObject.MapObject).name
+
+              );
+            task.ContinueWith(t => MessageBox.Show("Map Loaded"));
+            Settings.IsChecked = false;
+        }
     }
 }

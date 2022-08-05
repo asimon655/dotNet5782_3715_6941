@@ -104,11 +104,11 @@ namespace PL
 
 
 
-            Drn.Deltereset = () => { Map.Reset(); };
-            Drn.reset = () => { ResetByWindow(); };
-            Client.reset = () => { ResetByWindow(); };
-            pcl.reset = () => { ResetByWindow(); };
-            Stat.reset = () => { ResetByWindow(); };
+            Drn.resetDataDelete += () => { Map.Reset(); };
+            Drn.resetDataUpdate += () => { ResetByWindow(); };
+            Client.resetData += () => { ResetByWindow(); };
+            pcl.resetData += () => { ResetByWindow(); };
+            Stat.resetDataDelete += () => { ResetByWindow(); };
             DroneFrame.NavigationService.Navigate(Drn);
             ParcelFrame.NavigationService.Navigate(pcl);
             MapFrame.NavigationService.Navigate(Map);
