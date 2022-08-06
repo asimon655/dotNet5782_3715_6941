@@ -1,4 +1,8 @@
-﻿using System;
+﻿using PL.Map;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -105,6 +109,28 @@ namespace PL
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return (value is null ? new GridLength(0, GridUnitType.Star) : new GridLength(1, GridUnitType.Star));
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+    public class MapPreviewConvertor  : IValueConverter
+    {
+        public  object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+    
+            var tokens = new Dictionary<string, string> {
+
+                { "{x}", "0" },
+                { "{y}", "0" },
+                { "{z}", "0" },
+                { "{s}", "a" }
+            };//preview defaults 
+            var r = new Regex(string.Join("|", tokens.Keys.Select(Regex.Escape)));
+            var me = new MatchEvaluator(m => tokens[m.Value]);
+            return (value is string @link ? r.Replace(@link, me) : @"../Images/NoImage.jpg"); 
         }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

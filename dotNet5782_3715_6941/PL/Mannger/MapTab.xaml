@@ -9,7 +9,9 @@
        xmlns:wpfspark="clr-namespace:WPFSpark;assembly=WPFSpark"
        Height="auto" Width="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
       Title="MapTab">
-
+    <Page.Resources>
+        <local:MapPreviewConvertor x:Key="Preview"></local:MapPreviewConvertor>
+    </Page.Resources>
     <Grid>
        
         <Border 
@@ -56,6 +58,15 @@
                                 <GridView     AllowsColumnReorder="true" ColumnHeaderToolTip="Employee Information"  >
 
 
+                                    <GridViewColumn Header="Preview">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Width="50" Height="50" Source="{Binding Path=link, Converter={StaticResource Preview}}"></Image>
+
+
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=name}" Header="Name" Width="auto" />
 
                                     <GridViewColumn Header="bg color ">
