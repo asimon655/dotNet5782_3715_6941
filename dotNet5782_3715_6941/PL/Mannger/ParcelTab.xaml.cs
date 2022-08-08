@@ -153,23 +153,23 @@ namespace PL
             {
                 return;
             }
-
+            // launch all and only after wait for results  => much faster 
             Task? task1_3 = null;
             Task? task2_3 = null;
             Task? task3_3 = null;
             if (parcelstat.Length != 0)
             {
-                task1_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.ParcelStatus>(WpfPlotPack1, parcelstat));
+                task1_3 = Task.Run(() => WpfPlotPack1.CreateDountPie<BO.ParcelStatus>(parcelstat));
             }
 
             if (WeightStat.Length != 0)
             {
-                task2_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.WeightCategories>(WpfPlotPack2, WeightStat));
+                task2_3 = Task.Run(() => WpfPlotPack2.CreateDountPie<BO.WeightCategories>(WeightStat));
             }
 
             if (PrioStat.Length != 0)
             {
-                task3_3 = Task.Run(() => ScottPlotHELP.CreateDountPie<BO.Priorities>(WpfPlotPack3, PrioStat));
+                task3_3 = Task.Run(() => WpfPlotPack3.CreateDountPie<BO.Priorities>(PrioStat));
             }
 
             if (!(task1_3 is null))

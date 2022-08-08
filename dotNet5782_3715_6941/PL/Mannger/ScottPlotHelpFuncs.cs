@@ -10,7 +10,7 @@ namespace PL
     public static class ScottPlotHELP
     {
         #region ScottPlotsFunctions
-        internal static void createModelsBar(ScottPlot.WpfPlot Bar, double[] pos, string[] names, double[] vals)
+        internal static void createModelsBar(this ScottPlot.WpfPlot Bar, double[] pos, string[] names, double[] vals)
         {
             Bar.Plot.Clear();
             Bar.Plot.AddBar(vals, pos, ColorTranslator.FromHtml("#6600cc"));
@@ -20,7 +20,7 @@ namespace PL
 
 
         }
-        internal static void CreateSingleGauge<T>(ScottPlot.WpfPlot Gauge, double[] values)
+        internal static void CreateSingleGauge<T>(this ScottPlot.WpfPlot Gauge, double[] values)
         {
 
             Gauge.Plot.Clear();
@@ -34,7 +34,7 @@ namespace PL
 
 
         }
-        internal static void CreateDountPie<T>(ScottPlot.WpfPlot Pie, double[] values)
+        internal static void CreateDountPie<T>(this ScottPlot.WpfPlot Pie, double[] values)
         {
             Pie.Plot.Clear();
             string[] labels = Enum.GetNames(typeof(T));
@@ -79,7 +79,7 @@ namespace PL
 
 
         }
-        internal static void ClearGraph(ScottPlot.WpfPlot graph)
+        internal static void ClearGraph(this ScottPlot.WpfPlot graph)
         {
             graph.Plot.Clear();
 

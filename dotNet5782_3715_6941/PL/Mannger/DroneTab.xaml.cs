@@ -108,9 +108,9 @@ namespace PL
             BO.DronesModelsStats dronesStats = await Task.Run(() => dat.GetDronesModelsStats());
             if (dronesStats.names.Length != 0 && dronesStats.vals.Length != 0 && dronesStats.pos.Length != 0)
             {
-                ScottPlotHELP.createModelsBar(WpfPlot2, dronesStats.pos, dronesStats.names, dronesStats.vals);
-                ScottPlotHELP.CreateDountPie<BO.WeightCategories>(WpfPlot1, await Task.Run(() => dat.GetDronesWeightsStats()));
-                ScottPlotHELP.CreateDountPie<BO.DroneStatuses>(WpfPlot3, await Task.Run(() => dat.GetDronesStatusesStats()));
+                WpfPlot2.createModelsBar(dronesStats.pos, dronesStats.names, dronesStats.vals);
+                WpfPlot1.CreateDountPie<BO.WeightCategories>(await Task.Run(() => dat.GetDronesWeightsStats()));
+                WpfPlot3.CreateDountPie<BO.DroneStatuses>(await Task.Run(() => dat.GetDronesStatusesStats()));
             }
             #endregion
 

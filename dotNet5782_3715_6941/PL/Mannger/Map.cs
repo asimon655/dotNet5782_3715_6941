@@ -53,46 +53,7 @@ namespace PL
 
 
         }
-        private static IEnumerable<BO.Location>[] MovePoints(BlApi.Ibl dat, IEnumerable<BO.Location> pointsToDraw, int[] StartIndexes)//If there any collisions it moves the points 
-        {
-            
-            List<BO.Location> pointsonce = new List<BO.Location>();
-            {
-                int i = 0;
-                foreach (var loct in pointsToDraw)
-                {
-                    if (pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude) > 1)
-                    {
-                        pointsonce.Add(new BO.Location(
-                            loct.Longitude + 0.0001 * pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude)
-                            , loct.Lattitude + 0.0001 * pointsToDraw.Skip(i).Count(x => x.Lattitude == loct.Lattitude && loct.Longitude == x.Longitude)
-                            ));
-                    }
-                    else
-                    {
-                        pointsonce.Add(new BO.Location(loct.Longitude, loct.Lattitude));
-                    }
-
-                    i++;
-
-                }
-            }
-            IEnumerable<BO.Location>[] ReturnVal = new IEnumerable<BO.Location>[StartIndexes.Length];
-            for (int i = 0; i < StartIndexes.Length; i++)
-            {
-                if (i == (StartIndexes.Length - 1))
-                {
-                    ReturnVal[i] = pointsonce.GetRange(StartIndexes[i], pointsToDraw.Count() - StartIndexes[i]);
-                }
-                else
-                {
-                    ReturnVal[i] = pointsonce.GetRange(StartIndexes[i], StartIndexes[i + 1] - StartIndexes[i]);
-                }
-            }
-            return ReturnVal;
-
-
-        }
+        
         private static SymbolStyle CreateSymbolStyle(string embeddedResourcePath, double ? scale)//creates Image(SYMBOL) to add to the Feature List of the point 
         {
        
@@ -116,32 +77,7 @@ namespace PL
         #endregion
 
         #region MapTabFuncs
-        internal static IEnumerable<BO.Location>[] SetPoints(BlApi.Ibl dat)
-        {
-            IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
-            IEnumerable<int> idStation = from stat in dat.GetStations() select stat.Id;
-            IEnumerable<BO.Location> DronePoints = from drn in dat.GetDrones() select drn.Loct;
-            IEnumerable<BO.Location> StationsPoints = from statID in idStation select dat.GetStation(statID).LoctConstant;
-            IEnumerable<BO.Location> UserPoints = from userID in idUser select dat.GetCostumer(userID).Loct;
-            List<BO.Location> ALLPOINTS = new List<BO.Location>();
-            foreach (var x in DronePoints)
-            {
-                ALLPOINTS.Add(x);
-            }
-
-            foreach (var x in StationsPoints)
-            {
-                ALLPOINTS.Add(x);
-            }
-
-            foreach (var x in UserPoints)
-            {
-                ALLPOINTS.Add(x);
-            }
-
-            int[] StartsIndexes = new int[3] { 0, DronePoints.Count(), DronePoints.Count() + StationsPoints.Count() };
-            return MovePoints(dat, ALLPOINTS, StartsIndexes);
-        }
+       
         public  static IFeature CreateFeature(double scale,BO.Location loct , int Id, bool FILL = false, string? path = null, string? Name = null)
         {
             Random rng = new Random();

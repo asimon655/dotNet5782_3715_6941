@@ -21,38 +21,18 @@ namespace PL
         private readonly BlApi.Ibl dat;
 
         #region ResetFunctions
+
         public void Reset()
         {
-
-            #region Remove all Layers 
-            foreach (var layer in MyMapControl.Map.Layers.Skip(1))
-            {
-                MyMapControl.Map.Layers.Remove(layer);
-
-            }
-            #endregion
-            #region Map Initialize 
-
-            IEnumerable<int> idUser = from user in dat.GetCustomers() select user.Id;
-            IEnumerable<int> idStation = from stat in dat.GetStations() select stat.Id;
-            IEnumerable<int> ids = from drn in dat.GetDrones() select drn.Id;
-            IEnumerable<string> Models = from drn in dat.GetDrones() select drn.Model;
-            IEnumerable<BO.Location>[] ALLPOINTSMOVED = MapHELP.SetPoints(dat);
-            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[2], idUser, 0.1, "\\PL\\Images\\user.png", true);
-            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[1], idStation, 0.25, "\\PL\\Images\\BASESTATION.png");
-            MapHELP.DrawPointsOnMap(MyMapControl, ALLPOINTSMOVED[0], ids, 0.45, null, false, Models);
             MyMapControl.Refresh();
-            #endregion
         }
 
         internal async Task ResetLoct()
         {
             IEnumerable<BO.DroneList> NewLocts = await Task.Run(() => dat.GetDrones());
-            MapHELP.ResetLoct(MyMapControl, NewLocts);
-
-
-
+            await Task.Run(() => MapHELP.ResetLoct(MyMapControl, NewLocts));
         }
+
         #endregion
 
 
@@ -82,7 +62,12 @@ namespace PL
             ReturnHome(0);
 
             this.dat = dat;
-   
+            IEnumerable<BO.DroneList> drones = dat.GetDrones();
+            IEnumerable<BO.CustomerList> costumers = dat.GetCustomers();
+            IEnumerable<BO.StationList> station = dat.GetStations();
+            MapHELP.DrawPointsOnMap(MyMapControl, costumers.Select(cst => dat.GetCostumer(cst.Id).Loct), costumers.Select(cst => cst.Id), 0.1, "\\PL\\Images\\user.png", true);
+            MapHELP.DrawPointsOnMap(MyMapControl, station.Select(stt => dat.GetStation(stt.Id).LoctConstant), station.Select(stt => stt.Id), 0.25, "\\PL\\Images\\BASESTATION.png");
+            MapHELP.DrawPointsOnMap(MyMapControl, drones.Select(drn => drn.Loct), drones.Select(drn => drn.Id), 0.45, null, false, drones.Select(drn => drn.Model));
             Reset();
         }
 
