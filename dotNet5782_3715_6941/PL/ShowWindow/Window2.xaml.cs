@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media.Imaging;
 
 namespace PL
@@ -19,6 +20,7 @@ namespace PL
         private readonly List<object> pacads = new List<object>();
         private readonly BlApi.Ibl log;
         private readonly Page pageof;
+
         private void PopUpShow_Add(object sender, RoutedEventArgs e)
         {
             try
@@ -48,6 +50,7 @@ namespace PL
             }
 
         }
+
         private void PopUpShow_Show(object sender, RoutedEventArgs e)
         {
             Close();
@@ -78,30 +81,12 @@ namespace PL
             }
         }
 
-        private void PopUpShow_3(object sender, RoutedEventArgs e)
+        private void PopUpShow_gen(object sender, RoutedEventArgs e)
         {
-            myPopup2.IsOpen = false;
+            string varName = "myPopup" + (sender as Button).Tag;
+            (this.FindName(varName) as Popup).IsOpen = false;   
         }
 
-        private void PopUpShow_4(object sender, RoutedEventArgs e)
-        {
-            myPopup3.IsOpen = false;
-        }
-
-        private void PopUpShow_5(object sender, RoutedEventArgs e)
-        {
-            myPopup1.IsOpen = false;
-        }
-
-        private void PopUpShow_6(object sender, RoutedEventArgs e)
-        {
-            myPopup4.IsOpen = false;
-        }
-
-        private void PopUpShow_7(object sender, RoutedEventArgs e)
-        {
-            myPopup0.IsOpen = false;
-        }
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {

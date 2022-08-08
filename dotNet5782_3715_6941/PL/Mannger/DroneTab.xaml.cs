@@ -174,7 +174,8 @@ namespace PL
             if (!((sender as ListView).SelectedItem is null))
             {
 
-                Window2 pg = new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id), () => { resetDataUpdate(); Reset(); });
+                Window2 pg = new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id));
+                pg.reset += (obj) => { resetDataUpdate(); Reset(); };
                 pg.Lock = this.Lock;
                 pg.Show();
             }

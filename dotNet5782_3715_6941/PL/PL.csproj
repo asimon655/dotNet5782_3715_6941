@@ -136,4 +136,10 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="PO\" />
+    <Folder Include="Styles\" />
+  </ItemGroup>
+
 </Project>

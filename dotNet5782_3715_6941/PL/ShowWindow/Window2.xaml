@@ -720,7 +720,7 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Bind">Confirm</Button>
-                                                            <Button   Click="PopUpShow_7" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button Tag="0"  Click="PopUpShow_gen" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -759,7 +759,7 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="PickUp">Confirm</Button>
-                                                            <Button   Click="PopUpShow_3" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button  Tag="2" Click="PopUpShow_gen" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -799,7 +799,7 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Deliver">Confirm</Button>
-                                                            <Button   Click="PopUpShow_4" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button  Tag="3" Click="PopUpShow_gen" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -847,7 +847,7 @@
                                                             <ColumnDefinition Width="2*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="1" Grid.Column="1" Click="Charge">Confirm</Button>
-                                                            <Button   Click="PopUpShow_5" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button Tag="1"  Click="PopUpShow_gen" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>
@@ -888,7 +888,7 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <Button Grid.Row="3" Grid.Column="1" Click="Realse">Confirm</Button>
-                                                            <Button   Click="PopUpShow_6" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
+                                                            <Button  Tag="4" Click="PopUpShow_gen" Grid.Column="2"  BorderBrush="Black" BorderThickness="3">
 
                                                                 <Viewbox>
                                                                     <Label Content="X" FontWeight="Bold"/>

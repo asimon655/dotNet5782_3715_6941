@@ -1,5 +1,6 @@
 ﻿using Mapsui.Utilities;
 using PL.Map;
+using PL.ShowWindow;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -159,14 +160,14 @@ namespace PL
 
         #region DroneShow
         private BO.Drone drn;
-        private readonly Action reset;
+        public event notifyDroneListRefresh reset;
         private readonly BackgroundWorker simulator;
         private bool exitPending = false;
         private readonly Mapsui.Styles.Color DroneColor = Mapsui.Styles.Color.FromArgb(255, 240, 0, 240);
         private WindowType windowType;
 
 
-        public Window2(BlApi.Ibl log, BO.Drone drn, Action? action = null)
+        public Window2(BlApi.Ibl log, BO.Drone drn)
         {
             InitializeComponent();
             simulator = new BackgroundWorker();
@@ -199,7 +200,7 @@ namespace PL
             Add.Visibility = Visibility.Hidden;
             Show.Visibility = Visibility.Visible;
        
-            reset = action;
+           
 
             if (!(drn.ParcelTransfer is null))
             {
@@ -352,7 +353,7 @@ namespace PL
          
             if (!(reset is null))
             {
-                reset();
+                reset(this.drn);
             }
         }
         private void Bind(object sender, RoutedEventArgs e)
