@@ -31,7 +31,7 @@
                     <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
 
-                <ToggleButton Name="Captcha" Click="Button_Click_1" Background="#FFD9D1D1" Grid.Row="1" Grid.Column="1">
+                <ToggleButton Name="Captcha"  Background="#FFD9D1D1" Grid.Row="1" Grid.Column="1">
                     <ToggleButton.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="20"/>

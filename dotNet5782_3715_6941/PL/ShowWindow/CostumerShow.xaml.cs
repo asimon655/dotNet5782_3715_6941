@@ -22,6 +22,7 @@ namespace PL
         internal static string TMP = System.IO.Path.GetTempPath();
         private string file = "";
         #endregion
+
         internal void MetaDataCstReset(System.Windows.Controls.Image Photo2, int SenderId)
         {
 
@@ -70,8 +71,6 @@ namespace PL
             MetaDataCstReset(CostumerPhoto, cst.Id);
         }
 
-
-
         public CostumerShow(BlApi.Ibl dat)
         {
             InitializeComponent();
@@ -100,8 +99,6 @@ namespace PL
             RtbInputFile.PreviewDragOver += RtbInputFile_PreviewDragOver;
 
         }
-
-
 
         private void ListOfPackges_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -142,50 +139,34 @@ namespace PL
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-            //List<String> resCaptcha = Window2.GetCapchaQuestion();
-            //myPopup.DataContext = resCaptcha.First();
-            //Answers = resCaptcha.Skip(1);
-
-
-        }
-
         private void PopUpShow(object sender, RoutedEventArgs e)
         {
             myPopup.IsOpen = false;
         }
+
         public static string MD5Hash(string input)
         {
             StringBuilder hash = new StringBuilder();
             MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
             byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
-
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                hash.Append(bytes[i].ToString("x2"));
-            }
-            return hash.ToString();
+            return string.Join("",bytes.Select(x => x.ToString("x2")));
         }
-        private void CaptchaCheck(object sender, RoutedEventArgs e)
+
+        private void CaptchaCheck(object sender, RoutedEventArgs e) // must happen in the client side -> inpormative data 
         {
 
 
             string plaintextans = EnterPop.Text;
             string res = MD5Hash(plaintextans.ToLower());
-            foreach (string ans in Answers)
+
+            if (Answers.Any(ans => ans.Equals(res)))
             {
-
-                if (ans.Equals(res))
-                {
-                    myPopup.IsOpen = false;
-                    ButtonAdd.IsEnabled = true;
-                    Vi.Visibility = Visibility.Visible;
-                    sprocketControl1.Visibility = Visibility.Hidden;
-                }
-
+                myPopup.IsOpen = false;
+                ButtonAdd.IsEnabled = true;
+                Vi.Visibility = Visibility.Visible;
+                sprocketControl1.Visibility = Visibility.Hidden;
             }
+
         }
 
         private void CaptchaChecker_Checked(object sender, RoutedEventArgs e)
