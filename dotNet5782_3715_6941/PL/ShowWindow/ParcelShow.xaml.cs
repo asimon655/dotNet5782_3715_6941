@@ -10,7 +10,7 @@ namespace PL
     /// </summary>
     public partial class ParcelShow : Window
     {
-        internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId) //Apply   PhotoAsync.SaveImageAsync when the Task (Like Promise in js) returned and if the file Already Exsists it Apply it directly 
+        internal void MetaDataCstReset(System.Windows.Controls.Image PhotoSender, System.Windows.Controls.Image PhotoTarget, int SenderId, int TargetId) //Apply   PhotoAsync.SaveImageAsync when the Task (Like Promise in js) returned and if the file Already Exsists it Apply it directly 
         {
             if (!File.Exists(PhotoAsync.makePath(TargetId)))
             {
@@ -22,13 +22,13 @@ namespace PL
                         {
                             try
                             {
-                                Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                                PhotoTarget.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                             }
                             catch { }
                         });
                     }
                     else
-                        Dispatcher.Invoke(() => Photo1.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
+                        Dispatcher.Invoke(() => PhotoTarget.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
 
                     #region Only when the First Request Returned - to prevent Double smae photo to the clients 
                     if (!File.Exists(PhotoAsync.makePath(SenderId)))
@@ -41,20 +41,20 @@ namespace PL
                                 {
                                     try
                                     {
-                                        Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                        PhotoSender.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                                     }
                                     catch { }
                                 });
                             }
                             else
-                                Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
+                                Dispatcher.Invoke(() => PhotoSender.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                         });
                     }
                     else
                     {
                         try
                         {
-                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                            PhotoSender.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                         }
                         catch { }
                     } 
@@ -63,10 +63,10 @@ namespace PL
             }
             else
             {
-               
+                PhotoTarget.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                 if (!File.Exists(PhotoAsync.makePath(SenderId))) // if file 1 is alrdeay exsists try for file 2 
                 {
-                    PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x =>
+                    PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum).ContinueWith(x =>
                     {
                         if (x.Result)
                         {
@@ -74,20 +74,19 @@ namespace PL
                             {
                                 try
                                 {
-                                    Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                    PhotoSender.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                                 }
                                 catch { }
                             });
                         }
                         else
-                            Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
+                            Dispatcher.Invoke(() => PhotoSender.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                     });
                 }
                 else
                 {
-                    Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                    PhotoSender.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                 }
-                Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
             }
         } 
 
@@ -146,7 +145,7 @@ namespace PL
                     Drone.Source = new BitmapImage(new Uri(TMP + @"image" + drn.Model.Replace(" ", "_") + ".png"));
                 }
             }
-            MetaDataCstReset(Sender, Target, parcely.GetterParcelToCostumer.id, parcely.SenderParcelToCostumer.id);
+            MetaDataCstReset(Sender, Target, parcely.SenderParcelToCostumer.id, parcely.GetterParcelToCostumer.id);
 
 
         }
