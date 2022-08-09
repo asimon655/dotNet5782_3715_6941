@@ -43,17 +43,25 @@ namespace PL
         #endregion
 
         #region events
-        public event updateReset resetDataUpdate;
-        public event updateReset resetDataDelete;
+    
+
+
+        public DroneEvent droneAdd;
+        public DroneEvent droneRemove;
+        public DroneEvent droneUpdate;
+
+
         #endregion
 
 
-     
+
         object Lock;
         public DroneTab(BlApi.Ibl dat)
         {
             InitializeComponent();
-
+            this.droneRemove += (drn) => { Task.Run(() => { Task.Delay(1);  Dispatcher.Invoke(() => SmartSearch(null, null));  }); }; // delay 1 for the time that tike the xml revive 
+            this.droneUpdate += (drn) => { Task.Run(() => { Task.Delay(1); Dispatcher.Invoke(() => SmartSearch(null, null)); }); }; // delay 1 for the time that tike the xml revive 
+            this.droneAdd += (drn) => { Task.Run(() => { Task.Delay(1); Dispatcher.Invoke(() => SmartSearch(null, null)); }); };    // delay 1 for the time that tike the xml revive 
             this.dat = dat;
             Lock = new object();
             #region Predicts Initialize 
@@ -61,10 +69,7 @@ namespace PL
             Weight = WeightDefault;
             Stat = StatDefault;
             predStat = new List<CheckBoxStatus>();
-            foreach (BO.DroneStatuses enm in StatDefault)
-            {
-                predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
-            }
+            predStat = StatDefault.Select(enm => new CheckBoxStatus() { Checked = true, statusof = enm }).ToList();
             #endregion
 
             #region ListView Initialize 
@@ -74,23 +79,18 @@ namespace PL
             };
             BindingOperations.SetBinding(ListOf, ListView.ItemsSourceProperty, myBinding);
 
-            predStat = new List<CheckBoxStatus>();
-            foreach (BO.DroneStatuses enm in StatDefault)
-            {
-                predStat.Add(new CheckBoxStatus() { Checked = true, statusof = enm });
-            }
+            predStat = StatDefault.Select(enm => new CheckBoxStatus() { Checked = true, statusof = enm }).ToList();
+
 
             StatusSelectorDrnStat.ItemsSource = predStat;
             StatusSelectorWeigthStat.ItemsSource = Enum.GetValues(typeof(BO.WeightCategories));
             #endregion
+
             Weight = WeightDefault;
             Stat = StatDefault;
             StatusSelectorWeigthStat.SelectedIndex = -1;
             StatusSelectorDrnStat.SelectedIndex = -1;
-            foreach (CheckBoxStatus item in predStat)
-            {
-                item.Checked = true;
-            }
+            predStat.ForEach(x => x.Checked = true);
             ResetPlots();
 
 
@@ -115,6 +115,7 @@ namespace PL
             #endregion
 
         }
+
         public void fullReset()
         {
             Binding myBinding = new Binding
@@ -175,7 +176,7 @@ namespace PL
             {
 
                 Window2 pg = new Window2(dat, dat.GetDrone(((sender as ListView).SelectedItem as BO.DroneList).Id));
-                pg.reset += (obj) => { resetDataUpdate(); Reset(); };
+                pg.reset += (obj) => { droneUpdate(obj); Reset(); };
                 pg.Lock = this.Lock;
                 pg.Show();
             }
@@ -185,11 +186,12 @@ namespace PL
 
         private void Add(object sender, RoutedEventArgs e)
         {
-            Window add = new Window2(dat, this);
+            Window2 add = new Window2(dat, this);
             add.Closed += (sender, e) =>
             {
                 fullReset();
-                resetDataUpdate();
+                droneAdd(add.drn);
+  
             };
             add.Show();
         }
@@ -253,10 +255,11 @@ namespace PL
                 {
 
                     int id = (int)(sender as Button).Tag;
+                    droneRemove(dat.GetDrone(id));
                     dat.DeleteDrone(id);
                     ListOf.ItemsSource = dat.GetDronesFiltered(Stat, Weight);
                     fullReset();
-                    resetDataDelete();
+                    
 
 
 
@@ -269,15 +272,14 @@ namespace PL
     
         }
 
+       
+
         private void SmartSearch(object sender, RoutedEventArgs e)
         {
             ResultsOfSearch.ItemsSource = dat.SmartSearchDrone(SmartTB.Text);
         }
 
-        private void ListOf_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        } 
         #endregion
     }
 }

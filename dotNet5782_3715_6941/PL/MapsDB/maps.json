@@ -1,61 +1,62 @@
 {
-  "maps": [
-    {
-        "name": "Dark",
-        "link": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png ",
-        "description": "dark mode to the map ",
-        "bgColor": "#262626",
-        "heavy": false
-    },
-    {
-        "name": "saterLight View",
-        "link": "https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=GV303NWHgP1Lcch2tL0S",
-        "description": "staer light view  mode to the map ",
-        "bgColor": "#293646",
-        "heavy": true
-    },
-    {
-        "name": "terrian ",
-        "link": "https://api.maptiler.com/tiles/terrain-rgb-v2/{z}/{x}/{y}.webp?key=GV303NWHgP1Lcch2tL0S",
-        "description": "depth map of earth (when blue is the heighst and dark green lowest)",
-        "bgColor": "#0186A0",
-        "heavy": true
-    },
-    {
-        "name": "Normal",
-        "link": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        "description": "regular mode of the map ",
-        "bgColor": "#AAD3DF",
-        "heavy": false
+   
+    "maps": [
+        {
+	  "name": "Dark",
+	  "link": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png ",
+	  "description": "dark mode to the map ",
+	  "bgColor": "#262626",
+	  "heavy": false
+        },
+        {
+	  "name": "saterLight View",
+	  "link": "https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=GV303NWHgP1Lcch2tL0S",
+	  "description": "staer light view  mode to the map ",
+	  "bgColor": "#293646",
+	  "heavy": true
+        },
+        {
+	  "name": "terrian ",
+	  "link": "https://api.maptiler.com/tiles/terrain-rgb-v2/{z}/{x}/{y}.webp?key=GV303NWHgP1Lcch2tL0S",
+	  "description": "depth map of earth (when blue is the heighst and dark green lowest)",
+	  "bgColor": "#0186A0",
+	  "heavy": true
+        },
+        {
+	  "name": "Normal",
+	  "link": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+	  "description": "regular mode of the map ",
+	  "bgColor": "#AAD3DF",
+	  "heavy": false
 
-    },
+        },
 
-    {
-        "name": "Bright",
-        "link": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-        "description": "bright mode to the map",
-        "bgColor": "#D4DADC",
-        "heavy": false
-    },
-    {
-        "name": "Regular better",
-        "link": "https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288",
-        "description": "better mode to the map",
-        "bgColor": "#A8D4F3",
-        "heavy": false
-    },
-    {
-        "name": "Wild West",
-        "link": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288",
-        "description": "wild west mode to the map ",
-        "bgColor": "#D5D5DA",
-        "heavy": false
-    }
+        {
+	  "name": "Bright",
+	  "link": "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+	  "description": "bright mode to the map",
+	  "bgColor": "#D4DADC",
+	  "heavy": false
+        },
+        {
+	  "name": "Regular better",
+	  "link": "https://tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288",
+	  "description": "better mode to the map",
+	  "bgColor": "#A8D4F3",
+	  "heavy": false
+        },
+        {
+	  "name": "Wild West",
+	  "link": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288",
+	  "description": "wild west mode to the map ",
+	  "bgColor": "#D5D5DA",
+	  "heavy": false
+        }
 
-  ],
-  "mainLink": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288 old westy style",
+    ],
+    "mainLink": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png?apikey=a4e9d225293242168650a97e010ee288 old westy style",
 
-  "defaultMap": "None"
+    "defaultMap": "None"
 
 }
   

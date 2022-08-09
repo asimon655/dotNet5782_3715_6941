@@ -15,7 +15,9 @@ namespace PL
         #region Fields 
         private readonly BlApi.Ibl dat;
         #endregion
-        public event updateReset resetDataDelete;
+        public event StationEvent stationAdd;
+        public event StationEvent stationRemove;
+        public event StationEvent stationUpdate;
 
      
         public void Reset()
@@ -41,11 +43,12 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Window add = new StationsShow(dat);
+            StationsShow add = new StationsShow(dat);
+            add.statAdd+=((stat) => stationAdd(stat));
             add.Closed += (sender, e) =>
             {
                 Reset();
-                resetDataDelete();
+               
             };
             add.Show();
         }
@@ -60,9 +63,10 @@ namespace PL
                 {
 
                     int id = (int)(sender as Button).Tag;
+                    stationRemove(dat.GetStation(id));
                     dat.DeleteStation(id);
                     Reset();
-                    resetDataDelete();
+                  
 
                 }
                 catch (Exception err)

@@ -137,7 +137,7 @@
 
                     <ListView HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"    Margin="0" Background="#FF212529" Foreground="Black" IsSynchronizedWithCurrentItem="True" AlternationCount="10" ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}"
                                         
-                               MouseDoubleClick="ListOf_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="0"  Name="ListOf" SelectionChanged="ListOf_SelectionChanged"  >
+                               MouseDoubleClick="ListOf_MouseDoubleClick" GridViewColumnHeader.Click ="Battery_Click" FontFamily="Fonts\RoadRage-Regular.ttf #Road Rage" FontSize="20" BorderThickness="0"  Name="ListOf"   >
     
 
                             <ListView.View  >

@@ -159,8 +159,8 @@ namespace PL
         #endregion
 
         #region DroneShow
-        private BO.Drone drn;
-        public event notifyDroneListRefresh reset;
+        public  BO.Drone drn;
+        public event notifyDroneList reset;
         private readonly BackgroundWorker simulator;
         private bool exitPending = false;
         private readonly Mapsui.Styles.Color DroneColor = Mapsui.Styles.Color.FromArgb(255, 240, 0, 240);

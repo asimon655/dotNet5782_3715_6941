@@ -34,6 +34,17 @@ namespace PL
         }
 
         #endregion
+        public  void RemoveAllPoints() 
+        {
+            var baseLayer = MyMapControl.Map.Layers.First();
+            MyMapControl.Map.Layers.Clear();
+            MyMapControl.Map.Layers.Insert(0, baseLayer);
+
+
+
+
+        }
+
 
 
         private void ReturnHome(int Dur = 500)
@@ -62,14 +73,61 @@ namespace PL
             ReturnHome(0);
 
             this.dat = dat;
+            drawAllPoints();
+            Reset();
+        }
+
+        public void drawAllPoints() {
             IEnumerable<BO.DroneList> drones = dat.GetDrones();
             IEnumerable<BO.CustomerList> costumers = dat.GetCustomers();
             IEnumerable<BO.StationList> station = dat.GetStations();
-            MapHELP.DrawPointsOnMap(MyMapControl, costumers.Select(cst => dat.GetCostumer(cst.Id).Loct), costumers.Select(cst => cst.Id), 0.1, "\\PL\\Images\\user.png", true);
-            MapHELP.DrawPointsOnMap(MyMapControl, station.Select(stt => dat.GetStation(stt.Id).LoctConstant), station.Select(stt => stt.Id), 0.25, "\\PL\\Images\\BASESTATION.png");
-            MapHELP.DrawPointsOnMap(MyMapControl, drones.Select(drn => drn.Loct), drones.Select(drn => drn.Id), 0.45, null, false, drones.Select(drn => drn.Model));
-            Reset();
+           
+        
+            drawCostumers(costumers);
+            drawStats(station);
+            drawDrones(drones);
+
+
+
         }
+
+
+
+        public void drawStats(IEnumerable<BO.StationList> station) {
+            MapHELP.DrawPointsOnMap(MyMapControl, station.Select(stt => dat.GetStation(stt.Id).LoctConstant), station.Select(stt => stt.Id), 0.25, "\\PL\\Images\\BASESTATION.png");
+
+        }
+
+        public void drawstat(BO.Station stat)  { 
+        
+        }
+
+        public void drawDrones(IEnumerable<BO.DroneList> drones)
+        {
+            MapHELP.DrawPointsOnMap(MyMapControl, drones.Select(drn => drn.Loct), drones.Select(drn => drn.Id), 0.45, null, false, drones.Select(drn => drn.Model));
+
+        }
+
+        public void drawDrone(BO.Drone drobe) { 
+        
+        }
+        public void drawCostumers(IEnumerable<BO.CustomerList> costumers) {
+            MapHELP.DrawPointsOnMap(MyMapControl, costumers.Select(cst => dat.GetCostumer(cst.Id).Loct), costumers.Select(cst => cst.Id), 0.1, "\\PL\\Images\\user.png", true);
+
+        }
+        public void drawCostumer(BO.CustomerList costumer) { 
+            
+        }
+
+
+
+
+
+
+
+
+
+
 
         private void ChangeOpacity(int index)
         {

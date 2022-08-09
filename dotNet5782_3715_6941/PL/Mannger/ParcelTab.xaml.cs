@@ -18,8 +18,11 @@ namespace PL
         private readonly BlApi.Ibl dat;
         private readonly bool works = false;
         #endregion
-        public event updateReset resetData; 
 
+        public event ParcelEvent parcelAdd;
+        public event ParcelEvent parcelRemove;
+        public event ParcelEvent parcelUpdate; 
+        
         public void Reset()
         {
 
@@ -52,11 +55,11 @@ namespace PL
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            Window add = new ParcelShow(dat);
+            ParcelShow add = new ParcelShow(dat);
             add.Closed += (sender, e) =>
             {
                 Reset();
-                resetData();
+                parcelAdd(add.pcl);
             };
             add.Show();
         }
@@ -70,8 +73,10 @@ namespace PL
                 {
 
                     int id = (int)(sender as Button).Tag;
+                    parcelRemove(dat.GetParcel(id));
                     dat.DeleteParcel(id);
                     Reset();
+
                     //reset();
 
                 }

@@ -139,6 +139,7 @@ namespace PL
 
 
         }
+   
         internal static void DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
         {
 
@@ -169,10 +170,13 @@ namespace PL
             {
                 Mapsui.Geometries.Point tmp =NewLoct.Skip(i).First().Loct.ToPlPoint();
                 Mapsui.Geometries.Point point;
-                if (pointsMannger.TryGetValue(NewLoct.Skip(i).First().Id, out point))
+                if (pointsMannger.TryGetValue(NewLoct.Skip(i).First().Id, out point) )
                 {
-                    point.X = tmp.X;
-                    point.Y = tmp.Y;
+                    if (point.X != tmp.X || point.Y != tmp.Y) {
+                        point.X = tmp.X;
+                        point.Y = tmp.Y;
+                    }
+                      
                 }
                 else
                 {

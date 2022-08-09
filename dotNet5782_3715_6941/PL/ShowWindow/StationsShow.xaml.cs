@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.ShowWindow;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,6 +13,7 @@ namespace PL
     public partial class StationsShow : Window
     {
         private readonly BlApi.Ibl dat;
+        public event notifyStataionList statAdd; 
         public StationsShow(BlApi.Ibl dat, BO.Station stat)
         {
             InitializeComponent();
@@ -46,6 +48,7 @@ namespace PL
                     Name = NameTB.Text,
                     LoctConstant = new BO.Location(double.Parse(LONGTB.Text), double.Parse(LATTB.Text))
                 };
+                statAdd(add);
                 dat.AddStation(add);
                 Close();
             }

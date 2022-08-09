@@ -17,17 +17,17 @@ namespace PL
         #region Fields
 
         private readonly BlApi.Ibl dat;
-        private readonly BackgroundWorker MapTasker;
-        private readonly BackgroundWorker GraphTasker;
+        private readonly BackgroundWorker MapandGraphTasker;
         private readonly Dictionary<string, PivotHeaderControl> RefreshMannger = new Dictionary<string, PivotHeaderControl>();
         private readonly DroneTab Drn;
         private readonly MapTab Map;
         private readonly ClientsTab Client;
         private readonly StaionsTab Stat;
         private readonly ParcelTab pcl;
+        const int intervalMapHZ = 4; // 4 picks per sec ( 4 updates ) 
         #endregion
 
-        #region Ctor 
+    
         private async Task ResetByWindow()
         {
 
@@ -88,7 +88,8 @@ namespace PL
         public ManngerWin()
         {
            
-            dat = BlApi.BlFactory.GetBl(); ;
+            dat = BlApi.BlFactory.GetBl(); 
+
             InitializeComponent();
 
             #region pages init
@@ -109,11 +110,16 @@ namespace PL
 
             #region event sign
 
-            Drn.resetDataDelete += () => { };
-            Drn.resetDataUpdate += () => { ResetByWindow(); };
+            Drn.droneRemove += (obj) => { };
+            Drn.droneUpdate += (obj) => { ResetByWindow(); };
             Client.resetData += () => { ResetByWindow(); };
-            pcl.resetData += () => { ResetByWindow(); };
-            Stat.resetDataDelete += () => { ResetByWindow(); }; 
+            pcl.parcelUpdate += (obj) => { ResetByWindow(); };
+            Stat.stationRemove += (obj) => { ResetByWindow(); };
+            Stat.stationAdd += (obj) => {  };
+            Drn.droneAdd += (drn) => { Map.ResetLoct();  }; 
+            Drn.droneRemove+=(drn) => { Map.ResetLoct();  };
+
+
             #endregion
 
             #region frames init
@@ -121,47 +127,31 @@ namespace PL
             ParcelFrame.NavigationService.Navigate(pcl);
             MapFrame.NavigationService.Navigate(Map);
             CostumerFrame.NavigationService.Navigate(Client);
-            StationFrame.NavigationService.Navigate(Stat); 
+            StationFrame.NavigationService.Navigate(Stat);
             #endregion
 
-            #region Map bgWorker
-            MapTasker = new BackgroundWorker
+            #region Map and Graph  bgWorker
+ 
+            MapandGraphTasker = new BackgroundWorker
             {
                 WorkerReportsProgress = true
             };
-            MapTasker.RunWorkerCompleted += (x, y) => { };
-            MapTasker.DoWork += (x, y) =>
+            MapandGraphTasker.RunWorkerCompleted += (x, y) => { };
+            MapandGraphTasker.DoWork += (x, y) =>
             {
                 while (true)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep((int)(1.0f / intervalMapHZ * 1000));
                     Map.ResetLoct();
-                    MapTasker.ReportProgress(1);
+                    MapandGraphTasker.ReportProgress(3);
+                    pcl.PopulateResetScottPlot().ContinueWith((x) => { MapandGraphTasker.ReportProgress(1); });
+                    Drn.ResetPlots().ContinueWith((x) => { MapandGraphTasker.ReportProgress(2); });
+                    
                 }
             };
-            MapTasker.ProgressChanged += (x, y) => { Map.MyMapControl.Refresh(); };
-            MapTasker.RunWorkerAsync();
+            MapandGraphTasker.ProgressChanged += (x, y) => { 
+               
 
-            #endregion
-
-            #region Graph bgWorker
-            GraphTasker = new BackgroundWorker
-            {
-                WorkerReportsProgress = true
-            };
-            GraphTasker.RunWorkerCompleted += (x, y) => { };
-            GraphTasker.DoWork += (x, y) =>
-            {
-                while (true)
-                {
-                    Thread.Sleep(1000);
-                    pcl.PopulateResetScottPlot().ContinueWith((x) => { GraphTasker.ReportProgress(1); });
-                    Drn.ResetPlots().ContinueWith((x) => { GraphTasker.ReportProgress(2); });
-
-                }
-            };
-            GraphTasker.ProgressChanged += (x, y) =>
-            {
                 if (y.ProgressPercentage == 1)
                 {
                     try
@@ -188,18 +178,22 @@ namespace PL
                         MessageBox.Show("UnKnown error in plots happend!!!");
                     }
                 }
+                if (y.ProgressPercentage == 3) {
+                    Map.MyMapControl.Refresh();
+
+                }
+
+
             };
-            GraphTasker.RunWorkerAsync(); 
-            #endregion
+            MapandGraphTasker.RunWorkerAsync();
 
             #endregion
+
+      
+
+          
         }
-     
+       
 
-        #region Buttons Functions
-        // reset button action
-
-
-        #endregion
     }
 }
