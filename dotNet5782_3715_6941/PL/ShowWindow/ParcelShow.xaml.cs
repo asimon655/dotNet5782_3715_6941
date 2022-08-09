@@ -66,7 +66,7 @@ namespace PL
                 PhotoTarget.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                 if (!File.Exists(PhotoAsync.makePath(SenderId))) // if file 1 is alrdeay exsists try for file 2 
                 {
-                    PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum).ContinueWith(x =>
+                    PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x =>
                     {
                         if (x.Result)
                         {
