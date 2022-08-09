@@ -85,14 +85,14 @@ namespace PL_Client_edition
             {
                 HMACSHA1 h1 = new HMACSHA1();
 
-                byte[] hash1 = await h1.ComputeHashAsync(fs1);
-                byte[] hash2 = await h1.ComputeHashAsync(fs2);
-                for (int i = 0; i < hash2.Length; i++)
+                Task<byte[]> hash1 = h1.ComputeHashAsync(fs1);
+                Task<byte[]> hash2 = h1.ComputeHashAsync(fs2);
+
+                await Task.WhenAll(hash1, hash2);
+
+                if (hash1.Result != hash2.Result)
                 {
-                    if (hash1[i] != hash2[i])
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
 

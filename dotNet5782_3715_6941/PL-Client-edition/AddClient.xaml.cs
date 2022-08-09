@@ -119,15 +119,11 @@ namespace PL_Client_edition
         }
         public static string MD5Hash(string input)
         {
-            StringBuilder hash = new StringBuilder();
             MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
             byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
 
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                hash.Append(bytes[i].ToString("x2"));
-            }
-            return hash.ToString();
+            var hash = bytes.Select(x => x.ToString("x2")).ToArray();
+            return string.Join("", hash);
         }
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {

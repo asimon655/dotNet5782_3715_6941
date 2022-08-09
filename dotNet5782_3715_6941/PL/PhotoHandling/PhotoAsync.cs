@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -137,14 +138,14 @@ namespace PL
             {
                 HMACSHA1 h1 = new HMACSHA1();// uses Sha1 to compare between the files - Async 
 
-                byte[] hash1 = await h1.ComputeHashAsync(fs1);
-                byte[] hash2 = await h1.ComputeHashAsync(fs2);
-                for (int i = 0; i < hash2.Length; i++)
+                Task<byte[]> hash1 = h1.ComputeHashAsync(fs1);
+                Task<byte[]> hash2 = h1.ComputeHashAsync(fs2);
+
+                await Task.WhenAll(hash1, hash2);
+
+                if (hash1.Result != hash2.Result)
                 {
-                    if (hash1[i] != hash2[i])
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
 
@@ -169,7 +170,12 @@ namespace PL
                 await Task.Run(() => document.LoadHtml(source));
                 var nodes = document.DocumentNode.SelectNodes("//img[@src]"); // search form image and inside her for src(HTML)
                 string link = await Task.Run(() => nodes == null ? "None" : nodes.SelectMany(j => j.Attributes).First(x => x.Value.Contains("http")).Value);//gets the first valid link
-                return await SaveImageAsync(link, makePath(Model), fileEndEnum); // uses SaveImageAsync To save him
+                var path = makePath(Model);
+                if (await SaveImageAsync(link, path, fileEndEnum)) { // uses SaveImageAsync To save him
+                    removeWhiteFromPic(path);
+                    return true;
+                }
+                else { return false; }
             }
             catch
             {
@@ -181,6 +187,27 @@ namespace PL
 
 
         }
+
+        private static void removeWhiteFromPic(string path)
+        {
+            Bitmap source = new Bitmap(path);
+            source.MakeTransparent();
+
+            for (int x = 0; x < source.Width; x++)
+            {
+                for (int y = 0; y < source.Height; y++)
+                {
+                    Color currentColor = source.GetPixel(x, y);
+                    if (currentColor.R >= 220 && currentColor.G >= 220 && currentColor.B >= 220)
+                    {
+                        source.SetPixel(x, y, Color.Transparent);
+                    }
+                }
+            }
+            source.Save(path);
+
+        }
+
         #endregion
         #endregion
 

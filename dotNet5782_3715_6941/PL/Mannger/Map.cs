@@ -139,7 +139,6 @@ namespace PL
 
 
         }
-   
         internal static void DrawPointsOnMap(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.Location> points, IEnumerable<int> ids, double scale, string? path, bool FILL = false, IEnumerable<string>? Names = null)
         {
 
@@ -166,25 +165,22 @@ namespace PL
         }
         internal static  void  ResetLoct(Mapsui.UI.Wpf.MapControl MyMapControl, IEnumerable<BO.DroneList> NewLoct)
         {
-            for (int i = 0; i < NewLoct.Count(); i++)
+            foreach (var loct in NewLoct)
             {
-                Mapsui.Geometries.Point tmp =NewLoct.Skip(i).First().Loct.ToPlPoint();
+                Mapsui.Geometries.Point tmp =loct.Loct.ToPlPoint();
                 Mapsui.Geometries.Point point;
-                if (pointsMannger.TryGetValue(NewLoct.Skip(i).First().Id, out point) )
+                if (pointsMannger.TryGetValue(loct.Id, out point))
                 {
-                    if (point.X != tmp.X || point.Y != tmp.Y) {
-                        point.X = tmp.X;
-                        point.Y = tmp.Y;
-                    }
-                      
+                    point.X = tmp.X;
+                    point.Y = tmp.Y;
                 }
                 else
                 {
                     IFeature feature = CreateFeature(0.45
-                    , NewLoct.Skip(i).First().Loct,
-                    NewLoct.Skip(i).First().Id,
+                    , loct.Loct,
+                    loct.Id,
                     false, null,
-                    NewLoct.Skip(i).First().Model);
+                    loct.Model);
                     (MyMapControl.Map.Layers.Skip(3).First() as WritableLayer).Add(feature);
 
 
