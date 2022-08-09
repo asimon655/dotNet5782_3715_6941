@@ -1,4 +1,4 @@
-﻿using Mapsui.Utilities;
+using Mapsui.Utilities;
 using PL.Map;
 using PL.ShowWindow;
 using System;
@@ -59,10 +59,10 @@ namespace PL
 
 
         }
-        internal void MetaDataCstReset(System.Windows.Controls.Image Photo1, System.Windows.Controls.Image Photo2, int SenderId, int TargetId)
+        internal void MetaDataCstReset(System.Windows.Controls.Image PhotoTarget, System.Windows.Controls.Image PhotoSender, int SenderId, int TargetId)
         {
-            Photo1.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg"));
-            Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg"));
+            PhotoTarget.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg"));
+            PhotoSender.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg"));
             if (!File.Exists(PhotoAsync.makePath(TargetId)))
             {
                 PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(TargetId), PhotoAsync.fileEndEnum).ContinueWith(x =>
@@ -73,13 +73,11 @@ namespace PL
                          {
                              try
                              {
-                                 Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
+                                 PhotoTarget.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                              }
                              catch { }
                          });
                     }
-                    else
-                        Dispatcher.Invoke(() => Photo1.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
 
                     if (!File.Exists(PhotoAsync.makePath(SenderId)))
                     {
@@ -91,20 +89,18 @@ namespace PL
                                 {
                                     try
                                     {
-                                        Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                        PhotoSender.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                                     }
                                     catch { }
                                 });
                             }
-                            else
-                                Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                         });
                     }
                     else
                     {
                         try
                         {
-                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                            PhotoSender.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                         }
                         catch { }
                     }
@@ -114,6 +110,7 @@ namespace PL
             {
                 try
                 {
+                    PhotoTarget.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                     if (!File.Exists(PhotoAsync.makePath(SenderId)))
                     {
                         PhotoAsync.SaveImageAsync(PhotoAsync.FaceAIURL, PhotoAsync.makePath(SenderId), PhotoAsync.fileEndEnum, PhotoAsync.makePath(TargetId)).ContinueWith(x =>
@@ -124,24 +121,21 @@ namespace PL
                                 {
                                     try
                                     {
-                                        Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                                        PhotoSender.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                                     }
                                     catch { }
                                 });
                             }
-                            else
-                                Dispatcher.Invoke(() => Photo2.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + @"\PL\Images\NoImage.jpg")));
                         });
                     }
                     else
                     {
                         try
                         {
-                            Photo2.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
+                            PhotoSender.Source = new BitmapImage(new Uri(PhotoAsync.makePath(SenderId)));
                         }
                         catch { }
                     }
-                    Photo1.Source = new BitmapImage(new Uri(PhotoAsync.makePath(TargetId)));
                 }
                 catch { }
             }
