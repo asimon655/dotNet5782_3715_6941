@@ -90,7 +90,7 @@ namespace PL_Client_edition
 
                 await Task.WhenAll(hash1, hash2);
 
-                if (hash1.Result != hash2.Result)
+                if (hash1.Result.SequenceEqual(hash2.Result))
                 {
                     return false;
                 }
