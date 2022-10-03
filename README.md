@@ -98,6 +98,7 @@ Cool and Special Codes :
 # **Admin Window** 
 ## **Map:**
     
+![photo_2022-08-08_16-54-19](https://user-images.githubusercontent.com/90776557/193656883-f95a9b4c-f80c-46e2-94d8-5bdd333617c7.jpg)
 >![image](https://user-images.githubusercontent.com/90776557/149632095-a095010e-cb6c-4887-a27c-e40c902c8f81.png)
 
    >### Moving Points Function : 
