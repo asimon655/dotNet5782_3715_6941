@@ -37,20 +37,20 @@ Cool and Special Codes :
 >### *unfilterd(Rimon or NetSpark) Internet stable connection  . 
 >### *200MB of free Memory spaces(all teh pictures data base is saved localy ).   
 ## important Notes:
->### All the except the login page is relative to the window size(and not the screen resulation 
+>### All  except the login page is responsive 
 >### there is also web app in asp in the brench "WebAPP" 
 # **Show Window :**
 ## **Drone Show** 
 ### **Drone's Photo:**
-> The photo is Taking with Scarping with Html AligityPack from google Photosby the Model Name - that means that if the Model name of the drone will be Bibbop 2 the photo will be of the real model Bibop2 and if it will be Mavic3 the photo will be of Mavic 3 : 
+> The photo is Taken by Scarping with Html AligityPack from google Photosby the Model Name - that means that if the Model name of the drone will be Bibbop 2 the photo will be of the real model Bibop2 and if it will be Mavic3 the photo will be of Mavic 3 : 
 ![image](https://user-images.githubusercontent.com/90776557/146790583-bc74a6c9-d321-412d-bcf2-f2d771a457b3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791060-30131d56-1d03-45f5-8060-e16d40988af8.png)
 
 ### **Clients Photos:** 
-> I wanted to Make the program fill realistic so i generated with AI photos of humans , I genrated the photos with : 
+> I wanted to Make the program fill more realistic ,  so I generated with an AI photos of humans , I genrated the photos with : 
 >       "https://thispersondoesnotexist.com/" 
 > so the photos look realistic . 
-> we took care that each client will have only  one photo and it's photo will not be genrated each time newly 
+> each client will have only  one photo and it's photo will not be genrated each time newly 
 > ![image](https://user-images.githubusercontent.com/90776557/146791904-dffa5192-b169-4a48-8b62-9e68386fc5a3.png)
 ![image](https://user-images.githubusercontent.com/90776557/146791935-4c6d41e3-2d02-4ee2-bb7f-0565e8f647e9.png)
 
@@ -77,7 +77,7 @@ Cool and Special Codes :
 
 ![image](https://user-images.githubusercontent.com/90776557/147875488-77c4a05d-032a-4362-8412-8fac6d3910fc.png)
 
->When you press the Captcha Toggle button a popup window will open and you will need to answer a question of first grade kid level, if the answer will be correct  you will be detected as a human and the the button of sign up will be Enabeld to press ( will be Colored) and the Inputs fields will be checked for valid data. 
+>When you press the Captcha Toggle button a popup window will open and you will need to answer a question -  first grade kid level, if the answer will be correct  you will be detected as a human and the the button of sign up will be Enabeld to press ( will be Colored) and the Inputs fields will be checked for valid data. 
 
 ![image](https://user-images.githubusercontent.com/90776557/147875492-cc4ce404-2f2f-43a6-b494-e9f759ea8707.png)
 ![image](https://user-images.githubusercontent.com/90776557/147875497-312d869f-6a71-4d6b-8915-1e6e67c860d1.png)
